@@ -15,11 +15,24 @@ import json
 import time
 import os
 from datetime import date
+from daemon.os_context import OSContext
 
 # Flag to control use of Ollama fallback
 USE_OLLAMA = False  # Set to True to enable Ollama fallback
 
 if __name__ == "__main__":
+    # Load configuration and initialize OS context
+    try:
+        with open("config/daemon_config.json", "r") as f:
+            config = json.load(f)
+            preferred_os = config.get("preferred_os", "ThothOS")
+    except Exception as e:
+        print(f"[Daemon Warning] Could not load config: {e}. Using defaults.")
+        preferred_os = "ThothOS"
+
+    os_context = OSContext(preferred_os_name=preferred_os)
+    os_context.prioritize_system()
+
     unimind = Unimind()
     prom = PrometheusSpecialties()
     emotions = EmotionEngine()

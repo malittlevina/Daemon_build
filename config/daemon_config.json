@@ -5,6 +5,7 @@
   "emotion_engine_tuning": true,
   "reflection_journal_enabled": true,
   "rituals_enabled": true,
+  "preferred_os": "ThothOS",
   "modules_to_load": [
     "unimind",
     "codex",
