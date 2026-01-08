@@ -10,6 +10,9 @@ from optimizer.auto_upgrade import run_auto_optimization
 from scrolls.scroll_engine import ScrollEngine
 ## from sensors.vision import VisionSensor
 from nlu.nlu_engine import NLUEngine
+from daemon.os_adapter import OSAdapter, get_os_adapter, OSType
+from daemon.state_manager import StateManager
+from bridge.thoth_bridge import ThothBridge
 import subprocess
 import json
 import time
@@ -20,6 +23,33 @@ from datetime import date
 USE_OLLAMA = False  # Set to True to enable Ollama fallback
 
 if __name__ == "__main__":
+    # ==================== OS COMPATIBILITY LAYER ====================
+    # Initialize OS adapter first - this determines available capabilities
+    print("[Daemon] Initializing OS Compatibility Layer...")
+    os_adapter = get_os_adapter()
+    
+    # Display OS status
+    os_status = os_adapter.get_status()
+    print(f"[Daemon] Detected OS: {os_status['os_type']}")
+    print(f"[Daemon] Compatibility Mode: {os_status['mode']}")
+    print(f"[Daemon] Preference Score: {os_status['preference_score']:.2f}")
+    
+    if os_adapter.is_native:
+        print("[Daemon] 🌟 Running on ThothOS - Full capabilities unlocked!")
+    else:
+        upgrade_tip = os_adapter.suggest_upgrade()
+        if upgrade_tip:
+            print(f"[Daemon] 💡 {upgrade_tip}")
+    
+    # Initialize state manager with OS awareness
+    state_manager = StateManager(os_adapter=os_adapter)
+    
+    # Initialize ThothBridge with OS adapter
+    thoth_bridge = ThothBridge(os_adapter=os_adapter)
+    bridge_status = thoth_bridge.receive_status()
+    print(f"[Daemon] ThothBridge Mode: {bridge_status['mode']}")
+    
+    # ==================== CORE MODULES ====================
     unimind = Unimind()
     prom = PrometheusSpecialties()
     emotions = EmotionEngine()
@@ -28,6 +58,13 @@ if __name__ == "__main__":
     scrolls = ScrollEngine()
     # vision = VisionSensor()
     personality = PersonalityTracker()
+    
+    # Register core apps with ThothBridge
+    thoth_bridge.register_app("unimind", lambda p: unimind.reflect())
+    thoth_bridge.register_app("emotions", lambda p: emotions)
+    thoth_bridge.register_app("scrolls", lambda p: scrolls)
+    thoth_bridge.register_app("memory", lambda p: memory)
+    
     try:
         global nlu
         nlu = NLUEngine(scrolls)
@@ -36,6 +73,7 @@ if __name__ == "__main__":
         nlu = None
 
     print("[Daemon] Starting Prometheus daemon...")
+    print(f"[Daemon] OS: {os_adapter.os_type.value} | Mode: {os_adapter.mode.value}")
 
     # Launch sensors and background modules in threads
     ENABLE_VOICE = False
@@ -89,6 +127,34 @@ if __name__ == "__main__":
             if user_input.lower() == "exit":
                 print("[Daemon] Shutting down.")
                 break
+            elif user_input.lower() == "os":
+                # Display OS compatibility status
+                status = os_adapter.get_status()
+                print("\n[Daemon] === OS Compatibility Status ===")
+                print(f"  OS Type: {status['os_type']}")
+                print(f"  Mode: {status['mode']}")
+                print(f"  Native (ThothOS): {status['is_native']}")
+                print(f"  Preference Score: {status['preference_score']:.2f}")
+                print("\n[Daemon] === Capabilities ===")
+                for cap, enabled in status['capabilities'].items():
+                    symbol = "✓" if enabled else "✗"
+                    print(f"  {symbol} {cap}")
+                if not status['is_native']:
+                    tip = os_adapter.suggest_upgrade()
+                    if tip:
+                        print(f"\n[Daemon] 💡 Upgrade Tip: {tip}")
+                continue
+            elif user_input.lower() == "bridge":
+                # Display ThothBridge status
+                bridge_info = thoth_bridge.get_preference_info()
+                print("\n[Daemon] === ThothBridge Status ===")
+                print(f"  Mode: {bridge_info['current_mode']}")
+                print(f"  Native: {bridge_info['is_native']}")
+                print(f"  Prefers ThothOS: {bridge_info['prefers_thothos']}")
+                print(f"  Commands Queued: {bridge_info['queued_for_sync']}")
+                if bridge_info.get('upgrade_suggestion'):
+                    print(f"\n[Daemon] 💡 {bridge_info['upgrade_suggestion']}")
+                continue
             elif user_input == "":
                 personality.log_state()
                 unimind.reflect()

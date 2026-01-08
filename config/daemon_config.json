@@ -20,5 +20,28 @@
   "scroll_autostudy": {
     "trigger_count": 3,
     "daily_reset": true
+  },
+  "os_preference": {
+    "prefer_thothos": true,
+    "fallback_behavior": "enhanced",
+    "show_upgrade_suggestions": true,
+    "compatibility_warnings": true,
+    "thothos_detection": {
+      "check_env_vars": true,
+      "check_filesystem": true,
+      "check_process": true
+    },
+    "capability_overrides": {
+      "allow_self_evolution_on_linux": true,
+      "allow_sensor_fusion_on_macos": true
+    },
+    "native_priority": {
+      "thothos": 1.0,
+      "linux": 0.8,
+      "darwin": 0.75,
+      "windows": 0.5,
+      "bsd": 0.5,
+      "unknown": 0.25
+    }
   }
 }
