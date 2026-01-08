@@ -38,5 +38,10 @@
     "def": "A distinct and independent existence; in this system, an agent or object within the world simulation.",
     "pos": "noun",
     "synonyms": []
+  },
+  "debug_test": {
+    "def": "A test entry",
+    "pos": "noun",
+    "synonyms": []
   }
 }

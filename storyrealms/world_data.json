@@ -9,7 +9,7 @@
         "humidity": 41,
         "danger_level": 9,
         "weather": "Clear",
-        "light_level": 0.2
+        "light_level": 1.0
       },
       "connected_location_ids": [
         "0bd900f4-c07a-4fc7-adc7-def5bd357ae2"
@@ -27,7 +27,7 @@
         "humidity": 85,
         "danger_level": 3,
         "weather": "Rain",
-        "light_level": 0.2
+        "light_level": 1.0
       },
       "connected_location_ids": [
         "0338b7c6-769b-4f9f-9f17-bc8b47daea08",
@@ -36,9 +36,7 @@
       "entities": [
         "81a0e1eb-836a-4a4c-9d5e-8f327b9d96bd",
         "90e918c4-fd0f-484d-b373-661bd822f372",
-        "c8f5710d-6cc1-4f5a-bf64-6f5073f07e2a",
-        "9a4126dd-aebd-47bd-bb79-c16e7518e1c7",
-        "ed07ff97-46ed-4a16-b58c-74cbb7665beb"
+        "c8f5710d-6cc1-4f5a-bf64-6f5073f07e2a"
       ]
     },
     "6f7be83b-fd69-4452-a9ff-29a0d6a08dad": {
@@ -50,13 +48,16 @@
         "humidity": 75,
         "danger_level": 9,
         "weather": "Clear",
-        "light_level": 0.2
+        "light_level": 1.0
       },
       "connected_location_ids": [
         "0bd900f4-c07a-4fc7-adc7-def5bd357ae2",
         "6ab76792-4a62-4828-9848-b552096c53a1"
       ],
-      "entities": []
+      "entities": [
+        "9a4126dd-aebd-47bd-bb79-c16e7518e1c7",
+        "ed07ff97-46ed-4a16-b58c-74cbb7665beb"
+      ]
     },
     "6ab76792-4a62-4828-9848-b552096c53a1": {
       "id": "6ab76792-4a62-4828-9848-b552096c53a1",
@@ -66,8 +67,8 @@
         "temperature": -16,
         "humidity": 18,
         "danger_level": 9,
-        "weather": "Clear",
-        "light_level": 0.2
+        "weather": "Fog",
+        "light_level": 1.0
       },
       "connected_location_ids": [
         "6f7be83b-fd69-4452-a9ff-29a0d6a08dad",
@@ -87,8 +88,8 @@
         "temperature": 23,
         "humidity": 70,
         "danger_level": 9,
-        "weather": "Clear",
-        "light_level": 0.2
+        "weather": "Fog",
+        "light_level": 1.0
       },
       "connected_location_ids": [
         "6ab76792-4a62-4828-9848-b552096c53a1"
@@ -141,7 +142,7 @@
           -6.246616992595118
         ]
       },
-      "location_id": "0bd900f4-c07a-4fc7-adc7-def5bd357ae2"
+      "location_id": "6f7be83b-fd69-4452-a9ff-29a0d6a08dad"
     },
     "81a0e1eb-836a-4a4c-9d5e-8f327b9d96bd": {
       "id": "81a0e1eb-836a-4a4c-9d5e-8f327b9d96bd",
@@ -225,7 +226,7 @@
           6.421075161335988
         ]
       },
-      "location_id": "0bd900f4-c07a-4fc7-adc7-def5bd357ae2"
+      "location_id": "6f7be83b-fd69-4452-a9ff-29a0d6a08dad"
     },
     "2eaffe3c-31cf-46b3-89d4-572ee8cbddc5": {
       "id": "2eaffe3c-31cf-46b3-89d4-572ee8cbddc5",
@@ -355,5 +356,5 @@
     }
   },
   "global_properties": {},
-  "time": 3.0
+  "time": 7.0
 }

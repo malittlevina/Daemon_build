@@ -1,7 +1,7 @@
 import os
 import datetime
-from codex.codex_engine import log_codex_entry
-from code.code_generator import propose_improvements
+from codex.ingestion import ingest_observation
+from code_tools.code_generator import propose_improvements
 from unimind.reasoner import symbolic_reasoning_chain
 from lam.symbolic_state import update_state_with_input
 
@@ -198,7 +198,7 @@ def run_self_analysis():
         f"Symbolic Reasoning: {reflection['reasoning_trace']}\n"
         f"Proposed Fixes: {reflection['proposed_improvements']}"
     )
-    log_codex_entry("reflection", codex_summary)
+    ingest_observation(codex_summary)
 
     # Append to local log
     with open(REFLECTION_LOG, "a") as log_file:
