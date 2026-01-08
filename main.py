@@ -10,8 +10,8 @@ from optimizer.auto_upgrade import run_auto_optimization
 from scrolls.scroll_engine import ScrollEngine
 ## from sensors.vision import VisionSensor
 from nlu.nlu_engine import NLUEngine
+from kernel import Kernel
 import subprocess
-import json
 import time
 import os
 from datetime import date
@@ -34,6 +34,9 @@ if __name__ == "__main__":
     except Exception as e:
         print(f"[Daemon Init Error] Failed to initialize NLU: {e}")
         nlu = None
+
+    kernel = Kernel(unimind=unimind, scrolls=scrolls, emotions=emotions, memory=memory, nlu=nlu)
+    kernel.boot()
 
     print("[Daemon] Starting Prometheus daemon...")
 
@@ -72,6 +75,8 @@ if __name__ == "__main__":
 
     while True:
         try:
+            kernel.tick()
+
             # Nightly reflection & self-improvement at 2 AM
             current_hour = time.localtime().tm_hour
             today = date.today()
@@ -91,22 +96,13 @@ if __name__ == "__main__":
                 break
             elif user_input == "":
                 personality.log_state()
-                unimind.reflect()
+                kernel.handle_input("")
             else:
-                result = None
-                if nlu:
-                    try:
-                        result = nlu.interpret(user_input)
-                        if result is None or (isinstance(result, str) and result.startswith("[NLUEngine] No known intent")):
-                            result = handle_fallback(user_input)
-                    except Exception as e:
-                        print(f"[Daemon Error] NLU failed: {e}")
-                        result = handle_fallback(user_input)
-                else:
-                    print("[Daemon Warning] NLU not available. Using fallback response.")
+                kr = kernel.handle_input(user_input)
+                result = kr.output
+                if isinstance(result, str) and result.startswith("[NLUEngine] No known intent"):
                     result = handle_fallback(user_input)
-
-                print(f"[Daemon] NLU Result: {result}")
+                print(f"[Daemon] Kernel Result: {result}")
 
         except Exception as loop_error:
             print(f"[Daemon Critical Loop Error] {loop_error}")

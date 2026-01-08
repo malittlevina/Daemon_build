@@ -4,7 +4,8 @@ from memory_tree.memory_logger import log_memory
 
 def trigger_scroll(scroll_name, reason="user_request"):
     print(f"[TriggerManager] Scroll '{scroll_name}' invoked due to: {reason}")
-    log_memory(event=f"Triggered scroll: {scroll_name}", metadata={"reason": reason})
+    # memory_tree.memory_logger.log_memory(content, context=None)
+    log_memory(content=f"Triggered scroll: {scroll_name}", context={"reason": reason})
 
 def check_scroll_triggers(scrolls):
     print("[TriggerManager] Checking scroll triggers...")

@@ -35,8 +35,17 @@ class ScrollEngine:
         return run_auto_optimization()
 
     def _study_topic(self, topic):
-        from codex.ingestion import ingest_observation, ingest_web_or_pdf
-        from code_tools.tutor import study_topic  # Optional enhancement hook
+        from codex.ingestion import ingest_observation
+        try:
+            # Optional enhancement hook (may not exist yet).
+            from code_tools.tutor import study_topic  # type: ignore
+        except Exception:
+            study_topic = None  # type: ignore
+        try:
+            # Optional: some builds provide a web/PDF ingestion helper.
+            from codex.ingestion import ingest_web_or_pdf  # type: ignore
+        except Exception:
+            ingest_web_or_pdf = None  # type: ignore
 
         if not topic:
             return "[Study] No topic provided."
@@ -44,6 +53,13 @@ class ScrollEngine:
         # Record the topic symbolically
         content = f"Scroll triggered self-study of topic: {topic}"
         ingest_observation(content)
+
+        # If an external tutor hook exists, call it (best-effort).
+        try:
+            if callable(study_topic):
+                study_topic(topic)
+        except Exception:
+            pass
 
         try:
             import os
@@ -63,7 +79,7 @@ class ScrollEngine:
             # Add a self-quiz line (simulated reflection test)
             quiz_prompt = f"Explain something important about {topic}"
             print(f"[Study] Self-quiz prompt: {quiz_prompt}")
-            from introspection.personality import respond_to_input
+            from core.personality import respond_to_input
             try:
                 answer = respond_to_input(quiz_prompt)
                 print(f"[Study] Prom's response: {answer}")
@@ -86,7 +102,8 @@ class ScrollEngine:
 
         # Optional: attempt to auto-ingest related public content
         try:
-            ingest_web_or_pdf(f"https://en.wikipedia.org/wiki/{topic.replace(' ', '_')}")
+            if callable(ingest_web_or_pdf):
+                ingest_web_or_pdf(f"https://en.wikipedia.org/wiki/{topic.replace(' ', '_')}")
         except Exception as e:
             content += f" (Note: Failed external ingest: {str(e)})"
 

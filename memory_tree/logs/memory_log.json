@@ -1,0 +1,10 @@
+[
+  {
+    "timestamp": "2026-01-08T23:57:54.328990",
+    "type": "memory",
+    "content": "Triggered scroll: test",
+    "context": {
+      "reason": "user_request"
+    }
+  }
+]
