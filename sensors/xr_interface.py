@@ -2,10 +2,11 @@ from interop.spatial_server import EVENT_XR_UPDATE
 import time
 
 class XRInterface:
-    def __init__(self, spatial_server, curiosity_module=None, avatar_engine=None):
+    def __init__(self, spatial_server, curiosity_module=None, avatar_engine=None, sensor_manager=None):
         self.spatial_server = spatial_server
         self.curiosity = curiosity_module
         self.avatar = avatar_engine
+        self.sensor_manager = sensor_manager
         
         # Subscribe to XR events
         self.spatial_server.on(EVENT_XR_UPDATE, self._on_xr_data)
@@ -25,6 +26,10 @@ class XRInterface:
         current_time = time.time()
         looked_at = payload.get("looked_at_object")
         gaze_vector = payload.get("gaze_vector", [0, 0, 1])
+
+        # 0. Sync Focus with Sensor Manager (Peripheral Awareness)
+        if self.sensor_manager and looked_at:
+            self.sensor_manager.update_user_focus(looked_at)
 
         # 1. Update Avatar Gaze (Embodiment)
         if self.avatar:
