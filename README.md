@@ -14,6 +14,16 @@ This is the official Prometheus daemon build (v2_origin), an intelligent AI agen
 - ✅ **Codex Ingestion** (PDF/web summarization knowledge)
 - ✅ **Multi-language Code Execution** (Python, Rust, Julia)
 
+## Cross-Platform & ThothOS Integration
+The daemon is designed to run on any operating system (Linux, macOS, Windows) in a "Guest Mode" with standard capabilities.
+
+However, when running on **ThothOS** (native environment), the daemon detects the native bridge and activates:
+- **High-Performance Profile**: Unrestricted resource usage and deeper system integration.
+- **ThothBridge**: Direct communication with the OS kernel and registered apps.
+- **Native Optimization**: Enhanced self-optimization routines.
+
+To simulate the native environment for testing, set `THOTH_OS_ACTIVE=1`.
+
 ## Installation
 ```bash
 git clone https://github.com/andysmomstoys/Daemon_build.git

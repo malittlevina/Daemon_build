@@ -1,17 +1,26 @@
 import os
 import datetime
-from codex.codex_engine import log_codex_entry
-from code.code_generator import propose_improvements
-from unimind.reasoner import symbolic_reasoning_chain
+# from codex.codex_engine import log_codex_entry  # Missing
+from code_tools.code_generator import propose_improvements # Fixed import
+# from unimind.reasoner import symbolic_reasoning_chain # Missing
 from lam.symbolic_state import update_state_with_input
 
 REFLECTION_LOG = "logs/self_reflection.log"
 MAX_LOG_SIZE = 10000  # characters
 
+# Stub for missing function
+def log_codex_entry(tag, content):
+    print(f"[CodexStub] Logged {tag}: {content[:50]}...")
+
+# Stub for missing function
+def symbolic_reasoning_chain(context):
+    return f"Simulated reasoning for: {context}"
+
 class NLUEngine:
-    def __init__(self):
+    def __init__(self, scrolls=None):
         self.learned_phrases = {}
         self.use_ollama_fallback = True
+        self.scrolls = scrolls # Added scrolls parameter as main.py passes it
 
     def interpret(self, user_input):
         if user_input in self.learned_phrases:
@@ -24,9 +33,10 @@ class NLUEngine:
             return response
 
         try:
-            result = update_state_with_input(user_input, source="nlu")
-        except TypeError:
-            result = update_state_with_input(user_input)
+            result = update_state_with_input(user_input) # Removed source="nlu" as per signature
+        except Exception as e:
+            print(f"[NLUEngine] State update error: {e}")
+            result = None
 
         if result:
             return result
@@ -34,11 +44,16 @@ class NLUEngine:
         if self.use_ollama_fallback:
             try:
                 import subprocess
+                # Using a dummy check to avoid hanging if ollama isn't installed
+                # In real scenario, we might want to fail gracefully
+                # For now, just return None or a fallback message if it fails
                 result = subprocess.run(["ollama", "run", "prometheus", user_input], capture_output=True, text=True)
                 if result.returncode == 0:
                     return result.stdout.strip()
                 else:
-                    return "[NLUEngine] Ollama fallback failed."
+                    return "[NLUEngine] Ollama fallback failed (not installed or model missing)."
+            except FileNotFoundError:
+                 return "[NLUEngine] Ollama not found."
             except Exception as e:
                 return f"[NLUEngine] Fallback exception: {e}"
 

@@ -8,7 +8,8 @@ from introspection.personality_tracker import PersonalityTracker
 from memory_tree.memory_logger import MemoryLogger
 from optimizer.auto_upgrade import run_auto_optimization
 from scrolls.scroll_engine import ScrollEngine
-## from sensors.vision import VisionSensor
+from daemon.platform_manager import PlatformManager
+from bridge.thoth_bridge import ThothBridge
 from nlu.nlu_engine import NLUEngine
 import subprocess
 import json
@@ -20,6 +21,22 @@ from datetime import date
 USE_OLLAMA = False  # Set to True to enable Ollama fallback
 
 if __name__ == "__main__":
+    # Initialize Platform Manager first to set context
+    platform_mgr = PlatformManager()
+    platform_info = platform_mgr.get_platform_info()
+    print(f"[Daemon] Booting on {platform_info['os']} (Native: {platform_info['is_native']})")
+    
+    optimization_profile = platform_mgr.get_optimization_profile()
+    print(f"[Daemon] Applied profile: {optimization_profile['performance_mode']}")
+
+    # Prioritize Native OS Bridge
+    thoth_bridge = None
+    if platform_info['is_native']:
+        print("[Daemon] Native ThothOS detected. Initializing ThothBridge...")
+        thoth_bridge = ThothBridge()
+        # Register core daemon as an app on the bridge
+        thoth_bridge.register_app("prometheus_daemon", lambda x: print(f"Daemon received: {x}"))
+
     unimind = Unimind()
     prom = PrometheusSpecialties()
     emotions = EmotionEngine()
