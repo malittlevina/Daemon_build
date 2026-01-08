@@ -2,12 +2,14 @@ import os
 import json
 from codex.knowledge_graph import KnowledgeGraph
 from codex.nlp_utils import SimpleNLP
+from codex.lexicon import Lexicon
 
 class CodexIngestion:
     def __init__(self):
         self.knowledge_base = {}
         self.graph = KnowledgeGraph()
         self.nlp = SimpleNLP()
+        self.lexicon = Lexicon()
 
     def ingest_file(self, path):
         content = ""
@@ -29,6 +31,24 @@ class CodexIngestion:
         # Auto-Graph Population
         if content:
             self._process_into_graph(content)
+            self._scan_for_definitions(content)
+
+    def _scan_for_definitions(self, text):
+        # Heuristic: "X is defined as Y" or "X: Y" lines
+        lines = text.split('\n')
+        count = 0
+        for line in lines:
+            if " is defined as " in line:
+                parts = line.split(" is defined as ")
+                if len(parts) == 2:
+                    word = parts[0].strip()
+                    definition = parts[1].strip()
+                    if len(word.split()) < 4: # Limit to short phrases
+                        self.lexicon.define(word, definition)
+                        count += 1
+        
+        if count > 0:
+            print(f"[Codex] Extracted {count} definitions into Lexicon.")
 
     def _process_into_graph(self, text):
         # 1. Extract Entities

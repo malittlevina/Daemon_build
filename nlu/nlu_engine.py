@@ -14,6 +14,7 @@ from code_tools.code_master import CodeMaster
 from training.trainer import Trainer
 from cognitive.brain.evolution import EvolutionaryPlanner
 from codex.knowledge_graph import KnowledgeGraph
+from codex.lexicon import Lexicon
 
 class NLUEngine:
     def __init__(self, scroll_engine=None):
@@ -25,6 +26,7 @@ class NLUEngine:
         self.personality = get_personality_engine()
         self.curriculum = CurriculumManager()
         self.graph = KnowledgeGraph()
+        self.lexicon = Lexicon()
         self.code_master = CodeMaster()
         self.trainer = Trainer()
         self.hi_tuner = None 
@@ -97,20 +99,38 @@ class NLUEngine:
                  return f"I cannot find the path: {path}"
 
         # 1. Check for Knowledge Queries (Simple keyword check)
-        if "what is" in user_input.lower() or "tell me about" in user_input.lower():
+        if "what is" in user_input.lower() or "tell me about" in user_input.lower() or "define" in user_input.lower():
             # Extract basic query
-            query = user_input.lower().replace("what is", "").replace("tell me about", "").strip()
+            query = user_input.lower().replace("what is", "").replace("tell me about", "").replace("define", "").strip()
             
-            # A. Check Curriculum (Structured)
+            # A. Check Lexicon (Dictionary)
+            definition = self.lexicon.lookup(query)
+            if definition:
+                return f"[Dictionary] {query.title()} ({definition['pos']}): {definition['def']}"
+
+            # B. Check Curriculum (Structured)
             results = self.curriculum.query(query)
             if results:
                 best = results[0]
                 return f"[Knowledge: {best['source_pack']}] {best['title']}: {best['content']}"
             
-            # B. Check Graph (Associative)
+            # C. Check Graph (Associative)
             related = self.graph.get_related(query)
             if related:
                 return f"[Associative Memory] '{query}' is related to: {', '.join(related)}. I can try to connect these concepts."
+            
+            # D. Unknown - Trigger Curiosity
+            return f"I do not have a definition for '{query}'. If you define it for me (e.g. 'Define {query} as...'), I will learn it."
+
+        # 1.5 Handle User Teaching Definitions
+        if user_input.lower().startswith("define") and " as " in user_input.lower():
+            # Format: "Define [Word] as [Definition]"
+            parts = user_input.lower().replace("define", "").split(" as ")
+            if len(parts) >= 2:
+                word = parts[0].strip()
+                meaning = parts[1].strip()
+                self.lexicon.define(word, meaning)
+                return f"Understood. I have added '{word}' to my dictionary."
 
         if user_input in self.learned_phrases:
             return self.learned_phrases[user_input]
