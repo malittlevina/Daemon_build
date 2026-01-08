@@ -1,4 +1,5 @@
 import threading
+from daemon.os_interface import OSInterface
 from unimind.core import Unimind
 from prometheus.specialties import PrometheusSpecialties
 from codex.ingestion import ingest_documents
@@ -20,6 +21,12 @@ from datetime import date
 USE_OLLAMA = False  # Set to True to enable Ollama fallback
 
 if __name__ == "__main__":
+    os_int = OSInterface()
+    print(f"[OS] {os_int.prioritize_native_integration()}")
+    
+    # Show active capabilities based on OS
+    print(f"[OS] Active Capabilities: {json.dumps(os_int.capabilities, indent=2)}")
+
     unimind = Unimind()
     prom = PrometheusSpecialties()
     emotions = EmotionEngine()
@@ -30,7 +37,7 @@ if __name__ == "__main__":
     personality = PersonalityTracker()
     try:
         global nlu
-        nlu = NLUEngine(scrolls)
+        nlu = NLUEngine()
     except Exception as e:
         print(f"[Daemon Init Error] Failed to initialize NLU: {e}")
         nlu = None

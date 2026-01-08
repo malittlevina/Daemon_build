@@ -20,5 +20,10 @@
   "scroll_autostudy": {
     "trigger_count": 3,
     "daily_reset": true
+  },
+  "os_preference": {
+    "target_os": "symbolic",
+    "compatibility_mode": true,
+    "warn_on_non_native": true
   }
 }

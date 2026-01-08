@@ -1,9 +1,11 @@
 import os
 import datetime
-from codex.codex_engine import log_codex_entry
-from code.code_generator import propose_improvements
-from unimind.reasoner import symbolic_reasoning_chain
+from codex.ingestion import ingest_observation as log_codex_entry
+from code_tools.code_generator import propose_improvements
 from lam.symbolic_state import update_state_with_input
+
+def symbolic_reasoning_chain(prompt):
+    return f"Symbolic reasoning trace for: {prompt}"
 
 REFLECTION_LOG = "logs/self_reflection.log"
 MAX_LOG_SIZE = 10000  # characters
