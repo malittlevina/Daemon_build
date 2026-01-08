@@ -1,5 +1,6 @@
 import threading
 from unimind.core import Unimind
+from unimind.drives import DriveSystem
 from prometheus.specialties import PrometheusSpecialties
 from codex.ingestion import ingest_documents
 from emotion.emotion_engine import EmotionEngine
@@ -22,6 +23,7 @@ USE_OLLAMA = False  # Set to True to enable Ollama fallback
 
 if __name__ == "__main__":
     unimind = Unimind()
+    drives = DriveSystem()
     prom = PrometheusSpecialties()
     emotions = EmotionEngine()
     memory = MemoryLogger()
@@ -60,6 +62,13 @@ if __name__ == "__main__":
         except Exception as e:
             print(f"[Daemon] Failed to load Curiosity Module: {e}")
             curiosity = None
+
+        # Initialize Drive System (Background Loop Version)
+        # Note: In a real threaded app, we need thread-safe access to drives.
+        # For this prototype, we'll assume the main thread handles the 'Acting' on drives,
+        # and this thread just feeds the Curiosity drive.
+        # But we actually want the drives to update here too or in main loop.
+        # Let's keep Drive updates in the main loop to avoid race conditions on 'nlu'.
             
         while True:
             try:
@@ -89,6 +98,10 @@ if __name__ == "__main__":
                         
                         if is_interesting:
                             print(f"[Daemon] 💡 The AI found this interesting: {log}")
+                            # SIGNAL: We found something interesting!
+                            # In a robust system, we'd use a queue. For now, we rely on the log file or shared memory.
+                            # But we can try to update the DriveSystem file directly if we assume file-based IPC (slow but safeish)
+                            # Or better, let's just use a global flag if possible, or skip for now and handle in main.
                 # -----------------------------------
 
                 if logs:
@@ -141,6 +154,32 @@ if __name__ == "__main__":
                 last_run_date = today
 
             print("\n[Daemon] Enter a command or type 'exit': ", end="", flush=True)
+            
+            # --- Autonomous Drive Check ---
+            drives.update()
+            urgent_drive = drives.get_most_urgent_drive()
+            # print(f"[Debug] Drives: {[(k, round(d.value, 2)) for k, d in drives.drives.items()]}")
+
+            if urgent_drive.is_critical(0.3):
+                print(f"\n[Daemon] ⚠️  Critical Drive Alert: {urgent_drive.name} is low ({urgent_drive.value:.2f}).")
+                print(f"[Daemon] 🤖 Autonomous Agent triggering: {urgent_drive.recovery_action}...")
+                
+                # Execute recovery action automatically
+                if nlu and urgent_drive.recovery_action:
+                    try:
+                        # Feed the recovery action into NLU/LAM as if the user said it
+                        auto_input = urgent_drive.recovery_action
+                        result = nlu.interpret(auto_input)
+                        print(f"[Daemon] Auto-Action Result: {result}")
+                        
+                        # Assuming success for now, satisfy the drive partially
+                        # In a real system, we'd wait for feedback.
+                        drives.satisfy_drive(urgent_drive.name, 0.5)
+                        
+                    except Exception as e:
+                        print(f"[Daemon] Auto-Action Failed: {e}")
+            # ------------------------------
+
             user_input = input().strip()
 
             if user_input.lower() == "exit":
