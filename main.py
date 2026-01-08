@@ -15,11 +15,18 @@ import json
 import time
 import os
 from datetime import date
+from daemon.os_policy import build_configured_profile_and_config
 
 # Flag to control use of Ollama fallback
 USE_OLLAMA = False  # Set to True to enable Ollama fallback
 
 if __name__ == "__main__":
+    runtime_profile, daemon_config = build_configured_profile_and_config("config/daemon_config.json")
+
+    # Expose runtime mode for subsystems that want to branch without importing daemon modules.
+    os.environ["PROMETHEUS_RUNTIME_MODE"] = runtime_profile.mode
+    os.environ["PROMETHEUS_PREFERRED_OS_ID"] = runtime_profile.symbolic_os.os_id
+
     unimind = Unimind()
     prom = PrometheusSpecialties()
     emotions = EmotionEngine()
@@ -36,15 +43,23 @@ if __name__ == "__main__":
         nlu = None
 
     print("[Daemon] Starting Prometheus daemon...")
+    print(
+        "[Daemon] Runtime profile:",
+        f"mode={runtime_profile.mode},",
+        f"host={runtime_profile.host.system} {runtime_profile.host.release},",
+        f"symbolic_os_native={runtime_profile.symbolic_os.is_native} ({runtime_profile.symbolic_os.confidence}),",
+        f"markers={list(runtime_profile.symbolic_os.markers)}",
+    )
+    for warning in daemon_config.get("runtime_warnings", []) or []:
+        print(f"[Daemon][Runtime Warning] {warning}")
 
     # Launch sensors and background modules in threads
-    ENABLE_VOICE = False
-    # To enable the voice listener, set ENABLE_VOICE = True above.
-    if ENABLE_VOICE:
+    if daemon_config.get("voice_listener_enabled", False):
         from voice.voice_listener import start_voice_listener
         threading.Thread(target=start_voice_listener, daemon=True).start()
     # threading.Thread(target=vision.classify_surroundings, daemon=True).start()
-    threading.Thread(target=run_auto_optimization, daemon=True).start()
+    if daemon_config.get("auto_optimization", False):
+        threading.Thread(target=run_auto_optimization, daemon=True).start()
 
     # Load Codex documents
     ingest_documents("codex/data/")

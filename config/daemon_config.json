@@ -5,6 +5,24 @@
   "emotion_engine_tuning": true,
   "reflection_journal_enabled": true,
   "rituals_enabled": true,
+  "os_policy": {
+    "preferred_os_id": "prometheus_os",
+    "prefer_native": true,
+    "native_markers": {
+      "env": [
+        "PROMETHEUS_OS",
+        "PROMETHEUS_OS_ROOT"
+      ],
+      "files": [
+        ".prometheus_os",
+        "/etc/prometheus_os.json",
+        "/etc/prometheus-os/manifest.json"
+      ]
+    },
+    "force_portable_voice": false,
+    "force_portable_sensors": false,
+    "force_portable_auto_optimization": false
+  },
   "modules_to_load": [
     "unimind",
     "codex",
