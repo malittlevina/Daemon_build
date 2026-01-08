@@ -6,6 +6,7 @@ class AvatarEngine:
         self.state = {
             "pose": "idle",       # idle, working, listening, sleeping
             "expression": "neutral", # neutral, happy, sad, surprised, angry, tired
+            "gaze": "center",     # center, left, right
             "animation_frame": 0,
             "last_update": time.time()
         }
@@ -19,6 +20,10 @@ class AvatarEngine:
     def update(self, dt):
         # Update animation frame based on time
         self.state["animation_frame"] = int((time.time() * 2) % len(self.animations.get(self.state["pose"], ["neutral"])))
+
+    def set_gaze(self, direction):
+        if direction in ["left", "right", "center"]:
+            self.state["gaze"] = direction
 
     def set_emotion(self, mood):
         # Map mood (from PersonalityEngine) to expression
@@ -44,5 +49,6 @@ class AvatarEngine:
         return {
             "pose": self.state["pose"],
             "expression": self.state["expression"],
+            "gaze": self.state["gaze"],
             "sub_state": sub_state
         }

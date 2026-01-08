@@ -36,23 +36,42 @@ class ASCIIRenderer:
             ( - - )
              | - |
              '---'
+            """,
+            "look_left": """
+             .---.
+            ( < < )
+             | o |
+             '---'
+            """,
+            "look_right": """
+             .---.
+            ( > > )
+             | o |
+             '---'
             """
         }
 
     def render(self, avatar_state):
         # Determine which ascii to show
-        # Priority: Expression -> Sub-state (animation)
+        # Priority: Gaze -> Expression -> Sub-state
         
         expression = avatar_state["expression"]
         sub_state = avatar_state["sub_state"]
+        gaze = avatar_state.get("gaze", "center")
         
-        # If animation sub-state overrides expression (like blinking), use it
-        key = expression
-        if sub_state in self.art_assets:
-            key = sub_state
-        elif expression in self.art_assets:
-            key = expression
+        key = "neutral"
+        
+        # Gaze overrides neutral expression but not strong emotions?
+        # For simplicity, let's say direct gaze override if not center
+        if gaze == "left":
+            key = "look_left"
+        elif gaze == "right":
+            key = "look_right"
         else:
-            key = "neutral"
+            # Fallback to expression
+            if sub_state in self.art_assets:
+                key = sub_state
+            elif expression in self.art_assets:
+                key = expression
             
         return self.art_assets.get(key, self.art_assets["neutral"])

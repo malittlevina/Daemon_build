@@ -8,6 +8,7 @@ EVENT_CONNECT = "connect"
 EVENT_DISCONNECT = "disconnect"
 EVENT_STATE_UPDATE = "state_update"
 EVENT_ACTION = "action"
+EVENT_XR_UPDATE = "xr_update"
 
 class SpatialServer:
     def __init__(self, host="0.0.0.0", port=8765):
@@ -20,7 +21,8 @@ class SpatialServer:
             EVENT_CONNECT: [],
             EVENT_DISCONNECT: [],
             EVENT_STATE_UPDATE: [],
-            EVENT_ACTION: []
+            EVENT_ACTION: [],
+            EVENT_XR_UPDATE: []
         }
         self.running = False
 
@@ -58,6 +60,8 @@ class SpatialServer:
                     
                     if msg_type == "world_update":
                         self._trigger(EVENT_STATE_UPDATE, payload)
+                    elif msg_type == "xr_update":
+                         self._trigger(EVENT_XR_UPDATE, payload)
                     elif msg_type == "action_result":
                         self._trigger(EVENT_ACTION, payload)
                     elif msg_type == "handshake":
