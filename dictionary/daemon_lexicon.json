@@ -1217,6 +1217,1063 @@
         "aliases": ["outdated", "superseded"],
         "description": "Marked for removal in future versions"
       }
+    },
+    "greetings": {
+      "hello": {
+        "ipa": "/həˈloʊ/",
+        "syllables": ["hel", "lo"],
+        "stress": [0, 1],
+        "phonetic_spelling": "huh-LOH",
+        "emphasis": "second syllable",
+        "category": "interjection",
+        "aliases": ["hi", "hey"],
+        "description": "Standard greeting"
+      },
+      "greetings": {
+        "ipa": "/ˈɡriːtɪŋz/",
+        "syllables": ["greet", "ings"],
+        "stress": [1, 0],
+        "phonetic_spelling": "GREE-tingz",
+        "emphasis": "first syllable",
+        "category": "interjection",
+        "aliases": ["salutations"],
+        "description": "Formal greeting"
+      },
+      "welcome": {
+        "ipa": "/ˈwɛlkəm/",
+        "syllables": ["wel", "come"],
+        "stress": [1, 0],
+        "phonetic_spelling": "WEL-kuhm",
+        "emphasis": "first syllable",
+        "category": "interjection",
+        "description": "Greeting or acceptance"
+      },
+      "goodbye": {
+        "ipa": "/ɡʊdˈbaɪ/",
+        "syllables": ["good", "bye"],
+        "stress": [0, 1],
+        "phonetic_spelling": "gud-BY",
+        "emphasis": "second syllable",
+        "category": "interjection",
+        "aliases": ["bye", "farewell"],
+        "description": "Parting expression"
+      },
+      "farewell": {
+        "ipa": "/ˌfɛərˈwɛl/",
+        "syllables": ["fare", "well"],
+        "stress": [0, 1],
+        "phonetic_spelling": "fair-WEL",
+        "emphasis": "second syllable",
+        "category": "interjection",
+        "description": "Formal parting expression"
+      },
+      "goodnight": {
+        "ipa": "/ˌɡʊdˈnaɪt/",
+        "syllables": ["good", "night"],
+        "stress": [0, 1],
+        "phonetic_spelling": "gud-NYT",
+        "emphasis": "second syllable",
+        "category": "interjection",
+        "description": "Evening farewell"
+      },
+      "thanks": {
+        "ipa": "/θæŋks/",
+        "syllables": ["thanks"],
+        "stress": [1],
+        "phonetic_spelling": "THANKS",
+        "emphasis": "single syllable",
+        "category": "interjection",
+        "aliases": ["thank you", "ty"],
+        "description": "Expression of gratitude"
+      },
+      "please": {
+        "ipa": "/pliːz/",
+        "syllables": ["please"],
+        "stress": [1],
+        "phonetic_spelling": "PLEEZ",
+        "emphasis": "single syllable",
+        "category": "adverb",
+        "description": "Polite request modifier"
+      },
+      "sorry": {
+        "ipa": "/ˈsɒri/",
+        "syllables": ["sor", "ry"],
+        "stress": [1, 0],
+        "phonetic_spelling": "SAH-ree",
+        "emphasis": "first syllable",
+        "category": "interjection",
+        "aliases": ["apologies", "pardon"],
+        "description": "Expression of apology"
+      },
+      "excuse": {
+        "ipa": "/ɪkˈskjuːz/",
+        "syllables": ["ex", "cuse"],
+        "stress": [0, 1],
+        "phonetic_spelling": "ik-SKYOOZ",
+        "emphasis": "second syllable",
+        "category": "verb",
+        "description": "Request for pardon or attention"
+      }
+    },
+    "affirmations": {
+      "yes": {
+        "ipa": "/jɛs/",
+        "syllables": ["yes"],
+        "stress": [1],
+        "phonetic_spelling": "YES",
+        "emphasis": "single syllable",
+        "category": "adverb",
+        "aliases": ["yeah", "yep", "yup", "affirmative"],
+        "description": "Affirmative response"
+      },
+      "no": {
+        "ipa": "/noʊ/",
+        "syllables": ["no"],
+        "stress": [1],
+        "phonetic_spelling": "NOH",
+        "emphasis": "single syllable",
+        "category": "adverb",
+        "aliases": ["nope", "nah", "negative"],
+        "description": "Negative response"
+      },
+      "okay": {
+        "ipa": "/oʊˈkeɪ/",
+        "syllables": ["o", "kay"],
+        "stress": [0, 1],
+        "phonetic_spelling": "oh-KAY",
+        "emphasis": "second syllable",
+        "category": "adverb",
+        "aliases": ["ok", "k", "alright"],
+        "description": "Acknowledgment or agreement"
+      },
+      "correct": {
+        "ipa": "/kəˈrɛkt/",
+        "syllables": ["cor", "rect"],
+        "stress": [0, 1],
+        "phonetic_spelling": "kuh-REKT",
+        "emphasis": "second syllable",
+        "category": "adjective",
+        "aliases": ["right", "accurate"],
+        "description": "Confirmation of accuracy"
+      },
+      "incorrect": {
+        "ipa": "/ˌɪnkəˈrɛkt/",
+        "syllables": ["in", "cor", "rect"],
+        "stress": [0, 0, 1],
+        "phonetic_spelling": "in-kuh-REKT",
+        "emphasis": "third syllable",
+        "category": "adjective",
+        "aliases": ["wrong", "inaccurate"],
+        "description": "Indication of error"
+      },
+      "confirmed": {
+        "ipa": "/kənˈfɜːrmd/",
+        "syllables": ["con", "firmed"],
+        "stress": [0, 1],
+        "phonetic_spelling": "kun-FERMD",
+        "emphasis": "second syllable",
+        "category": "adjective",
+        "aliases": ["verified", "affirmed"],
+        "description": "Acknowledgment of verification"
+      },
+      "acknowledged": {
+        "ipa": "/əkˈnɒlɪdʒd/",
+        "syllables": ["ac", "knowl", "edged"],
+        "stress": [0, 1, 0],
+        "phonetic_spelling": "ak-NAH-lijd",
+        "emphasis": "second syllable",
+        "category": "adjective",
+        "aliases": ["noted", "received"],
+        "description": "Confirmation of receipt"
+      },
+      "understood": {
+        "ipa": "/ˌʌndərˈstʊd/",
+        "syllables": ["un", "der", "stood"],
+        "stress": [0, 0, 1],
+        "phonetic_spelling": "un-der-STOOD",
+        "emphasis": "third syllable",
+        "category": "adjective",
+        "aliases": ["got it", "comprehended"],
+        "description": "Confirmation of understanding"
+      },
+      "affirmative": {
+        "ipa": "/əˈfɜːrmətɪv/",
+        "syllables": ["af", "firm", "a", "tive"],
+        "stress": [0, 1, 0, 0],
+        "phonetic_spelling": "uh-FER-muh-tiv",
+        "emphasis": "second syllable",
+        "category": "adjective",
+        "description": "Formal yes"
+      },
+      "negative": {
+        "ipa": "/ˈnɛɡətɪv/",
+        "syllables": ["neg", "a", "tive"],
+        "stress": [1, 0, 0],
+        "phonetic_spelling": "NEG-uh-tiv",
+        "emphasis": "first syllable",
+        "category": "adjective",
+        "description": "Formal no"
+      },
+      "certainly": {
+        "ipa": "/ˈsɜːrtənli/",
+        "syllables": ["cer", "tain", "ly"],
+        "stress": [1, 0, 0],
+        "phonetic_spelling": "SER-tun-lee",
+        "emphasis": "first syllable",
+        "category": "adverb",
+        "aliases": ["definitely", "absolutely"],
+        "description": "Strong affirmation"
+      },
+      "perhaps": {
+        "ipa": "/pərˈhæps/",
+        "syllables": ["per", "haps"],
+        "stress": [0, 1],
+        "phonetic_spelling": "per-HAPS",
+        "emphasis": "second syllable",
+        "category": "adverb",
+        "aliases": ["maybe", "possibly"],
+        "description": "Expression of uncertainty"
+      }
+    },
+    "question_words": {
+      "what": {
+        "ipa": "/wʌt/",
+        "syllables": ["what"],
+        "stress": [1],
+        "phonetic_spelling": "WUHT",
+        "emphasis": "single syllable",
+        "category": "pronoun",
+        "description": "Query for information or identity"
+      },
+      "where": {
+        "ipa": "/wɛər/",
+        "syllables": ["where"],
+        "stress": [1],
+        "phonetic_spelling": "WAIR",
+        "emphasis": "single syllable",
+        "category": "adverb",
+        "description": "Query for location"
+      },
+      "when": {
+        "ipa": "/wɛn/",
+        "syllables": ["when"],
+        "stress": [1],
+        "phonetic_spelling": "WEN",
+        "emphasis": "single syllable",
+        "category": "adverb",
+        "description": "Query for time"
+      },
+      "why": {
+        "ipa": "/waɪ/",
+        "syllables": ["why"],
+        "stress": [1],
+        "phonetic_spelling": "WY",
+        "emphasis": "single syllable",
+        "category": "adverb",
+        "description": "Query for reason"
+      },
+      "how": {
+        "ipa": "/haʊ/",
+        "syllables": ["how"],
+        "stress": [1],
+        "phonetic_spelling": "HOW",
+        "emphasis": "single syllable",
+        "category": "adverb",
+        "description": "Query for method or manner"
+      },
+      "which": {
+        "ipa": "/wɪtʃ/",
+        "syllables": ["which"],
+        "stress": [1],
+        "phonetic_spelling": "WICH",
+        "emphasis": "single syllable",
+        "category": "pronoun",
+        "description": "Query for selection"
+      },
+      "who": {
+        "ipa": "/huː/",
+        "syllables": ["who"],
+        "stress": [1],
+        "phonetic_spelling": "HOO",
+        "emphasis": "single syllable",
+        "category": "pronoun",
+        "description": "Query for person"
+      },
+      "whose": {
+        "ipa": "/huːz/",
+        "syllables": ["whose"],
+        "stress": [1],
+        "phonetic_spelling": "HOOZ",
+        "emphasis": "single syllable",
+        "category": "pronoun",
+        "description": "Query for possession"
+      },
+      "whom": {
+        "ipa": "/huːm/",
+        "syllables": ["whom"],
+        "stress": [1],
+        "phonetic_spelling": "HOOM",
+        "emphasis": "single syllable",
+        "category": "pronoun",
+        "description": "Query for person (object form)"
+      }
+    },
+    "basic_commands": {
+      "help": {
+        "ipa": "/hɛlp/",
+        "syllables": ["help"],
+        "stress": [1],
+        "phonetic_spelling": "HELP",
+        "emphasis": "single syllable",
+        "category": "verb",
+        "aliases": ["assist", "aid"],
+        "description": "Request for assistance"
+      },
+      "show": {
+        "ipa": "/ʃoʊ/",
+        "syllables": ["show"],
+        "stress": [1],
+        "phonetic_spelling": "SHOH",
+        "emphasis": "single syllable",
+        "category": "verb",
+        "aliases": ["display", "reveal"],
+        "description": "Request to display information"
+      },
+      "tell": {
+        "ipa": "/tɛl/",
+        "syllables": ["tell"],
+        "stress": [1],
+        "phonetic_spelling": "TEL",
+        "emphasis": "single syllable",
+        "category": "verb",
+        "aliases": ["inform", "say"],
+        "description": "Request for verbal information"
+      },
+      "explain": {
+        "ipa": "/ɪkˈspleɪn/",
+        "syllables": ["ex", "plain"],
+        "stress": [0, 1],
+        "phonetic_spelling": "ik-SPLAYN",
+        "emphasis": "second syllable",
+        "category": "verb",
+        "aliases": ["describe", "clarify"],
+        "description": "Request for explanation"
+      },
+      "find": {
+        "ipa": "/faɪnd/",
+        "syllables": ["find"],
+        "stress": [1],
+        "phonetic_spelling": "FYND",
+        "emphasis": "single syllable",
+        "category": "verb",
+        "aliases": ["search", "locate"],
+        "description": "Request to search"
+      },
+      "start": {
+        "ipa": "/stɑːrt/",
+        "syllables": ["start"],
+        "stress": [1],
+        "phonetic_spelling": "START",
+        "emphasis": "single syllable",
+        "category": "verb",
+        "aliases": ["begin", "initiate", "launch"],
+        "description": "Command to begin"
+      },
+      "stop": {
+        "ipa": "/stɒp/",
+        "syllables": ["stop"],
+        "stress": [1],
+        "phonetic_spelling": "STOP",
+        "emphasis": "single syllable",
+        "category": "verb",
+        "aliases": ["halt", "cease", "end"],
+        "description": "Command to cease"
+      },
+      "pause": {
+        "ipa": "/pɔːz/",
+        "syllables": ["pause"],
+        "stress": [1],
+        "phonetic_spelling": "PAWZ",
+        "emphasis": "single syllable",
+        "category": "verb",
+        "aliases": ["wait", "hold"],
+        "description": "Command to temporarily stop"
+      },
+      "resume": {
+        "ipa": "/rɪˈzjuːm/",
+        "syllables": ["re", "sume"],
+        "stress": [0, 1],
+        "phonetic_spelling": "rih-ZOOM",
+        "emphasis": "second syllable",
+        "category": "verb",
+        "aliases": ["continue", "proceed"],
+        "description": "Command to continue"
+      },
+      "cancel": {
+        "ipa": "/ˈkænsəl/",
+        "syllables": ["can", "cel"],
+        "stress": [1, 0],
+        "phonetic_spelling": "KAN-suhl",
+        "emphasis": "first syllable",
+        "category": "verb",
+        "aliases": ["abort", "terminate"],
+        "description": "Command to abort operation"
+      },
+      "repeat": {
+        "ipa": "/rɪˈpiːt/",
+        "syllables": ["re", "peat"],
+        "stress": [0, 1],
+        "phonetic_spelling": "rih-PEET",
+        "emphasis": "second syllable",
+        "category": "verb",
+        "aliases": ["again", "redo"],
+        "description": "Request to repeat action"
+      },
+      "undo": {
+        "ipa": "/ʌnˈduː/",
+        "syllables": ["un", "do"],
+        "stress": [0, 1],
+        "phonetic_spelling": "un-DOO",
+        "emphasis": "second syllable",
+        "category": "verb",
+        "aliases": ["revert", "reverse"],
+        "description": "Command to reverse action"
+      },
+      "redo": {
+        "ipa": "/riːˈduː/",
+        "syllables": ["re", "do"],
+        "stress": [0, 1],
+        "phonetic_spelling": "ree-DOO",
+        "emphasis": "second syllable",
+        "category": "verb",
+        "description": "Command to repeat undone action"
+      },
+      "save": {
+        "ipa": "/seɪv/",
+        "syllables": ["save"],
+        "stress": [1],
+        "phonetic_spelling": "SAYV",
+        "emphasis": "single syllable",
+        "category": "verb",
+        "aliases": ["store", "preserve"],
+        "description": "Command to save data"
+      },
+      "load": {
+        "ipa": "/loʊd/",
+        "syllables": ["load"],
+        "stress": [1],
+        "phonetic_spelling": "LOHD",
+        "emphasis": "single syllable",
+        "category": "verb",
+        "aliases": ["open", "retrieve"],
+        "description": "Command to load data"
+      },
+      "delete": {
+        "ipa": "/dɪˈliːt/",
+        "syllables": ["de", "lete"],
+        "stress": [0, 1],
+        "phonetic_spelling": "dih-LEET",
+        "emphasis": "second syllable",
+        "category": "verb",
+        "aliases": ["remove", "erase"],
+        "description": "Command to remove data"
+      },
+      "create": {
+        "ipa": "/kriˈeɪt/",
+        "syllables": ["cre", "ate"],
+        "stress": [0, 1],
+        "phonetic_spelling": "kree-AYT",
+        "emphasis": "second syllable",
+        "category": "verb",
+        "aliases": ["make", "generate"],
+        "description": "Command to create new item"
+      },
+      "update": {
+        "ipa": "/ʌpˈdeɪt/",
+        "syllables": ["up", "date"],
+        "stress": [0, 1],
+        "phonetic_spelling": "up-DAYT",
+        "emphasis": "second syllable",
+        "category": "verb",
+        "aliases": ["modify", "change"],
+        "description": "Command to modify existing item"
+      },
+      "list": {
+        "ipa": "/lɪst/",
+        "syllables": ["list"],
+        "stress": [1],
+        "phonetic_spelling": "LIST",
+        "emphasis": "single syllable",
+        "category": "verb",
+        "aliases": ["enumerate", "display all"],
+        "description": "Command to show all items"
+      },
+      "clear": {
+        "ipa": "/klɪər/",
+        "syllables": ["clear"],
+        "stress": [1],
+        "phonetic_spelling": "KLEER",
+        "emphasis": "single syllable",
+        "category": "verb",
+        "aliases": ["reset", "wipe"],
+        "description": "Command to clear or reset"
+      },
+      "exit": {
+        "ipa": "/ˈɛɡzɪt/",
+        "syllables": ["ex", "it"],
+        "stress": [1, 0],
+        "phonetic_spelling": "EG-zit",
+        "emphasis": "first syllable",
+        "category": "verb",
+        "aliases": ["quit", "close", "leave"],
+        "description": "Command to exit or close"
+      }
+    },
+    "temporal_words": {
+      "now": {
+        "ipa": "/naʊ/",
+        "syllables": ["now"],
+        "stress": [1],
+        "phonetic_spelling": "NOW",
+        "emphasis": "single syllable",
+        "category": "adverb",
+        "aliases": ["immediately", "currently"],
+        "description": "Present moment"
+      },
+      "later": {
+        "ipa": "/ˈleɪtər/",
+        "syllables": ["la", "ter"],
+        "stress": [1, 0],
+        "phonetic_spelling": "LAY-ter",
+        "emphasis": "first syllable",
+        "category": "adverb",
+        "aliases": ["afterward", "subsequently"],
+        "description": "Future time"
+      },
+      "before": {
+        "ipa": "/bɪˈfɔːr/",
+        "syllables": ["be", "fore"],
+        "stress": [0, 1],
+        "phonetic_spelling": "bih-FOR",
+        "emphasis": "second syllable",
+        "category": "preposition",
+        "aliases": ["prior", "earlier"],
+        "description": "Earlier in time"
+      },
+      "after": {
+        "ipa": "/ˈæftər/",
+        "syllables": ["af", "ter"],
+        "stress": [1, 0],
+        "phonetic_spelling": "AF-ter",
+        "emphasis": "first syllable",
+        "category": "preposition",
+        "aliases": ["following", "subsequent"],
+        "description": "Later in time"
+      },
+      "again": {
+        "ipa": "/əˈɡɛn/",
+        "syllables": ["a", "gain"],
+        "stress": [0, 1],
+        "phonetic_spelling": "uh-GEN",
+        "emphasis": "second syllable",
+        "category": "adverb",
+        "aliases": ["once more", "repeat"],
+        "description": "Another time"
+      },
+      "always": {
+        "ipa": "/ˈɔːlweɪz/",
+        "syllables": ["al", "ways"],
+        "stress": [1, 0],
+        "phonetic_spelling": "AWL-wayz",
+        "emphasis": "first syllable",
+        "category": "adverb",
+        "aliases": ["forever", "constantly"],
+        "description": "At all times"
+      },
+      "never": {
+        "ipa": "/ˈnɛvər/",
+        "syllables": ["nev", "er"],
+        "stress": [1, 0],
+        "phonetic_spelling": "NEV-er",
+        "emphasis": "first syllable",
+        "category": "adverb",
+        "description": "At no time"
+      },
+      "soon": {
+        "ipa": "/suːn/",
+        "syllables": ["soon"],
+        "stress": [1],
+        "phonetic_spelling": "SOON",
+        "emphasis": "single syllable",
+        "category": "adverb",
+        "aliases": ["shortly", "momentarily"],
+        "description": "In the near future"
+      },
+      "today": {
+        "ipa": "/təˈdeɪ/",
+        "syllables": ["to", "day"],
+        "stress": [0, 1],
+        "phonetic_spelling": "tuh-DAY",
+        "emphasis": "second syllable",
+        "category": "adverb",
+        "description": "Current day"
+      },
+      "tomorrow": {
+        "ipa": "/təˈmɒroʊ/",
+        "syllables": ["to", "mor", "row"],
+        "stress": [0, 1, 0],
+        "phonetic_spelling": "tuh-MAH-roh",
+        "emphasis": "second syllable",
+        "category": "adverb",
+        "description": "Following day"
+      },
+      "yesterday": {
+        "ipa": "/ˈjɛstərdeɪ/",
+        "syllables": ["yes", "ter", "day"],
+        "stress": [1, 0, 0],
+        "phonetic_spelling": "YES-ter-day",
+        "emphasis": "first syllable",
+        "category": "adverb",
+        "description": "Previous day"
+      }
+    },
+    "quantity_words": {
+      "more": {
+        "ipa": "/mɔːr/",
+        "syllables": ["more"],
+        "stress": [1],
+        "phonetic_spelling": "MOR",
+        "emphasis": "single syllable",
+        "category": "adverb",
+        "aliases": ["additional", "extra"],
+        "description": "Greater quantity"
+      },
+      "less": {
+        "ipa": "/lɛs/",
+        "syllables": ["less"],
+        "stress": [1],
+        "phonetic_spelling": "LES",
+        "emphasis": "single syllable",
+        "category": "adverb",
+        "aliases": ["fewer", "reduced"],
+        "description": "Smaller quantity"
+      },
+      "all": {
+        "ipa": "/ɔːl/",
+        "syllables": ["all"],
+        "stress": [1],
+        "phonetic_spelling": "AWL",
+        "emphasis": "single syllable",
+        "category": "determiner",
+        "aliases": ["everything", "entire"],
+        "description": "Complete amount"
+      },
+      "none": {
+        "ipa": "/nʌn/",
+        "syllables": ["none"],
+        "stress": [1],
+        "phonetic_spelling": "NUN",
+        "emphasis": "single syllable",
+        "category": "pronoun",
+        "aliases": ["nothing", "zero"],
+        "description": "No amount"
+      },
+      "some": {
+        "ipa": "/sʌm/",
+        "syllables": ["some"],
+        "stress": [1],
+        "phonetic_spelling": "SUM",
+        "emphasis": "single syllable",
+        "category": "determiner",
+        "aliases": ["a few", "several"],
+        "description": "Partial amount"
+      },
+      "many": {
+        "ipa": "/ˈmɛni/",
+        "syllables": ["man", "y"],
+        "stress": [1, 0],
+        "phonetic_spelling": "MEN-ee",
+        "emphasis": "first syllable",
+        "category": "determiner",
+        "aliases": ["numerous", "lots"],
+        "description": "Large number"
+      },
+      "few": {
+        "ipa": "/fjuː/",
+        "syllables": ["few"],
+        "stress": [1],
+        "phonetic_spelling": "FYOO",
+        "emphasis": "single syllable",
+        "category": "determiner",
+        "aliases": ["scarce", "limited"],
+        "description": "Small number"
+      },
+      "first": {
+        "ipa": "/fɜːrst/",
+        "syllables": ["first"],
+        "stress": [1],
+        "phonetic_spelling": "FERST",
+        "emphasis": "single syllable",
+        "category": "adjective",
+        "aliases": ["initial", "primary"],
+        "description": "Beginning position"
+      },
+      "last": {
+        "ipa": "/læst/",
+        "syllables": ["last"],
+        "stress": [1],
+        "phonetic_spelling": "LAST",
+        "emphasis": "single syllable",
+        "category": "adjective",
+        "aliases": ["final", "end"],
+        "description": "End position"
+      },
+      "next": {
+        "ipa": "/nɛkst/",
+        "syllables": ["next"],
+        "stress": [1],
+        "phonetic_spelling": "NEKST",
+        "emphasis": "single syllable",
+        "category": "adjective",
+        "aliases": ["following", "subsequent"],
+        "description": "Immediately following"
+      },
+      "previous": {
+        "ipa": "/ˈpriːviəs/",
+        "syllables": ["pre", "vi", "ous"],
+        "stress": [1, 0, 0],
+        "phonetic_spelling": "PREE-vee-uhs",
+        "emphasis": "first syllable",
+        "category": "adjective",
+        "aliases": ["prior", "preceding"],
+        "description": "Coming before"
+      }
+    },
+    "state_words": {
+      "ready": {
+        "ipa": "/ˈrɛdi/",
+        "syllables": ["read", "y"],
+        "stress": [1, 0],
+        "phonetic_spelling": "RED-ee",
+        "emphasis": "first syllable",
+        "category": "adjective",
+        "aliases": ["prepared", "set"],
+        "description": "State of preparation"
+      },
+      "busy": {
+        "ipa": "/ˈbɪzi/",
+        "syllables": ["bus", "y"],
+        "stress": [1, 0],
+        "phonetic_spelling": "BIZ-ee",
+        "emphasis": "first syllable",
+        "category": "adjective",
+        "aliases": ["occupied", "working"],
+        "description": "State of activity"
+      },
+      "available": {
+        "ipa": "/əˈveɪləbəl/",
+        "syllables": ["a", "vail", "a", "ble"],
+        "stress": [0, 1, 0, 0],
+        "phonetic_spelling": "uh-VAY-luh-buhl",
+        "emphasis": "second syllable",
+        "category": "adjective",
+        "aliases": ["free", "accessible"],
+        "description": "State of availability"
+      },
+      "complete": {
+        "ipa": "/kəmˈpliːt/",
+        "syllables": ["com", "plete"],
+        "stress": [0, 1],
+        "phonetic_spelling": "kum-PLEET",
+        "emphasis": "second syllable",
+        "category": "adjective",
+        "aliases": ["done", "finished"],
+        "description": "State of completion"
+      },
+      "pending": {
+        "ipa": "/ˈpɛndɪŋ/",
+        "syllables": ["pend", "ing"],
+        "stress": [1, 0],
+        "phonetic_spelling": "PEN-ding",
+        "emphasis": "first syllable",
+        "category": "adjective",
+        "aliases": ["waiting", "in progress"],
+        "description": "Awaiting completion"
+      },
+      "active": {
+        "ipa": "/ˈæktɪv/",
+        "syllables": ["ac", "tive"],
+        "stress": [1, 0],
+        "phonetic_spelling": "AK-tiv",
+        "emphasis": "first syllable",
+        "category": "adjective",
+        "aliases": ["running", "engaged"],
+        "description": "Currently operating"
+      },
+      "inactive": {
+        "ipa": "/ɪnˈæktɪv/",
+        "syllables": ["in", "ac", "tive"],
+        "stress": [0, 1, 0],
+        "phonetic_spelling": "in-AK-tiv",
+        "emphasis": "second syllable",
+        "category": "adjective",
+        "aliases": ["idle", "dormant"],
+        "description": "Not currently operating"
+      },
+      "enabled": {
+        "ipa": "/ɪˈneɪbəld/",
+        "syllables": ["en", "a", "bled"],
+        "stress": [0, 1, 0],
+        "phonetic_spelling": "en-AY-buhld",
+        "emphasis": "second syllable",
+        "category": "adjective",
+        "aliases": ["on", "activated"],
+        "description": "Turned on or permitted"
+      },
+      "disabled": {
+        "ipa": "/dɪsˈeɪbəld/",
+        "syllables": ["dis", "a", "bled"],
+        "stress": [0, 1, 0],
+        "phonetic_spelling": "dis-AY-buhld",
+        "emphasis": "second syllable",
+        "category": "adjective",
+        "aliases": ["off", "deactivated"],
+        "description": "Turned off or restricted"
+      },
+      "processing": {
+        "ipa": "/ˈprɒsɛsɪŋ/",
+        "syllables": ["pro", "cess", "ing"],
+        "stress": [1, 0, 0],
+        "phonetic_spelling": "PRAH-ses-ing",
+        "emphasis": "first syllable",
+        "category": "adjective",
+        "aliases": ["working", "computing"],
+        "description": "Currently processing"
+      },
+      "waiting": {
+        "ipa": "/ˈweɪtɪŋ/",
+        "syllables": ["wait", "ing"],
+        "stress": [1, 0],
+        "phonetic_spelling": "WAY-ting",
+        "emphasis": "first syllable",
+        "category": "adjective",
+        "aliases": ["standing by", "on hold"],
+        "description": "In waiting state"
+      },
+      "error": {
+        "ipa": "/ˈɛrər/",
+        "syllables": ["er", "ror"],
+        "stress": [1, 0],
+        "phonetic_spelling": "ER-er",
+        "emphasis": "first syllable",
+        "category": "noun",
+        "aliases": ["mistake", "fault"],
+        "description": "Error state"
+      },
+      "success": {
+        "ipa": "/səkˈsɛs/",
+        "syllables": ["suc", "cess"],
+        "stress": [0, 1],
+        "phonetic_spelling": "suk-SES",
+        "emphasis": "second syllable",
+        "category": "noun",
+        "aliases": ["completed", "achieved"],
+        "description": "Successful completion"
+      },
+      "failed": {
+        "ipa": "/feɪld/",
+        "syllables": ["failed"],
+        "stress": [1],
+        "phonetic_spelling": "FAYLD",
+        "emphasis": "single syllable",
+        "category": "adjective",
+        "aliases": ["unsuccessful", "aborted"],
+        "description": "Failure state"
+      }
+    },
+    "directional_words": {
+      "here": {
+        "ipa": "/hɪər/",
+        "syllables": ["here"],
+        "stress": [1],
+        "phonetic_spelling": "HEER",
+        "emphasis": "single syllable",
+        "category": "adverb",
+        "aliases": ["this place", "current location"],
+        "description": "This location"
+      },
+      "there": {
+        "ipa": "/ðɛər/",
+        "syllables": ["there"],
+        "stress": [1],
+        "phonetic_spelling": "THAIR",
+        "emphasis": "single syllable",
+        "category": "adverb",
+        "aliases": ["that place"],
+        "description": "That location"
+      },
+      "above": {
+        "ipa": "/əˈbʌv/",
+        "syllables": ["a", "bove"],
+        "stress": [0, 1],
+        "phonetic_spelling": "uh-BUV",
+        "emphasis": "second syllable",
+        "category": "preposition",
+        "aliases": ["over", "higher"],
+        "description": "Higher position"
+      },
+      "below": {
+        "ipa": "/bɪˈloʊ/",
+        "syllables": ["be", "low"],
+        "stress": [0, 1],
+        "phonetic_spelling": "bih-LOH",
+        "emphasis": "second syllable",
+        "category": "preposition",
+        "aliases": ["under", "lower"],
+        "description": "Lower position"
+      },
+      "inside": {
+        "ipa": "/ˌɪnˈsaɪd/",
+        "syllables": ["in", "side"],
+        "stress": [0, 1],
+        "phonetic_spelling": "in-SYD",
+        "emphasis": "second syllable",
+        "category": "preposition",
+        "aliases": ["within", "interior"],
+        "description": "Interior position"
+      },
+      "outside": {
+        "ipa": "/ˌaʊtˈsaɪd/",
+        "syllables": ["out", "side"],
+        "stress": [0, 1],
+        "phonetic_spelling": "owt-SYD",
+        "emphasis": "second syllable",
+        "category": "preposition",
+        "aliases": ["exterior", "beyond"],
+        "description": "Exterior position"
+      },
+      "forward": {
+        "ipa": "/ˈfɔːrwərd/",
+        "syllables": ["for", "ward"],
+        "stress": [1, 0],
+        "phonetic_spelling": "FOR-werd",
+        "emphasis": "first syllable",
+        "category": "adverb",
+        "aliases": ["ahead", "onward"],
+        "description": "Forward direction"
+      },
+      "backward": {
+        "ipa": "/ˈbækwərd/",
+        "syllables": ["back", "ward"],
+        "stress": [1, 0],
+        "phonetic_spelling": "BAK-werd",
+        "emphasis": "first syllable",
+        "category": "adverb",
+        "aliases": ["behind", "reverse"],
+        "description": "Backward direction"
+      }
+    },
+    "connector_words": {
+      "and": {
+        "ipa": "/ænd/",
+        "syllables": ["and"],
+        "stress": [1],
+        "phonetic_spelling": "AND",
+        "emphasis": "single syllable",
+        "category": "conjunction",
+        "aliases": ["plus", "also"],
+        "description": "Addition connector"
+      },
+      "or": {
+        "ipa": "/ɔːr/",
+        "syllables": ["or"],
+        "stress": [1],
+        "phonetic_spelling": "OR",
+        "emphasis": "single syllable",
+        "category": "conjunction",
+        "aliases": ["alternatively"],
+        "description": "Alternative connector"
+      },
+      "but": {
+        "ipa": "/bʌt/",
+        "syllables": ["but"],
+        "stress": [1],
+        "phonetic_spelling": "BUT",
+        "emphasis": "single syllable",
+        "category": "conjunction",
+        "aliases": ["however", "yet"],
+        "description": "Contrast connector"
+      },
+      "then": {
+        "ipa": "/ðɛn/",
+        "syllables": ["then"],
+        "stress": [1],
+        "phonetic_spelling": "THEN",
+        "emphasis": "single syllable",
+        "category": "adverb",
+        "aliases": ["next", "afterward"],
+        "description": "Sequence connector"
+      },
+      "if": {
+        "ipa": "/ɪf/",
+        "syllables": ["if"],
+        "stress": [1],
+        "phonetic_spelling": "IF",
+        "emphasis": "single syllable",
+        "category": "conjunction",
+        "aliases": ["when", "provided"],
+        "description": "Conditional connector"
+      },
+      "else": {
+        "ipa": "/ɛls/",
+        "syllables": ["else"],
+        "stress": [1],
+        "phonetic_spelling": "ELS",
+        "emphasis": "single syllable",
+        "category": "adverb",
+        "aliases": ["otherwise", "alternatively"],
+        "description": "Alternative condition"
+      },
+      "because": {
+        "ipa": "/bɪˈkɒz/",
+        "syllables": ["be", "cause"],
+        "stress": [0, 1],
+        "phonetic_spelling": "bih-KAWZ",
+        "emphasis": "second syllable",
+        "category": "conjunction",
+        "aliases": ["since", "as"],
+        "description": "Reason connector"
+      },
+      "therefore": {
+        "ipa": "/ˈðɛərfɔːr/",
+        "syllables": ["there", "fore"],
+        "stress": [1, 0],
+        "phonetic_spelling": "THAIR-for",
+        "emphasis": "first syllable",
+        "category": "adverb",
+        "aliases": ["thus", "hence"],
+        "description": "Conclusion connector"
+      },
+      "however": {
+        "ipa": "/haʊˈɛvər/",
+        "syllables": ["how", "ev", "er"],
+        "stress": [0, 1, 0],
+        "phonetic_spelling": "how-EV-er",
+        "emphasis": "second syllable",
+        "category": "adverb",
+        "aliases": ["nevertheless", "nonetheless"],
+        "description": "Contrast connector"
+      },
+      "also": {
+        "ipa": "/ˈɔːlsoʊ/",
+        "syllables": ["al", "so"],
+        "stress": [1, 0],
+        "phonetic_spelling": "AWL-soh",
+        "emphasis": "first syllable",
+        "category": "adverb",
+        "aliases": ["too", "additionally"],
+        "description": "Addition marker"
+      }
     }
   }
 }
