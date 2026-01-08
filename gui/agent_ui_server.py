@@ -78,6 +78,9 @@ class AgentUIHandler(BaseHTTPRequestHandler):
         if path == "/api/actions":
             return self._send_json({"actions": self.server.ui_context.list_actions()})
 
+        if path == "/api/world_model":
+            return self._send_json(self.server.ui_context.get_world_model())
+
         if path == "/api/events":
             return self._handle_sse_events()
 

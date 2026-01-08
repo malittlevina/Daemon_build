@@ -14,9 +14,11 @@ import subprocess
 import json
 import time
 import os
+import uuid
 from datetime import date
 from daemon.state_manager import StateManager
 from core.event_bus import GLOBAL_EVENT_BUS
+from core.event_sinks import start_jsonl_event_sink
 
 # Flag to control use of Ollama fallback
 USE_OLLAMA = False  # Set to True to enable Ollama fallback
@@ -49,6 +51,16 @@ if __name__ == "__main__":
         threading.Thread(target=start_voice_listener, daemon=True).start()
     # threading.Thread(target=vision.classify_surroundings, daemon=True).start()
     threading.Thread(target=run_auto_optimization, daemon=True).start()
+
+    # Optional event persistence (timeline replay/training)
+    ENABLE_EVENT_LOG = os.getenv("ENABLE_EVENT_LOG", "0") in ("1", "true", "True", "yes", "YES")
+    if ENABLE_EVENT_LOG:
+        try:
+            start_jsonl_event_sink(GLOBAL_EVENT_BUS, path=os.getenv("EVENT_LOG_PATH", "logs/agent_ui_events.jsonl"))
+            print("[EventLog] Writing JSONL to logs/agent_ui_events.jsonl")
+        except Exception as e:
+            print(f"[EventLog] Failed to start: {e}")
+            GLOBAL_EVENT_BUS.publish("event_log.error", {"error": str(e)}, source="daemon", severity="error", tags=["daemon"])
 
     # Optional AI-first GUI contract server (state/actions/events)
     ENABLE_AGENT_UI = os.getenv("ENABLE_AGENT_UI", "0") in ("1", "true", "True", "yes", "YES")
@@ -113,10 +125,16 @@ if __name__ == "__main__":
                 GLOBAL_EVENT_BUS.publish("daemon.reflect.tick", {}, source="daemon", tags=["daemon", "unimind"])
                 unimind.reflect()
             else:
+                trace_id = str(uuid.uuid4())
                 result = None
                 if nlu:
                     try:
-                        GLOBAL_EVENT_BUS.publish("daemon.input", {"text": user_input}, source="daemon", tags=["input"])
+                        GLOBAL_EVENT_BUS.publish(
+                            "daemon.input",
+                            {"text": user_input, "trace_id": trace_id},
+                            source="daemon",
+                            tags=["input", f"trace:{trace_id}"],
+                        )
                         result = nlu.interpret(user_input)
                         if result is None or (isinstance(result, str) and result.startswith("[NLUEngine] No known intent")):
                             result = handle_fallback(user_input)
@@ -128,7 +146,12 @@ if __name__ == "__main__":
                     result = handle_fallback(user_input)
 
                 print(f"[Daemon] NLU Result: {result}")
-                GLOBAL_EVENT_BUS.publish("daemon.output", {"result": result}, source="daemon", tags=["output"])
+                GLOBAL_EVENT_BUS.publish(
+                    "daemon.output",
+                    {"result": result, "trace_id": trace_id},
+                    source="daemon",
+                    tags=["output"] + ([f"trace:{trace_id}"] if trace_id else []),
+                )
 
         except Exception as loop_error:
             print(f"[Daemon Critical Loop Error] {loop_error}")

@@ -65,6 +65,52 @@ class DaemonUIContext:
             },
         ]
 
+    def get_world_model(self) -> Dict[str, Any]:
+        """
+        Minimal world model graph (nodes + edges).
+
+        This is intentionally simple and stable; we can enrich it with:
+        - sensor confidence
+        - health/latency metrics
+        - memory pointers/citations
+        - active goals/plans
+        """
+
+        nodes: List[Dict[str, Any]] = []
+        edges: List[Dict[str, Any]] = []
+
+        def add_node(node_id: str, label: str, kind: str, meta: Optional[Dict[str, Any]] = None) -> None:
+            nodes.append({"id": node_id, "label": label, "kind": kind, "meta": meta or {}})
+
+        def add_edge(src: str, dst: str, rel: str) -> None:
+            edges.append({"from": src, "to": dst, "rel": rel})
+
+        add_node("daemon:prometheus", "Prometheus (daemon)", "daemon")
+        add_node("unimind:core", "Unimind", "agent", meta={"module_counts": self.get_state().get("unimind", {}).get("modules", {})})
+        add_node("rituals:registry", "RitualRegistry", "registry", meta={"registered": len(getattr(self.rituals, "registered_rituals", {})), "dynamic": len(getattr(self.rituals, "dynamic_rituals", {}))})
+        add_node("state:manager", "StateManager", "state")
+        add_node("events:bus", "EventBus", "events")
+
+        add_edge("daemon:prometheus", "unimind:core", "hosts")
+        add_edge("daemon:prometheus", "rituals:registry", "routes_commands_to")
+        add_edge("daemon:prometheus", "state:manager", "persists_state_in")
+        add_edge("daemon:prometheus", "events:bus", "publishes_events_to")
+        add_edge("unimind:core", "events:bus", "publishes_events_to")
+        add_edge("rituals:registry", "events:bus", "publishes_events_to")
+        add_edge("state:manager", "events:bus", "publishes_events_to")
+
+        # Ritual nodes (top-level only, to keep graph readable)
+        for r in list(getattr(self.rituals, "registered_rituals", {}).keys()):
+            rid = f"ritual:{r}"
+            add_node(rid, r, "ritual", meta={"type": "registered"})
+            add_edge("rituals:registry", rid, "registers")
+        for r in list(getattr(self.rituals, "dynamic_rituals", {}).keys()):
+            rid = f"ritual:{r}"
+            add_node(rid, r, "ritual", meta={"type": "dynamic"})
+            add_edge("rituals:registry", rid, "registers")
+
+        return {"version": "0.1", "nodes": nodes, "edges": edges}
+
     def invoke_action(self, name: str, args: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
         args = args or {}
 

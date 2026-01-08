@@ -54,6 +54,20 @@
         </div>
 
         <div class="card">
+          <h2>World model (graph)</h2>
+          <div class="content">
+            <div class="small">Nodes and edges (v0.1). This will evolve into the full dashboard.</div>
+            <div style="height:8px"></div>
+            <div class="row">
+              <button id="btnWorldModel" class="secondary">Load graph</button>
+              <button id="btnWorldModelClear" class="secondary">Clear</button>
+            </div>
+            <div style="height:10px"></div>
+            <pre id="worldModel" style="margin:0; white-space:pre-wrap; word-break:break-word; font-size:12px; opacity:.92"></pre>
+          </div>
+        </div>
+
+        <div class="card">
           <h2>Actions</h2>
           <div class="content stack">
             <button id="btnReflect" class="secondary">Unimind.reflect()</button>
@@ -80,6 +94,7 @@
       const ritualName = $("ritualName");
       const ritualContext = $("ritualContext");
       const sseStatus = $("sseStatus");
+      const worldModel = $("worldModel");
 
       function pill(sev) {
         const cls = sev === "error" ? "pill error" : "pill info";
@@ -149,6 +164,11 @@
       $("btnRefresh").onclick = refresh;
       $("btnPause").onclick = () => invoke("daemon.toggle_pause");
       $("btnReflect").onclick = () => invoke("unimind.reflect");
+      $("btnWorldModel").onclick = async () => {
+        const wm = await apiGet("/api/world_model");
+        worldModel.textContent = JSON.stringify(wm, null, 2);
+      };
+      $("btnWorldModelClear").onclick = () => { worldModel.textContent = ""; };
       $("btnCast").onclick = () => {
         let ctx = {};
         const raw = ritualContext.value.trim();

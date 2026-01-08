@@ -16,7 +16,8 @@ class RitualRegistry:
         self.dynamic_rituals = {}
 
     # ---- Static Rituals ----
-    def cast_ritual(self, ritual_name: str, context: dict = {}):
+    def cast_ritual(self, ritual_name: str, context: dict | None = None):
+        context = context or {}
         if ritual_name in self.registered_rituals:
             return self.registered_rituals[ritual_name](context)
         elif ritual_name in self.dynamic_rituals:
