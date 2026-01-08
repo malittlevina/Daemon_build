@@ -5,6 +5,14 @@
   "emotion_engine_tuning": true,
   "reflection_journal_enabled": true,
   "rituals_enabled": true,
+  "os_preference": {
+    "target_os": "PrometheusOS",
+    "prioritize_native": true,
+    "native_indicators": [
+      "PROMETHEUS_OS_ACTIVE",
+      "/etc/prometheus_release"
+    ]
+  },
   "modules_to_load": [
     "unimind",
     "codex",

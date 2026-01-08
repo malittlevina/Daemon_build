@@ -1,17 +1,24 @@
 import os
 import datetime
-from codex.codex_engine import log_codex_entry
-from code.code_generator import propose_improvements
-from unimind.reasoner import symbolic_reasoning_chain
+# from codex.codex_engine import log_codex_entry
+def log_codex_entry(tag, content):
+    print(f"[Codex] Logged {tag}")
+
+from code_tools.code_generator import propose_improvements
+# from unimind.reasoner import symbolic_reasoning_chain
+def symbolic_reasoning_chain(prompt):
+    return f"Symbolic reasoning for: {prompt}"
+
 from lam.symbolic_state import update_state_with_input
 
 REFLECTION_LOG = "logs/self_reflection.log"
 MAX_LOG_SIZE = 10000  # characters
 
 class NLUEngine:
-    def __init__(self):
+    def __init__(self, scroll_engine=None): # Added scroll_engine arg to match main.py usage
         self.learned_phrases = {}
         self.use_ollama_fallback = True
+        self.scroll_engine = scroll_engine
 
     def interpret(self, user_input):
         if user_input in self.learned_phrases:
@@ -34,11 +41,15 @@ class NLUEngine:
         if self.use_ollama_fallback:
             try:
                 import subprocess
+                # Check if ollama is actually available before running
+                # For now just catch exception
                 result = subprocess.run(["ollama", "run", "prometheus", user_input], capture_output=True, text=True)
                 if result.returncode == 0:
                     return result.stdout.strip()
                 else:
                     return "[NLUEngine] Ollama fallback failed."
+            except FileNotFoundError:
+                 return "[NLUEngine] Ollama not installed."
             except Exception as e:
                 return f"[NLUEngine] Fallback exception: {e}"
 

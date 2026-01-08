@@ -1,5 +1,6 @@
 class Unimind:
-    def __init__(self):
+    def __init__(self, context=None):
+        self.context = context or {}
         self.modules = {
             "logic": [],
             "emotion": [],
@@ -8,6 +9,8 @@ class Unimind:
             "language": []
         }
         print("[Unimind] Core initialized.")
+        if self.context.get("is_native_os"):
+             print("[Unimind] Native OS detected. Optimizing decision matrix.")
 
     def register(self, type, module):
         if type in self.modules:

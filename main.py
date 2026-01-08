@@ -1,4 +1,5 @@
 import threading
+from daemon.state_manager import StateManager
 from unimind.core import Unimind
 from prometheus.specialties import PrometheusSpecialties
 from codex.ingestion import ingest_documents
@@ -20,7 +21,15 @@ from datetime import date
 USE_OLLAMA = False  # Set to True to enable Ollama fallback
 
 if __name__ == "__main__":
-    unimind = Unimind()
+    state_manager = StateManager()
+    ctx = state_manager.get_context()
+    
+    if ctx.get("is_native_os"):
+        print(f"[Daemon] Native Environment ({ctx.get('os_type')}) Detected. Prioritizing System Integration.")
+    else:
+        print(f"[Daemon] Generic Environment ({ctx.get('os_type')}) Detected. Running in Compatibility Mode.")
+
+    unimind = Unimind(context=ctx)
     prom = PrometheusSpecialties()
     emotions = EmotionEngine()
     memory = MemoryLogger()
