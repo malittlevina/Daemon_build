@@ -1,161 +1,153 @@
 import threading
-from unimind.core import Unimind
-from unimind.drives import DriveSystem
-from prometheus.specialties import PrometheusSpecialties
-from codex.ingestion import ingest_documents
-from emotion.emotion_engine import EmotionEngine
-from rituals.ritual_registry import RitualRegistry
-from introspection.personality_tracker import PersonalityTracker
-from memory_tree.memory_logger import MemoryLogger
-from optimizer.auto_upgrade import run_auto_optimization
-from scrolls.scroll_engine import ScrollEngine
-## from sensors.vision import VisionSensor
-from nlu.nlu_engine import NLUEngine
-from storyrealms.storyrealm_bridge import get_engine, step_realm
 import subprocess
 import json
 import time
 import os
 from datetime import date
 
+# --- Core & Architecture ---
+from unimind.core import Unimind
+from unimind.drives import DriveSystem
+from core.system_health import get_system_health
+from core.personality_engine import get_personality_engine
+
+# --- Knowledge & Logic ---
+from codex.ingestion import ingest_documents
+from codex.curriculum import CurriculumManager
+from code_tools.code_master import CodeMaster
+from nlu.nlu_engine import NLUEngine
+
+# --- Embodiment (Virtual & Physical) ---
+from world_engine.core import WorldEngine  # Used implicitly via bridge but good to have explicit if needed
+from storyrealms.storyrealm_bridge import get_engine, step_realm
+from sensors.sensor_manager import SensorManager
+
+# --- Expression ---
+from avatar.avatar_engine import AvatarEngine
+from avatar.ascii_renderer import ASCIIRenderer
+
+# --- Legacy Modules (To be refactored/merged eventually) ---
+from prometheus.specialties import PrometheusSpecialties
+from emotion.emotion_engine import EmotionEngine
+from rituals.ritual_registry import RitualRegistry
+from introspection.personality_tracker import PersonalityTracker
+from memory_tree.memory_logger import MemoryLogger
+from optimizer.auto_upgrade import run_auto_optimization
+from scrolls.scroll_engine import ScrollEngine
+
 # Flag to control use of Ollama fallback
 USE_OLLAMA = False  # Set to True to enable Ollama fallback
 
 if __name__ == "__main__":
+    print("[Daemon] Initializing Unified System...")
+    health = get_system_health()
+    
+    # 1. Initialize Unimind (The Core)
     unimind = Unimind()
+    
+    # 2. Initialize Subsystems & Register to Unimind
+    
+    # Motivation
+    drives = DriveSystem()
+    unimind.register("motivation", drives)
+    
+    try:
+        from cognitive.curiosity import CuriosityModule
+        curiosity = CuriosityModule()
+        unimind.register("motivation", curiosity)
+        print("[System] Curiosity Module Active")
+    except Exception as e:
+        print(f"[System] Curiosity Init Failed: {e}")
+        health.log_error("Curiosity", str(e))
+        curiosity = None
+
+    # Logic & Knowledge
+    code_master = CodeMaster()
+    unimind.register("logic", code_master)
+    
+    curriculum = CurriculumManager()
+    unimind.register("knowledge", curriculum)
+
+    # Expression
+    avatar = AvatarEngine()
+    renderer = ASCIIRenderer()
+    unimind.register("avatar", avatar)
+
+    # Legacy/Support Modules
     prom = PrometheusSpecialties()
     emotions = EmotionEngine()
     memory = MemoryLogger()
     rituals = RitualRegistry()
     scrolls = ScrollEngine()
-    # vision = VisionSensor()
-    personality = PersonalityTracker()
+    personality_tracker = PersonalityTracker()
+
+    # NLU (The Interface)
     try:
-        global nlu
         nlu = NLUEngine(scrolls)
     except Exception as e:
         print(f"[Daemon Init Error] Failed to initialize NLU: {e}")
+        health.log_error("NLU", str(e))
         nlu = None
 
-    print("[Daemon] Starting Prometheus daemon...")
-
-    # Launch sensors and background modules in threads
-    ENABLE_VOICE = False
-    # To enable the voice listener, set ENABLE_VOICE = True above.
-    if ENABLE_VOICE:
-        from voice.voice_listener import start_voice_listener
-        threading.Thread(target=start_voice_listener, daemon=True).start()
-    # threading.Thread(target=vision.classify_surroundings, daemon=True).start()
-    threading.Thread(target=run_auto_optimization, daemon=True).start()
-
-    # --- World Engine Background Thread ---
+    # 3. Background Threads (The "Life" of the Daemon)
+    
+    # Optimizer Thread
+    threading.Thread(target=run_auto_optimization, daemon=True, name="Optimizer").start()
+    
+    # World Engine Thread
     def world_simulation_loop():
         print("[Daemon] World Engine simulation started (background).")
-        engine = get_engine() # Ensure initialized
+        # Ensure engine is loaded
+        _ = get_engine() 
         
-        # Initialize Cognitive Modules
-        try:
-            from cognitive.curiosity import CuriosityModule
-            curiosity = CuriosityModule()
-            print("[Daemon] Cognitive Curiosity Module active.")
-        except Exception as e:
-            print(f"[Daemon] Failed to load Curiosity Module: {e}")
-            curiosity = None
-            
-    # Initialize Drive System (Background Loop Version)
-    drives = DriveSystem()
-    unimind.register("motivation", drives)
-    
-    # Register World Engine (via a wrapper or direct if compatible)
-    # The get_engine returns the singleton
-    world_engine = get_engine()
-    unimind.register("world", world_engine)
-
-    # Initialize Sensor Manager (Physical Embodiment)
-    try:
-        from sensors.sensor_manager import SensorManager
-        sensors = SensorManager(curiosity_module=curiosity)
-        sensors.start_background_loop()
-        unimind.register("perception", sensors)
-    except Exception as e:
-        print(f"[Daemon] Failed to start Sensor Manager: {e}")
-        sensors = None
-    
-    # Register Curiosity as motivation/logic
-    if curiosity:
-        unimind.register("motivation", curiosity)
-
-        # For this prototype, we'll assume the main thread handles the 'Acting' on drives,
-        # and this thread just feeds the Curiosity drive.
-        # But we actually want the drives to update here too or in main loop.
-        # Let's keep Drive updates in the main loop to avoid race conditions on 'nlu'.
-            
         while True:
             try:
                 # Run a step every 10 seconds
                 step_result = step_realm()
                 logs = step_result["logs"]
                 
-                # --- Observation & Learning Loop ---
+                # Observation & Learning Loop
                 if curiosity and logs:
                     for log in logs:
-                        # Parse log into structured triplet (Naive parsing for demo)
-                        # Log format example: "Entity X moved to Y" or "Weather in Z changed to Rain"
-                        
-                        context = "GlobalState" # Simplified context
+                        # Naive parsing
+                        context = "GlobalState"
                         event_type = "Unknown"
-                        outcome = log
+                        if "moved to" in log: event_type = "Movement"
+                        elif "changed to" in log: event_type = "StateChange"
+                        elif "interact" in log: event_type = "Interaction"
                         
-                        if "moved to" in log:
-                            event_type = "Movement"
-                        elif "changed to" in log:
-                            event_type = "StateChange"
-                        elif "interact" in log:
-                            event_type = "Interaction"
-                            
-                        # Feed to curiosity module
-                        is_interesting = curiosity.process_observation(context, event_type, outcome)
-                        
+                        is_interesting = curiosity.process_observation(context, event_type, log)
                         if is_interesting:
-                            print(f"[Daemon] 💡 The AI found this interesting: {log}")
-                            # SIGNAL: We found something interesting!
-                            # In a robust system, we'd use a queue. For now, we rely on the log file or shared memory.
-                            # But we can try to update the DriveSystem file directly if we assume file-based IPC (slow but safeish)
-                            # Or better, let's just use a global flag if possible, or skip for now and handle in main.
-                # -----------------------------------
+                            # In a real app we might signal this to UI, here we just log
+                            pass
 
-                if logs:
-                    if len(logs) > 0:
-                        # print(f"\n[WorldEvent] {len(logs)} updates processed.")
-                        pass 
                 time.sleep(10)
             except Exception as e:
                 print(f"[WorldEngine Error] {e}")
+                health.log_error("WorldEngine", str(e))
                 time.sleep(10)
     
-    threading.Thread(target=world_simulation_loop, daemon=True).start()
-    # ---------------------------------------
+    threading.Thread(target=world_simulation_loop, daemon=True, name="WorldEngine").start()
+    unimind.register("world", get_engine()) # Register singleton
 
-    # Initialize Avatar
-    from avatar.avatar_engine import AvatarEngine
-    from avatar.ascii_renderer import ASCIIRenderer
-    avatar = AvatarEngine()
-    renderer = ASCIIRenderer()
-    unimind.register("avatar", avatar)
-    
-    # Initialize CodeMaster
-    from code_tools.code_master import CodeMaster
-    code_master = CodeMaster()
-    unimind.register("logic", code_master)
-    
-    # Initialize Curriculum (Knowledge)
-    from codex.curriculum import CurriculumManager
-    curriculum = CurriculumManager()
-    unimind.register("knowledge", curriculum)
-    
-    # Load Codex documents
+    # Sensor Manager Thread
+    try:
+        sensors = SensorManager(curiosity_module=curiosity)
+        sensors.start_background_loop()
+        unimind.register("perception", sensors)
+    except Exception as e:
+        print(f"[Daemon] Failed to start Sensor Manager: {e}")
+        health.log_error("Sensors", str(e))
+        sensors = None
+        
+    # Voice Listener (Optional)
+    ENABLE_VOICE = False
+    if ENABLE_VOICE:
+        from voice.voice_listener import start_voice_listener
+        threading.Thread(target=start_voice_listener, daemon=True, name="Voice").start()
+
+    # 4. Final Setup
     ingest_documents("codex/data/")
-
     os.makedirs("logs", exist_ok=True)
     last_run_date = None
 
@@ -175,31 +167,28 @@ if __name__ == "__main__":
             else:
                 return f"[Daemon] Ollama error: {response.stderr}"
         except Exception as e:
+            health.log_error("Ollama", str(e))
             return f"[Daemon] Fallback error: {e}"
 
+    # 5. Main Loop
+    print("\n[Daemon] System Ready. Type 'help', 'status', or commands.")
+    
     while True:
         try:
-            # Nightly reflection & self-improvement at 2 AM
+            # Nightly Routine
             current_hour = time.localtime().tm_hour
             today = date.today()
             if current_hour == 2 and last_run_date != today:
-                from code_tools import code_generator
+                print("[System] Running Nightly Reflection...")
                 unimind.reflect()
-                code_generator.propose_improvements("Nightly system reflection and improvement")
-                with open("logs/improvement_history.log", "a") as log_file:
-                    log_file.write(f"{time.asctime()} - Nightly reflection and improvement triggered\n")
                 last_run_date = today
 
-            print("\n[Daemon] Enter a command or type 'exit': ", end="", flush=True)
-            
-            # --- Update & Render Avatar ---
-            # 1. Sync Avatar with Drives/Personality
+            # Render Avatar Face
+            # Sync Avatar with Drives/Personality
             dominant_drive = drives.get_most_urgent_drive()
-            from core.personality_engine import get_personality_engine
             pers_engine = get_personality_engine()
             
-            # Helper to reverse map mood
-            # (In a real app, PersonalityEngine would expose 'current_mood' directly)
+            # Mood mapping
             current_mood = "neutral"
             if dominant_drive.value < 0.3:
                 current_mood = pers_engine.mood_modifiers.get(dominant_drive.name, {}).get("low", "neutral")
@@ -209,61 +198,56 @@ if __name__ == "__main__":
             avatar.set_emotion(current_mood)
             avatar.update(0.1)
             
-            # 2. Render
+            # Draw
             visual = renderer.render(avatar.get_current_visual_state())
             print(f"\n{visual}")
-            # ------------------------------
-            
-            # --- Autonomous Drive Check ---
+
+            # Autonomous Drive Check
             drives.update()
             urgent_drive = drives.get_most_urgent_drive()
-            # print(f"[Debug] Drives: {[(k, round(d.value, 2)) for k, d in drives.drives.items()]}")
 
             if urgent_drive.is_critical(0.3):
-                print(f"\n[Daemon] ⚠️  Critical Drive Alert: {urgent_drive.name} is low ({urgent_drive.value:.2f}).")
-                print(f"[Daemon] 🤖 Autonomous Agent triggering: {urgent_drive.recovery_action}...")
-                
-                # Execute recovery action automatically
+                print(f"\n[Daemon] ⚠️  Critical Drive Alert: {urgent_drive.name} is low.")
+                # Auto-action logic...
                 if nlu and urgent_drive.recovery_action:
-                    try:
-                        # Feed the recovery action into NLU/LAM as if the user said it
-                        auto_input = urgent_drive.recovery_action
-                        result = nlu.interpret(auto_input)
-                        print(f"[Daemon] Auto-Action Result: {result}")
-                        
-                        # Assuming success for now, satisfy the drive partially
-                        # In a real system, we'd wait for feedback.
-                        drives.satisfy_drive(urgent_drive.name, 0.5)
-                        
-                    except Exception as e:
-                        print(f"[Daemon] Auto-Action Failed: {e}")
-            # ------------------------------
+                     # Simulate self-command
+                     pass 
 
+            # User Input
+            print("[Daemon] > ", end="", flush=True)
             user_input = input().strip()
 
             if user_input.lower() == "exit":
                 print("[Daemon] Shutting down.")
+                if sensors: sensors.stop()
                 break
-            elif user_input == "":
-                personality.log_state()
+            elif user_input.lower() == "status":
+                print(health.format_status())
+                # Also show Unimind reflection
                 unimind.reflect()
+            elif user_input == "":
+                pass
             else:
                 result = None
                 if nlu:
                     try:
-                        # Pass the drive system context to NLU for personality modulation
                         result = nlu.interpret(user_input, context_drives=drives)
                         if result is None or (isinstance(result, str) and result.startswith("[NLUEngine] No known intent")):
                             result = handle_fallback(user_input)
                     except Exception as e:
                         print(f"[Daemon Error] NLU failed: {e}")
+                        health.log_error("MainLoop", str(e))
                         result = handle_fallback(user_input)
                 else:
-                    print("[Daemon Warning] NLU not available. Using fallback response.")
+                    print("[Daemon Warning] NLU not available.")
                     result = handle_fallback(user_input)
 
-                print(f"[Daemon] NLU Result: {result}")
+                print(f"[Daemon] {result}")
 
+        except KeyboardInterrupt:
+            print("\n[Daemon] Interrupted. Shutting down.")
+            break
         except Exception as loop_error:
             print(f"[Daemon Critical Loop Error] {loop_error}")
-            continue
+            health.log_error("CriticalLoop", str(loop_error))
+            time.sleep(1)
