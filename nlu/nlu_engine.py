@@ -24,6 +24,10 @@ class NLUEngine:
         self.curriculum = CurriculumManager()
         self.code_master = CodeMaster()
         self.trainer = Trainer()
+        self.hi_tuner = None # Will be injected or fetched
+
+    def set_tuner(self, tuner):
+        self.hi_tuner = tuner
 
     def interpret(self, user_input, context_drives=None):
         raw_response = self._get_raw_response(user_input)
