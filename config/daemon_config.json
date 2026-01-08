@@ -20,5 +20,15 @@
   "scroll_autostudy": {
     "trigger_count": 3,
     "daily_reset": true
+  },
+  "os_preference": {
+    "preferred_os": "thothos",
+    "prefer_thothos": true,
+    "allow_full_features_on_non_preferred_os": false,
+    "thothos_markers": {
+      "env_vars": ["THOTHOS", "THOTH_OS", "THOTHOS_NATIVE"],
+      "paths": ["/etc/thothos-release", "/etc/thothos/thothos.json"],
+      "project_files": [".thothos", "config/thothos.json"]
+    }
   }
 }

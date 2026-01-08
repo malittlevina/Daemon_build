@@ -1,8 +1,15 @@
-import cv2
-print(cv2.__version__)
+from __future__ import annotations
+
+try:
+    import cv2  # type: ignore
+except Exception as e:  # pragma: no cover
+    cv2 = None
+    _CV2_IMPORT_ERROR = e
 
 class VisionSensor:
     def __init__(self, model_path="sensors/yolo_model.onnx"):
+        if cv2 is None:
+            raise RuntimeError(f"OpenCV unavailable: {_CV2_IMPORT_ERROR}")
         self.model_path = model_path
         self.capture = cv2.VideoCapture(0)
 

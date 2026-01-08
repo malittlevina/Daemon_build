@@ -1,5 +1,5 @@
 class Unimind:
-    def __init__(self):
+    def __init__(self, runtime_context=None):
         self.modules = {
             "logic": [],
             "emotion": [],
@@ -7,6 +7,7 @@ class Unimind:
             "ethics": [],
             "language": []
         }
+        self.runtime_context = runtime_context
         print("[Unimind] Core initialized.")
 
     def register(self, type, module):
