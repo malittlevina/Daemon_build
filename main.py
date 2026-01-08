@@ -10,6 +10,7 @@ from optimizer.auto_upgrade import run_auto_optimization
 from scrolls.scroll_engine import ScrollEngine
 ## from sensors.vision import VisionSensor
 from nlu.nlu_engine import NLUEngine
+from storyrealms.storyrealm_bridge import get_engine, step_realm
 import subprocess
 import json
 import time
@@ -45,6 +46,30 @@ if __name__ == "__main__":
         threading.Thread(target=start_voice_listener, daemon=True).start()
     # threading.Thread(target=vision.classify_surroundings, daemon=True).start()
     threading.Thread(target=run_auto_optimization, daemon=True).start()
+
+    # --- World Engine Background Thread ---
+    def world_simulation_loop():
+        print("[Daemon] World Engine simulation started (background).")
+        engine = get_engine() # Ensure initialized
+        while True:
+            try:
+                # Run a step every 10 seconds
+                logs = step_realm()["logs"]
+                if logs:
+                    # Filter for interesting logs to show user, or just show summary count
+                    # For now, let's print them if they aren't empty
+                    # Use a prefix so it's clear it's the world engine
+                    # Only print if there's actual activity to avoid spam
+                    if len(logs) > 0:
+                        # print(f"\n[WorldEvent] {len(logs)} updates processed.")
+                        pass 
+                time.sleep(10)
+            except Exception as e:
+                print(f"[WorldEngine Error] {e}")
+                time.sleep(10)
+    
+    threading.Thread(target=world_simulation_loop, daemon=True).start()
+    # ---------------------------------------
 
     # Load Codex documents
     ingest_documents("codex/data/")

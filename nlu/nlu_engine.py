@@ -9,9 +9,12 @@ REFLECTION_LOG = "logs/self_reflection.log"
 MAX_LOG_SIZE = 10000  # characters
 
 class NLUEngine:
-    def __init__(self):
+    def __init__(self, scroll_engine=None):
         self.learned_phrases = {}
         self.use_ollama_fallback = True
+        self.scroll_engine = scroll_engine
+        from lam.lam_planner import plan_next_action
+        self.lam_planner = plan_next_action
 
     def interpret(self, user_input):
         if user_input in self.learned_phrases:
@@ -23,6 +26,32 @@ class NLUEngine:
             self.learned_phrases[user_input] = response
             return response
 
+        # Try LAM first
+        try:
+            # We pass a simplified symbolic state for now
+            lam_response = self.lam_planner(user_input, {"context": "daemon_cli"})
+            if lam_response and lam_response.startswith("[LAM]"):
+                intent = lam_response.replace("[LAM] ", "").lower().strip()
+                print(f"[NLU] LAM Intent Detected: {intent}")
+                
+                # If we have a scroll engine, try to execute the intent
+                if self.scroll_engine:
+                    if "world interaction" in intent:
+                         return self.scroll_engine.invoke("initiate world interaction scroll")
+                    elif "study" in intent:
+                        # Extract topic crudely
+                        topic = user_input.replace("study", "").strip()
+                        return self.scroll_engine.invoke("study topic", topic)
+                    elif "optimize" in intent:
+                        return self.scroll_engine.invoke("optimize self")
+                    # Add more mappings as needed
+                
+                return f"LAM suggested: {intent} (Action executed if supported)"
+                
+        except Exception as e:
+            print(f"[NLU] LAM Error: {e}")
+
+        # Fallback to older symbolic logic
         try:
             result = update_state_with_input(user_input, source="nlu")
         except TypeError:
