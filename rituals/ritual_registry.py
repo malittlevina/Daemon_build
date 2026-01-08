@@ -1,19 +1,27 @@
-# rituals/ritual_registry.py
+from core.module import Module
 
-from scrolls.scroll_engine import ScrollEngine
-
-class RitualRegistry:
-    def __init__(self):
-        self.scroll_engine = ScrollEngine()
-
+class RitualRegistry(Module):
+    def __init__(self, kernel):
+        super().__init__(kernel)
         # Static rituals (hardcoded)
         self.registered_rituals = {
             "optimize self": self.cast_optimize_self,
             "summon knowledge": self.cast_codex_query
         }
-
         # Dynamic rituals (added at runtime)
         self.dynamic_rituals = {}
+
+    def initialize(self):
+        print("[RitualRegistry] Initialized.")
+
+    def start(self):
+        pass
+
+    def stop(self):
+        pass
+
+    def get_scroll_engine(self):
+        return self.kernel.get_module("scrolls")
 
     # ---- Static Rituals ----
     def cast_ritual(self, ritual_name: str, context: dict = {}):
@@ -26,10 +34,16 @@ class RitualRegistry:
             return f"Unknown ritual: {ritual_name}"
 
     def cast_optimize_self(self, context):
-        return self.scroll_engine.cast_scroll("optimize self", context)
+        engine = self.get_scroll_engine()
+        if engine:
+            return engine.invoke("optimize self", *[], **context)
+        return "Scroll Engine not available"
 
     def cast_codex_query(self, context):
-        return self.scroll_engine.cast_scroll("summon scroll summary", context)
+        engine = self.get_scroll_engine()
+        if engine:
+            return engine.invoke("summon scroll summary", *[], **context)
+        return "Scroll Engine not available"
 
     # ---- Dynamic Rituals ----
     def register(self, name, trigger, action):

@@ -1,17 +1,42 @@
+from core.module import Module
 import os
 import datetime
-from codex.codex_engine import log_codex_entry
-from code.code_generator import propose_improvements
-from unimind.reasoner import symbolic_reasoning_chain
-from lam.symbolic_state import update_state_with_input
+import subprocess
+
+# Stubs for missing modules or future implementation
+def log_codex_entry(tag, summary):
+    # TODO: Connect to actual Codex module via Kernel
+    print(f"[Codex Stub] {tag}: {summary}")
+
+def symbolic_reasoning_chain(query):
+    return f"Reasoning about {query}..."
+
+def propose_improvements(context):
+    return "Optimize everything."
+
+def update_state_with_input(input_text, source="user"):
+    # TODO: Connect to LAM
+    return None
 
 REFLECTION_LOG = "logs/self_reflection.log"
 MAX_LOG_SIZE = 10000  # characters
 
-class NLUEngine:
-    def __init__(self):
+class NLUEngine(Module):
+    def __init__(self, kernel):
+        super().__init__(kernel)
         self.learned_phrases = {}
         self.use_ollama_fallback = True
+        self.scroll_engine = None # Will be resolved from kernel
+
+    def initialize(self):
+        print("[NLUEngine] Initialized.")
+        self.scroll_engine = self.kernel.get_module("scrolls")
+
+    def start(self):
+        pass
+
+    def stop(self):
+        pass
 
     def interpret(self, user_input):
         if user_input in self.learned_phrases:
@@ -23,39 +48,39 @@ class NLUEngine:
             self.learned_phrases[user_input] = response
             return response
 
+        # Try LAM state update (stubbed)
         try:
             result = update_state_with_input(user_input, source="nlu")
-        except TypeError:
-            result = update_state_with_input(user_input)
+            if result:
+                return result
+        except Exception as e:
+            print(f"[NLUEngine] LAM update failed: {e}")
 
-        if result:
-            return result
-
+        # Ollama Fallback
         if self.use_ollama_fallback:
             try:
-                import subprocess
+                # Check if ollama is installed/running before calling subprocess
+                # For now, we assume it might fail if not present
                 result = subprocess.run(["ollama", "run", "prometheus", user_input], capture_output=True, text=True)
                 if result.returncode == 0:
                     return result.stdout.strip()
                 else:
-                    return "[NLUEngine] Ollama fallback failed."
+                    return "[NLUEngine] Ollama fallback failed or model not found."
+            except FileNotFoundError:
+                return "[NLUEngine] Ollama not installed."
             except Exception as e:
                 return f"[NLUEngine] Fallback exception: {e}"
 
         return "[NLUEngine] No known intent"
 
+# Kept as standalone functions or move to a separate util module if needed
 def run_self_analysis():
     reflection = {}
-
-    # Symbolic diagnostic prompt
     reflection["timestamp"] = str(datetime.datetime.now())
     reflection["status"] = "Running self-analysis"
     reflection["reasoning_trace"] = symbolic_reasoning_chain("analyze internal state for weaknesses")
-
-    # Improvement suggestions
     reflection["proposed_improvements"] = propose_improvements("Nightly self-analysis of daemon")
-
-    # Log reflection to Codex
+    
     codex_summary = (
         f"Self-reflection at {reflection['timestamp']}\n"
         f"Status: {reflection['status']}\n"
@@ -63,13 +88,11 @@ def run_self_analysis():
         f"Proposed Fixes: {reflection['proposed_improvements']}"
     )
     log_codex_entry("reflection", codex_summary)
-
-    # Append to local log
+    
     with open(REFLECTION_LOG, "a") as log_file:
         log_file.write(codex_summary + "\n\n")
-
+    
     truncate_log_if_needed()
-
     return codex_summary
 
 def truncate_log_if_needed():

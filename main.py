@@ -1,78 +1,100 @@
 import threading
-from unimind.core import Unimind
-from prometheus.specialties import PrometheusSpecialties
-from codex.ingestion import ingest_documents
-from emotion.emotion_engine import EmotionEngine
-from rituals.ritual_registry import RitualRegistry
-from introspection.personality_tracker import PersonalityTracker
-from memory_tree.memory_logger import MemoryLogger
-from optimizer.auto_upgrade import run_auto_optimization
-from scrolls.scroll_engine import ScrollEngine
-## from sensors.vision import VisionSensor
-from nlu.nlu_engine import NLUEngine
-import subprocess
-import json
 import time
 import os
+import sys
 from datetime import date
 
-# Flag to control use of Ollama fallback
-USE_OLLAMA = False  # Set to True to enable Ollama fallback
+# Kernel Architecture
+from core.kernel import Kernel
 
-if __name__ == "__main__":
-    unimind = Unimind()
-    prom = PrometheusSpecialties()
-    emotions = EmotionEngine()
-    memory = MemoryLogger()
-    rituals = RitualRegistry()
-    scrolls = ScrollEngine()
-    # vision = VisionSensor()
-    personality = PersonalityTracker()
+# Modules
+from unimind.core import Unimind
+from prometheus.specialties import PrometheusSpecialties
+from emotion.emotion_engine import EmotionEngine
+from memory_tree.memory_logger import MemoryLogger
+from rituals.ritual_registry import RitualRegistry
+from scrolls.scroll_engine import ScrollEngine
+from introspection.personality_tracker import PersonalityTracker
+from nlu.nlu_engine import NLUEngine
+
+# Legacy/Utility imports (managed by modules internally or kept for specific uses)
+from codex.ingestion import ingest_documents
+from optimizer.auto_upgrade import run_auto_optimization
+
+# Flags
+USE_OLLAMA = False
+ENABLE_VOICE = False
+
+def handle_fallback(text):
+    if not USE_OLLAMA:
+        return "[Daemon] No known intent."
     try:
-        global nlu
-        nlu = NLUEngine(scrolls)
+        import subprocess
+        response = subprocess.run(
+            ["ollama", "run", "llama3"],
+            input=text,
+            text=True,
+            capture_output=True
+        )
+        if response.returncode == 0:
+            output = response.stdout
+            return output if output else "[Daemon] No response from Ollama."
+        else:
+            return f"[Daemon] Ollama error: {response.stderr}"
     except Exception as e:
-        print(f"[Daemon Init Error] Failed to initialize NLU: {e}")
-        nlu = None
+        return f"[Daemon] Fallback error: {e}"
 
-    print("[Daemon] Starting Prometheus daemon...")
+def main():
+    print("[Daemon] Booting Kernel...")
+    kernel = Kernel()
 
-    # Launch sensors and background modules in threads
-    ENABLE_VOICE = False
-    # To enable the voice listener, set ENABLE_VOICE = True above.
+    # Register Core Modules
+    kernel.register_module("unimind", Unimind(kernel))
+    kernel.register_module("prometheus", PrometheusSpecialties(kernel))
+    kernel.register_module("emotion", EmotionEngine(kernel))
+    kernel.register_module("memory", MemoryLogger(kernel))
+    kernel.register_module("scrolls", ScrollEngine(kernel)) # Rituals depends on Scrolls
+    kernel.register_module("rituals", RitualRegistry(kernel))
+    kernel.register_module("personality", PersonalityTracker(kernel))
+    kernel.register_module("nlu", NLUEngine(kernel))
+    
+    from daemon.state_manager import StateManager
+    kernel.register_module("state", StateManager(kernel))
+
+    # Initialize System
+    kernel.initialize()
+    kernel.start()
+
+    print("[Daemon] Prometheus daemon active.")
+
+    # Access Modules for Main Loop
+    nlu = kernel.get_module("nlu")
+    unimind = kernel.get_module("unimind")
+    personality = kernel.get_module("personality")
+    # memory = kernel.get_module("memory") # Used implicitly via events
+
+    # Launch background threads (managed here or within modules? 
+    # Ideally modules should manage their threads in start(), but adapting legacy)
+    
     if ENABLE_VOICE:
         from voice.voice_listener import start_voice_listener
         threading.Thread(target=start_voice_listener, daemon=True).start()
-    # threading.Thread(target=vision.classify_surroundings, daemon=True).start()
+
     threading.Thread(target=run_auto_optimization, daemon=True).start()
 
-    # Load Codex documents
-    ingest_documents("codex/data/")
+    # Load Codex documents (Legacy static call)
+    try:
+        ingest_documents("codex/data/")
+    except Exception as e:
+        print(f"[Daemon Warning] Codex ingestion skipped: {e}")
 
     os.makedirs("logs", exist_ok=True)
     last_run_date = None
 
-    def handle_fallback(text):
-        if not USE_OLLAMA:
-            return "[Daemon] No known intent."
-        try:
-            response = subprocess.run(
-                ["ollama", "run", "llama3"],
-                input=text,
-                text=True,
-                capture_output=True
-            )
-            if response.returncode == 0:
-                output = response.stdout
-                return output if output else "[Daemon] No response from Ollama."
-            else:
-                return f"[Daemon] Ollama error: {response.stderr}"
-        except Exception as e:
-            return f"[Daemon] Fallback error: {e}"
-
+    # Main Interaction Loop
     while True:
         try:
-            # Nightly reflection & self-improvement at 2 AM
+            # Nightly reflection check
             current_hour = time.localtime().tm_hour
             today = date.today()
             if current_hour == 2 and last_run_date != today:
@@ -84,7 +106,10 @@ if __name__ == "__main__":
                 last_run_date = today
 
             print("\n[Daemon] Enter a command or type 'exit': ", end="", flush=True)
-            user_input = input().strip()
+            try:
+                user_input = input().strip()
+            except EOFError:
+                break # Handle non-interactive mode gracefully
 
             if user_input.lower() == "exit":
                 print("[Daemon] Shutting down.")
@@ -107,7 +132,20 @@ if __name__ == "__main__":
                     result = handle_fallback(user_input)
 
                 print(f"[Daemon] NLU Result: {result}")
+                
+                # Dispatch input event to kernel for other observers
+                kernel.dispatch("user_input", {"text": user_input, "result": result})
 
+        except KeyboardInterrupt:
+            print("\n[Daemon] Interrupted. Shutting down.")
+            break
         except Exception as loop_error:
             print(f"[Daemon Critical Loop Error] {loop_error}")
+            # Prevent infinite fast loop on error
+            time.sleep(1)
             continue
+
+    kernel.stop()
+
+if __name__ == "__main__":
+    main()

@@ -1,3 +1,4 @@
+from core.module import Module
 from scrolls.scroll_event import ScrollEvent
 from scrolls.trigger_manager import check_scroll_triggers
 from scrolls.api_scrolls import execute_api_scroll
@@ -13,8 +14,9 @@ class ScrollTrigger:
             for action in self.actions:
                 action.execute(event)
 
-class ScrollEngine:
-    def __init__(self):
+class ScrollEngine(Module):
+    def __init__(self, kernel):
+        super().__init__(kernel)
         self.scrolls = {
             "optimize self": self._optimize_self,
             "study topic": self._study_topic,
@@ -23,6 +25,22 @@ class ScrollEngine:
             "multi step plan": self._multi_step_plan
         }
         self.active_scrolls = []
+
+    def initialize(self):
+        print("[ScrollEngine] Initialized.")
+        self.kernel.events.subscribe("scroll:invoke", self.handle_invoke_event)
+
+    def start(self):
+        pass
+
+    def stop(self):
+        pass
+
+    def handle_invoke_event(self, event_type, data):
+        name = data.get("name")
+        args = data.get("args", [])
+        kwargs = data.get("kwargs", {})
+        self.invoke(name, *args, **kwargs)
 
     def invoke(self, name, *args, **kwargs):
         if name in self.scrolls:
@@ -36,7 +54,7 @@ class ScrollEngine:
 
     def _study_topic(self, topic):
         from codex.ingestion import ingest_observation, ingest_web_or_pdf
-        from code_tools.tutor import study_topic  # Optional enhancement hook
+        # from code_tools.tutor import study_topic  # Optional enhancement hook
 
         if not topic:
             return "[Study] No topic provided."
@@ -135,12 +153,18 @@ class ScrollEngine:
         import os
         import time
         from codex.ingestion import ingest_observation
-        from code_tools.planner import generate_plan  # You need to implement this module
+        # from code_tools.planner import generate_plan  # You need to implement this module
 
         if not goal:
             return "[Planner] No goal provided."
 
-        plan = generate_plan(goal)
+        # Mocking generate_plan for now if it doesn't exist or isn't imported
+        try:
+            from code_tools.planner import generate_plan
+            plan = generate_plan(goal)
+        except ImportError:
+             plan = f"Plan for {goal}:\n1. Analyze.\n2. Execute.\n3. Verify."
+
         os.makedirs("logs", exist_ok=True)
         with open("logs/task_memory.log", "a") as log_file:
             log_file.write(f"{time.ctime()} - Goal: {goal}\nPlan: {plan}\n")
