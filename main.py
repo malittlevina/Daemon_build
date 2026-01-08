@@ -23,7 +23,6 @@ USE_OLLAMA = False  # Set to True to enable Ollama fallback
 
 if __name__ == "__main__":
     unimind = Unimind()
-    drives = DriveSystem()
     prom = PrometheusSpecialties()
     emotions = EmotionEngine()
     memory = MemoryLogger()
@@ -63,17 +62,29 @@ if __name__ == "__main__":
             print(f"[Daemon] Failed to load Curiosity Module: {e}")
             curiosity = None
             
-        # Initialize Sensor Manager (Physical Embodiment)
-        try:
-            from sensors.sensor_manager import SensorManager
-            sensors = SensorManager(curiosity_module=curiosity)
-            sensors.start_background_loop()
-        except Exception as e:
-            print(f"[Daemon] Failed to start Sensor Manager: {e}")
-            sensors = None
+    # Initialize Drive System (Background Loop Version)
+    drives = DriveSystem()
+    unimind.register("motivation", drives)
+    
+    # Register World Engine (via a wrapper or direct if compatible)
+    # The get_engine returns the singleton
+    world_engine = get_engine()
+    unimind.register("world", world_engine)
 
-        # Initialize Drive System (Background Loop Version)
-        # Note: In a real threaded app, we need thread-safe access to drives.
+    # Initialize Sensor Manager (Physical Embodiment)
+    try:
+        from sensors.sensor_manager import SensorManager
+        sensors = SensorManager(curiosity_module=curiosity)
+        sensors.start_background_loop()
+        unimind.register("perception", sensors)
+    except Exception as e:
+        print(f"[Daemon] Failed to start Sensor Manager: {e}")
+        sensors = None
+    
+    # Register Curiosity as motivation/logic
+    if curiosity:
+        unimind.register("motivation", curiosity)
+
         # For this prototype, we'll assume the main thread handles the 'Acting' on drives,
         # and this thread just feeds the Curiosity drive.
         # But we actually want the drives to update here too or in main loop.
