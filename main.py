@@ -136,6 +136,13 @@ if __name__ == "__main__":
     threading.Thread(target=world_simulation_loop, daemon=True).start()
     # ---------------------------------------
 
+    # Initialize Avatar
+    from avatar.avatar_engine import AvatarEngine
+    from avatar.ascii_renderer import ASCIIRenderer
+    avatar = AvatarEngine()
+    renderer = ASCIIRenderer()
+    unimind.register("avatar", avatar)
+    
     # Load Codex documents
     ingest_documents("codex/data/")
 
@@ -174,6 +181,28 @@ if __name__ == "__main__":
                 last_run_date = today
 
             print("\n[Daemon] Enter a command or type 'exit': ", end="", flush=True)
+            
+            # --- Update & Render Avatar ---
+            # 1. Sync Avatar with Drives/Personality
+            dominant_drive = drives.get_most_urgent_drive()
+            from core.personality_engine import get_personality_engine
+            pers_engine = get_personality_engine()
+            
+            # Helper to reverse map mood
+            # (In a real app, PersonalityEngine would expose 'current_mood' directly)
+            current_mood = "neutral"
+            if dominant_drive.value < 0.3:
+                current_mood = pers_engine.mood_modifiers.get(dominant_drive.name, {}).get("low", "neutral")
+            elif dominant_drive.value > 0.8:
+                current_mood = pers_engine.mood_modifiers.get(dominant_drive.name, {}).get("high", "neutral")
+            
+            avatar.set_emotion(current_mood)
+            avatar.update(0.1)
+            
+            # 2. Render
+            visual = renderer.render(avatar.get_current_visual_state())
+            print(f"\n{visual}")
+            # ------------------------------
             
             # --- Autonomous Drive Check ---
             drives.update()
