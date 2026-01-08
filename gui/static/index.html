@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Daemon Agent UI (contract v0.1)</title>
+    <style>
+      :root { color-scheme: dark; }
+      body { margin: 0; font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial; background: #0b1020; color: #e7e9ee; }
+      header { padding: 14px 16px; border-bottom: 1px solid rgba(255,255,255,0.08); display:flex; align-items:center; justify-content:space-between; }
+      header .title { font-weight: 650; letter-spacing: 0.2px; }
+      header .meta { font-size: 12px; opacity: 0.8; }
+      main { display: grid; grid-template-columns: 360px 1fr; gap: 12px; padding: 12px; }
+      .card { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; overflow: hidden; }
+      .card h2 { margin: 0; font-size: 13px; font-weight: 650; padding: 10px 12px; border-bottom: 1px solid rgba(255,255,255,0.08); opacity: 0.95; }
+      .card .content { padding: 12px; }
+      .kv { display: grid; grid-template-columns: 120px 1fr; gap: 6px 10px; font-size: 12px; }
+      .kv div { padding: 2px 0; }
+      button { background: #2a5bd7; color: white; border: 0; padding: 8px 10px; border-radius: 10px; cursor: pointer; font-weight: 600; }
+      button.secondary { background: rgba(255,255,255,0.08); }
+      button:disabled { opacity: 0.5; cursor: not-allowed; }
+      input, select, textarea { width: 100%; box-sizing: border-box; background: rgba(0,0,0,0.35); color: #e7e9ee; border: 1px solid rgba(255,255,255,0.12); border-radius: 10px; padding: 8px 10px; }
+      .row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+      .stack { display: grid; gap: 10px; }
+      .timeline { max-height: calc(100vh - 92px); overflow: auto; font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; font-size: 12px; line-height: 1.35; }
+      .evt { padding: 10px 12px; border-bottom: 1px solid rgba(255,255,255,0.08); }
+      .evt .top { display:flex; gap: 10px; align-items:baseline; }
+      .pill { font-size: 11px; padding: 2px 8px; border-radius: 999px; border: 1px solid rgba(255,255,255,0.16); opacity: 0.95; }
+      .pill.error { border-color: rgba(255,85,85,0.55); color: #ffb2b2; }
+      .pill.info { border-color: rgba(120,160,255,0.55); color: #c7d7ff; }
+      .evt pre { margin: 6px 0 0; white-space: pre-wrap; word-break: break-word; opacity: 0.92; }
+      .small { font-size: 12px; opacity: 0.85; }
+      a { color: #c7d7ff; }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="title">Daemon Agent UI <span class="meta">contract v0.1</span></div>
+      <div class="meta">SSE: <span id="sseStatus">connecting…</span></div>
+    </header>
+
+    <main>
+      <section class="stack">
+        <div class="card">
+          <h2>State snapshot</h2>
+          <div class="content">
+            <div class="kv" id="stateKv"></div>
+            <div style="height:10px"></div>
+            <div class="row">
+              <button id="btnRefresh" class="secondary">Refresh</button>
+              <button id="btnPause">Toggle pause</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <h2>Actions</h2>
+          <div class="content stack">
+            <button id="btnReflect" class="secondary">Unimind.reflect()</button>
+            <div class="stack">
+              <div class="small">Cast ritual</div>
+              <select id="ritualName"></select>
+              <textarea id="ritualContext" rows="3" placeholder='Optional JSON context, e.g. {"source":"ui"}'></textarea>
+              <button id="btnCast">Cast</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="card">
+        <h2>Truth timeline (events)</h2>
+        <div class="timeline" id="timeline"></div>
+      </section>
+    </main>
+
+    <script>
+      const $ = (id) => document.getElementById(id);
+      const stateKv = $("stateKv");
+      const timeline = $("timeline");
+      const ritualName = $("ritualName");
+      const ritualContext = $("ritualContext");
+      const sseStatus = $("sseStatus");
+
+      function pill(sev) {
+        const cls = sev === "error" ? "pill error" : "pill info";
+        return `<span class="${cls}">${sev}</span>`;
+      }
+
+      function fmtTs(ts) {
+        try { return new Date(ts * 1000).toLocaleTimeString(); } catch { return String(ts); }
+      }
+
+      function appendEvent(evt) {
+        const div = document.createElement("div");
+        div.className = "evt";
+        div.innerHTML = `
+          <div class="top">
+            ${pill(evt.severity || "info")}
+            <span>${fmtTs(evt.ts_unix)}</span>
+            <span style="opacity:.9">${evt.type}</span>
+            <span style="opacity:.7">@${evt.source}</span>
+          </div>
+          <pre>${escapeHtml(JSON.stringify(evt.payload || {}, null, 2))}</pre>
+        `;
+        timeline.prepend(div);
+      }
+
+      function escapeHtml(s) {
+        return s.replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;");
+      }
+
+      async function apiGet(path) {
+        const r = await fetch(path);
+        return await r.json();
+      }
+
+      async function apiPost(path, body) {
+        const r = await fetch(path, { method: "POST", headers: {"Content-Type":"application/json"}, body: JSON.stringify(body) });
+        return await r.json();
+      }
+
+      function renderState(state) {
+        const rows = [];
+        rows.push(["daemon.paused", String(state?.daemon?.paused)]);
+        rows.push(["daemon.scroll_count", String(state?.daemon?.scroll_count)]);
+        rows.push(["unimind.modules.logic", String(state?.unimind?.modules?.logic ?? 0)]);
+        rows.push(["unimind.modules.memory", String(state?.unimind?.modules?.memory ?? 0)]);
+        rows.push(["rituals.registered", String((state?.rituals?.registered || []).length)]);
+        rows.push(["rituals.dynamic", String((state?.rituals?.dynamic || []).length)]);
+        stateKv.innerHTML = rows.map(([k,v]) => `<div style="opacity:.8">${k}</div><div>${v}</div>`).join("");
+
+        const allRituals = [...(state?.rituals?.registered || []), ...(state?.rituals?.dynamic || [])].sort();
+        ritualName.innerHTML = allRituals.map(r => `<option value="${r}">${r}</option>`).join("");
+      }
+
+      async function refresh() {
+        const s = await apiGet("/api/state");
+        renderState(s);
+      }
+
+      async function invoke(name, args={}) {
+        const res = await apiPost("/api/action", { name, args });
+        if (!res.ok) {
+          appendEvent({ ts_unix: Date.now()/1000, type: "ui.client.error", source: "browser", severity: "error", payload: res, tags: ["ui"]});
+        }
+        await refresh();
+      }
+
+      $("btnRefresh").onclick = refresh;
+      $("btnPause").onclick = () => invoke("daemon.toggle_pause");
+      $("btnReflect").onclick = () => invoke("unimind.reflect");
+      $("btnCast").onclick = () => {
+        let ctx = {};
+        const raw = ritualContext.value.trim();
+        if (raw) {
+          try { ctx = JSON.parse(raw); } catch (e) { ctx = {"_parse_error": String(e), "_raw": raw}; }
+        }
+        invoke("ritual.cast", { ritual_name: ritualName.value, context: ctx });
+      };
+
+      // Boot
+      refresh();
+      const es = new EventSource("/api/events");
+      es.addEventListener("hello", () => { sseStatus.textContent = "connected"; });
+      es.addEventListener("timeline", (e) => {
+        try { appendEvent(JSON.parse(e.data)); } catch {}
+      });
+      es.onerror = () => { sseStatus.textContent = "disconnected"; };
+    </script>
+  </body>
+</html>
+

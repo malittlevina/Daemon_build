@@ -15,6 +15,8 @@ import json
 import time
 import os
 from datetime import date
+from daemon.state_manager import StateManager
+from core.event_bus import GLOBAL_EVENT_BUS
 
 # Flag to control use of Ollama fallback
 USE_OLLAMA = False  # Set to True to enable Ollama fallback
@@ -24,6 +26,7 @@ if __name__ == "__main__":
     prom = PrometheusSpecialties()
     emotions = EmotionEngine()
     memory = MemoryLogger()
+    state = StateManager()
     rituals = RitualRegistry()
     scrolls = ScrollEngine()
     # vision = VisionSensor()
@@ -36,6 +39,7 @@ if __name__ == "__main__":
         nlu = None
 
     print("[Daemon] Starting Prometheus daemon...")
+    GLOBAL_EVENT_BUS.publish("daemon.start", {"name": "Prometheus"}, source="daemon", tags=["daemon"])
 
     # Launch sensors and background modules in threads
     ENABLE_VOICE = False
@@ -45,6 +49,20 @@ if __name__ == "__main__":
         threading.Thread(target=start_voice_listener, daemon=True).start()
     # threading.Thread(target=vision.classify_surroundings, daemon=True).start()
     threading.Thread(target=run_auto_optimization, daemon=True).start()
+
+    # Optional AI-first GUI contract server (state/actions/events)
+    ENABLE_AGENT_UI = os.getenv("ENABLE_AGENT_UI", "0") in ("1", "true", "True", "yes", "YES")
+    if ENABLE_AGENT_UI:
+        try:
+            from gui.context import DaemonUIContext
+            from gui.agent_ui_server import start_agent_ui_server
+
+            ui_context = DaemonUIContext(unimind=unimind, rituals=rituals, state=state)
+            start_agent_ui_server(ui_context=ui_context, host="127.0.0.1", port=8765, background=True)
+            print("[AgentUI] Running at http://127.0.0.1:8765")
+        except Exception as e:
+            print(f"[AgentUI] Failed to start: {e}")
+            GLOBAL_EVENT_BUS.publish("ui.server.error", {"error": str(e)}, source="ui", severity="error", tags=["ui"])
 
     # Load Codex documents
     ingest_documents("codex/data/")
@@ -88,14 +106,17 @@ if __name__ == "__main__":
 
             if user_input.lower() == "exit":
                 print("[Daemon] Shutting down.")
+                GLOBAL_EVENT_BUS.publish("daemon.stop", {}, source="daemon", tags=["daemon"])
                 break
             elif user_input == "":
                 personality.log_state()
+                GLOBAL_EVENT_BUS.publish("daemon.reflect.tick", {}, source="daemon", tags=["daemon", "unimind"])
                 unimind.reflect()
             else:
                 result = None
                 if nlu:
                     try:
+                        GLOBAL_EVENT_BUS.publish("daemon.input", {"text": user_input}, source="daemon", tags=["input"])
                         result = nlu.interpret(user_input)
                         if result is None or (isinstance(result, str) and result.startswith("[NLUEngine] No known intent")):
                             result = handle_fallback(user_input)
@@ -107,7 +128,9 @@ if __name__ == "__main__":
                     result = handle_fallback(user_input)
 
                 print(f"[Daemon] NLU Result: {result}")
+                GLOBAL_EVENT_BUS.publish("daemon.output", {"result": result}, source="daemon", tags=["output"])
 
         except Exception as loop_error:
             print(f"[Daemon Critical Loop Error] {loop_error}")
+            GLOBAL_EVENT_BUS.publish("daemon.loop.error", {"error": str(loop_error)}, source="daemon", severity="error", tags=["daemon"])
             continue
