@@ -9,6 +9,7 @@ REFLECTION_LOG = "logs/self_reflection.log"
 MAX_LOG_SIZE = 10000  # characters
 
 from core.personality_engine import get_personality_engine
+from codex.curriculum import CurriculumManager
 
 class NLUEngine:
     def __init__(self, scroll_engine=None):
@@ -18,6 +19,7 @@ class NLUEngine:
         from lam.lam_planner import plan_next_action
         self.lam_planner = plan_next_action
         self.personality = get_personality_engine()
+        self.curriculum = CurriculumManager() # Helper to query knowledge
 
     def interpret(self, user_input, context_drives=None):
         raw_response = self._get_raw_response(user_input)
@@ -28,6 +30,16 @@ class NLUEngine:
         return raw_response
 
     def _get_raw_response(self, user_input):
+        # 1. Check for Knowledge Queries (Simple keyword check)
+        # In a real system, this would be an intent classifier "INTENT_QUERY_KNOWLEDGE"
+        if "what is" in user_input.lower() or "tell me about" in user_input.lower():
+            # Extract basic query
+            query = user_input.lower().replace("what is", "").replace("tell me about", "").strip()
+            results = self.curriculum.query(query)
+            if results:
+                best = results[0]
+                return f"[Knowledge: {best['source_pack']}] {best['title']}: {best['content']}"
+
         if user_input in self.learned_phrases:
             return self.learned_phrases[user_input]
             

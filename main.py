@@ -143,6 +143,11 @@ if __name__ == "__main__":
     renderer = ASCIIRenderer()
     unimind.register("avatar", avatar)
     
+    # Initialize Curriculum (Knowledge)
+    from codex.curriculum import CurriculumManager
+    curriculum = CurriculumManager()
+    unimind.register("knowledge", curriculum)
+    
     # Load Codex documents
     ingest_documents("codex/data/")
 
