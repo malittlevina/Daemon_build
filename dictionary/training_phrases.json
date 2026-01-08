@@ -72,6 +72,114 @@
         "I need you to summon knowledge"
       ],
       "response_trigger": "cast_codex_query"
+    },
+    "enter_realm": {
+      "canonical": "enter storyrealm",
+      "ipa": "/ˈɛntər ˈstɔːriˌrɛlm/",
+      "category": "ritual",
+      "variations": [
+        {"text": "enter storyrealm", "confidence": 1.0},
+        {"text": "enter the storyrealm", "confidence": 0.95},
+        {"text": "enter story realm", "confidence": 0.95},
+        {"text": "go to storyrealm", "confidence": 0.85},
+        {"text": "open storyrealm", "confidence": 0.8}
+      ],
+      "context_sentences": [
+        "prometheus enter storyrealm",
+        "enter storyrealm fantasy",
+        "I want to enter storyrealm"
+      ],
+      "response_trigger": "enter_storyrealm"
+    },
+    "invoke_guardian": {
+      "canonical": "invoke guardian",
+      "ipa": "/ɪnˈvoʊk ˈɡɑːrdiən/",
+      "category": "ritual",
+      "variations": [
+        {"text": "invoke guardian", "confidence": 1.0},
+        {"text": "invoke the guardian", "confidence": 0.95},
+        {"text": "summon guardian", "confidence": 0.9},
+        {"text": "call guardian", "confidence": 0.85},
+        {"text": "activate guardian", "confidence": 0.8}
+      ],
+      "context_sentences": [
+        "prometheus invoke guardian",
+        "invoke guardian for backup",
+        "I need to invoke guardian"
+      ],
+      "response_trigger": "invoke_guardian"
+    },
+    "consult_oracle": {
+      "canonical": "consult oracle",
+      "ipa": "/kənˈsʌlt ˈɔːrəkəl/",
+      "category": "ritual",
+      "variations": [
+        {"text": "consult oracle", "confidence": 1.0},
+        {"text": "consult the oracle", "confidence": 0.95},
+        {"text": "ask oracle", "confidence": 0.9},
+        {"text": "oracle prediction", "confidence": 0.8},
+        {"text": "query oracle", "confidence": 0.85}
+      ],
+      "context_sentences": [
+        "prometheus consult oracle",
+        "consult oracle about future",
+        "I want to consult oracle"
+      ],
+      "response_trigger": "consult_oracle"
+    },
+    "reflect_deeply": {
+      "canonical": "reflect deeply",
+      "ipa": "/rɪˈflɛkt ˈdiːpli/",
+      "category": "ritual",
+      "variations": [
+        {"text": "reflect deeply", "confidence": 1.0},
+        {"text": "deep reflection", "confidence": 0.95},
+        {"text": "introspect", "confidence": 0.9},
+        {"text": "self reflect", "confidence": 0.85},
+        {"text": "think deeply", "confidence": 0.8}
+      ],
+      "context_sentences": [
+        "prometheus reflect deeply",
+        "reflect deeply on this",
+        "I want you to reflect deeply"
+      ],
+      "response_trigger": "reflect_deeply"
+    },
+    "awaken_daemon": {
+      "canonical": "awaken daemon",
+      "ipa": "/əˈweɪkən ˈdiːmən/",
+      "category": "ritual",
+      "variations": [
+        {"text": "awaken daemon", "confidence": 1.0},
+        {"text": "wake daemon", "confidence": 0.95},
+        {"text": "wake up daemon", "confidence": 0.9},
+        {"text": "awaken", "confidence": 0.75},
+        {"text": "daemon wake", "confidence": 0.8}
+      ],
+      "context_sentences": [
+        "prometheus awaken daemon",
+        "awaken daemon now",
+        "time to awaken daemon"
+      ],
+      "response_trigger": "awaken_daemon"
+    },
+    "suspend_daemon": {
+      "canonical": "suspend daemon",
+      "ipa": "/səˈspɛnd ˈdiːmən/",
+      "category": "ritual",
+      "variations": [
+        {"text": "suspend daemon", "confidence": 1.0},
+        {"text": "pause daemon", "confidence": 0.95},
+        {"text": "sleep daemon", "confidence": 0.9},
+        {"text": "daemon sleep", "confidence": 0.85},
+        {"text": "go to sleep", "confidence": 0.8}
+      ],
+      "context_sentences": [
+        "prometheus suspend daemon",
+        "suspend daemon for now",
+        "time to suspend daemon"
+      ],
+      "response_trigger": "suspend_daemon"
     }
   },
   "scroll_training": {
@@ -140,6 +248,82 @@
         {"text": "plan steps", "confidence": 0.8}
       ],
       "response_trigger": "_multi_step_plan"
+    },
+    "calibrate_emotion": {
+      "canonical": "calibrate emotion",
+      "ipa": "/ˈkælɪbreɪt ɪˈmoʊʃən/",
+      "category": "scroll",
+      "pattern": "calibrate emotion {state}",
+      "variations": [
+        {"text": "calibrate emotion", "confidence": 1.0},
+        {"text": "adjust emotion", "confidence": 0.95},
+        {"text": "tune emotion", "confidence": 0.9},
+        {"text": "set emotion", "confidence": 0.85},
+        {"text": "change emotion to", "confidence": 0.8}
+      ],
+      "example_completions": [
+        "calibrate emotion focused",
+        "calibrate emotion serene",
+        "calibrate emotion vigilant"
+      ],
+      "response_trigger": "_calibrate_emotion"
+    },
+    "traverse_memory": {
+      "canonical": "traverse memory tree",
+      "ipa": "/trəˈvɜːrs ˈmɛməri triː/",
+      "category": "scroll",
+      "pattern": "traverse memory tree {query}",
+      "variations": [
+        {"text": "traverse memory tree", "confidence": 1.0},
+        {"text": "traverse memory", "confidence": 0.95},
+        {"text": "search memory", "confidence": 0.9},
+        {"text": "find in memory", "confidence": 0.85},
+        {"text": "memory search", "confidence": 0.8}
+      ],
+      "example_completions": [
+        "traverse memory tree for python",
+        "traverse memory tree recent events",
+        "traverse memory tree about user"
+      ],
+      "response_trigger": "_traverse_memory"
+    },
+    "synthesize_knowledge": {
+      "canonical": "synthesize knowledge",
+      "ipa": "/ˈsɪnθəsaɪz ˈnɑːlɪdʒ/",
+      "category": "scroll",
+      "pattern": "synthesize knowledge {topics}",
+      "variations": [
+        {"text": "synthesize knowledge", "confidence": 1.0},
+        {"text": "combine knowledge", "confidence": 0.95},
+        {"text": "merge knowledge", "confidence": 0.9},
+        {"text": "integrate knowledge", "confidence": 0.85},
+        {"text": "fuse knowledge", "confidence": 0.8}
+      ],
+      "example_completions": [
+        "synthesize knowledge python and rust",
+        "synthesize knowledge from codex",
+        "synthesize knowledge about AI ethics"
+      ],
+      "response_trigger": "_synthesize_knowledge"
+    },
+    "manifest_insight": {
+      "canonical": "manifest insight",
+      "ipa": "/ˈmænɪfɛst ˈɪnsaɪt/",
+      "category": "scroll",
+      "pattern": "manifest insight {topic}",
+      "variations": [
+        {"text": "manifest insight", "confidence": 1.0},
+        {"text": "generate insight", "confidence": 0.95},
+        {"text": "create insight", "confidence": 0.9},
+        {"text": "derive insight", "confidence": 0.85},
+        {"text": "produce insight", "confidence": 0.8}
+      ],
+      "example_completions": [
+        "manifest insight about patterns",
+        "manifest insight from data",
+        "manifest insight on user behavior"
+      ],
+      "response_trigger": "_manifest_insight"
     }
   },
   "command_training": {

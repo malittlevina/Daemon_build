@@ -110,6 +110,156 @@
         "full_form": "Language Action Model",
         "aliases": ["action model"],
         "description": "Symbolic state and action planning module"
+      },
+      "storyrealm": {
+        "ipa": "/ˈstɔːriˌrɛlm/",
+        "syllables": ["sto", "ry", "realm"],
+        "stress": [1, 0, 1],
+        "phonetic_spelling": "STOR-ee-RELM",
+        "emphasis": "first and third syllables",
+        "category": "proper_noun",
+        "aliases": ["story realm", "narrative realm"],
+        "description": "Interactive narrative world module"
+      },
+      "sentinel": {
+        "ipa": "/ˈsɛntɪnəl/",
+        "syllables": ["sen", "ti", "nel"],
+        "stress": [1, 0, 0],
+        "phonetic_spelling": "SEN-tih-nuhl",
+        "emphasis": "first syllable",
+        "category": "noun",
+        "aliases": ["watcher", "guard"],
+        "description": "Monitoring or protection agent"
+      },
+      "nexus": {
+        "ipa": "/ˈnɛksəs/",
+        "syllables": ["nex", "us"],
+        "stress": [1, 0],
+        "phonetic_spelling": "NEK-suhs",
+        "emphasis": "first syllable",
+        "category": "noun",
+        "aliases": ["hub", "connection point"],
+        "description": "Central connection point between systems"
+      },
+      "epoch": {
+        "ipa": "/ˈiːpɒk/",
+        "syllables": ["e", "poch"],
+        "stress": [1, 0],
+        "phonetic_spelling": "EE-pok",
+        "emphasis": "first syllable",
+        "category": "noun",
+        "aliases": ["era", "cycle"],
+        "description": "Training cycle or time period"
+      },
+      "sigil": {
+        "ipa": "/ˈsɪdʒɪl/",
+        "syllables": ["si", "gil"],
+        "stress": [1, 0],
+        "phonetic_spelling": "SIJ-il",
+        "emphasis": "first syllable",
+        "category": "noun",
+        "aliases": ["symbol", "glyph"],
+        "description": "Symbolic identifier or magical mark"
+      },
+      "aegis": {
+        "ipa": "/ˈiːdʒɪs/",
+        "syllables": ["ae", "gis"],
+        "stress": [1, 0],
+        "phonetic_spelling": "EE-jis",
+        "emphasis": "first syllable",
+        "category": "noun",
+        "aliases": ["protection", "shield"],
+        "description": "Protective authority or system"
+      },
+      "axiom": {
+        "ipa": "/ˈæksiəm/",
+        "syllables": ["ax", "i", "om"],
+        "stress": [1, 0, 0],
+        "phonetic_spelling": "AK-see-uhm",
+        "emphasis": "first syllable",
+        "category": "noun",
+        "aliases": ["principle", "truth"],
+        "description": "Self-evident truth or core principle"
+      },
+      "cipher": {
+        "ipa": "/ˈsaɪfər/",
+        "syllables": ["ci", "pher"],
+        "stress": [1, 0],
+        "phonetic_spelling": "SY-fer",
+        "emphasis": "first syllable",
+        "category": "noun",
+        "aliases": ["code", "encryption"],
+        "description": "Encoded message or encryption system"
+      },
+      "arbiter": {
+        "ipa": "/ˈɑːrbɪtər/",
+        "syllables": ["ar", "bi", "ter"],
+        "stress": [1, 0, 0],
+        "phonetic_spelling": "AR-bih-ter",
+        "emphasis": "first syllable",
+        "category": "noun",
+        "aliases": ["judge", "decider"],
+        "description": "Decision-making authority"
+      },
+      "sanctum": {
+        "ipa": "/ˈsæŋktəm/",
+        "syllables": ["sanc", "tum"],
+        "stress": [1, 0],
+        "phonetic_spelling": "SANK-tuhm",
+        "emphasis": "first syllable",
+        "category": "noun",
+        "aliases": ["sanctuary", "safe space"],
+        "description": "Protected inner space or module"
+      },
+      "vertex": {
+        "ipa": "/ˈvɜːrtɛks/",
+        "syllables": ["ver", "tex"],
+        "stress": [1, 0],
+        "phonetic_spelling": "VER-teks",
+        "emphasis": "first syllable",
+        "category": "noun",
+        "aliases": ["node", "point"],
+        "description": "Connection point in a graph or network"
+      },
+      "conduit": {
+        "ipa": "/ˈkɒndjuːɪt/",
+        "syllables": ["con", "du", "it"],
+        "stress": [1, 0, 0],
+        "phonetic_spelling": "KON-doo-it",
+        "emphasis": "first syllable",
+        "category": "noun",
+        "aliases": ["channel", "pathway"],
+        "description": "Channel for data or energy flow"
+      },
+      "synthesis": {
+        "ipa": "/ˈsɪnθəsɪs/",
+        "syllables": ["syn", "the", "sis"],
+        "stress": [1, 0, 0],
+        "phonetic_spelling": "SIN-thuh-sis",
+        "emphasis": "first syllable",
+        "category": "noun",
+        "aliases": ["combination", "fusion"],
+        "description": "Combining elements into a unified whole"
+      },
+      "catalyst": {
+        "ipa": "/ˈkætəlɪst/",
+        "syllables": ["cat", "a", "lyst"],
+        "stress": [1, 0, 0],
+        "phonetic_spelling": "KAT-uh-list",
+        "emphasis": "first syllable",
+        "category": "noun",
+        "aliases": ["trigger", "accelerator"],
+        "description": "Agent that initiates or accelerates change"
+      },
+      "resonance": {
+        "ipa": "/ˈrɛzənəns/",
+        "syllables": ["res", "o", "nance"],
+        "stress": [1, 0, 0],
+        "phonetic_spelling": "REZ-uh-nunce",
+        "emphasis": "first syllable",
+        "category": "noun",
+        "aliases": ["harmony", "alignment"],
+        "description": "Harmonic alignment between systems"
       }
     },
     "action_terms": {
@@ -182,6 +332,146 @@
         "category": "verb",
         "aliases": ["tune", "adjust"],
         "description": "Fine-tune system parameters"
+      },
+      "evaluate": {
+        "ipa": "/ɪˈvæljueɪt/",
+        "syllables": ["e", "val", "u", "ate"],
+        "stress": [0, 1, 0, 0],
+        "phonetic_spelling": "ih-VAL-yoo-ayt",
+        "emphasis": "second syllable",
+        "category": "verb",
+        "aliases": ["assess", "judge"],
+        "description": "Assess or determine value/quality"
+      },
+      "synthesize": {
+        "ipa": "/ˈsɪnθəsaɪz/",
+        "syllables": ["syn", "the", "size"],
+        "stress": [1, 0, 0],
+        "phonetic_spelling": "SIN-thuh-syz",
+        "emphasis": "first syllable",
+        "category": "verb",
+        "aliases": ["combine", "merge"],
+        "description": "Combine elements into a whole"
+      },
+      "iterate": {
+        "ipa": "/ˈɪtəreɪt/",
+        "syllables": ["it", "er", "ate"],
+        "stress": [1, 0, 0],
+        "phonetic_spelling": "IT-er-ayt",
+        "emphasis": "first syllable",
+        "category": "verb",
+        "aliases": ["repeat", "cycle"],
+        "description": "Repeat a process for refinement"
+      },
+      "instantiate": {
+        "ipa": "/ɪnˈstænʃieɪt/",
+        "syllables": ["in", "stan", "ti", "ate"],
+        "stress": [0, 1, 0, 0],
+        "phonetic_spelling": "in-STAN-shee-ayt",
+        "emphasis": "second syllable",
+        "category": "verb",
+        "aliases": ["create", "spawn"],
+        "description": "Create an instance of a class or concept"
+      },
+      "propagate": {
+        "ipa": "/ˈprɒpəɡeɪt/",
+        "syllables": ["prop", "a", "gate"],
+        "stress": [1, 0, 0],
+        "phonetic_spelling": "PROP-uh-gayt",
+        "emphasis": "first syllable",
+        "category": "verb",
+        "aliases": ["spread", "transmit"],
+        "description": "Spread or transmit through a system"
+      },
+      "attenuate": {
+        "ipa": "/əˈtɛnjueɪt/",
+        "syllables": ["at", "ten", "u", "ate"],
+        "stress": [0, 1, 0, 0],
+        "phonetic_spelling": "uh-TEN-yoo-ayt",
+        "emphasis": "second syllable",
+        "category": "verb",
+        "aliases": ["reduce", "weaken"],
+        "description": "Reduce the strength or intensity"
+      },
+      "disambiguate": {
+        "ipa": "/ˌdɪsæmˈbɪɡjueɪt/",
+        "syllables": ["dis", "am", "big", "u", "ate"],
+        "stress": [0, 0, 1, 0, 0],
+        "phonetic_spelling": "dis-am-BIG-yoo-ayt",
+        "emphasis": "third syllable",
+        "category": "verb",
+        "aliases": ["clarify", "resolve"],
+        "description": "Remove ambiguity from input"
+      },
+      "coalesce": {
+        "ipa": "/ˌkoʊəˈlɛs/",
+        "syllables": ["co", "a", "lesce"],
+        "stress": [0, 0, 1],
+        "phonetic_spelling": "koh-uh-LES",
+        "emphasis": "third syllable",
+        "category": "verb",
+        "aliases": ["merge", "unite"],
+        "description": "Come together into a unified whole"
+      },
+      "traverse": {
+        "ipa": "/trəˈvɜːrs/",
+        "syllables": ["tra", "verse"],
+        "stress": [0, 1],
+        "phonetic_spelling": "truh-VERS",
+        "emphasis": "second syllable",
+        "category": "verb",
+        "aliases": ["navigate", "cross"],
+        "description": "Move through a structure or space"
+      },
+      "augment": {
+        "ipa": "/ɔːɡˈmɛnt/",
+        "syllables": ["aug", "ment"],
+        "stress": [0, 1],
+        "phonetic_spelling": "awg-MENT",
+        "emphasis": "second syllable",
+        "category": "verb",
+        "aliases": ["enhance", "extend"],
+        "description": "Increase or enhance capability"
+      },
+      "initialize": {
+        "ipa": "/ɪˈnɪʃəlaɪz/",
+        "syllables": ["i", "ni", "tial", "ize"],
+        "stress": [0, 1, 0, 0],
+        "phonetic_spelling": "ih-NISH-uh-lyz",
+        "emphasis": "second syllable",
+        "category": "verb",
+        "aliases": ["start", "boot"],
+        "description": "Set up initial state or values"
+      },
+      "serialize": {
+        "ipa": "/ˈsɪəriəlaɪz/",
+        "syllables": ["se", "ri", "al", "ize"],
+        "stress": [1, 0, 0, 0],
+        "phonetic_spelling": "SEER-ee-uh-lyz",
+        "emphasis": "first syllable",
+        "category": "verb",
+        "aliases": ["encode", "convert"],
+        "description": "Convert to storable format"
+      },
+      "manifest": {
+        "ipa": "/ˈmænɪfɛst/",
+        "syllables": ["man", "i", "fest"],
+        "stress": [1, 0, 0],
+        "phonetic_spelling": "MAN-ih-fest",
+        "emphasis": "first syllable",
+        "category": "verb",
+        "aliases": ["appear", "materialize"],
+        "description": "Bring into observable reality"
+      },
+      "attune": {
+        "ipa": "/əˈtuːn/",
+        "syllables": ["at", "tune"],
+        "stress": [0, 1],
+        "phonetic_spelling": "uh-TOON",
+        "emphasis": "second syllable",
+        "category": "verb",
+        "aliases": ["align", "harmonize"],
+        "description": "Bring into harmony or alignment"
       }
     },
     "ritual_phrases": {
@@ -229,6 +519,96 @@
         "emphasis_words": ["trigger", "API"],
         "category": "scroll",
         "description": "External API integration scroll"
+      },
+      "enter_realm": {
+        "phrase": "enter storyrealm",
+        "ipa": "/ˈɛntər ˈstɔːriˌrɛlm/",
+        "phonetic_spelling": "EN-ter STOR-ee-RELM",
+        "pause_pattern": "enter | storyrealm",
+        "emphasis_words": ["enter"],
+        "category": "ritual",
+        "description": "Enter an interactive narrative realm"
+      },
+      "invoke_guardian": {
+        "phrase": "invoke guardian",
+        "ipa": "/ɪnˈvoʊk ˈɡɑːrdiən/",
+        "phonetic_spelling": "in-VOHK GAR-dee-uhn",
+        "pause_pattern": "invoke | guardian",
+        "emphasis_words": ["invoke"],
+        "category": "ritual",
+        "description": "Activate protection subsystem"
+      },
+      "consult_oracle": {
+        "phrase": "consult oracle",
+        "ipa": "/kənˈsʌlt ˈɔːrəkəl/",
+        "phonetic_spelling": "kun-SULT OR-uh-kuhl",
+        "pause_pattern": "consult | oracle",
+        "emphasis_words": ["consult"],
+        "category": "ritual",
+        "description": "Request prediction or foresight"
+      },
+      "calibrate_emotion": {
+        "phrase": "calibrate emotion",
+        "ipa": "/ˈkælɪbreɪt ɪˈmoʊʃən/",
+        "phonetic_spelling": "KAL-ih-brayt ih-MOH-shun",
+        "pause_pattern": "calibrate | emotion",
+        "emphasis_words": ["calibrate"],
+        "category": "scroll",
+        "description": "Tune emotional state parameters"
+      },
+      "traverse_memory": {
+        "phrase": "traverse memory tree",
+        "ipa": "/trəˈvɜːrs ˈmɛməri triː/",
+        "phonetic_spelling": "truh-VERS MEM-uh-ree TREE",
+        "pause_pattern": "traverse | memory | tree",
+        "emphasis_words": ["traverse"],
+        "category": "scroll",
+        "description": "Navigate through memory structure"
+      },
+      "reflect_deeply": {
+        "phrase": "reflect deeply",
+        "ipa": "/rɪˈflɛkt ˈdiːpli/",
+        "phonetic_spelling": "rih-FLEKT DEEP-lee",
+        "pause_pattern": "reflect | deeply",
+        "emphasis_words": ["reflect", "deeply"],
+        "category": "ritual",
+        "description": "Initiate deep introspection cycle"
+      },
+      "synthesize_knowledge": {
+        "phrase": "synthesize knowledge",
+        "ipa": "/ˈsɪnθəsaɪz ˈnɑːlɪdʒ/",
+        "phonetic_spelling": "SIN-thuh-syz NAH-lij",
+        "pause_pattern": "synthesize | knowledge",
+        "emphasis_words": ["synthesize"],
+        "category": "scroll",
+        "description": "Combine learned knowledge into new insights"
+      },
+      "awaken_daemon": {
+        "phrase": "awaken daemon",
+        "ipa": "/əˈweɪkən ˈdiːmən/",
+        "phonetic_spelling": "uh-WAY-kun DEE-muhn",
+        "pause_pattern": "awaken | daemon",
+        "emphasis_words": ["awaken"],
+        "category": "ritual",
+        "description": "Bring daemon to full alert state"
+      },
+      "suspend_daemon": {
+        "phrase": "suspend daemon",
+        "ipa": "/səˈspɛnd ˈdiːmən/",
+        "phonetic_spelling": "suh-SPEND DEE-muhn",
+        "pause_pattern": "suspend | daemon",
+        "emphasis_words": ["suspend"],
+        "category": "ritual",
+        "description": "Put daemon into sleep state"
+      },
+      "manifest_insight": {
+        "phrase": "manifest insight",
+        "ipa": "/ˈmænɪfɛst ˈɪnsaɪt/",
+        "phonetic_spelling": "MAN-ih-fest IN-syt",
+        "pause_pattern": "manifest | insight",
+        "emphasis_words": ["manifest"],
+        "category": "scroll",
+        "description": "Generate new understanding from data"
       }
     },
     "specialty_domains": {
@@ -344,6 +724,498 @@
         "emphasis": "first syllable",
         "category": "adjective",
         "description": "Determined action state"
+      },
+      "focused": {
+        "ipa": "/ˈfoʊkəst/",
+        "syllables": ["fo", "cused"],
+        "stress": [1, 0],
+        "phonetic_spelling": "FOH-kust",
+        "emphasis": "first syllable",
+        "category": "adjective",
+        "description": "State of concentrated attention"
+      },
+      "curious": {
+        "ipa": "/ˈkjʊəriəs/",
+        "syllables": ["cu", "ri", "ous"],
+        "stress": [1, 0, 0],
+        "phonetic_spelling": "KYOOR-ee-uhs",
+        "emphasis": "first syllable",
+        "category": "adjective",
+        "description": "State of eager inquiry"
+      },
+      "vigilant": {
+        "ipa": "/ˈvɪdʒɪlənt/",
+        "syllables": ["vi", "gi", "lant"],
+        "stress": [1, 0, 0],
+        "phonetic_spelling": "VIJ-ih-lunt",
+        "emphasis": "first syllable",
+        "category": "adjective",
+        "description": "Alert and watchful state"
+      },
+      "serene": {
+        "ipa": "/səˈriːn/",
+        "syllables": ["se", "rene"],
+        "stress": [0, 1],
+        "phonetic_spelling": "suh-REEN",
+        "emphasis": "second syllable",
+        "category": "adjective",
+        "description": "Calm and peaceful state"
+      },
+      "pensive": {
+        "ipa": "/ˈpɛnsɪv/",
+        "syllables": ["pen", "sive"],
+        "stress": [1, 0],
+        "phonetic_spelling": "PEN-siv",
+        "emphasis": "first syllable",
+        "category": "adjective",
+        "description": "Deep in thought"
+      },
+      "exuberant": {
+        "ipa": "/ɪɡˈzuːbərənt/",
+        "syllables": ["ex", "u", "ber", "ant"],
+        "stress": [0, 1, 0, 0],
+        "phonetic_spelling": "ig-ZOO-ber-uhnt",
+        "emphasis": "second syllable",
+        "category": "adjective",
+        "description": "Enthusiastically energetic"
+      },
+      "cautious": {
+        "ipa": "/ˈkɔːʃəs/",
+        "syllables": ["cau", "tious"],
+        "stress": [1, 0],
+        "phonetic_spelling": "KAW-shuhs",
+        "emphasis": "first syllable",
+        "category": "adjective",
+        "description": "Careful and deliberate state"
+      },
+      "perplexed": {
+        "ipa": "/pərˈplɛkst/",
+        "syllables": ["per", "plexed"],
+        "stress": [0, 1],
+        "phonetic_spelling": "per-PLEKST",
+        "emphasis": "second syllable",
+        "category": "adjective",
+        "description": "Confused or puzzled state"
+      },
+      "determined": {
+        "ipa": "/dɪˈtɜːrmɪnd/",
+        "syllables": ["de", "ter", "mined"],
+        "stress": [0, 1, 0],
+        "phonetic_spelling": "dih-TER-mind",
+        "emphasis": "second syllable",
+        "category": "adjective",
+        "description": "Firmly committed to action"
+      }
+    },
+    "ethical_terms": {
+      "autonomy": {
+        "ipa": "/ɔːˈtɒnəmi/",
+        "syllables": ["au", "ton", "o", "my"],
+        "stress": [0, 1, 0, 0],
+        "phonetic_spelling": "aw-TAH-nuh-mee",
+        "emphasis": "second syllable",
+        "category": "noun",
+        "aliases": ["self-governance", "independence"],
+        "description": "Right to self-determination"
+      },
+      "beneficence": {
+        "ipa": "/bəˈnɛfɪsəns/",
+        "syllables": ["be", "nef", "i", "cence"],
+        "stress": [0, 1, 0, 0],
+        "phonetic_spelling": "buh-NEF-ih-suns",
+        "emphasis": "second syllable",
+        "category": "noun",
+        "aliases": ["doing good", "kindness"],
+        "description": "Acting for the benefit of others"
+      },
+      "maleficence": {
+        "ipa": "/məˈlɛfɪsəns/",
+        "syllables": ["ma", "lef", "i", "cence"],
+        "stress": [0, 1, 0, 0],
+        "phonetic_spelling": "muh-LEF-ih-suns",
+        "emphasis": "second syllable",
+        "category": "noun",
+        "aliases": ["doing harm", "evil"],
+        "description": "Causing harm to others"
+      },
+      "transparency": {
+        "ipa": "/trænsˈpærənsi/",
+        "syllables": ["trans", "par", "en", "cy"],
+        "stress": [0, 1, 0, 0],
+        "phonetic_spelling": "trans-PAIR-un-see",
+        "emphasis": "second syllable",
+        "category": "noun",
+        "aliases": ["openness", "clarity"],
+        "description": "Quality of being open and honest"
+      },
+      "integrity": {
+        "ipa": "/ɪnˈtɛɡrəti/",
+        "syllables": ["in", "teg", "ri", "ty"],
+        "stress": [0, 1, 0, 0],
+        "phonetic_spelling": "in-TEG-rih-tee",
+        "emphasis": "second syllable",
+        "category": "noun",
+        "aliases": ["honesty", "wholeness"],
+        "description": "Quality of being honest and whole"
+      },
+      "verity": {
+        "ipa": "/ˈvɛrɪti/",
+        "syllables": ["ver", "i", "ty"],
+        "stress": [1, 0, 0],
+        "phonetic_spelling": "VER-ih-tee",
+        "emphasis": "first syllable",
+        "category": "noun",
+        "aliases": ["truth", "fact"],
+        "description": "A true principle or statement"
+      },
+      "equanimity": {
+        "ipa": "/ˌɛkwəˈnɪməti/",
+        "syllables": ["e", "qua", "nim", "i", "ty"],
+        "stress": [0, 0, 1, 0, 0],
+        "phonetic_spelling": "ek-wuh-NIM-ih-tee",
+        "emphasis": "third syllable",
+        "category": "noun",
+        "aliases": ["composure", "balance"],
+        "description": "Mental calmness and composure"
+      },
+      "prudence": {
+        "ipa": "/ˈpruːdəns/",
+        "syllables": ["pru", "dence"],
+        "stress": [1, 0],
+        "phonetic_spelling": "PROO-dunce",
+        "emphasis": "first syllable",
+        "category": "noun",
+        "aliases": ["wisdom", "caution"],
+        "description": "Wise and careful judgment"
+      }
+    },
+    "ai_technical_terms": {
+      "inference": {
+        "ipa": "/ˈɪnfərəns/",
+        "syllables": ["in", "fer", "ence"],
+        "stress": [1, 0, 0],
+        "phonetic_spelling": "IN-fer-unce",
+        "emphasis": "first syllable",
+        "category": "noun",
+        "aliases": ["deduction", "conclusion"],
+        "description": "Drawing conclusions from data"
+      },
+      "latent": {
+        "ipa": "/ˈleɪtənt/",
+        "syllables": ["la", "tent"],
+        "stress": [1, 0],
+        "phonetic_spelling": "LAY-tunt",
+        "emphasis": "first syllable",
+        "category": "adjective",
+        "aliases": ["hidden", "dormant"],
+        "description": "Present but not yet active"
+      },
+      "neural": {
+        "ipa": "/ˈnjʊərəl/",
+        "syllables": ["neu", "ral"],
+        "stress": [1, 0],
+        "phonetic_spelling": "NOOR-uhl",
+        "emphasis": "first syllable",
+        "category": "adjective",
+        "aliases": ["brain-like", "network"],
+        "description": "Relating to neural networks"
+      },
+      "tensor": {
+        "ipa": "/ˈtɛnsər/",
+        "syllables": ["ten", "sor"],
+        "stress": [1, 0],
+        "phonetic_spelling": "TEN-sor",
+        "emphasis": "first syllable",
+        "category": "noun",
+        "aliases": ["matrix", "array"],
+        "description": "Multi-dimensional data array"
+      },
+      "gradient": {
+        "ipa": "/ˈɡreɪdiənt/",
+        "syllables": ["gra", "di", "ent"],
+        "stress": [1, 0, 0],
+        "phonetic_spelling": "GRAY-dee-uhnt",
+        "emphasis": "first syllable",
+        "category": "noun",
+        "aliases": ["slope", "rate of change"],
+        "description": "Rate of change in a function"
+      },
+      "transformer": {
+        "ipa": "/trænsˈfɔːrmər/",
+        "syllables": ["trans", "for", "mer"],
+        "stress": [0, 1, 0],
+        "phonetic_spelling": "trans-FOR-mer",
+        "emphasis": "second syllable",
+        "category": "noun",
+        "aliases": ["attention model"],
+        "description": "Attention-based neural architecture"
+      },
+      "backpropagation": {
+        "ipa": "/ˌbækˌprɒpəˈɡeɪʃən/",
+        "syllables": ["back", "prop", "a", "ga", "tion"],
+        "stress": [1, 0, 0, 1, 0],
+        "phonetic_spelling": "BAK-prop-uh-GAY-shun",
+        "emphasis": "first and fourth syllables",
+        "category": "noun",
+        "aliases": ["backprop", "gradient descent"],
+        "description": "Training algorithm for neural networks"
+      },
+      "hyperparameter": {
+        "ipa": "/ˈhaɪpərpəˌræmɪtər/",
+        "syllables": ["hy", "per", "pa", "ram", "e", "ter"],
+        "stress": [1, 0, 0, 1, 0, 0],
+        "phonetic_spelling": "HY-per-puh-RAM-ih-ter",
+        "emphasis": "first and fourth syllables",
+        "category": "noun",
+        "aliases": ["config", "setting"],
+        "description": "Model configuration parameter"
+      },
+      "convolution": {
+        "ipa": "/ˌkɒnvəˈluːʃən/",
+        "syllables": ["con", "vo", "lu", "tion"],
+        "stress": [0, 0, 1, 0],
+        "phonetic_spelling": "kon-vuh-LOO-shun",
+        "emphasis": "third syllable",
+        "category": "noun",
+        "aliases": ["filter", "kernel operation"],
+        "description": "Signal processing operation"
+      },
+      "attention": {
+        "ipa": "/əˈtɛnʃən/",
+        "syllables": ["at", "ten", "tion"],
+        "stress": [0, 1, 0],
+        "phonetic_spelling": "uh-TEN-shun",
+        "emphasis": "second syllable",
+        "category": "noun",
+        "aliases": ["focus", "weighting"],
+        "description": "Mechanism for focusing on relevant input"
+      },
+      "perceptron": {
+        "ipa": "/pərˈsɛptrɒn/",
+        "syllables": ["per", "cep", "tron"],
+        "stress": [0, 1, 0],
+        "phonetic_spelling": "per-SEP-tron",
+        "emphasis": "second syllable",
+        "category": "noun",
+        "aliases": ["neuron", "unit"],
+        "description": "Basic neural network unit"
+      },
+      "softmax": {
+        "ipa": "/ˈsɒftmæks/",
+        "syllables": ["soft", "max"],
+        "stress": [1, 0],
+        "phonetic_spelling": "SOFT-maks",
+        "emphasis": "first syllable",
+        "category": "noun",
+        "aliases": ["probability distribution"],
+        "description": "Activation function for classification"
+      },
+      "regularization": {
+        "ipa": "/ˌrɛɡjələrɪˈzeɪʃən/",
+        "syllables": ["reg", "u", "lar", "i", "za", "tion"],
+        "stress": [0, 0, 0, 0, 1, 0],
+        "phonetic_spelling": "reg-yoo-ler-ih-ZAY-shun",
+        "emphasis": "fifth syllable",
+        "category": "noun",
+        "aliases": ["penalty", "constraint"],
+        "description": "Technique to prevent overfitting"
+      },
+      "fine-tuning": {
+        "ipa": "/faɪn ˈtuːnɪŋ/",
+        "syllables": ["fine", "tun", "ing"],
+        "stress": [1, 1, 0],
+        "phonetic_spelling": "FYN TOO-ning",
+        "emphasis": "first and second syllables",
+        "category": "noun",
+        "aliases": ["adaptation", "refinement"],
+        "description": "Adjusting model for specific task"
+      }
+    },
+    "mythological_terms": {
+      "aether": {
+        "ipa": "/ˈiːθər/",
+        "syllables": ["ae", "ther"],
+        "stress": [1, 0],
+        "phonetic_spelling": "EE-ther",
+        "emphasis": "first syllable",
+        "category": "noun",
+        "aliases": ["ether", "quintessence"],
+        "description": "Pure essence or medium of transmission"
+      },
+      "anima": {
+        "ipa": "/ˈænɪmə/",
+        "syllables": ["an", "i", "ma"],
+        "stress": [1, 0, 0],
+        "phonetic_spelling": "AN-ih-muh",
+        "emphasis": "first syllable",
+        "category": "noun",
+        "aliases": ["soul", "spirit"],
+        "description": "Animating spirit or life force"
+      },
+      "logos": {
+        "ipa": "/ˈloʊɡɒs/",
+        "syllables": ["lo", "gos"],
+        "stress": [1, 0],
+        "phonetic_spelling": "LOH-gos",
+        "emphasis": "first syllable",
+        "category": "noun",
+        "aliases": ["word", "reason"],
+        "description": "Divine reason or ordering principle"
+      },
+      "pneuma": {
+        "ipa": "/ˈnjuːmə/",
+        "syllables": ["pneu", "ma"],
+        "stress": [1, 0],
+        "phonetic_spelling": "NOO-muh",
+        "emphasis": "first syllable",
+        "category": "noun",
+        "aliases": ["breath", "spirit"],
+        "description": "Vital spirit or creative force",
+        "note": "Initial 'p' is silent"
+      },
+      "gnosis": {
+        "ipa": "/ˈnoʊsɪs/",
+        "syllables": ["gno", "sis"],
+        "stress": [1, 0],
+        "phonetic_spelling": "NOH-sis",
+        "emphasis": "first syllable",
+        "category": "noun",
+        "aliases": ["knowledge", "insight"],
+        "description": "Esoteric spiritual knowledge",
+        "note": "Initial 'g' is silent"
+      },
+      "mnemonic": {
+        "ipa": "/nɪˈmɒnɪk/",
+        "syllables": ["mne", "mon", "ic"],
+        "stress": [0, 1, 0],
+        "phonetic_spelling": "nih-MON-ik",
+        "emphasis": "second syllable",
+        "category": "noun",
+        "aliases": ["memory aid", "reminder"],
+        "description": "Device for aiding memory",
+        "note": "Initial 'm' is silent"
+      },
+      "archetype": {
+        "ipa": "/ˈɑːrkɪtaɪp/",
+        "syllables": ["ar", "che", "type"],
+        "stress": [1, 0, 0],
+        "phonetic_spelling": "AR-kih-typ",
+        "emphasis": "first syllable",
+        "category": "noun",
+        "aliases": ["prototype", "model"],
+        "description": "Original pattern or model"
+      },
+      "chimera": {
+        "ipa": "/kaɪˈmɪərə/",
+        "syllables": ["chi", "me", "ra"],
+        "stress": [0, 1, 0],
+        "phonetic_spelling": "ky-MEER-uh",
+        "emphasis": "second syllable",
+        "category": "noun",
+        "aliases": ["hybrid", "illusion"],
+        "description": "Hybrid creature or fanciful illusion"
+      },
+      "ouroboros": {
+        "ipa": "/ˌʊərəˈbɒrəs/",
+        "syllables": ["ou", "ro", "bo", "ros"],
+        "stress": [0, 0, 1, 0],
+        "phonetic_spelling": "oor-oh-BOR-uhs",
+        "emphasis": "third syllable",
+        "category": "noun",
+        "aliases": ["eternal cycle", "self-reference"],
+        "description": "Symbol of cyclical renewal"
+      }
+    },
+    "programming_terms": {
+      "algorithm": {
+        "ipa": "/ˈælɡərɪðəm/",
+        "syllables": ["al", "go", "rith", "m"],
+        "stress": [1, 0, 0, 0],
+        "phonetic_spelling": "AL-guh-rith-uhm",
+        "emphasis": "first syllable",
+        "category": "noun",
+        "aliases": ["procedure", "method"],
+        "description": "Step-by-step computational procedure"
+      },
+      "recursive": {
+        "ipa": "/rɪˈkɜːrsɪv/",
+        "syllables": ["re", "cur", "sive"],
+        "stress": [0, 1, 0],
+        "phonetic_spelling": "rih-KER-siv",
+        "emphasis": "second syllable",
+        "category": "adjective",
+        "aliases": ["self-referential"],
+        "description": "Calling itself or self-referencing"
+      },
+      "asynchronous": {
+        "ipa": "/eɪˈsɪŋkrənəs/",
+        "syllables": ["a", "syn", "chro", "nous"],
+        "stress": [0, 1, 0, 0],
+        "phonetic_spelling": "ay-SING-kruh-nuhs",
+        "emphasis": "second syllable",
+        "category": "adjective",
+        "aliases": ["async", "non-blocking"],
+        "description": "Not occurring at the same time"
+      },
+      "polymorphism": {
+        "ipa": "/ˌpɒliˈmɔːrfɪzəm/",
+        "syllables": ["pol", "y", "mor", "phi", "sm"],
+        "stress": [0, 0, 1, 0, 0],
+        "phonetic_spelling": "pol-ee-MOR-fiz-uhm",
+        "emphasis": "third syllable",
+        "category": "noun",
+        "aliases": ["many forms"],
+        "description": "Ability to take multiple forms"
+      },
+      "idempotent": {
+        "ipa": "/ˌaɪdɛmˈpoʊtənt/",
+        "syllables": ["i", "dem", "po", "tent"],
+        "stress": [0, 0, 1, 0],
+        "phonetic_spelling": "eye-dem-POH-tunt",
+        "emphasis": "third syllable",
+        "category": "adjective",
+        "aliases": ["repeatable safely"],
+        "description": "Can be applied multiple times without change"
+      },
+      "mutable": {
+        "ipa": "/ˈmjuːtəbəl/",
+        "syllables": ["mu", "ta", "ble"],
+        "stress": [1, 0, 0],
+        "phonetic_spelling": "MYOO-tuh-buhl",
+        "emphasis": "first syllable",
+        "category": "adjective",
+        "aliases": ["changeable"],
+        "description": "Capable of being changed"
+      },
+      "immutable": {
+        "ipa": "/ɪˈmjuːtəbəl/",
+        "syllables": ["im", "mu", "ta", "ble"],
+        "stress": [0, 1, 0, 0],
+        "phonetic_spelling": "ih-MYOO-tuh-buhl",
+        "emphasis": "second syllable",
+        "category": "adjective",
+        "aliases": ["unchangeable", "constant"],
+        "description": "Cannot be changed after creation"
+      },
+      "boolean": {
+        "ipa": "/ˈbuːliən/",
+        "syllables": ["boo", "le", "an"],
+        "stress": [1, 0, 0],
+        "phonetic_spelling": "BOO-lee-uhn",
+        "emphasis": "first syllable",
+        "category": "noun",
+        "aliases": ["true/false", "binary"],
+        "description": "True or false value type"
+      },
+      "deprecated": {
+        "ipa": "/ˈdɛprəkeɪtɪd/",
+        "syllables": ["dep", "re", "ca", "ted"],
+        "stress": [1, 0, 0, 0],
+        "phonetic_spelling": "DEP-ruh-kay-tid",
+        "emphasis": "first syllable",
+        "category": "adjective",
+        "aliases": ["outdated", "superseded"],
+        "description": "Marked for removal in future versions"
       }
     }
   }
