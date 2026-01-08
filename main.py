@@ -51,15 +51,47 @@ if __name__ == "__main__":
     def world_simulation_loop():
         print("[Daemon] World Engine simulation started (background).")
         engine = get_engine() # Ensure initialized
+        
+        # Initialize Cognitive Modules
+        try:
+            from cognitive.curiosity import CuriosityModule
+            curiosity = CuriosityModule()
+            print("[Daemon] Cognitive Curiosity Module active.")
+        except Exception as e:
+            print(f"[Daemon] Failed to load Curiosity Module: {e}")
+            curiosity = None
+            
         while True:
             try:
                 # Run a step every 10 seconds
-                logs = step_realm()["logs"]
+                step_result = step_realm()
+                logs = step_result["logs"]
+                
+                # --- Observation & Learning Loop ---
+                if curiosity and logs:
+                    for log in logs:
+                        # Parse log into structured triplet (Naive parsing for demo)
+                        # Log format example: "Entity X moved to Y" or "Weather in Z changed to Rain"
+                        
+                        context = "GlobalState" # Simplified context
+                        event_type = "Unknown"
+                        outcome = log
+                        
+                        if "moved to" in log:
+                            event_type = "Movement"
+                        elif "changed to" in log:
+                            event_type = "StateChange"
+                        elif "interact" in log:
+                            event_type = "Interaction"
+                            
+                        # Feed to curiosity module
+                        is_interesting = curiosity.process_observation(context, event_type, outcome)
+                        
+                        if is_interesting:
+                            print(f"[Daemon] 💡 The AI found this interesting: {log}")
+                # -----------------------------------
+
                 if logs:
-                    # Filter for interesting logs to show user, or just show summary count
-                    # For now, let's print them if they aren't empty
-                    # Use a prefix so it's clear it's the world engine
-                    # Only print if there's actual activity to avoid spam
                     if len(logs) > 0:
                         # print(f"\n[WorldEvent] {len(logs)} updates processed.")
                         pass 
