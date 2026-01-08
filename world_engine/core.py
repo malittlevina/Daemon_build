@@ -1,3 +1,4 @@
+from interop.spatial_server import SpatialServer, EVENT_STATE_UPDATE
 import os
 import json
 import time
@@ -8,15 +9,26 @@ from world_engine.generator import WorldGenerator
 from world_engine.agents import WorldAgent
 from world_engine.environment import EnvironmentEngine
 from world_engine.physics import PhysicsEngine
+from world_engine.adapter import UniversalAdapter
+from interop.spatial_server import SpatialServer, EVENT_STATE_UPDATE
 
 class WorldEngine:
-    def __init__(self, storage_path: str = "storyrealms/world_data.json"):
+    def __init__(self, storage_path: str = "storyrealms/world_data.json", enable_server=True):
         self.storage_path = storage_path
         self.state = WorldState()
         self.generator = WorldGenerator()
         self.environment = EnvironmentEngine()
         self.physics = PhysicsEngine()
+        self.adapter = UniversalAdapter()
         self.agents: Dict[str, WorldAgent] = {}
+        
+        # Server mode
+        self.mode = "procedural" # or "external"
+        self.server = None
+        if enable_server:
+            self.server = SpatialServer()
+            self.server.on(EVENT_STATE_UPDATE, self._on_external_update)
+            self.server.start()
         
         # Load existing state if available
         if os.path.exists(self.storage_path):
@@ -33,6 +45,12 @@ class WorldEngine:
         else:
             print("[WorldEngine] No existing world found. Creating new world.")
             self.create_new_world()
+
+    def _on_external_update(self, data):
+        """Callback when the SpatialServer receives data."""
+        self.mode = "external" # Switch mode automatically
+        self.adapter.adapt_update(data, self.state)
+        # print(f"[WorldEngine] Synced {len(data.get('entities', []))} entities from external engine.")
 
     def create_new_world(self):
         self.state = WorldState()
@@ -52,19 +70,30 @@ class WorldEngine:
         self.state.time += 1.0
         logs = []
         
-        # 1. Environment Updates
-        env_logs = self.environment.update(self.state)
-        logs.extend(env_logs)
-        
-        # 2. Physics Updates
-        phys_logs = self.physics.update(self.state)
-        logs.extend(phys_logs)
-        
-        # 3. Agents think and act
+        if self.mode == "procedural":
+            # 1. Environment Updates
+            env_logs = self.environment.update(self.state)
+            logs.extend(env_logs)
+            
+            # 2. Physics Updates
+            phys_logs = self.physics.update(self.state)
+            logs.extend(phys_logs)
+        else:
+            # In external mode, we rely on the external engine for physics/env
+            # We only run Agent Logic ("Brain")
+            pass
+            
+        # 3. Agents think and act (Always run, even in external mode)
         for agent_id, agent in self.agents.items():
             action = agent.think(self.state)
-            result = agent.execute(action, self.state)
-            logs.append(result)
+            
+            if self.mode == "external" and self.server:
+                # Send command to external engine instead of executing locally
+                self.server.send_command(action, agent_id)
+                logs.append(f"Agent {agent_id} requested: {action}")
+            else:
+                result = agent.execute(action, self.state)
+                logs.append(result)
             
         self.save_world()
         return logs
