@@ -86,6 +86,7 @@ if __name__ == "__main__":
         nlu = NLUEngine(scrolls)
         if hi_tuner:
             nlu.set_tuner(hi_tuner)
+        unimind.register("language", nlu)
     except Exception as e:
         print(f"[Daemon Init Error] Failed to initialize NLU: {e}")
         health.log_error("NLU", str(e))

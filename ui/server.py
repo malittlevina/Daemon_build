@@ -36,34 +36,58 @@ class UIServer:
     def get_status(self):
         # Gather state from Unimind
         avatar = self.unimind.modules.get("avatar", [None])[0]
-        renderer = None # Need renderer instance or move render logic to AvatarEngine
         
-        # Quick hack to get renderer if not in unimind explicitly
-        # Ideally Unimind would have a centralized 'get_visual()' method
         visual_state = {}
         if avatar:
             visual_state = avatar.get_current_visual_state()
 
+        # Drive Status
         drives = self.unimind.modules.get("motivation", [])
         drive_status = {}
         for d in drives:
             if hasattr(d, "drives"): # DriveSystem
                 drive_status = {k: v.value for k, v in d.drives.items()}
 
+        # World State (For Map)
+        world = self.unimind.modules.get("world", [None])[0]
+        world_data = {}
+        if world:
+            # We explicitly serialize just what we need to avoid huge payloads
+            # Assuming world.state exists
+            if hasattr(world, "state"):
+                world_data = {
+                    "locations": {k: v.to_dict() for k, v in world.state.locations.items()},
+                    "entities": {k: v.to_dict() for k, v in world.state.entities.items()},
+                    "time": world.state.time
+                }
+
         return jsonify({
             "avatar": visual_state,
             "drives": drive_status,
-            "logs": ["Daemon is running..."] # We'd need to hook into a log buffer
+            "world": world_data
         })
 
-    def interact(self, user_input=None):
-        # In a real app, this would push to the NLU queue
-        # For now, we mock it or need a direct reference to NLU
-        # We'll just return a mock since NLU isn't passed to UIServer yet
-        return jsonify({"response": "Command received via UI (Backend integration pending)."})
+    def interact(self):
+        data = request.json
+        user_input = data.get("input", "")
+        
+        nlu = self.unimind.modules.get("language", [None])[0]
+        drives = self.unimind.modules.get("motivation", [None])[0] # Assuming first is DriveSystem
+        
+        response = "NLU not available."
+        if nlu:
+            try:
+                # We need to find the DriveSystem specifically if multiple motivation modules exist
+                # But passing the list or first is okay for now if NLU checks type, or we assume order
+                # In main.py, DriveSystem is registered first.
+                response = nlu.interpret(user_input, context_drives=drives)
+            except Exception as e:
+                response = f"Error processing command: {e}"
+        
+        return jsonify({"response": response})
 
     def receive_telemetry(self):
         data = request.json
-        print(f"[UIServer] Client Telemetry: Screen={data.get('screen')}, FPS={data.get('fps')}")
+        # print(f"[UIServer] Client Telemetry: Screen={data.get('screen')}, FPS={data.get('fps')}")
         # Adapt logic could go here
         return jsonify({"status": "ok"})
