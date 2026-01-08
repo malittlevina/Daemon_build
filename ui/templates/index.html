@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Daemon UI</title>
+    
+    <!-- PWA Settings -->
+    <link rel="manifest" href="/static/manifest.json">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="theme-color" content="#000000">
+    
+    <style>
+        :root {
+            --bg-color: #050505;
+            --panel-bg: #111;
+            --text-color: #0f0;
+            --accent-color: #0a0;
+            --border-color: #333;
+            --contrast: 100%;
+            --scale-ratio: 1.0;
+        }
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Courier New', Courier, monospace;
+            margin: 0;
+            padding: 20px;
+            filter: contrast(var(--contrast));
+            transform-origin: top left;
+            transform: scale(var(--scale-ratio));
+            transition: all 0.5s ease;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            box-sizing: border-box;
+        }
+        #top-row {
+            display: flex;
+            flex: 1;
+            gap: 20px;
+            min-height: 0; /* Chrome flex fix */
+            margin-bottom: 20px;
+        }
+        #bottom-row {
+            height: 250px;
+            display: flex;
+            flex-direction: column;
+            border: 1px solid var(--border-color);
+            background: var(--panel-bg);
+        }
+        .panel {
+            border: 1px solid var(--border-color);
+            background: var(--panel-bg);
+            padding: 10px;
+            overflow: auto;
+            display: flex;
+            flex-direction: column;
+        }
+        #sidebar {
+            width: 300px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        #avatar-display {
+            font-size: 1.5rem;
+            white-space: pre;
+            text-align: center;
+            align-items: center;
+            justify-content: center;
+            flex: 0 0 150px;
+        }
+        #status-panel {
+            flex: 1;
+            font-size: 0.8rem;
+        }
+        #map-container {
+            flex: 1;
+            position: relative;
+            overflow: hidden;
+        }
+        canvas {
+            width: 100%;
+            height: 100%;
+            background: #000;
+        }
+        
+        /* Chat Styles */
+        #chat-history {
+            flex: 1;
+            padding: 10px;
+            overflow-y: auto;
+            font-family: 'Consolas', monospace;
+            font-size: 0.9rem;
+        }
+        .msg { margin-bottom: 5px; }
+        .msg.user { color: #fff; }
+        .msg.daemon { color: var(--text-color); }
+        .timestamp { color: #666; font-size: 0.7rem; margin-right: 5px; }
+        
+        #input-area {
+            display: flex;
+            border-top: 1px solid var(--border-color);
+        }
+        #cmd-input {
+            flex: 1;
+            background: transparent;
+            border: none;
+            color: #fff;
+            padding: 10px;
+            font-family: inherit;
+            font-size: 1rem;
+            outline: none;
+        }
+        #send-btn {
+            background: var(--border-color);
+            color: var(--text-color);
+            border: none;
+            padding: 0 20px;
+            cursor: pointer;
+        }
+        #send-btn:hover { background: #444; }
+
+        .bar-container { margin-bottom: 8px; }
+        .bar { height: 8px; background: #333; width: 100%; }
+        .fill { height: 100%; background: var(--text-color); width: 50%; transition: width 0.3s; }
+        
+        #perf-stats {
+            position: fixed;
+            bottom: 5px;
+            right: 5px;
+            font-size: 0.7rem;
+            color: #666;
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body>
+    <div id="top-row">
+        <div id="sidebar">
+            <div id="avatar-display" class="panel">
+                <div id="face">( ? ? )</div>
+                <div id="mood" style="margin-top:10px; font-size:1rem;">Initializing...</div>
+            </div>
+            <div id="status-panel" class="panel">
+                <h3 style="margin-top:0">Drives</h3>
+                <div id="drives-list"></div>
+            </div>
+        </div>
+        
+        <div id="map-container" class="panel">
+            <h3 style="position:absolute; top:10px; left:10px; margin:0; pointer-events:none; background:#0008;">Live World Map</h3>
+            <canvas id="world-map"></canvas>
+        </div>
+    </div>
+
+    <div id="bottom-row">
+        <div id="chat-history">
+            <div class="msg daemon"><span class="timestamp">SYS</span> System Online. Connected to Daemon.</div>
+        </div>
+        <div id="input-area">
+            <input type="text" id="cmd-input" placeholder="Enter command (e.g., 'explore world', 'status')..." autocomplete="off">
+            <button id="send-btn">SEND</button>
+        </div>
+    </div>
+    
+    <div id="perf-stats">Calculating Performance...</div>
+
+    <script src="/static/app.js"></script>
+</body>
+</html>
