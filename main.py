@@ -143,6 +143,11 @@ if __name__ == "__main__":
     renderer = ASCIIRenderer()
     unimind.register("avatar", avatar)
     
+    # Initialize CodeMaster
+    from code_tools.code_master import CodeMaster
+    code_master = CodeMaster()
+    unimind.register("logic", code_master)
+    
     # Initialize Curriculum (Knowledge)
     from codex.curriculum import CurriculumManager
     curriculum = CurriculumManager()

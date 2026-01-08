@@ -10,6 +10,7 @@ MAX_LOG_SIZE = 10000  # characters
 
 from core.personality_engine import get_personality_engine
 from codex.curriculum import CurriculumManager
+from code_tools.code_master import CodeMaster
 
 class NLUEngine:
     def __init__(self, scroll_engine=None):
@@ -19,7 +20,8 @@ class NLUEngine:
         from lam.lam_planner import plan_next_action
         self.lam_planner = plan_next_action
         self.personality = get_personality_engine()
-        self.curriculum = CurriculumManager() # Helper to query knowledge
+        self.curriculum = CurriculumManager()
+        self.code_master = CodeMaster()
 
     def interpret(self, user_input, context_drives=None):
         raw_response = self._get_raw_response(user_input)
@@ -30,6 +32,18 @@ class NLUEngine:
         return raw_response
 
     def _get_raw_response(self, user_input):
+        # 0. Check for Code Commands
+        if "review code" in user_input.lower():
+             # In a real CLI, we might ask for the code next, or check clipboard.
+             # Here we assume the user might paste it or we just give instructions.
+             return "Please provide the code snippet you'd like me to review."
+        
+        if "generate" in user_input.lower() and "pattern" in user_input.lower():
+             # Extract pattern
+             pattern = user_input.lower().split("pattern")[-1].strip()
+             scaffold = self.code_master.generate_scaffold(pattern)
+             return f"Here is a scaffold for the {pattern} pattern:\n```python\n{scaffold}\n```"
+
         # 1. Check for Knowledge Queries (Simple keyword check)
         # In a real system, this would be an intent classifier "INTENT_QUERY_KNOWLEDGE"
         if "what is" in user_input.lower() or "tell me about" in user_input.lower():

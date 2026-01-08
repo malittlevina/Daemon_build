@@ -1,0 +1,72 @@
+{
+  "meta": {
+    "name": "MasterCoding",
+    "domain": "SoftwareEngineering",
+    "version": "1.0"
+  },
+  "topics": {
+    "singleton_pattern": {
+      "title": "Singleton Pattern",
+      "content": "Ensure a class has only one instance and provide a global point of access to it. Use when exactly one instance of a class is needed to coordinate actions across the system.",
+      "tags": [
+        "pattern",
+        "creational",
+        "structure"
+      ]
+    },
+    "factory_pattern": {
+      "title": "Factory Method Pattern",
+      "content": "Define an interface for creating an object, but let subclasses decide which class to instantiate. Factory Method lets a class defer instantiation to subclasses.",
+      "tags": [
+        "pattern",
+        "creational",
+        "polymorphism"
+      ]
+    },
+    "observer_pattern": {
+      "title": "Observer Pattern",
+      "content": "Define a one-to-many dependency between objects so that when one object changes state, all its dependents are notified and updated automatically. Key for event-driven systems.",
+      "tags": [
+        "pattern",
+        "behavioral",
+        "events"
+      ]
+    },
+    "strategy_pattern": {
+      "title": "Strategy Pattern",
+      "content": "Define a family of algorithms, encapsulate each one, and make them interchangeable. Strategy lets the algorithm vary independently from clients that use it.",
+      "tags": [
+        "pattern",
+        "behavioral",
+        "algorithms"
+      ]
+    },
+    "solid_srp": {
+      "title": "Single Responsibility Principle (SRP)",
+      "content": "A class should have one, and only one, reason to change. It should do one thing and do it well.",
+      "tags": [
+        "principle",
+        "solid",
+        "clean_code"
+      ]
+    },
+    "solid_ocp": {
+      "title": "Open/Closed Principle (OCP)",
+      "content": "Software entities (classes, modules, functions, etc.) should be open for extension, but closed for modification.",
+      "tags": [
+        "principle",
+        "solid",
+        "extensibility"
+      ]
+    },
+    "clean_functions": {
+      "title": "Clean Functions",
+      "content": "Functions should be small. They should do one thing. They should have descriptive names. They should have few arguments (ideally niladic, monadic, or dyadic).",
+      "tags": [
+        "clean_code",
+        "refactoring",
+        "readability"
+      ]
+    }
+  }
+}
