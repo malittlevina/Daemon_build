@@ -62,6 +62,15 @@ if __name__ == "__main__":
         except Exception as e:
             print(f"[Daemon] Failed to load Curiosity Module: {e}")
             curiosity = None
+            
+        # Initialize Sensor Manager (Physical Embodiment)
+        try:
+            from sensors.sensor_manager import SensorManager
+            sensors = SensorManager(curiosity_module=curiosity)
+            sensors.start_background_loop()
+        except Exception as e:
+            print(f"[Daemon] Failed to start Sensor Manager: {e}")
+            sensors = None
 
         # Initialize Drive System (Background Loop Version)
         # Note: In a real threaded app, we need thread-safe access to drives.
