@@ -12,6 +12,7 @@ from core.personality_engine import get_personality_engine
 from codex.curriculum import CurriculumManager
 from code_tools.code_master import CodeMaster
 from training.trainer import Trainer
+from cognitive.brain.evolution import EvolutionaryPlanner
 
 class NLUEngine:
     def __init__(self, scroll_engine=None):
@@ -24,10 +25,14 @@ class NLUEngine:
         self.curriculum = CurriculumManager()
         self.code_master = CodeMaster()
         self.trainer = Trainer()
-        self.hi_tuner = None # Will be injected or fetched
-
-    def set_tuner(self, tuner):
-        self.hi_tuner = tuner
+        self.hi_tuner = None 
+        
+        # Actions available to the Evolutionary Planner
+        self.available_actions = [
+            "study topic", "optimize self", "explore world", 
+            "check status", "reflect", "scan environment"
+        ]
+        self.evo_planner = EvolutionaryPlanner(self.available_actions)
 
     def interpret(self, user_input, context_drives=None):
         raw_response = self._get_raw_response(user_input)
@@ -41,15 +46,26 @@ class NLUEngine:
         # -1. Check for Training Feedback
         if user_input.lower() in ["good job", "good bot", "correct"]:
             if self.trainer.train_on_last_action(1.0):
-                return "Thank you. I have reinforced that behavior."
-            return "Thank you, but I haven't taken a significant action recently to reinforce."
+                return "Thank you. Neural weights updated."
+            return "Thank you."
             
         if user_input.lower() in ["bad job", "wrong", "incorrect"]:
             if self.trainer.train_on_last_action(-1.0):
-                return "Understood. I have reduced the probability of that behavior."
-            return "I apologize, but I'm not sure which recent action to correct."
+                return "Understood. Behavior penalized."
+            return "I apologize."
 
-        # 0. Check for Code Commands
+        # 0. Check for Self-Sufficient Planning (Evolutionary)
+        if "plan" in user_input.lower() or "solve" in user_input.lower():
+            # Use Genetic Algorithm instead of LLM
+            fitness = self.evo_planner.create_mock_fitness(user_input.lower())
+            best_plan = self.evo_planner.generate_plan(fitness)
+            plan_str = " -> ".join(best_plan)
+            
+            # Execute the first step?
+            # For now just report the plan
+            return f"Evolutionary Plan Generated: {plan_str}"
+
+        # 0.5 Check for Ingestion Command
         if "review code" in user_input.lower():
              # In a real CLI, we might ask for the code next, or check clipboard.
              # Here we assume the user might paste it or we just give instructions.
