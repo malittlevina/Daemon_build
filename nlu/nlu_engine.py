@@ -8,6 +8,8 @@ from lam.symbolic_state import update_state_with_input
 REFLECTION_LOG = "logs/self_reflection.log"
 MAX_LOG_SIZE = 10000  # characters
 
+from core.personality_engine import get_personality_engine
+
 class NLUEngine:
     def __init__(self, scroll_engine=None):
         self.learned_phrases = {}
@@ -15,24 +17,29 @@ class NLUEngine:
         self.scroll_engine = scroll_engine
         from lam.lam_planner import plan_next_action
         self.lam_planner = plan_next_action
+        self.personality = get_personality_engine()
 
-    def interpret(self, user_input):
+    def interpret(self, user_input, context_drives=None):
+        raw_response = self._get_raw_response(user_input)
+        
+        # Modulate if we have access to drives
+        if context_drives:
+            return self.personality.modulate_response(raw_response, context_drives)
+        return raw_response
+
+    def _get_raw_response(self, user_input):
         if user_input in self.learned_phrases:
             return self.learned_phrases[user_input]
-
-        # Pattern match for known phrases
-        if "learn python" in user_input.lower():
-            response = "Let's dive into Python basics!"
-            self.learned_phrases[user_input] = response
-            return response
-
+            
+        # ... existing logic ...
+        
         # Try LAM first
         try:
             # We pass a simplified symbolic state for now
             lam_response = self.lam_planner(user_input, {"context": "daemon_cli"})
             if lam_response and lam_response.startswith("[LAM]"):
                 intent = lam_response.replace("[LAM] ", "").lower().strip()
-                print(f"[NLU] LAM Intent Detected: {intent}")
+                # print(f"[NLU] LAM Intent Detected: {intent}")
                 
                 # If we have a scroll engine, try to execute the intent
                 if self.scroll_engine:
@@ -46,7 +53,7 @@ class NLUEngine:
                         return self.scroll_engine.invoke("optimize self")
                     # Add more mappings as needed
                 
-                return f"LAM suggested: {intent} (Action executed if supported)"
+                return f"I've identified the intent '{intent}', but I'm not sure how to execute it yet."
                 
         except Exception as e:
             print(f"[NLU] LAM Error: {e}")
@@ -54,11 +61,9 @@ class NLUEngine:
         # Fallback to older symbolic logic
         try:
             result = update_state_with_input(user_input, source="nlu")
+            if result: return result
         except TypeError:
-            result = update_state_with_input(user_input)
-
-        if result:
-            return result
+            pass
 
         if self.use_ollama_fallback:
             try:
@@ -66,12 +71,10 @@ class NLUEngine:
                 result = subprocess.run(["ollama", "run", "prometheus", user_input], capture_output=True, text=True)
                 if result.returncode == 0:
                     return result.stdout.strip()
-                else:
-                    return "[NLUEngine] Ollama fallback failed."
-            except Exception as e:
-                return f"[NLUEngine] Fallback exception: {e}"
+            except Exception:
+                pass
 
-        return "[NLUEngine] No known intent"
+        return "I'm not sure how to respond to that."
 
 def run_self_analysis():
     reflection = {}

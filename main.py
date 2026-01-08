@@ -212,7 +212,8 @@ if __name__ == "__main__":
                 result = None
                 if nlu:
                     try:
-                        result = nlu.interpret(user_input)
+                        # Pass the drive system context to NLU for personality modulation
+                        result = nlu.interpret(user_input, context_drives=drives)
                         if result is None or (isinstance(result, str) and result.startswith("[NLUEngine] No known intent")):
                             result = handle_fallback(user_input)
                     except Exception as e:

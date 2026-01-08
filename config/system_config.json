@@ -1,0 +1,29 @@
+{
+  "system": {
+    "tick_rate": 10,
+    "version": "0.5.0-alpha"
+  },
+  "world": {
+    "storage_path": "storyrealms/world_data.json",
+    "simulation_speed": 1.0
+  },
+  "drives": {
+    "update_interval": 3600,
+    "decay_rates": {
+      "curiosity": 0.2,
+      "competence": 0.05,
+      "coherence": 0.01
+    }
+  },
+  "sensors": {
+    "vision": {
+      "enabled": true,
+      "poll_interval": 10,
+      "use_vlm": false
+    }
+  },
+  "personality": {
+    "base_tone": "analytical",
+    "verbosity": "medium"
+  }
+}
