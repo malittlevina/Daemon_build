@@ -1,0 +1,350 @@
+{
+  "version": "1.0.0",
+  "description": "Core daemon vocabulary with pronunciation and enunciation data for Prometheus",
+  "language": "en-US",
+  "metadata": {
+    "created": "2026-01-08",
+    "purpose": "Speech recognition training, TTS pronunciation, voice command accuracy",
+    "ipa_dialect": "General American English"
+  },
+  "entries": {
+    "system_terms": {
+      "prometheus": {
+        "ipa": "/prəˈmiːθiəs/",
+        "syllables": ["pro", "me", "the", "us"],
+        "stress": [0, 1, 0, 0],
+        "phonetic_spelling": "pruh-MEE-thee-uhs",
+        "emphasis": "second syllable",
+        "category": "proper_noun",
+        "aliases": ["prom", "the daemon"],
+        "description": "Primary daemon entity name and hotword"
+      },
+      "daemon": {
+        "ipa": "/ˈdiːmən/",
+        "syllables": ["dae", "mon"],
+        "stress": [1, 0],
+        "phonetic_spelling": "DEE-muhn",
+        "emphasis": "first syllable",
+        "category": "noun",
+        "aliases": ["demon", "agent"],
+        "description": "Background process or intelligent agent",
+        "note": "NOT pronounced like 'demon' in horror context"
+      },
+      "codex": {
+        "ipa": "/ˈkoʊdɛks/",
+        "syllables": ["co", "dex"],
+        "stress": [1, 0],
+        "phonetic_spelling": "KOH-deks",
+        "emphasis": "first syllable",
+        "category": "noun",
+        "aliases": ["knowledge base", "memory bank"],
+        "description": "Knowledge storage and retrieval system"
+      },
+      "unimind": {
+        "ipa": "/ˈjuːnɪmaɪnd/",
+        "syllables": ["u", "ni", "mind"],
+        "stress": [1, 0, 1],
+        "phonetic_spelling": "YOO-nih-mynd",
+        "emphasis": "first and third syllables",
+        "category": "proper_noun",
+        "aliases": ["unified mind", "core mind"],
+        "description": "Central reasoning and decision core"
+      },
+      "scroll": {
+        "ipa": "/skroʊl/",
+        "syllables": ["scroll"],
+        "stress": [1],
+        "phonetic_spelling": "SKROHL",
+        "emphasis": "single syllable",
+        "category": "noun",
+        "aliases": ["command", "spell"],
+        "description": "Executable action or automation script"
+      },
+      "ritual": {
+        "ipa": "/ˈrɪtʃuəl/",
+        "syllables": ["ri", "tu", "al"],
+        "stress": [1, 0, 0],
+        "phonetic_spelling": "RICH-oo-uhl",
+        "emphasis": "first syllable",
+        "category": "noun",
+        "aliases": ["invocation", "ceremony"],
+        "description": "Named voice-activated command sequence"
+      },
+      "oracle": {
+        "ipa": "/ˈɔːrəkəl/",
+        "syllables": ["or", "a", "cle"],
+        "stress": [1, 0, 0],
+        "phonetic_spelling": "OR-uh-kuhl",
+        "emphasis": "first syllable",
+        "category": "noun",
+        "aliases": ["prophet", "seer"],
+        "description": "Prediction and foresight module"
+      },
+      "guardian": {
+        "ipa": "/ˈɡɑːrdiən/",
+        "syllables": ["guar", "di", "an"],
+        "stress": [1, 0, 0],
+        "phonetic_spelling": "GAR-dee-uhn",
+        "emphasis": "first syllable",
+        "category": "noun",
+        "aliases": ["protector", "watchdog"],
+        "description": "Backup and protection subsystem"
+      },
+      "thoth": {
+        "ipa": "/θoʊθ/",
+        "syllables": ["thoth"],
+        "stress": [1],
+        "phonetic_spelling": "THOHTH",
+        "emphasis": "single syllable",
+        "category": "proper_noun",
+        "aliases": ["wisdom bridge"],
+        "description": "Egyptian god of knowledge - bridge module name"
+      },
+      "lam": {
+        "ipa": "/læm/",
+        "syllables": ["lam"],
+        "stress": [1],
+        "phonetic_spelling": "LAM",
+        "emphasis": "single syllable",
+        "category": "acronym",
+        "full_form": "Language Action Model",
+        "aliases": ["action model"],
+        "description": "Symbolic state and action planning module"
+      }
+    },
+    "action_terms": {
+      "invoke": {
+        "ipa": "/ɪnˈvoʊk/",
+        "syllables": ["in", "voke"],
+        "stress": [0, 1],
+        "phonetic_spelling": "in-VOHK",
+        "emphasis": "second syllable",
+        "category": "verb",
+        "aliases": ["call", "summon", "activate"],
+        "description": "Trigger a scroll or ritual"
+      },
+      "optimize": {
+        "ipa": "/ˈɑːptɪmaɪz/",
+        "syllables": ["op", "ti", "mize"],
+        "stress": [1, 0, 0],
+        "phonetic_spelling": "OP-tih-myz",
+        "emphasis": "first syllable",
+        "category": "verb",
+        "aliases": ["improve", "enhance", "upgrade"],
+        "description": "Self-improvement action"
+      },
+      "summon": {
+        "ipa": "/ˈsʌmən/",
+        "syllables": ["sum", "mon"],
+        "stress": [1, 0],
+        "phonetic_spelling": "SUH-muhn",
+        "emphasis": "first syllable",
+        "category": "verb",
+        "aliases": ["call forth", "call upon"],
+        "description": "Bring forth knowledge or capability"
+      },
+      "ingest": {
+        "ipa": "/ɪnˈdʒɛst/",
+        "syllables": ["in", "gest"],
+        "stress": [0, 1],
+        "phonetic_spelling": "in-JEST",
+        "emphasis": "second syllable",
+        "category": "verb",
+        "aliases": ["absorb", "consume", "learn"],
+        "description": "Take in new knowledge or data"
+      },
+      "transcribe": {
+        "ipa": "/trænˈskraɪb/",
+        "syllables": ["tran", "scribe"],
+        "stress": [0, 1],
+        "phonetic_spelling": "tran-SKRYB",
+        "emphasis": "second syllable",
+        "category": "verb",
+        "aliases": ["record", "convert"],
+        "description": "Convert speech to text"
+      },
+      "reflect": {
+        "ipa": "/rɪˈflɛkt/",
+        "syllables": ["re", "flect"],
+        "stress": [0, 1],
+        "phonetic_spelling": "rih-FLEKT",
+        "emphasis": "second syllable",
+        "category": "verb",
+        "aliases": ["introspect", "analyze self"],
+        "description": "Self-analysis operation"
+      },
+      "calibrate": {
+        "ipa": "/ˈkælɪbreɪt/",
+        "syllables": ["cal", "i", "brate"],
+        "stress": [1, 0, 0],
+        "phonetic_spelling": "KAL-ih-brayt",
+        "emphasis": "first syllable",
+        "category": "verb",
+        "aliases": ["tune", "adjust"],
+        "description": "Fine-tune system parameters"
+      }
+    },
+    "ritual_phrases": {
+      "optimize_self": {
+        "phrase": "optimize self",
+        "ipa": "/ˈɑːptɪmaɪz sɛlf/",
+        "phonetic_spelling": "OP-tih-myz SELF",
+        "pause_pattern": "optimize | self",
+        "emphasis_words": ["optimize"],
+        "category": "ritual",
+        "description": "Self-optimization ritual invocation"
+      },
+      "summon_knowledge": {
+        "phrase": "summon knowledge",
+        "ipa": "/ˈsʌmən ˈnɑːlɪdʒ/",
+        "phonetic_spelling": "SUH-muhn NAH-lij",
+        "pause_pattern": "summon | knowledge",
+        "emphasis_words": ["summon"],
+        "category": "ritual",
+        "description": "Knowledge retrieval ritual"
+      },
+      "study_topic": {
+        "phrase": "study topic",
+        "ipa": "/ˈstʌdi ˈtɑːpɪk/",
+        "phonetic_spelling": "STUH-dee TAH-pik",
+        "pause_pattern": "study | topic",
+        "emphasis_words": ["study"],
+        "category": "scroll",
+        "description": "Topic learning scroll invocation"
+      },
+      "run_task": {
+        "phrase": "run task",
+        "ipa": "/rʌn tæsk/",
+        "phonetic_spelling": "RUHN TASK",
+        "pause_pattern": "run | task",
+        "emphasis_words": ["run"],
+        "category": "scroll",
+        "description": "Task execution scroll"
+      },
+      "trigger_api": {
+        "phrase": "trigger API scroll",
+        "ipa": "/ˈtrɪɡər ˌeɪ piː ˈaɪ skroʊl/",
+        "phonetic_spelling": "TRIG-er AY-pee-EYE SKROHL",
+        "pause_pattern": "trigger | API | scroll",
+        "emphasis_words": ["trigger", "API"],
+        "category": "scroll",
+        "description": "External API integration scroll"
+      }
+    },
+    "specialty_domains": {
+      "symbolic": {
+        "ipa": "/sɪmˈbɑːlɪk/",
+        "syllables": ["sym", "bol", "ic"],
+        "stress": [0, 1, 0],
+        "phonetic_spelling": "sim-BAH-lik",
+        "emphasis": "second syllable",
+        "category": "adjective",
+        "description": "Relating to symbolic AI reasoning"
+      },
+      "semantic": {
+        "ipa": "/sɪˈmæntɪk/",
+        "syllables": ["se", "man", "tic"],
+        "stress": [0, 1, 0],
+        "phonetic_spelling": "sih-MAN-tik",
+        "emphasis": "second syllable",
+        "category": "adjective",
+        "description": "Relating to meaning and context"
+      },
+      "heuristic": {
+        "ipa": "/hjʊˈrɪstɪk/",
+        "syllables": ["heu", "ris", "tic"],
+        "stress": [0, 1, 0],
+        "phonetic_spelling": "hyoo-RIS-tik",
+        "emphasis": "second syllable",
+        "category": "adjective",
+        "description": "Problem-solving approach"
+      },
+      "dialectic": {
+        "ipa": "/ˌdaɪəˈlɛktɪk/",
+        "syllables": ["di", "a", "lec", "tic"],
+        "stress": [0, 0, 1, 0],
+        "phonetic_spelling": "dy-uh-LEK-tik",
+        "emphasis": "third syllable",
+        "category": "adjective",
+        "description": "Logical argumentation method"
+      },
+      "introspection": {
+        "ipa": "/ˌɪntrəˈspɛkʃən/",
+        "syllables": ["in", "tro", "spec", "tion"],
+        "stress": [0, 0, 1, 0],
+        "phonetic_spelling": "in-truh-SPEK-shuhn",
+        "emphasis": "third syllable",
+        "category": "noun",
+        "description": "Self-examination process"
+      }
+    },
+    "technical_terms": {
+      "whisper": {
+        "ipa": "/ˈwɪspər/",
+        "syllables": ["whis", "per"],
+        "stress": [1, 0],
+        "phonetic_spelling": "WIS-per",
+        "emphasis": "first syllable",
+        "category": "proper_noun",
+        "aliases": ["OpenAI Whisper"],
+        "description": "Speech recognition model"
+      },
+      "ollama": {
+        "ipa": "/oʊˈlɑːmə/",
+        "syllables": ["o", "lla", "ma"],
+        "stress": [0, 1, 0],
+        "phonetic_spelling": "oh-LAH-muh",
+        "emphasis": "second syllable",
+        "category": "proper_noun",
+        "description": "Local LLM runtime"
+      },
+      "embeddings": {
+        "ipa": "/ɛmˈbɛdɪŋz/",
+        "syllables": ["em", "bed", "dings"],
+        "stress": [0, 1, 0],
+        "phonetic_spelling": "em-BED-ingz",
+        "emphasis": "second syllable",
+        "category": "noun",
+        "description": "Vector representations of meaning"
+      },
+      "tokenize": {
+        "ipa": "/ˈtoʊkənaɪz/",
+        "syllables": ["to", "ken", "ize"],
+        "stress": [1, 0, 0],
+        "phonetic_spelling": "TOH-kuh-nyz",
+        "emphasis": "first syllable",
+        "category": "verb",
+        "description": "Split text into tokens"
+      }
+    },
+    "emotion_states": {
+      "contemplative": {
+        "ipa": "/kənˈtɛmplətɪv/",
+        "syllables": ["con", "tem", "pla", "tive"],
+        "stress": [0, 1, 0, 0],
+        "phonetic_spelling": "kuhn-TEM-pluh-tiv",
+        "emphasis": "second syllable",
+        "category": "adjective",
+        "description": "Deep thought state"
+      },
+      "inquisitive": {
+        "ipa": "/ɪnˈkwɪzɪtɪv/",
+        "syllables": ["in", "quis", "i", "tive"],
+        "stress": [0, 1, 0, 0],
+        "phonetic_spelling": "in-KWIZ-ih-tiv",
+        "emphasis": "second syllable",
+        "category": "adjective",
+        "description": "Curious inquiry state"
+      },
+      "resolute": {
+        "ipa": "/ˈrɛzəluːt/",
+        "syllables": ["res", "o", "lute"],
+        "stress": [1, 0, 0],
+        "phonetic_spelling": "REZ-uh-loot",
+        "emphasis": "first syllable",
+        "category": "adjective",
+        "description": "Determined action state"
+      }
+    }
+  }
+}

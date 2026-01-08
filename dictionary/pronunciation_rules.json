@@ -1,0 +1,177 @@
+{
+  "version": "1.0.0",
+  "description": "Pronunciation and enunciation rules for daemon speech synthesis and recognition",
+  "rules": {
+    "general_principles": {
+      "pace": {
+        "default_wpm": 150,
+        "ritual_wpm": 120,
+        "description": "Words per minute - slower for ritual invocations for clarity"
+      },
+      "clarity": {
+        "consonant_emphasis": "strong",
+        "vowel_duration": "standard",
+        "description": "Clear consonant articulation for command recognition"
+      },
+      "prosody": {
+        "intonation_pattern": "declarative_falling",
+        "question_rise": true,
+        "description": "Natural speech melody patterns"
+      }
+    },
+    "stress_patterns": {
+      "two_syllable_nouns": {
+        "pattern": "STRONG-weak",
+        "examples": ["DAE-mon", "CO-dex", "SCRO-ll"],
+        "description": "Most two-syllable nouns stress first syllable"
+      },
+      "two_syllable_verbs": {
+        "pattern": "weak-STRONG",
+        "examples": ["in-VOKE", "tran-SCRIBE", "in-GEST"],
+        "description": "Many two-syllable verbs stress second syllable"
+      },
+      "compound_words": {
+        "pattern": "STRONG-secondary",
+        "examples": ["UNI-mind", "STORY-realms"],
+        "description": "Compound words typically stress first component"
+      },
+      "technical_terms": {
+        "pattern": "preserve_original",
+        "examples": ["pro-ME-the-us", "o-LA-ma"],
+        "description": "Technical/proper nouns preserve original stress"
+      }
+    },
+    "phoneme_rules": {
+      "th_sounds": {
+        "voiceless_th": {
+          "symbol": "θ",
+          "words": ["thoth", "prometheus"],
+          "instruction": "Tongue between teeth, no vibration",
+          "common_error": "Substituting 'f' or 't' sound"
+        },
+        "voiced_th": {
+          "symbol": "ð",
+          "words": ["the", "this"],
+          "instruction": "Tongue between teeth, with vibration",
+          "common_error": "Substituting 'd' or 'z' sound"
+        }
+      },
+      "schwa_reduction": {
+        "symbol": "ə",
+        "description": "Unstressed vowels reduce to schwa",
+        "examples": {
+          "prometheus": "second 'o' reduces: pruh-MEE-thee-uhs",
+          "daemon": "'ae' becomes schwa: DEE-muhn"
+        }
+      },
+      "r_coloring": {
+        "description": "American English r-colored vowels",
+        "examples": ["oracle: OR-uh-kuhl", "guardian: GAR-dee-uhn"],
+        "instruction": "Tongue curls back for rhotic 'r'"
+      },
+      "glottal_stops": {
+        "avoid_in": ["ritual names", "hotword"],
+        "instruction": "Maintain smooth airflow for clarity"
+      }
+    },
+    "enunciation_patterns": {
+      "ritual_invocation": {
+        "style": "deliberate",
+        "characteristics": [
+          "Clear word boundaries",
+          "Slight pause between words (200ms)",
+          "Rising-falling intonation on key word",
+          "Extended final syllable"
+        ],
+        "example": {
+          "phrase": "optimize self",
+          "pattern": "OP-ti-mize... SELF↓",
+          "pause_ms": 200
+        }
+      },
+      "hotword_recognition": {
+        "style": "distinct",
+        "characteristics": [
+          "Full pronunciation of all syllables",
+          "No reduction of vowels",
+          "Clear stress on emphasized syllable"
+        ],
+        "example": {
+          "word": "prometheus",
+          "correct": "pro-MEE-thee-us (4 clear syllables)",
+          "incorrect": "pruh-mee-thus (reduced)"
+        }
+      },
+      "command_phrasing": {
+        "style": "imperative",
+        "characteristics": [
+          "Strong stress on verb",
+          "Lower pitch on object",
+          "Definitive ending (no uptalk)"
+        ]
+      }
+    },
+    "disambiguation": {
+      "homophones": {
+        "daemon_vs_demon": {
+          "daemon": {
+            "pronunciation": "/ˈdiːmən/",
+            "context": "Computing/AI agent",
+            "tone": "neutral/technical"
+          },
+          "demon": {
+            "pronunciation": "/ˈdiːmən/",
+            "context": "Supernatural entity",
+            "tone": "dramatic"
+          },
+          "note": "Same pronunciation, distinguished by context"
+        },
+        "scroll_document_vs_scroll_action": {
+          "noun": "a scroll (document)",
+          "verb": "to scroll (move)",
+          "disambiguation": "Context-dependent, both /skroʊl/"
+        }
+      },
+      "similar_sounds": {
+        "invoke_vs_evoke": {
+          "invoke": {
+            "meaning": "Call upon, activate",
+            "pronunciation": "/ɪnˈvoʊk/",
+            "prefix_sound": "in- (short i)"
+          },
+          "evoke": {
+            "meaning": "Bring to mind",
+            "pronunciation": "/ɪˈvoʊk/",
+            "prefix_sound": "e- (short i)"
+          }
+        },
+        "codex_vs_codes": {
+          "codex": "/ˈkoʊdɛks/ - singular knowledge system",
+          "codes": "/koʊdz/ - plural programming code"
+        }
+      }
+    },
+    "speech_synthesis_hints": {
+      "ssml_markers": {
+        "emphasis": "<emphasis level='strong'>",
+        "break": "<break time='200ms'/>",
+        "prosody": "<prosody rate='slow' pitch='low'>"
+      },
+      "phoneme_overrides": {
+        "prometheus": "<phoneme alphabet='ipa' ph='prəˈmiːθiəs'>Prometheus</phoneme>",
+        "thoth": "<phoneme alphabet='ipa' ph='θoʊθ'>Thoth</phoneme>",
+        "ollama": "<phoneme alphabet='ipa' ph='oʊˈlɑːmə'>Ollama</phoneme>"
+      }
+    },
+    "recognition_tolerance": {
+      "acceptable_variations": {
+        "prometheus": ["prometheus", "promethius", "prometeus", "pro metheus"],
+        "daemon": ["daemon", "demon", "day mon", "dee mon"],
+        "codex": ["codex", "co dex", "kodex"],
+        "ritual": ["ritual", "ritchual", "rich you all"]
+      },
+      "confidence_threshold": 0.75,
+      "fuzzy_match_enabled": true
+    }
+  }
+}

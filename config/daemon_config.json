@@ -15,7 +15,8 @@
     "scrolls",
     "prometheus",
     "memory_tree",
-    "introspection"
+    "introspection",
+    "dictionary"
   ],
   "scroll_autostudy": {
     "trigger_count": 3,

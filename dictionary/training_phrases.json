@@ -1,0 +1,245 @@
+{
+  "version": "1.0.0",
+  "description": "Training phrases for speech recognition with pronunciation variations",
+  "metadata": {
+    "purpose": "Fine-tuning speech recognition models for daemon vocabulary",
+    "format": "Each entry includes canonical phrase, variations, and phonetic data"
+  },
+  "hotword_training": {
+    "primary_hotword": "prometheus",
+    "training_samples": [
+      {
+        "canonical": "prometheus",
+        "ipa": "/prəˈmiːθiəs/",
+        "variations": [
+          {"text": "prometheus", "confidence": 1.0},
+          {"text": "pro metheus", "confidence": 0.95},
+          {"text": "promethius", "confidence": 0.9},
+          {"text": "prometeus", "confidence": 0.85},
+          {"text": "pro me thee us", "confidence": 0.8}
+        ],
+        "negative_samples": [
+          "prometheus the movie",
+          "prometheus monitoring",
+          "pro method"
+        ],
+        "context_phrases": [
+          "hey prometheus",
+          "prometheus listen",
+          "prometheus wake up",
+          "okay prometheus"
+        ]
+      }
+    ]
+  },
+  "ritual_training": {
+    "optimize_self": {
+      "canonical": "optimize self",
+      "ipa": "/ˈɑːptɪmaɪz sɛlf/",
+      "category": "ritual",
+      "variations": [
+        {"text": "optimize self", "confidence": 1.0},
+        {"text": "optimise self", "confidence": 0.98},
+        {"text": "optimize yourself", "confidence": 0.95},
+        {"text": "self optimize", "confidence": 0.9},
+        {"text": "run optimization", "confidence": 0.85},
+        {"text": "optimize", "confidence": 0.7}
+      ],
+      "context_sentences": [
+        "prometheus optimize self",
+        "please optimize self",
+        "run optimize self ritual",
+        "I want you to optimize self"
+      ],
+      "response_trigger": "cast_optimize_self"
+    },
+    "summon_knowledge": {
+      "canonical": "summon knowledge",
+      "ipa": "/ˈsʌmən ˈnɑːlɪdʒ/",
+      "category": "ritual",
+      "variations": [
+        {"text": "summon knowledge", "confidence": 1.0},
+        {"text": "summon the knowledge", "confidence": 0.95},
+        {"text": "summons knowledge", "confidence": 0.9},
+        {"text": "call knowledge", "confidence": 0.85},
+        {"text": "bring knowledge", "confidence": 0.8},
+        {"text": "retrieve knowledge", "confidence": 0.75}
+      ],
+      "context_sentences": [
+        "prometheus summon knowledge",
+        "please summon knowledge about python",
+        "summon knowledge on machine learning",
+        "I need you to summon knowledge"
+      ],
+      "response_trigger": "cast_codex_query"
+    }
+  },
+  "scroll_training": {
+    "study_topic": {
+      "canonical": "study topic",
+      "ipa": "/ˈstʌdi ˈtɑːpɪk/",
+      "category": "scroll",
+      "pattern": "study topic {topic_name}",
+      "variations": [
+        {"text": "study topic", "confidence": 1.0},
+        {"text": "study the topic", "confidence": 0.95},
+        {"text": "learn about", "confidence": 0.9},
+        {"text": "research topic", "confidence": 0.85},
+        {"text": "study", "confidence": 0.7}
+      ],
+      "example_completions": [
+        "study topic neural networks",
+        "study topic rust programming",
+        "study topic quantum computing",
+        "study topic philosophy of mind"
+      ],
+      "response_trigger": "_study_topic"
+    },
+    "run_task": {
+      "canonical": "run task",
+      "ipa": "/rʌn tæsk/",
+      "category": "scroll",
+      "pattern": "run task {task_description}",
+      "variations": [
+        {"text": "run task", "confidence": 1.0},
+        {"text": "execute task", "confidence": 0.95},
+        {"text": "perform task", "confidence": 0.9},
+        {"text": "do task", "confidence": 0.85},
+        {"text": "complete task", "confidence": 0.8}
+      ],
+      "example_completions": [
+        "run task backup files",
+        "run task analyze code",
+        "run task generate report"
+      ],
+      "response_trigger": "_run_task"
+    },
+    "trigger_api": {
+      "canonical": "trigger API scroll",
+      "ipa": "/ˈtrɪɡər ˌeɪ piː ˈaɪ skroʊl/",
+      "category": "scroll",
+      "variations": [
+        {"text": "trigger API scroll", "confidence": 1.0},
+        {"text": "trigger api scroll", "confidence": 0.98},
+        {"text": "call API scroll", "confidence": 0.9},
+        {"text": "run API scroll", "confidence": 0.85},
+        {"text": "API scroll", "confidence": 0.75}
+      ],
+      "response_trigger": "_trigger_api_scroll"
+    },
+    "multi_step_plan": {
+      "canonical": "multi step plan",
+      "ipa": "/ˈmʌlti stɛp plæn/",
+      "category": "scroll",
+      "pattern": "multi step plan {goal}",
+      "variations": [
+        {"text": "multi step plan", "confidence": 1.0},
+        {"text": "multistep plan", "confidence": 0.98},
+        {"text": "create plan", "confidence": 0.9},
+        {"text": "make a plan", "confidence": 0.85},
+        {"text": "plan steps", "confidence": 0.8}
+      ],
+      "response_trigger": "_multi_step_plan"
+    }
+  },
+  "command_training": {
+    "system_commands": [
+      {
+        "canonical": "pause daemon",
+        "variations": ["pause daemon", "pause", "stop listening", "go to sleep"],
+        "action": "toggle_pause"
+      },
+      {
+        "canonical": "resume daemon",
+        "variations": ["resume daemon", "resume", "wake up", "start listening"],
+        "action": "toggle_pause"
+      },
+      {
+        "canonical": "status check",
+        "variations": ["status check", "check status", "how are you", "system status"],
+        "action": "get_status"
+      },
+      {
+        "canonical": "list scrolls",
+        "variations": ["list scrolls", "show scrolls", "what scrolls", "available scrolls"],
+        "action": "list_scrolls"
+      },
+      {
+        "canonical": "list rituals",
+        "variations": ["list rituals", "show rituals", "what rituals", "available rituals"],
+        "action": "list_rituals"
+      }
+    ]
+  },
+  "pronunciation_drills": {
+    "consonant_clusters": [
+      {
+        "cluster": "str",
+        "words": ["strong", "stream", "structure"],
+        "practice_phrase": "Strong streams structure the scroll"
+      },
+      {
+        "cluster": "thr",
+        "words": ["through", "thoth", "threshold"],
+        "practice_phrase": "Through Thoth's threshold of thought"
+      },
+      {
+        "cluster": "scr",
+        "words": ["scroll", "script", "scribe"],
+        "practice_phrase": "Scribes scroll scripts of sacred scrolls"
+      }
+    ],
+    "vowel_precision": [
+      {
+        "vowel": "long_e",
+        "symbol": "iː",
+        "words": ["daemon", "semantic", "prometheus"],
+        "practice_phrase": "The daemon sees semantic dreams"
+      },
+      {
+        "vowel": "short_i",
+        "symbol": "ɪ",
+        "words": ["ritual", "symbolic", "ingest"],
+        "practice_phrase": "Rituals input symbolic instances"
+      },
+      {
+        "vowel": "schwa",
+        "symbol": "ə",
+        "words": ["codex", "oracle", "calibrate"],
+        "practice_phrase": "The oracle calibrates the codex"
+      }
+    ],
+    "rhythm_exercises": [
+      {
+        "pattern": "da-DUM (iambic)",
+        "words": ["invoke", "reflect", "transcribe"],
+        "sentence": "Invoke, reflect, transcribe the scroll"
+      },
+      {
+        "pattern": "DUM-da (trochaic)",
+        "words": ["daemon", "codex", "ritual"],
+        "sentence": "Daemon codex ritual scrolls"
+      }
+    ]
+  },
+  "audio_sample_requirements": {
+    "format": "wav",
+    "sample_rate": 16000,
+    "bit_depth": 16,
+    "channels": 1,
+    "recommended_speakers": {
+      "minimum": 5,
+      "ideal": 20,
+      "diversity": ["male", "female", "various accents"]
+    },
+    "samples_per_phrase": {
+      "minimum": 10,
+      "ideal": 50
+    },
+    "recording_conditions": {
+      "noise_level": "< -40dB",
+      "room_type": "treated or quiet",
+      "microphone_distance": "15-30cm"
+    }
+  }
+}
