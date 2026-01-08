@@ -13,6 +13,7 @@ from codex.curriculum import CurriculumManager
 from code_tools.code_master import CodeMaster
 from training.trainer import Trainer
 from cognitive.brain.evolution import EvolutionaryPlanner
+from codex.knowledge_graph import KnowledgeGraph
 
 class NLUEngine:
     def __init__(self, scroll_engine=None):
@@ -23,6 +24,7 @@ class NLUEngine:
         self.lam_planner = plan_next_action
         self.personality = get_personality_engine()
         self.curriculum = CurriculumManager()
+        self.graph = KnowledgeGraph()
         self.code_master = CodeMaster()
         self.trainer = Trainer()
         self.hi_tuner = None 
@@ -95,14 +97,20 @@ class NLUEngine:
                  return f"I cannot find the path: {path}"
 
         # 1. Check for Knowledge Queries (Simple keyword check)
-        # In a real system, this would be an intent classifier "INTENT_QUERY_KNOWLEDGE"
         if "what is" in user_input.lower() or "tell me about" in user_input.lower():
             # Extract basic query
             query = user_input.lower().replace("what is", "").replace("tell me about", "").strip()
+            
+            # A. Check Curriculum (Structured)
             results = self.curriculum.query(query)
             if results:
                 best = results[0]
                 return f"[Knowledge: {best['source_pack']}] {best['title']}: {best['content']}"
+            
+            # B. Check Graph (Associative)
+            related = self.graph.get_related(query)
+            if related:
+                return f"[Associative Memory] '{query}' is related to: {', '.join(related)}. I can try to connect these concepts."
 
         if user_input in self.learned_phrases:
             return self.learned_phrases[user_input]
