@@ -20,5 +20,77 @@
   "scroll_autostudy": {
     "trigger_count": 3,
     "daily_reset": true
+  },
+  "os_compatibility": {
+    "preferred_os": "thothos",
+    "fallback_enabled": true,
+    "cross_platform_mode": true,
+    "os_priority_order": [
+      "thothos",
+      "linux",
+      "macos",
+      "bsd",
+      "windows",
+      "unknown"
+    ],
+    "feature_scaling": {
+      "thothos": 1.0,
+      "linux": 0.85,
+      "macos": 0.75,
+      "bsd": 0.70,
+      "windows": 0.60,
+      "unknown": 0.30
+    },
+    "os_specific_settings": {
+      "thothos": {
+        "use_symbolic_kernel": true,
+        "native_scroll_triggers": true,
+        "kernel_reflection": true,
+        "realtime_emotion_sync": true,
+        "hardware_sensor_direct": true,
+        "daemon_persistence": true,
+        "hot_reload": true,
+        "performance_mode": "maximum"
+      },
+      "linux": {
+        "use_symbolic_kernel": false,
+        "native_scroll_triggers": true,
+        "kernel_reflection": false,
+        "realtime_emotion_sync": true,
+        "hardware_sensor_direct": true,
+        "daemon_persistence": true,
+        "hot_reload": true,
+        "performance_mode": "high"
+      },
+      "macos": {
+        "use_symbolic_kernel": false,
+        "native_scroll_triggers": true,
+        "kernel_reflection": false,
+        "realtime_emotion_sync": true,
+        "hardware_sensor_direct": false,
+        "daemon_persistence": true,
+        "hot_reload": false,
+        "performance_mode": "balanced"
+      },
+      "windows": {
+        "use_symbolic_kernel": false,
+        "native_scroll_triggers": false,
+        "kernel_reflection": false,
+        "realtime_emotion_sync": false,
+        "hardware_sensor_direct": false,
+        "daemon_persistence": true,
+        "hot_reload": false,
+        "performance_mode": "conservative",
+        "compatibility_layer": true
+      }
+    }
+  },
+  "thothos_native": {
+    "kernel_socket": "/run/thothos/kernel.sock",
+    "daemon_socket": "/run/thothos/daemon.sock",
+    "symbolic_memory_path": "/var/lib/thothos/memory",
+    "ritual_hooks_enabled": true,
+    "deep_integration": true,
+    "priority_boost": true
   }
 }
