@@ -19,6 +19,11 @@ from datetime import date
 from daemon.state_manager import StateManager
 from core.event_bus import GLOBAL_EVENT_BUS
 from core.event_sinks import start_jsonl_event_sink
+from kernel.kernel import Kernel
+from kernel.actions import ActionSpec
+from kernel.adapters import RitualsService, StateService, UnimindService
+from kernel.identity import Principal
+from kernel.services import ServiceInfo
 
 # Flag to control use of Ollama fallback
 USE_OLLAMA = False  # Set to True to enable Ollama fallback
@@ -42,6 +47,46 @@ if __name__ == "__main__":
 
     print("[Daemon] Starting Prometheus daemon...")
     GLOBAL_EVENT_BUS.publish("daemon.start", {"name": "Prometheus"}, source="daemon", tags=["daemon"])
+
+    # Kernel boot (service registry + actions + policy/caps + scheduler + IPC)
+    kernel = Kernel(event_bus=GLOBAL_EVENT_BUS)
+
+    kernel.register_service(ServiceInfo(name="unimind", kind="agent", provides=["reflect"]), UnimindService(unimind))
+    kernel.register_service(ServiceInfo(name="rituals", kind="registry", provides=["cast"]), RitualsService(rituals))
+    kernel.register_service(ServiceInfo(name="state", kind="state", provides=["get", "set"]), StateService(state))
+
+    ui_principal = Principal(id="ui", kind="ui", roles=["ui"])
+    # Bootstrap caps for the local UI (tighten later with sessions/approvals).
+    kernel.caps.grant(ui_principal, "daemon.control", "unimind.control", "rituals.cast")
+
+    kernel.register_action(
+        ActionSpec(
+            name="daemon.toggle_pause",
+            description="Toggle daemon paused state",
+            required_caps=["daemon.control"],
+            tags=["daemon", "state"],
+            fn=lambda args, principal: {"paused": bool(state.toggle_pause())},
+        )
+    )
+    kernel.register_action(
+        ActionSpec(
+            name="unimind.reflect",
+            description="Run Unimind reflection loop",
+            required_caps=["unimind.control"],
+            tags=["unimind"],
+            fn=lambda args, principal: (unimind.reflect() or {"ok": True}),
+        )
+    )
+    kernel.register_action(
+        ActionSpec(
+            name="ritual.cast",
+            description="Cast a ritual by name",
+            args_schema={"ritual_name": "string", "context": "object (optional)"},
+            required_caps=["rituals.cast"],
+            tags=["rituals"],
+            fn=lambda args, principal: {"result": rituals.cast_ritual(str(args.get("ritual_name", "")).strip(), context=args.get("context") or {})},
+        )
+    )
 
     # Launch sensors and background modules in threads
     ENABLE_VOICE = False
@@ -69,7 +114,7 @@ if __name__ == "__main__":
             from gui.context import DaemonUIContext
             from gui.agent_ui_server import start_agent_ui_server
 
-            ui_context = DaemonUIContext(unimind=unimind, rituals=rituals, state=state)
+            ui_context = DaemonUIContext(unimind=unimind, rituals=rituals, state=state, kernel=kernel)
             start_agent_ui_server(ui_context=ui_context, host="127.0.0.1", port=8765, background=True)
             print("[AgentUI] Running at http://127.0.0.1:8765")
         except Exception as e:
@@ -152,6 +197,8 @@ if __name__ == "__main__":
                     source="daemon",
                     tags=["output"] + ([f"trace:{trace_id}"] if trace_id else []),
                 )
+                # Kernel tick (timers/cron hooks)
+                kernel.tick()
 
         except Exception as loop_error:
             print(f"[Daemon Critical Loop Error] {loop_error}")

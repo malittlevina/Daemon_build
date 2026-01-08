@@ -81,6 +81,13 @@ class AgentUIHandler(BaseHTTPRequestHandler):
         if path == "/api/world_model":
             return self._send_json(self.server.ui_context.get_world_model())
 
+        if path == "/api/kernel":
+            # Optional: if context is backed by a kernel, expose kernel snapshot state.
+            k = getattr(self.server.ui_context, "kernel", None)
+            if k is None:
+                return self._send_json({"ok": False, "error": "no_kernel"}, status=404)
+            return self._send_json(k.snapshot_state())
+
         if path == "/api/events":
             return self._handle_sse_events()
 

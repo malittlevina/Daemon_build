@@ -5,6 +5,7 @@ from typing import Any, Dict, List, Optional
 
 from core.event_bus import EventBus, GLOBAL_EVENT_BUS
 from daemon.state_manager import StateManager
+from kernel.kernel import Kernel
 from rituals.ritual_registry import RitualRegistry
 from unimind.core import Unimind
 
@@ -22,6 +23,7 @@ class DaemonUIContext:
     unimind: Unimind
     rituals: RitualRegistry
     state: StateManager
+    kernel: Kernel | None = None
     event_bus: EventBus = GLOBAL_EVENT_BUS
 
     def get_state(self) -> Dict[str, Any]:
@@ -46,6 +48,8 @@ class DaemonUIContext:
         }
 
     def list_actions(self) -> List[Dict[str, Any]]:
+        if self.kernel is not None:
+            return self.kernel.list_actions()
         # A minimal “action surface” to start; can expand into schemas later.
         return [
             {
@@ -66,6 +70,8 @@ class DaemonUIContext:
         ]
 
     def get_world_model(self) -> Dict[str, Any]:
+        if self.kernel is not None:
+            return self.kernel.world_model()
         """
         Minimal world model graph (nodes + edges).
 
@@ -113,6 +119,9 @@ class DaemonUIContext:
 
     def invoke_action(self, name: str, args: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
         args = args or {}
+        if self.kernel is not None:
+            # Default principal is the UI; we can plumb sessions later.
+            return self.kernel.invoke(name, args=args, trace_id=args.get("trace_id"))
 
         if name == "daemon.toggle_pause":
             new_state = self.state.toggle_pause()
