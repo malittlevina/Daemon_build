@@ -25,6 +25,18 @@ class UIServer:
     def start(self):
         self.daemon_thread = threading.Thread(target=self._run, daemon=True)
         self.daemon_thread.start()
+        
+        # Try to print LAN access info
+        try:
+            import socket
+            s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+            s.connect(("8.8.8.8", 80))
+            ip = s.getsockname()[0]
+            s.close()
+            print(f"[UIServer] Local Network Access: http://{ip}:{self.port}")
+        except:
+            pass
+            
         print(f"[UIServer] Web Interface running at http://localhost:{self.port}")
 
     def _run(self):
