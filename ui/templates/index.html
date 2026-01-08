@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daemon UI</title>
+    <style>
+        :root {
+            --bg-color: #000;
+            --text-color: #0f0;
+            --accent-color: #0a0;
+            --contrast: 100%;
+            --scale-ratio: 1.0;
+        }
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Courier New', Courier, monospace;
+            margin: 0;
+            padding: 20px;
+            filter: contrast(var(--contrast));
+            transform-origin: top left;
+            transform: scale(var(--scale-ratio));
+            transition: all 0.5s ease;
+        }
+        #container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            height: 90vh;
+        }
+        .panel {
+            border: 1px solid var(--accent-color);
+            padding: 10px;
+            overflow: auto;
+        }
+        #avatar-display {
+            font-size: 2rem;
+            white-space: pre;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+        #status-panel {
+            font-size: 0.9rem;
+        }
+        .bar-container {
+            margin-bottom: 5px;
+        }
+        .bar {
+            height: 10px;
+            background: #333;
+            width: 100%;
+        }
+        .fill {
+            height: 100%;
+            background: var(--text-color);
+            width: 50%;
+            transition: width 0.3s;
+        }
+        #console {
+            grid-column: 1 / -1;
+            height: 200px;
+            border-top: 2px solid var(--accent-color);
+        }
+        #perf-stats {
+            position: fixed;
+            bottom: 5px;
+            right: 5px;
+            font-size: 0.7rem;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <div id="avatar-display" class="panel">
+            <div id="face">( ? ? )</div>
+            <div id="mood">Initializing...</div>
+        </div>
+        
+        <div id="status-panel" class="panel">
+            <h3>Internal Drives</h3>
+            <div id="drives-list"></div>
+        </div>
+
+        <div id="console" class="panel">
+            <div>> System Online. Waiting for telemetry...</div>
+        </div>
+    </div>
+    
+    <div id="perf-stats">Calculating Performance...</div>
+
+    <script src="/static/app.js"></script>
+</body>
+</html>
