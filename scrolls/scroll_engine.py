@@ -20,7 +20,8 @@ class ScrollEngine:
             "study topic": self._study_topic,
             "trigger api scroll": self._trigger_api_scroll,
             "run task": self._run_task,
-            "multi step plan": self._multi_step_plan
+            "multi step plan": self._multi_step_plan,
+            "initiate world interaction scroll": self._interact_world
         }
         self.active_scrolls = []
 
@@ -29,6 +30,19 @@ class ScrollEngine:
             return self.scrolls[name](*args, **kwargs)
         else:
             return self.invoke_dynamic_scroll(name)
+
+    def _interact_world(self):
+        from storyrealms.storyrealm_bridge import enter_storyrealm, step_realm, get_current_realm
+        
+        # Check current state
+        state = get_current_realm()
+        if not state.get("current_realm") or state["current_realm"] == "None":
+             result = enter_storyrealm("ProceduralRealm")
+             return f"Entered new realm: {result['realm']}. Summary: {result['world_summary']}"
+        else:
+             # Just step
+             res = step_realm()
+             return f"Simulated world step. Logs: {res['logs']}"
 
     def _optimize_self(self):
         from optimizer.auto_upgrade import run_auto_optimization

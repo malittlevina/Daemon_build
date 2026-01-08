@@ -1,0 +1,206 @@
+{
+  "locations": {
+    "f5b9a4ed-4a58-498c-88c4-50365e6c6c9c": {
+      "id": "f5b9a4ed-4a58-498c-88c4-50365e6c6c9c",
+      "name": "Haunted Space Station",
+      "description": "A haunted space station with unique features.",
+      "properties": {
+        "temperature": 7,
+        "humidity": 83,
+        "danger_level": 8
+      },
+      "connected_location_ids": [
+        "69f248f1-abe2-40d4-84e4-7b518c343218"
+      ],
+      "entities": [
+        "15fb8181-4bf1-46d9-88ef-5f17e90a6e7e"
+      ]
+    },
+    "69f248f1-abe2-40d4-84e4-7b518c343218": {
+      "id": "69f248f1-abe2-40d4-84e4-7b518c343218",
+      "name": "Futuristic Mountain",
+      "description": "A futuristic mountain with unique features.",
+      "properties": {
+        "temperature": -11,
+        "humidity": 59,
+        "danger_level": 1
+      },
+      "connected_location_ids": [
+        "f5b9a4ed-4a58-498c-88c4-50365e6c6c9c",
+        "4051b811-3ad1-4044-822b-82d92b2a841a"
+      ],
+      "entities": [
+        "de2b7337-8990-4161-af8b-dfd794c4ace5",
+        "7ffac519-15b7-4b62-8435-02a27fb96834",
+        "df228f33-d8f8-45dc-b691-07aabbd2aa59"
+      ]
+    },
+    "4051b811-3ad1-4044-822b-82d92b2a841a": {
+      "id": "4051b811-3ad1-4044-822b-82d92b2a841a",
+      "name": "Serene Forest",
+      "description": "A serene forest with unique features.",
+      "properties": {
+        "temperature": 6,
+        "humidity": 73,
+        "danger_level": 8
+      },
+      "connected_location_ids": [
+        "69f248f1-abe2-40d4-84e4-7b518c343218",
+        "893302c2-6bbe-4467-8962-35316c1149a8"
+      ],
+      "entities": [
+        "2cad5e53-6d44-41b4-b081-5a55432cde38"
+      ]
+    },
+    "893302c2-6bbe-4467-8962-35316c1149a8": {
+      "id": "893302c2-6bbe-4467-8962-35316c1149a8",
+      "name": "Bustling Forest",
+      "description": "A bustling forest with unique features.",
+      "properties": {
+        "temperature": 31,
+        "humidity": 59,
+        "danger_level": 2
+      },
+      "connected_location_ids": [
+        "4051b811-3ad1-4044-822b-82d92b2a841a",
+        "0b74b83f-2c1c-4ac2-9650-e3c1b11dddcb"
+      ],
+      "entities": [
+        "0a0b52da-f9a0-4a5b-bc2b-19ed4d52ea0c",
+        "e80899fc-f71c-41da-8e74-054c76e961be",
+        "40167445-40f8-4420-b8eb-9c92b35306a2",
+        "7c77b061-d13f-4e31-87e0-3d9a7c2312ee",
+        "d4fb3f00-29b6-48fa-99fa-1085d0943ea1",
+        "25df977b-9e40-47b0-a087-fdc636904b68"
+      ]
+    },
+    "0b74b83f-2c1c-4ac2-9650-e3c1b11dddcb": {
+      "id": "0b74b83f-2c1c-4ac2-9650-e3c1b11dddcb",
+      "name": "Serene Forest",
+      "description": "A serene forest with unique features.",
+      "properties": {
+        "temperature": 35,
+        "humidity": 76,
+        "danger_level": 9
+      },
+      "connected_location_ids": [
+        "893302c2-6bbe-4467-8962-35316c1149a8"
+      ],
+      "entities": []
+    }
+  },
+  "entities": {
+    "df228f33-d8f8-45dc-b691-07aabbd2aa59": {
+      "id": "df228f33-d8f8-45dc-b691-07aabbd2aa59",
+      "name": "Merchant 27",
+      "entity_type": "NPC",
+      "properties": {
+        "value": 85,
+        "weight": 48
+      },
+      "location_id": "69f248f1-abe2-40d4-84e4-7b518c343218"
+    },
+    "15fb8181-4bf1-46d9-88ef-5f17e90a6e7e": {
+      "id": "15fb8181-4bf1-46d9-88ef-5f17e90a6e7e",
+      "name": "Potion 48",
+      "entity_type": "Item",
+      "properties": {
+        "value": 55,
+        "weight": 38
+      },
+      "location_id": "f5b9a4ed-4a58-498c-88c4-50365e6c6c9c"
+    },
+    "7c77b061-d13f-4e31-87e0-3d9a7c2312ee": {
+      "id": "7c77b061-d13f-4e31-87e0-3d9a7c2312ee",
+      "name": "Scientist 38",
+      "entity_type": "NPC",
+      "properties": {
+        "value": 14,
+        "weight": 49
+      },
+      "location_id": "893302c2-6bbe-4467-8962-35316c1149a8"
+    },
+    "de2b7337-8990-4161-af8b-dfd794c4ace5": {
+      "id": "de2b7337-8990-4161-af8b-dfd794c4ace5",
+      "name": "Spirit 11",
+      "entity_type": "Creature",
+      "properties": {
+        "value": 73,
+        "weight": 24
+      },
+      "location_id": "69f248f1-abe2-40d4-84e4-7b518c343218"
+    },
+    "7ffac519-15b7-4b62-8435-02a27fb96834": {
+      "id": "7ffac519-15b7-4b62-8435-02a27fb96834",
+      "name": "Guard 55",
+      "entity_type": "NPC",
+      "properties": {
+        "value": 43,
+        "weight": 3
+      },
+      "location_id": "69f248f1-abe2-40d4-84e4-7b518c343218"
+    },
+    "d4fb3f00-29b6-48fa-99fa-1085d0943ea1": {
+      "id": "d4fb3f00-29b6-48fa-99fa-1085d0943ea1",
+      "name": "Guard 90",
+      "entity_type": "NPC",
+      "properties": {
+        "value": 54,
+        "weight": 16
+      },
+      "location_id": "893302c2-6bbe-4467-8962-35316c1149a8"
+    },
+    "2cad5e53-6d44-41b4-b081-5a55432cde38": {
+      "id": "2cad5e53-6d44-41b4-b081-5a55432cde38",
+      "name": "Sword 40",
+      "entity_type": "Item",
+      "properties": {
+        "value": 24,
+        "weight": 46
+      },
+      "location_id": "4051b811-3ad1-4044-822b-82d92b2a841a"
+    },
+    "0a0b52da-f9a0-4a5b-bc2b-19ed4d52ea0c": {
+      "id": "0a0b52da-f9a0-4a5b-bc2b-19ed4d52ea0c",
+      "name": "Alien 8",
+      "entity_type": "Creature",
+      "properties": {
+        "value": 11,
+        "weight": 6
+      },
+      "location_id": "893302c2-6bbe-4467-8962-35316c1149a8"
+    },
+    "e80899fc-f71c-41da-8e74-054c76e961be": {
+      "id": "e80899fc-f71c-41da-8e74-054c76e961be",
+      "name": "Wolf 58",
+      "entity_type": "Creature",
+      "properties": {
+        "value": 78,
+        "weight": 19
+      },
+      "location_id": "893302c2-6bbe-4467-8962-35316c1149a8"
+    },
+    "40167445-40f8-4420-b8eb-9c92b35306a2": {
+      "id": "40167445-40f8-4420-b8eb-9c92b35306a2",
+      "name": "Sword 89",
+      "entity_type": "Item",
+      "properties": {
+        "value": 14,
+        "weight": 50
+      },
+      "location_id": "893302c2-6bbe-4467-8962-35316c1149a8"
+    },
+    "25df977b-9e40-47b0-a087-fdc636904b68": {
+      "id": "25df977b-9e40-47b0-a087-fdc636904b68",
+      "name": "Scientist 59",
+      "entity_type": "NPC",
+      "properties": {
+        "value": 95,
+        "weight": 48
+      },
+      "location_id": "893302c2-6bbe-4467-8962-35316c1149a8"
+    }
+  },
+  "global_properties": {},
+  "time": 6.0
+}
