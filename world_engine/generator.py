@@ -19,7 +19,9 @@ class WorldGenerator:
         properties = {
             "temperature": random.randint(-20, 40),
             "humidity": random.randint(0, 100),
-            "danger_level": random.randint(1, 10)
+            "danger_level": random.randint(1, 10),
+            "weather": random.choice(["Clear", "Rain", "Fog", "Clear", "Clear"]),
+            "light_level": 1.0
         }
         
         return Location(name, description, properties)
@@ -38,7 +40,10 @@ class WorldGenerator:
         
         properties = {
             "value": random.randint(1, 100),
-            "weight": random.randint(1, 50)
+            "weight": random.randint(1, 50),
+            "mass": random.uniform(10.0, 100.0),
+            "velocity": [0.0, 0.0, 0.0],
+            "position": [random.uniform(-10, 10), 0.0, random.uniform(-10, 10)]
         }
         
         entity = Entity(name, entity_type, properties)

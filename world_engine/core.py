@@ -6,12 +6,16 @@ from typing import Dict, List
 from world_engine.state import WorldState
 from world_engine.generator import WorldGenerator
 from world_engine.agents import WorldAgent
+from world_engine.environment import EnvironmentEngine
+from world_engine.physics import PhysicsEngine
 
 class WorldEngine:
     def __init__(self, storage_path: str = "storyrealms/world_data.json"):
         self.storage_path = storage_path
         self.state = WorldState()
         self.generator = WorldGenerator()
+        self.environment = EnvironmentEngine()
+        self.physics = PhysicsEngine()
         self.agents: Dict[str, WorldAgent] = {}
         
         # Load existing state if available
@@ -48,15 +52,20 @@ class WorldEngine:
         self.state.time += 1.0
         logs = []
         
-        # 1. Agents think and act
+        # 1. Environment Updates
+        env_logs = self.environment.update(self.state)
+        logs.extend(env_logs)
+        
+        # 2. Physics Updates
+        phys_logs = self.physics.update(self.state)
+        logs.extend(phys_logs)
+        
+        # 3. Agents think and act
         for agent_id, agent in self.agents.items():
             action = agent.think(self.state)
             result = agent.execute(action, self.state)
             logs.append(result)
             
-        # 2. Physics/Environment updates (placeholder)
-        # e.g., weather changes, decay
-        
         self.save_world()
         return logs
 

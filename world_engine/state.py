@@ -9,6 +9,10 @@ class Entity:
         self.name = name
         self.entity_type = entity_type
         self.properties = properties or {}
+        # Physics properties
+        self.properties.setdefault("mass", 70.0) # kg
+        self.properties.setdefault("velocity", [0.0, 0.0, 0.0])
+        self.properties.setdefault("position", [0.0, 0.0, 0.0]) # Local coordinates in a location
         self.location_id: Optional[str] = None
     
     def to_dict(self):
@@ -26,6 +30,10 @@ class Location:
         self.name = name
         self.description = description
         self.properties = properties or {}
+        # Environment properties
+        self.properties.setdefault("weather", "Clear")
+        self.properties.setdefault("temperature", 20.0)
+        self.properties.setdefault("light_level", 1.0) # 0.0 to 1.0
         self.connected_location_ids: List[str] = []
         self.entities: List[str] = []
 
