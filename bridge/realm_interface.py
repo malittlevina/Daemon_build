@@ -1,4 +1,4 @@
-k# bridge/realm_interface.py
+# bridge/realm_interface.py
 
 class RealmInterface:
     def __init__(self):
