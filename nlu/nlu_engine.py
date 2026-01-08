@@ -11,6 +11,7 @@ MAX_LOG_SIZE = 10000  # characters
 from core.personality_engine import get_personality_engine
 from codex.curriculum import CurriculumManager
 from code_tools.code_master import CodeMaster
+from training.trainer import Trainer
 
 class NLUEngine:
     def __init__(self, scroll_engine=None):
@@ -22,6 +23,7 @@ class NLUEngine:
         self.personality = get_personality_engine()
         self.curriculum = CurriculumManager()
         self.code_master = CodeMaster()
+        self.trainer = Trainer()
 
     def interpret(self, user_input, context_drives=None):
         raw_response = self._get_raw_response(user_input)
@@ -32,6 +34,17 @@ class NLUEngine:
         return raw_response
 
     def _get_raw_response(self, user_input):
+        # -1. Check for Training Feedback
+        if user_input.lower() in ["good job", "good bot", "correct"]:
+            if self.trainer.train_on_last_action(1.0):
+                return "Thank you. I have reinforced that behavior."
+            return "Thank you, but I haven't taken a significant action recently to reinforce."
+            
+        if user_input.lower() in ["bad job", "wrong", "incorrect"]:
+            if self.trainer.train_on_last_action(-1.0):
+                return "Understood. I have reduced the probability of that behavior."
+            return "I apologize, but I'm not sure which recent action to correct."
+
         # 0. Check for Code Commands
         if "review code" in user_input.lower():
              # In a real CLI, we might ask for the code next, or check clipboard.
@@ -43,6 +56,23 @@ class NLUEngine:
              pattern = user_input.lower().split("pattern")[-1].strip()
              scaffold = self.code_master.generate_scaffold(pattern)
              return f"Here is a scaffold for the {pattern} pattern:\n```python\n{scaffold}\n```"
+
+        # 0.5 Check for Ingestion Command
+        if user_input.lower().startswith("ingest"):
+            # ingest /path/to/file
+            path = user_input.replace("ingest", "").strip()
+            if os.path.exists(path):
+                from codex.ingestion import ingest_documents
+                # Hack: ingest_documents takes a folder, we might need a file helper
+                # For now, if it's a file, we can't easily use ingest_documents without refactor.
+                # Let's just mock it or assume folder.
+                if os.path.isdir(path):
+                    ingest_documents(path)
+                    return f"Ingested all documents in {path}."
+                else:
+                    return "Please provide a directory path for ingestion."
+            else:
+                 return f"I cannot find the path: {path}"
 
         # 1. Check for Knowledge Queries (Simple keyword check)
         # In a real system, this would be an intent classifier "INTENT_QUERY_KNOWLEDGE"

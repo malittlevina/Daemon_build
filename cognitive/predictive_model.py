@@ -33,7 +33,25 @@ class PredictiveModel:
         """
         # outcome_key: string representation of what changed
         self.transitions[str(context)][str(event)][str(outcome)] += 1
+        self.last_triplet = (str(context), str(event), str(outcome)) # Store for reinforcement
         self.save()
+
+    def reinforce_last_observation(self, weight_delta):
+        """
+        Adjusts the weight of the last observed transition.
+        """
+        if not hasattr(self, 'last_triplet'):
+            return False
+            
+        context, event, outcome = self.last_triplet
+        
+        # Apply weight
+        current = self.transitions[context][event][outcome]
+        # Ensure we don't drop below 0
+        new_val = max(0, current + weight_delta)
+        self.transitions[context][event][outcome] = new_val
+        self.save()
+        return True
 
     def predict(self, context, event):
         """
