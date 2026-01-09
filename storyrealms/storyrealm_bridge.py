@@ -13,6 +13,17 @@ class StoryRealmBridge:
     def __init__(self):
         self.realm: Realm = None
         self.engine: GameEngine = None
+        self.bus = None
+        
+        # Try to get kernel bus if available (lazy load)
+        try:
+            from core.kernel import get_kernel
+            kernel = get_kernel()
+            if kernel.initialized:
+                self.bus = kernel.bus
+        except ImportError:
+            pass # Standalone mode
+
         self._load_or_create_realm()
 
     def _load_or_create_realm(self):
@@ -21,14 +32,14 @@ class StoryRealmBridge:
                 with open(REALM_STATE_FILE, "r") as f:
                     data = json.load(f)
                 self.realm = Realm.from_dict(data)
-                print("Loaded realm from disk.")
+                # print("Loaded realm from disk.")
             except Exception as e:
                 print(f"Failed to load realm: {e}")
                 self._create_demo_world()
         else:
             self._create_demo_world()
         
-        self.engine = GameEngine(self.realm)
+        self.engine = GameEngine(self.realm, event_bus=self.bus)
 
     def _create_demo_world(self):
         # Create Realm
@@ -81,6 +92,17 @@ class StoryRealmBridge:
 
     # API Methods
     def handle_command(self, command: str, args: Dict[str, Any] = {}) -> Dict[str, Any]:
+        # Ensure engine has bus if it wasn't available at init
+        if self.engine.bus is None and self.bus is None:
+             try:
+                from core.kernel import get_kernel
+                kernel = get_kernel()
+                if kernel.initialized:
+                    self.bus = kernel.bus
+                    self.engine.bus = kernel.bus
+             except ImportError:
+                pass
+                
         if command == "move":
             direction = args.get("direction")
             if not direction: return {"error": "Missing direction"}
