@@ -1,113 +1,73 @@
 import threading
-from unimind.core import Unimind
-from prometheus.specialties import PrometheusSpecialties
-from codex.ingestion import ingest_documents
-from emotion.emotion_engine import EmotionEngine
-from rituals.ritual_registry import RitualRegistry
-from introspection.personality_tracker import PersonalityTracker
-from memory_tree.memory_logger import MemoryLogger
-from optimizer.auto_upgrade import run_auto_optimization
-from scrolls.scroll_engine import ScrollEngine
-## from sensors.vision import VisionSensor
-from nlu.nlu_engine import NLUEngine
-import subprocess
-import json
 import time
 import os
 from datetime import date
 
-# Flag to control use of Ollama fallback
-USE_OLLAMA = False  # Set to True to enable Ollama fallback
+from core.kernel import get_kernel
+from nlu.nlu_engine import NLUEngine
+from storyrealms.storyrealm_bridge import get_bridge 
+from unimind.core import Unimind
+from prometheus.specialties import PrometheusSpecialties
+from emotion.emotion_engine import EmotionEngine
+from memory_tree.memory_logger import MemoryLogger
+from scrolls.scroll_engine import ScrollEngine
+from introspection.personality_tracker import PersonalityTracker
 
-if __name__ == "__main__":
-    unimind = Unimind()
-    prom = PrometheusSpecialties()
-    emotions = EmotionEngine()
-    memory = MemoryLogger()
-    rituals = RitualRegistry()
+# --- Legacy imports for background tasks ---
+from codex.ingestion import ingest_documents
+from optimizer.auto_upgrade import run_auto_optimization
+
+def main():
+    # Initialize Kernel
+    kernel = get_kernel()
+    
+    # Initialize Subsystems
+    print("[Launcher] Booting subsystems...")
+    
+    # 1. NLU
     scrolls = ScrollEngine()
-    # vision = VisionSensor()
+    nlu = NLUEngine(scrolls)
+    kernel.register_module("nlu", nlu)
+    
+    # 2. Unimind (Logic)
+    unimind = Unimind()
+    kernel.register_module("unimind", unimind)
+    
+    # 3. Emotions & Personality
+    emotions = EmotionEngine()
     personality = PersonalityTracker()
-    try:
-        global nlu
-        nlu = NLUEngine(scrolls)
-    except Exception as e:
-        print(f"[Daemon Init Error] Failed to initialize NLU: {e}")
-        nlu = None
-
-    print("[Daemon] Starting Prometheus daemon...")
-
-    # Launch sensors and background modules in threads
-    ENABLE_VOICE = False
-    # To enable the voice listener, set ENABLE_VOICE = True above.
-    if ENABLE_VOICE:
-        from voice.voice_listener import start_voice_listener
-        threading.Thread(target=start_voice_listener, daemon=True).start()
-    # threading.Thread(target=vision.classify_surroundings, daemon=True).start()
-    threading.Thread(target=run_auto_optimization, daemon=True).start()
-
-    # Load Codex documents
-    ingest_documents("codex/data/")
-
-    os.makedirs("logs", exist_ok=True)
-    last_run_date = None
-
-    def handle_fallback(text):
-        if not USE_OLLAMA:
-            return "[Daemon] No known intent."
-        try:
-            response = subprocess.run(
-                ["ollama", "run", "llama3"],
-                input=text,
-                text=True,
-                capture_output=True
-            )
-            if response.returncode == 0:
-                output = response.stdout
-                return output if output else "[Daemon] No response from Ollama."
-            else:
-                return f"[Daemon] Ollama error: {response.stderr}"
-        except Exception as e:
-            return f"[Daemon] Fallback error: {e}"
-
+    kernel.register_module("emotions", emotions)
+    
+    # 4. Start Background Threads (Legacy)
+    # ingest_documents("codex/data/") # Can be heavy
+    # threading.Thread(target=run_auto_optimization, daemon=True).start()
+    
+    # Start Kernel
+    kernel.start()
+    
+    # Main Input Loop
+    print("\n[Prometheus] System Online. Awaiting Input.")
+    
     while True:
         try:
-            # Nightly reflection & self-improvement at 2 AM
-            current_hour = time.localtime().tm_hour
-            today = date.today()
-            if current_hour == 2 and last_run_date != today:
-                from code_tools import code_generator
-                unimind.reflect()
-                code_generator.propose_improvements("Nightly system reflection and improvement")
-                with open("logs/improvement_history.log", "a") as log_file:
-                    log_file.write(f"{time.asctime()} - Nightly reflection and improvement triggered\n")
-                last_run_date = today
-
-            print("\n[Daemon] Enter a command or type 'exit': ", end="", flush=True)
+            print("\n> ", end="", flush=True)
             user_input = input().strip()
-
-            if user_input.lower() == "exit":
-                print("[Daemon] Shutting down.")
+            
+            if user_input.lower() in ["exit", "quit", "shutdown"]:
+                kernel.stop()
                 break
-            elif user_input == "":
-                personality.log_state()
-                unimind.reflect()
+                
+            if user_input:
+                response = kernel.dispatch_input(user_input)
+                print(f"[Prometheus]: {response}")
             else:
-                result = None
-                if nlu:
-                    try:
-                        result = nlu.interpret(user_input)
-                        if result is None or (isinstance(result, str) and result.startswith("[NLUEngine] No known intent")):
-                            result = handle_fallback(user_input)
-                    except Exception as e:
-                        print(f"[Daemon Error] NLU failed: {e}")
-                        result = handle_fallback(user_input)
-                else:
-                    print("[Daemon Warning] NLU not available. Using fallback response.")
-                    result = handle_fallback(user_input)
+                pass
+                
+        except KeyboardInterrupt:
+            kernel.stop()
+            break
+        except Exception as e:
+            print(f"[Critical Error] {e}")
 
-                print(f"[Daemon] NLU Result: {result}")
-
-        except Exception as loop_error:
-            print(f"[Daemon Critical Loop Error] {loop_error}")
-            continue
+if __name__ == "__main__":
+    main()
