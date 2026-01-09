@@ -16,6 +16,13 @@ class Velocity(Component):
     def __init__(self, vector=(0.0, 0.0, 0.0)):
         self.vector = list(vector)
 
+class Collider(Component):
+    """Axis-Aligned Bounding Box (AABB) for collision."""
+    def __init__(self, size=(1.0, 1.0, 1.0), is_trigger=False):
+        self.size = list(size)
+        self.is_trigger = is_trigger # If True, detects overlap but doesn't block movement
+        self.collisions = [] # List of entity UIDs currently colliding with
+
 # --- Identity & Logic ---
 
 class Name(Component):

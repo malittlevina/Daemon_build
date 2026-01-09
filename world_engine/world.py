@@ -1,9 +1,11 @@
 from core.module import Module
 from world_engine.ecs import EntityManager
-from world_engine.systems import MovementSystem, ScriptSystem, PhysicsSystem
-from world_engine.components import Transform, Name
+from world_engine.systems import MovementSystem, ScriptSystem, PhysicsSystem, CollisionSystem
+from world_engine.components import Transform, Name, Velocity, Collider, Script
+from world_engine.serializer import WorldSerializer
 import time
 import threading
+import os
 
 class WorldEngine(Module):
     def __init__(self, kernel):
@@ -14,10 +16,12 @@ class WorldEngine(Module):
         self.thread = None
         self.target_fps = 60
         self.tick_rate = 1.0 / self.target_fps
+        self.serializer = WorldSerializer()
 
     def initialize(self):
         # Register default systems
         self.add_system(MovementSystem(self))
+        self.add_system(CollisionSystem(self)) # Added Collision
         self.add_system(PhysicsSystem(self))
         self.add_system(ScriptSystem(self))
         self.kernel.log("WorldEngine", "Initialized.")
@@ -66,6 +70,21 @@ class WorldEngine(Module):
         self.kernel.log("WorldEngine", f"Created object '{name}' at {position} (ID: {entity.uid})")
         return entity.uid
 
+    def add_physics(self, uid, velocity=(0,0,0), collider_size=(1,1,1), trigger=False):
+        entity = self.entity_manager.get_entity(uid)
+        if entity:
+            entity.add_component(Velocity(velocity))
+            entity.add_component(Collider(collider_size, is_trigger=trigger))
+            return True
+        return False
+
+    def add_script(self, uid, code):
+        entity = self.entity_manager.get_entity(uid)
+        if entity:
+            entity.add_component(Script(code))
+            return True
+        return False
+
     def get_object_info(self, uid):
         entity = self.entity_manager.get_entity(uid)
         if not entity:
@@ -79,3 +98,28 @@ class WorldEngine(Module):
     def list_objects(self):
         entities = self.entity_manager.entities.values()
         return [f"{e.uid}: {e.get_component(Name).name if e.get_component(Name) else 'Unnamed'}" for e in entities]
+
+    def save_world(self, filename="world.json"):
+        path = os.path.join("worlds", filename)
+        os.makedirs("worlds", exist_ok=True)
+        try:
+            data = self.serializer.serialize(self.entity_manager)
+            with open(path, "w") as f:
+                f.write(data)
+            self.kernel.log("WorldEngine", f"Saved world to {path}")
+            return f"Saved to {path}"
+        except Exception as e:
+            self.kernel.log("WorldEngine", f"Save failed: {e}", level="error")
+            return f"Error: {e}"
+
+    def load_world(self, filename="world.json"):
+        path = os.path.join("worlds", filename)
+        try:
+            with open(path, "r") as f:
+                data = f.read()
+            self.entity_manager = self.serializer.deserialize(data)
+            self.kernel.log("WorldEngine", f"Loaded world from {path}")
+            return f"Loaded {len(self.entity_manager.entities)} entities."
+        except Exception as e:
+            self.kernel.log("WorldEngine", f"Load failed: {e}", level="error")
+            return f"Error: {e}"
