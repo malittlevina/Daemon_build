@@ -83,6 +83,12 @@ def main():
     from core.shell import Shell
     kernel.register_module("shell", Shell(kernel))
 
+    from apps.browser import Browser
+    kernel.register_module("browser", Browser(kernel))
+
+    from apps.ide import IDE
+    kernel.register_module("ide", IDE(kernel))
+
     # Initialize System
     kernel.initialize()
 
