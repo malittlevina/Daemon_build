@@ -122,6 +122,15 @@ def main():
     from core.dreamer import Dreamer
     kernel.register_module("dreamer", Dreamer(kernel))
 
+    from core.clipboard import Clipboard
+    kernel.register_module("clipboard", Clipboard(kernel))
+
+    from core.notifications import NotificationManager
+    kernel.register_module("notifications", NotificationManager(kernel))
+
+    from core.view import ViewManager
+    kernel.register_module("view", ViewManager(kernel))
+
     # Initialize System
     kernel.initialize()
 
