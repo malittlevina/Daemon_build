@@ -1,13 +1,20 @@
 {
   "schema_version": 1,
   "realm": "alpha",
-  "time": 0,
-  "entities": {},
+  "time": 1,
+  "entities": {
+    "npc:1": {
+      "kind": "npc",
+      "name": "Ira",
+      "mood": "pensive"
+    }
+  },
   "locations": {},
   "relationships": {},
   "flags": {
-    "k": 1
+    "k": 1,
+    "weather": "rain"
   },
   "current_scene": null,
-  "last_event_id": "dc29b6b2-59a6-4091-b901-e3c1c2df57f8"
+  "last_event_id": "f24ac610-af62-4d34-95d3-3f4591d670d9"
 }

@@ -8,6 +8,7 @@ from storyrealms.events import RealmEvent
 from storyrealms.integrations import compose_sinks, memory_logger_sink, scroll_trigger_sink
 from storyrealms.persistence import StoryrealmsStore
 from storyrealms.reducer import apply_event
+from storyrealms.rules import RuleEngine
 from storyrealms.state import RealmState
 
 
@@ -25,6 +26,7 @@ class StoryrealmsService:
 
     store: StoryrealmsStore = field(default_factory=StoryrealmsStore)
     bus: EventBus = field(default_factory=EventBus)
+    rules: RuleEngine = field(default_factory=RuleEngine)
     current_realm: str = "default"
     _states: Dict[str, RealmState] = field(default_factory=dict)
 
@@ -143,4 +145,14 @@ class StoryrealmsService:
         self.store.save_snapshot(new_state)
 
         self.bus.publish(event)
+
+        # Derived events (rules) after primary event is recorded.
+        try:
+            derived = self.rules.on_event(new_state, event)
+        except Exception as e:
+            print(f"[Storyrealms][Rules] error: {e}")
+            derived = []
+        for dev in derived:
+            # Record derived events as first-class events (they are part of replay).
+            self._record(dev)
 

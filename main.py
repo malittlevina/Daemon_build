@@ -10,6 +10,8 @@ from optimizer.auto_upgrade import run_auto_optimization
 from scrolls.scroll_engine import ScrollEngine
 ## from sensors.vision import VisionSensor
 from nlu.nlu_engine import NLUEngine
+from storyrealms.ux_console import StoryrealmsConsole
+from storyrealms.service import StoryrealmsService
 import subprocess
 import json
 import time
@@ -26,11 +28,13 @@ if __name__ == "__main__":
     memory = MemoryLogger()
     rituals = RitualRegistry()
     scrolls = ScrollEngine()
+    storyrealms = StoryrealmsService()
+    story_ux = StoryrealmsConsole(storyrealms)
     # vision = VisionSensor()
     personality = PersonalityTracker()
     try:
         global nlu
-        nlu = NLUEngine(scrolls)
+        nlu = NLUEngine(scrolls, storyrealms=storyrealms)
     except Exception as e:
         print(f"[Daemon Init Error] Failed to initialize NLU: {e}")
         nlu = None
@@ -94,6 +98,11 @@ if __name__ == "__main__":
                 unimind.reflect()
             else:
                 result = None
+                # Storyrealms UX takes precedence over NLU for explicit world commands.
+                ux_out = story_ux.handle(user_input)
+                if ux_out is not None:
+                    print(ux_out)
+                    continue
                 if nlu:
                     try:
                         result = nlu.interpret(user_input)

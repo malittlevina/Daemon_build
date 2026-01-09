@@ -4,14 +4,20 @@ from codex.codex_engine import log_codex_entry
 from code.code_generator import propose_improvements
 from unimind.reasoner import symbolic_reasoning_chain
 from lam.symbolic_state import update_state_with_input
+from storyrealms.router import StoryrealmsRouter
+from storyrealms.service import StoryrealmsService
 
 REFLECTION_LOG = "logs/self_reflection.log"
 MAX_LOG_SIZE = 10000  # characters
 
 class NLUEngine:
-    def __init__(self):
+    def __init__(self, scrolls=None, storyrealms: StoryrealmsService | None = None):
         self.learned_phrases = {}
         self.use_ollama_fallback = True
+        # Optional injection points from the daemon runtime.
+        self.scrolls = scrolls
+        self._storyrealms = storyrealms
+        self._router = StoryrealmsRouter(storyrealms) if storyrealms else None
 
     def interpret(self, user_input):
         if user_input in self.learned_phrases:
@@ -22,6 +28,12 @@ class NLUEngine:
             response = "Let's dive into Python basics!"
             self.learned_phrases[user_input] = response
             return response
+
+        # If storyrealms is available, allow routing realm/world commands.
+        if self._router:
+            routed = self._router.dispatch_text(user_input, actor="nlu")
+            if routed is not None:
+                return routed
 
         try:
             result = update_state_with_input(user_input, source="nlu")

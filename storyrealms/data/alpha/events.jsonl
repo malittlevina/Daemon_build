@@ -1,2 +1,8 @@
 {"id": "622e0dee-7c0f-4645-a9b4-eb3d8421eab5", "ts": "2026-01-09T02:26:56.826831+00:00", "type": "realm.entered", "realm": "alpha", "actor": null, "payload": {}, "meta": {}}
 {"id": "dc29b6b2-59a6-4091-b901-e3c1c2df57f8", "ts": "2026-01-09T02:26:56.827669+00:00", "type": "flag.set", "realm": "alpha", "actor": null, "payload": {"key": "k", "value": 1}, "meta": {}}
+{"id": "dbfeda7a-7307-4da1-94e8-e0ce516b457d", "ts": "2026-01-09T02:29:56.019950+00:00", "type": "realm.entered", "realm": "alpha", "actor": "cli", "payload": {}, "meta": {}}
+{"id": "d830c400-aa58-454a-84c1-94f66a0db19d", "ts": "2026-01-09T02:29:56.021401+00:00", "type": "flag.set", "realm": "alpha", "actor": "cli", "payload": {"key": "weather", "value": "rain"}, "meta": {}}
+{"id": "80979e70-2665-4b77-971b-c561924c7cdd", "ts": "2026-01-09T02:29:56.022683+00:00", "type": "entity.upsert", "realm": "alpha", "actor": "cli", "payload": {"entity_id": "npc:1", "data": {"kind": "npc", "name": "Ira"}}, "meta": {}}
+{"id": "b1ab0874-5156-4e2d-8ac8-b94443c9ce07", "ts": "2026-01-09T02:29:56.023743+00:00", "type": "time.tick", "realm": "alpha", "actor": "cli", "payload": {"delta": 1}, "meta": {}}
+{"id": "a7c4a926-475b-43f6-b000-da87bad05564", "ts": "2026-01-09T02:29:56.024528+00:00", "type": "entity.upsert", "realm": "alpha", "actor": "rule_engine", "payload": {"entity_id": "npc:1", "data": {"mood": "pensive"}}, "meta": {"derived_from": "b1ab0874-5156-4e2d-8ac8-b94443c9ce07", "rule": "npc.mood_from_weather"}}
+{"id": "f24ac610-af62-4d34-95d3-3f4591d670d9", "ts": "2026-01-09T02:29:56.024538+00:00", "type": "npc.act", "realm": "alpha", "actor": "rule_engine", "payload": {"entity_id": "npc:1", "act": "observe_weather", "mood": "pensive"}, "meta": {"derived_from": "b1ab0874-5156-4e2d-8ac8-b94443c9ce07"}}
