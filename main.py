@@ -42,6 +42,15 @@ if __name__ == "__main__":
     # vision = VisionSensor()
     personality = PersonalityTracker()
 
+    # --- Start Neural Interface (API) ---
+    try:
+        from interface.neural_api import start_api_server
+        api_thread = threading.Thread(target=start_api_server, kwargs={"host": "0.0.0.0", "port": 8000}, daemon=True)
+        api_thread.start()
+        print("[Daemon] Neural Interface (API) started on port 8000.")
+    except Exception as e:
+        print(f"[Daemon] Failed to start API: {e}")
+
     try:
         global nlu
         nlu = NLUEngine(scrolls, world_engine=world_engine)
@@ -62,6 +71,10 @@ if __name__ == "__main__":
 
     # Load Codex documents
     ingest_documents("codex/data/")
+    
+    # Initialize Synapse (Knowledge Graph)
+    from codex.synapse import synapse
+    print("[Daemon] Synapse Graph initialized.")
 
     os.makedirs("logs", exist_ok=True)
     last_run_date = None
@@ -106,6 +119,9 @@ if __name__ == "__main__":
             elif user_input == "":
                 personality.log_state()
                 unimind.reflect()
+                # Trigger dreaming if idle
+                from unimind.dreamer import dreamer
+                dreamer.dream()
             else:
                 result = None
                 if nlu:
