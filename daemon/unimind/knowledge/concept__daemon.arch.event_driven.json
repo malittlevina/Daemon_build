@@ -1,0 +1,19 @@
+{
+  "id": "daemon.arch.event_driven",
+  "title": "Event-Driven Architecture",
+  "definition": "A system that reacts to events (messages) from sources; handlers process events and emit new events.",
+  "parameters": [],
+  "constraints": [
+    "Handlers should be fast; push slow work to background workers/queues."
+  ],
+  "related": [],
+  "tags": [
+    "graduate",
+    "engineering",
+    "systems",
+    "computer_science"
+  ],
+  "examples": [],
+  "created_at": "2026-01-09T20:33:51+00:00",
+  "updated_at": "2026-01-09T20:33:51+00:00"
+}

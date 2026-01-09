@@ -1,0 +1,27 @@
+{
+  "id": "research.recipe.replication_checklist",
+  "goal": "Replicate a result reliably.",
+  "steps": [
+    "Pin versions (code commit, dependencies, data snapshot).",
+    "Record random seeds and hardware details when relevant.",
+    "Run the authors’ default settings first (no modifications).",
+    "Compare metrics and confirm differences are explained.",
+    "Document deviations and create a minimal runnable script."
+  ],
+  "quality_checks": [
+    "versions pinned",
+    "runs reproducibly",
+    "differences explained"
+  ],
+  "failure_modes": [
+    "silent data preprocessing differences",
+    "unstated hyperparameters"
+  ],
+  "tags": [
+    "doctorate",
+    "research_methods",
+    "recipe"
+  ],
+  "created_at": "2026-01-09T20:33:51+00:00",
+  "updated_at": "2026-01-09T20:33:51+00:00"
+}

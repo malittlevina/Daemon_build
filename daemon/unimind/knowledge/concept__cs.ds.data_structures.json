@@ -1,0 +1,19 @@
+{
+  "id": "cs.ds.data_structures",
+  "title": "Data Structures (Overview)",
+  "definition": "Ways to organize data to support efficient operations (lookup, insert, delete, traversal).",
+  "parameters": [],
+  "constraints": [],
+  "related": [],
+  "tags": [
+    "undergrad",
+    "computer_science",
+    "cs",
+    "data_structures"
+  ],
+  "examples": [
+    "Hash maps for fast key lookup; trees for ordered data."
+  ],
+  "created_at": "2026-01-09T20:33:51+00:00",
+  "updated_at": "2026-01-09T20:33:51+00:00"
+}

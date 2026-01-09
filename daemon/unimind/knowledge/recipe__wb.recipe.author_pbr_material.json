@@ -1,0 +1,28 @@
+{
+  "id": "wb.recipe.author_pbr_material",
+  "goal": "Author a basic PBR material set for a game asset.",
+  "steps": [
+    "Decide material type (metal vs dielectric) and reference real materials.",
+    "Create albedo (no lighting), roughness, metallic, and normal maps.",
+    "Keep values physically plausible (avoid pure white albedo except near snow).",
+    "Test under neutral HDRI lighting and multiple angles.",
+    "Adjust roughness first for realism, then albedo/normal details."
+  ],
+  "quality_checks": [
+    "looks consistent under different lighting",
+    "no baked shadows in albedo"
+  ],
+  "failure_modes": [
+    "overly bright albedo causing unrealistic glow",
+    "inverted normal map (Y channel)"
+  ],
+  "tags": [
+    "materials",
+    "worldbuilding",
+    "undergrad",
+    "engineering",
+    "recipe"
+  ],
+  "created_at": "2026-01-09T20:33:51+00:00",
+  "updated_at": "2026-01-09T20:33:51+00:00"
+}

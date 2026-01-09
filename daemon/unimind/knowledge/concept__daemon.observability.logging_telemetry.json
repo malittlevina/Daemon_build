@@ -1,0 +1,18 @@
+{
+  "id": "daemon.observability.logging_telemetry",
+  "title": "Logging and Telemetry",
+  "definition": "Logs record events; metrics measure rates/latency; traces follow a request across components.",
+  "parameters": [],
+  "constraints": [
+    "Do not log secrets; sample high-volume logs."
+  ],
+  "related": [],
+  "tags": [
+    "graduate",
+    "engineering",
+    "systems"
+  ],
+  "examples": [],
+  "created_at": "2026-01-09T20:33:51+00:00",
+  "updated_at": "2026-01-09T20:33:51+00:00"
+}

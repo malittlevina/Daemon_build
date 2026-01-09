@@ -1,0 +1,21 @@
+{
+  "id": "wb.materials.pbr_basics",
+  "title": "PBR Material Basics",
+  "definition": "Physically Based Rendering uses consistent maps: albedo/base color, roughness, metallic, normal, AO.",
+  "parameters": [],
+  "constraints": [
+    "Albedo should not include baked lighting; roughness controls microfacet scattering."
+  ],
+  "related": [],
+  "tags": [
+    "materials",
+    "worldbuilding",
+    "undergrad",
+    "engineering"
+  ],
+  "examples": [
+    "Metal: metallic≈1, dielectric: metallic≈0; roughness controls glossiness."
+  ],
+  "created_at": "2026-01-09T20:33:51+00:00",
+  "updated_at": "2026-01-09T20:33:51+00:00"
+}

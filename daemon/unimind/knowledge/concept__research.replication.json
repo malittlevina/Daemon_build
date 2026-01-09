@@ -1,0 +1,17 @@
+{
+  "id": "research.replication",
+  "title": "Replication and Reproducibility",
+  "definition": "Replication repeats results with the same method; reproducibility includes code/data/config to rerun.",
+  "parameters": [],
+  "constraints": [
+    "Track seeds, versions, and environment details."
+  ],
+  "related": [],
+  "tags": [
+    "doctorate",
+    "research_methods"
+  ],
+  "examples": [],
+  "created_at": "2026-01-09T20:33:51+00:00",
+  "updated_at": "2026-01-09T20:33:51+00:00"
+}

@@ -1,0 +1,16 @@
+{
+  "id": "pm.dependencies",
+  "title": "Dependency Tracking",
+  "definition": "Track which tasks block others; unblock the critical path first.",
+  "parameters": [],
+  "constraints": [],
+  "related": [],
+  "tags": [
+    "graduate",
+    "engineering",
+    "systems"
+  ],
+  "examples": [],
+  "created_at": "2026-01-09T20:33:51+00:00",
+  "updated_at": "2026-01-09T20:33:51+00:00"
+}

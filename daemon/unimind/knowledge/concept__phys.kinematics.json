@@ -1,0 +1,18 @@
+{
+  "id": "phys.kinematics",
+  "title": "Kinematics",
+  "definition": "Describes motion (position, velocity, acceleration) without focusing on forces.",
+  "parameters": [],
+  "constraints": [],
+  "related": [],
+  "tags": [
+    "undergrad",
+    "science",
+    "physics"
+  ],
+  "examples": [
+    "v = v0 + at; x = x0 + v0 t + 0.5 a t² (constant acceleration)."
+  ],
+  "created_at": "2026-01-09T20:33:51+00:00",
+  "updated_at": "2026-01-09T20:33:51+00:00"
+}

@@ -1,0 +1,29 @@
+{
+  "id": "wb.recipe.build_modular_prop",
+  "goal": "Build a modular world prop that fits a consistent grid/scale.",
+  "steps": [
+    "Choose a unit scale and grid size (e.g., 0.5m increments).",
+    "Model using primitives and transforms; keep pivots consistent.",
+    "Apply bevels/chamfers for believable edges.",
+    "Create simple colliders (box/capsule/convex) aligned to the prop.",
+    "Export with consistent naming and verify in-engine placement and snapping."
+  ],
+  "quality_checks": [
+    "snaps to grid",
+    "colliders stable",
+    "scale consistent with other assets"
+  ],
+  "failure_modes": [
+    "off-grid pivots break modular placement",
+    "too-detailed colliders cause performance issues"
+  ],
+  "tags": [
+    "geometry",
+    "worldbuilding",
+    "engineering",
+    "undergrad",
+    "recipe"
+  ],
+  "created_at": "2026-01-09T20:33:51+00:00",
+  "updated_at": "2026-01-09T20:33:51+00:00"
+}

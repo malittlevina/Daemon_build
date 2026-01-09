@@ -1,0 +1,16 @@
+{
+  "id": "math.statistics.confidence_interval",
+  "title": "Confidence Interval (Statistics)",
+  "definition": "A range estimate for a parameter; a 95% interval means the procedure covers the true value 95% of the time.",
+  "parameters": [],
+  "constraints": [],
+  "related": [],
+  "tags": [
+    "undergrad",
+    "math",
+    "statistics"
+  ],
+  "examples": [],
+  "created_at": "2026-01-09T20:33:51+00:00",
+  "updated_at": "2026-01-09T20:33:51+00:00"
+}

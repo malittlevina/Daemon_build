@@ -1,0 +1,27 @@
+{
+  "id": "cs.recipe.git_safe_workflow",
+  "goal": "Use Git safely for changes and experiments.",
+  "steps": [
+    "Create a branch for the change.",
+    "Commit small, coherent steps with clear messages.",
+    "Use `git diff` to review before committing.",
+    "Use pull/merge to integrate, resolve conflicts intentionally.",
+    "If stuck: make a backup branch or stash, then reset carefully."
+  ],
+  "quality_checks": [
+    "history is understandable",
+    "changes reviewed before merge"
+  ],
+  "failure_modes": [
+    "large commits that mix concerns",
+    "force pushing without backups"
+  ],
+  "tags": [
+    "undergrad",
+    "computer_science",
+    "engineering",
+    "recipe"
+  ],
+  "created_at": "2026-01-09T20:33:51+00:00",
+  "updated_at": "2026-01-09T20:33:51+00:00"
+}

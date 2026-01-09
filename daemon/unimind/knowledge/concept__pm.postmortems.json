@@ -1,0 +1,17 @@
+{
+  "id": "pm.postmortems",
+  "title": "Postmortems",
+  "definition": "A structured analysis after failure: what happened, why, and how to prevent recurrence.",
+  "parameters": [],
+  "constraints": [],
+  "related": [],
+  "tags": [
+    "graduate",
+    "engineering",
+    "systems",
+    "research_methods"
+  ],
+  "examples": [],
+  "created_at": "2026-01-09T20:33:51+00:00",
+  "updated_at": "2026-01-09T20:33:51+00:00"
+}

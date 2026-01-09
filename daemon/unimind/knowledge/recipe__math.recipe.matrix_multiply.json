@@ -1,0 +1,26 @@
+{
+  "id": "math.recipe.matrix_multiply",
+  "goal": "Multiply two matrices A (m×n) and B (n×p).",
+  "steps": [
+    "Confirm inner dimensions match (n).",
+    "For each output entry (i,j), compute dot(row i of A, column j of B).",
+    "Assemble the m×p result.",
+    "Check special cases (identity, zeros) for sanity."
+  ],
+  "quality_checks": [
+    "dimensions correct",
+    "spot-check entries"
+  ],
+  "failure_modes": [
+    "mixing row/column order",
+    "dimension mismatch"
+  ],
+  "tags": [
+    "undergrad",
+    "math",
+    "linear_algebra",
+    "recipe"
+  ],
+  "created_at": "2026-01-09T20:33:51+00:00",
+  "updated_at": "2026-01-09T20:33:51+00:00"
+}

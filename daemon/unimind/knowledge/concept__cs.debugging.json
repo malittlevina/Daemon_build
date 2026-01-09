@@ -1,0 +1,19 @@
+{
+  "id": "cs.debugging",
+  "title": "Debugging Strategies",
+  "definition": "A systematic process: reproduce, minimize, hypothesize, instrument, test, and fix.",
+  "parameters": [],
+  "constraints": [],
+  "related": [],
+  "tags": [
+    "undergrad",
+    "computer_science",
+    "cs",
+    "engineering"
+  ],
+  "examples": [
+    "Reduce a failing case to the smallest input that still fails."
+  ],
+  "created_at": "2026-01-09T20:33:51+00:00",
+  "updated_at": "2026-01-09T20:33:51+00:00"
+}

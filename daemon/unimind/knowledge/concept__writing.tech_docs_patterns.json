@@ -1,0 +1,17 @@
+{
+  "id": "writing.tech_docs_patterns",
+  "title": "Technical Documentation Patterns",
+  "definition": "Common patterns: quickstart, API reference, tutorials, troubleshooting, and architecture overview.",
+  "parameters": [],
+  "constraints": [],
+  "related": [],
+  "tags": [
+    "undergrad",
+    "english",
+    "writing",
+    "computer_science"
+  ],
+  "examples": [],
+  "created_at": "2026-01-09T20:33:51+00:00",
+  "updated_at": "2026-01-09T20:33:51+00:00"
+}

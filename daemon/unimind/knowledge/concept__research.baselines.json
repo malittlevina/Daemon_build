@@ -1,0 +1,15 @@
+{
+  "id": "research.baselines",
+  "title": "Baselines and Evaluation",
+  "definition": "Compare against strong baselines; report metrics and ablations; avoid cherry-picking results.",
+  "parameters": [],
+  "constraints": [],
+  "related": [],
+  "tags": [
+    "graduate",
+    "research_methods"
+  ],
+  "examples": [],
+  "created_at": "2026-01-09T20:33:51+00:00",
+  "updated_at": "2026-01-09T20:33:51+00:00"
+}

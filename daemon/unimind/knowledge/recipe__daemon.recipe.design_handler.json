@@ -1,0 +1,29 @@
+{
+  "id": "daemon.recipe.design_handler",
+  "goal": "Design a robust event handler for the daemon.",
+  "steps": [
+    "Validate the event schema (type/payload/source).",
+    "Keep the handler fast; push slow work to a queue/worker.",
+    "Handle missing dependencies/device errors as soft failures (emit system_event).",
+    "Make actions idempotent or add deduplication keys.",
+    "Log outcomes and measure latency/error rates."
+  ],
+  "quality_checks": [
+    "handler never crashes daemon loop",
+    "errors become events",
+    "latency bounded"
+  ],
+  "failure_modes": [
+    "doing heavy work inline",
+    "logging secrets",
+    "unbounded retries"
+  ],
+  "tags": [
+    "graduate",
+    "engineering",
+    "systems",
+    "recipe"
+  ],
+  "created_at": "2026-01-09T20:33:51+00:00",
+  "updated_at": "2026-01-09T20:33:51+00:00"
+}

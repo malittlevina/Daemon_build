@@ -14,6 +14,7 @@ from .knowledge_store import KnowledgeStore
 from .mind_palace import MindPalace
 from .consolidator import MemoryConsolidator
 from .seed_k12 import seed_k12
+from .seed_academics import seed_all_advanced
 
 
 class Unimind:
@@ -60,6 +61,10 @@ class Unimind:
         # procedural recipes exist even if an older run seeded only concepts.
         if (not self.knowledge.has_tag("k12")) or (self.knowledge.get("k12.recipe.solve_linear_equations") is None):
             seed_k12(self.knowledge, self.mind_palace)
+
+        # Seed advanced packs (idempotent) for the 9 requested categories.
+        if self.knowledge.get("cs.ds.data_structures") is None:
+            seed_all_advanced(self.knowledge, self.mind_palace)
 
         print("[Unimind] Core initialized.")
 
@@ -211,6 +216,10 @@ class Unimind:
         # Geometry/world-building
         if any(w in t for w in ("shape", "extrude", "bevel", "boolean", "mesh", "triangle", "cube", "sphere")):
             tags += ["geometry"]
+        if any(w in t for w in ("pbr", "albedo", "roughness", "metallic", "normal map", "material")):
+            tags += ["materials", "worldbuilding"]
+        if any(w in t for w in ("collider", "collision", "aabb", "obb", "convex")):
+            tags += ["physics", "geometry"]
 
         # K-12 domains
         if any(w in t for w in ("equation", "fraction", "pythagorean", "algebra", "mean", "median", "mode")):
@@ -221,6 +230,66 @@ class Unimind:
             tags += ["k12", "history"]
         elif any(w in t for w in ("grammar", "punctuation", "thesis", "paragraph", "parts of speech")):
             tags += ["k12", "english"]
+
+        # CS foundations / engineering norms
+        if any(w in t for w in ("data structure", "hash map", "hashtable", "tree", "graph", "stack", "queue", "heap")):
+            tags += ["computer_science", "undergrad"]
+        if any(w in t for w in ("algorithm", "big-o", "complexity", "runtime", "scalability")):
+            tags += ["computer_science", "undergrad"]
+        if any(w in t for w in ("debug", "bug", "traceback", "repro", "regression test")):
+            tags += ["engineering", "computer_science", "undergrad"]
+        if any(w in t for w in ("git", "commit", "branch", "merge", "rebase")):
+            tags += ["engineering", "computer_science", "undergrad"]
+
+        # Daemon operating norms
+        if any(w in t for w in ("event-driven", "event bus", "handler", "queue", "backpressure")):
+            tags += ["systems", "engineering", "graduate"]
+        if any(w in t for w in ("retry", "backoff", "timeout", "circuit breaker")):
+            tags += ["systems", "engineering", "graduate"]
+        if any(w in t for w in ("logging", "telemetry", "metrics", "observability", "tracing")):
+            tags += ["systems", "engineering", "graduate"]
+        if any(w in t for w in ("policy", "ethics", "safety", "reject", "approve")):
+            tags += ["ethics", "systems", "graduate"]
+
+        # Research methods
+        if any(w in t for w in ("paper", "baseline", "ablation", "benchmark", "dataset", "method", "limitations")):
+            tags += ["research_methods", "graduate"]
+        if any(w in t for w in ("replicate", "reproduce", "reproducible", "seed", "hyperparameter")):
+            tags += ["research_methods", "doctorate"]
+
+        # Math beyond K-12
+        if any(w in t for w in ("derivative", "integral", "chain rule", "calculus")):
+            tags += ["math", "undergrad"]
+        if any(w in t for w in ("matrix", "vector space", "eigen", "linear algebra")):
+            tags += ["math", "undergrad"]
+        if any(w in t for w in ("bayes", "likelihood", "prior", "probability")):
+            tags += ["math", "undergrad"]
+        if any(w in t for w in ("confidence interval", "p-value", "hypothesis test", "statistics")):
+            tags += ["math", "undergrad"]
+        if any(w in t for w in ("gradient descent", "optimize", "loss function", "learning rate")):
+            tags += ["math", "graduate"]
+
+        # Physics simulation
+        if any(w in t for w in ("kinematics", "acceleration", "velocity", "force", "torque", "inertia")):
+            tags += ["physics", "science", "undergrad"]
+        if any(w in t for w in ("rigid body", "constraint", "solver", "jitter", "stability", "euler")):
+            tags += ["physics", "engineering", "graduate"]
+
+        # Writing & communication
+        if any(w in t for w in ("outline", "argument", "counterargument", "clarity", "audience")):
+            tags += ["english", "writing", "undergrad"]
+        if any(w in t for w in ("documentation", "quickstart", "api reference", "troubleshooting")):
+            tags += ["english", "writing", "computer_science", "undergrad"]
+
+        # Project management for agents
+        if any(w in t for w in ("decompose", "dependency", "critical path", "estimate", "definition of done", "postmortem")):
+            tags += ["systems", "engineering", "graduate"]
+
+        # Security basics
+        if any(w in t for w in ("least privilege", "input validation", "sanitize", "secret", "api key", "token")):
+            tags += ["security", "computer_science", "undergrad"]
+        if any(w in t for w in ("threat model", "spoofing", "tampering", "dos", "rate limit")):
+            tags += ["security", "computer_science", "graduate"]
 
         # De-dupe while preserving order
         out: List[str] = []

@@ -1,0 +1,19 @@
+{
+  "id": "cs.version_control.mental_model",
+  "title": "Version Control (Git Mental Model)",
+  "definition": "Commits form a directed acyclic graph; branches are pointers; merging reconciles histories.",
+  "parameters": [],
+  "constraints": [],
+  "related": [],
+  "tags": [
+    "undergrad",
+    "computer_science",
+    "cs",
+    "engineering"
+  ],
+  "examples": [
+    "A branch is a movable label pointing at a commit."
+  ],
+  "created_at": "2026-01-09T20:33:51+00:00",
+  "updated_at": "2026-01-09T20:33:51+00:00"
+}

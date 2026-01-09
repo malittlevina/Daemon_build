@@ -1,0 +1,26 @@
+{
+  "id": "research.recipe.paper_summary",
+  "goal": "Summarize a paper into a compact note usable by the daemon.",
+  "steps": [
+    "Write 1–2 sentence problem statement.",
+    "List the key contributions (bullets).",
+    "Describe the method at a high level (what is new vs standard).",
+    "Record datasets/benchmarks and evaluation metrics.",
+    "Note assumptions, limitations, and failure cases.",
+    "Write 1 idea for follow-up or application."
+  ],
+  "quality_checks": [
+    "captures contributions and limitations",
+    "metrics/datasets included"
+  ],
+  "failure_modes": [
+    "rewriting the abstract without extracting method/assumptions"
+  ],
+  "tags": [
+    "graduate",
+    "research_methods",
+    "recipe"
+  ],
+  "created_at": "2026-01-09T20:33:51+00:00",
+  "updated_at": "2026-01-09T20:33:51+00:00"
+}

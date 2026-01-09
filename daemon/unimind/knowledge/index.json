@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-01-09T20:23:12+00:00",
+  "updated_at": "2026-01-09T20:33:51+00:00",
   "tags": {
     "geometry": [
       "k12.math.pythagorean_theorem",
@@ -7,7 +7,15 @@
       "recipe.how_do_i_extrude_a_profile_into_a_solid",
       "recipe.how_do_i_solve_a_linear_equation_like_2x_3_11",
       "shape.bevel",
-      "shape.extrude"
+      "shape.extrude",
+      "wb.geometry.coordinate_systems",
+      "wb.geometry.mesh_vs_solid",
+      "wb.geometry.primitives",
+      "wb.geometry.transforms",
+      "wb.geometry.units_scale",
+      "wb.physics.collision_basics",
+      "wb.recipe.build_modular_prop",
+      "wb.recipe.watertight_mesh_checklist"
     ],
     "shape.op": [
       "shape.bevel",
@@ -21,6 +29,12 @@
       "recipe.how_do_i_solve_a_linear_equation_like_2x_3_11"
     ],
     "recipe": [
+      "cs.recipe.big_o_estimation",
+      "cs.recipe.choose_data_structure",
+      "cs.recipe.debugging_loop",
+      "cs.recipe.git_safe_workflow",
+      "daemon.recipe.design_handler",
+      "daemon.recipe.retry_policy",
       "k12.recipe.add_fractions",
       "k12.recipe.explain_branches_government",
       "k12.recipe.read_history_timeline",
@@ -29,8 +43,26 @@
       "k12.recipe.subject_verb_agreement_check",
       "k12.recipe.use_pythagorean_theorem",
       "k12.recipe.write_paragraph",
+      "math.recipe.apply_bayes",
+      "math.recipe.gradient_descent",
+      "math.recipe.matrix_multiply",
+      "math.recipe.take_derivative",
+      "phys.recipe.integrate_motion",
+      "phys.recipe.stable_constraints",
+      "pm.recipe.agent_execution_plan",
+      "pm.recipe.postmortem_template",
       "recipe.how_do_i_extrude_a_profile_into_a_solid",
-      "recipe.how_do_i_solve_a_linear_equation_like_2x_3_11"
+      "recipe.how_do_i_solve_a_linear_equation_like_2x_3_11",
+      "research.recipe.experiment_design",
+      "research.recipe.paper_summary",
+      "research.recipe.replication_checklist",
+      "sec.recipe.threat_model",
+      "sec.recipe.validate_untrusted_input",
+      "wb.recipe.author_pbr_material",
+      "wb.recipe.build_modular_prop",
+      "wb.recipe.watertight_mesh_checklist",
+      "writing.recipe.tech_doc_page",
+      "writing.recipe.write_clear_explanation"
     ],
     "shape.bevel": [
       "shape.bevel"
@@ -80,7 +112,18 @@
       "k12.recipe.add_fractions",
       "k12.recipe.solve_linear_equations",
       "k12.recipe.use_pythagorean_theorem",
-      "recipe.how_do_i_solve_a_linear_equation_like_2x_3_11"
+      "math.calculus.derivative",
+      "math.linear_algebra.matrix",
+      "math.optimization.gradient_descent",
+      "math.probability.bayes",
+      "math.recipe.apply_bayes",
+      "math.recipe.gradient_descent",
+      "math.recipe.matrix_multiply",
+      "math.recipe.take_derivative",
+      "math.statistics.confidence_interval",
+      "phys.numerical_stability",
+      "recipe.how_do_i_solve_a_linear_equation_like_2x_3_11",
+      "wb.geometry.transforms"
     ],
     "arithmetic": [
       "k12.math.fractions",
@@ -97,7 +140,8 @@
       "k12.math.pythagorean_theorem"
     ],
     "statistics": [
-      "k12.math.mean_median_mode"
+      "k12.math.mean_median_mode",
+      "math.statistics.confidence_interval"
     ],
     "science": [
       "k12.recipe.scientific_method",
@@ -107,7 +151,15 @@
       "k12.science.photosynthesis",
       "k12.science.scientific_method",
       "k12.science.states_of_matter",
-      "k12.science.water_cycle"
+      "k12.science.water_cycle",
+      "phys.constraints",
+      "phys.kinematics",
+      "phys.newton_second",
+      "phys.numerical_stability",
+      "phys.recipe.integrate_motion",
+      "phys.recipe.stable_constraints",
+      "phys.rigid_body",
+      "phys.vectors"
     ],
     "earth_science": [
       "k12.recipe.scientific_method",
@@ -120,7 +172,17 @@
       "k12.science.photosynthesis"
     ],
     "physics": [
-      "k12.science.newtons_laws"
+      "k12.science.newtons_laws",
+      "phys.constraints",
+      "phys.kinematics",
+      "phys.newton_second",
+      "phys.numerical_stability",
+      "phys.recipe.integrate_motion",
+      "phys.recipe.stable_constraints",
+      "phys.rigid_body",
+      "phys.vectors",
+      "wb.geometry.units_scale",
+      "wb.physics.collision_basics"
     ],
     "chemistry": [
       "k12.science.states_of_matter"
@@ -156,7 +218,14 @@
       "k12.english.subject_verb_agreement",
       "k12.english.thesis_statement",
       "k12.recipe.subject_verb_agreement_check",
-      "k12.recipe.write_paragraph"
+      "k12.recipe.write_paragraph",
+      "writing.argument_structure",
+      "writing.audience_adaptation",
+      "writing.clarity",
+      "writing.outlining",
+      "writing.recipe.tech_doc_page",
+      "writing.recipe.write_clear_explanation",
+      "writing.tech_docs_patterns"
     ],
     "grammar": [
       "k12.english.parts_of_speech",
@@ -167,7 +236,237 @@
     "writing": [
       "k12.english.paragraph_structure",
       "k12.english.thesis_statement",
-      "k12.recipe.write_paragraph"
+      "k12.recipe.write_paragraph",
+      "writing.argument_structure",
+      "writing.audience_adaptation",
+      "writing.clarity",
+      "writing.outlining",
+      "writing.recipe.tech_doc_page",
+      "writing.recipe.write_clear_explanation",
+      "writing.tech_docs_patterns"
+    ],
+    "worldbuilding": [
+      "wb.geometry.coordinate_systems",
+      "wb.geometry.mesh_vs_solid",
+      "wb.geometry.primitives",
+      "wb.geometry.transforms",
+      "wb.geometry.units_scale",
+      "wb.materials.pbr_basics",
+      "wb.physics.collision_basics",
+      "wb.recipe.author_pbr_material",
+      "wb.recipe.build_modular_prop",
+      "wb.recipe.watertight_mesh_checklist"
+    ],
+    "undergrad": [
+      "cs.algorithms",
+      "cs.complexity.big_o",
+      "cs.debugging",
+      "cs.ds.data_structures",
+      "cs.recipe.big_o_estimation",
+      "cs.recipe.choose_data_structure",
+      "cs.recipe.debugging_loop",
+      "cs.recipe.git_safe_workflow",
+      "cs.version_control.mental_model",
+      "math.calculus.derivative",
+      "math.linear_algebra.matrix",
+      "math.probability.bayes",
+      "math.recipe.apply_bayes",
+      "math.recipe.matrix_multiply",
+      "math.recipe.take_derivative",
+      "math.statistics.confidence_interval",
+      "phys.kinematics",
+      "phys.newton_second",
+      "phys.recipe.integrate_motion",
+      "phys.vectors",
+      "sec.input_validation",
+      "sec.least_privilege",
+      "sec.recipe.validate_untrusted_input",
+      "sec.secrets_handling",
+      "wb.geometry.coordinate_systems",
+      "wb.geometry.mesh_vs_solid",
+      "wb.geometry.primitives",
+      "wb.geometry.transforms",
+      "wb.geometry.units_scale",
+      "wb.materials.pbr_basics",
+      "wb.physics.collision_basics",
+      "wb.recipe.author_pbr_material",
+      "wb.recipe.build_modular_prop",
+      "wb.recipe.watertight_mesh_checklist",
+      "writing.argument_structure",
+      "writing.audience_adaptation",
+      "writing.clarity",
+      "writing.outlining",
+      "writing.recipe.tech_doc_page",
+      "writing.recipe.write_clear_explanation",
+      "writing.tech_docs_patterns"
+    ],
+    "engineering": [
+      "cs.debugging",
+      "cs.recipe.debugging_loop",
+      "cs.recipe.git_safe_workflow",
+      "cs.version_control.mental_model",
+      "daemon.arch.event_driven",
+      "daemon.observability.logging_telemetry",
+      "daemon.recipe.design_handler",
+      "daemon.recipe.retry_policy",
+      "daemon.reliability.failure_modes",
+      "daemon.reliability.retry_backoff",
+      "daemon.safety.enforceable_policies",
+      "phys.constraints",
+      "phys.numerical_stability",
+      "phys.recipe.stable_constraints",
+      "phys.rigid_body",
+      "phys.vectors",
+      "pm.decomposition",
+      "pm.definition_of_done",
+      "pm.dependencies",
+      "pm.estimation",
+      "pm.postmortems",
+      "pm.recipe.agent_execution_plan",
+      "pm.recipe.postmortem_template",
+      "sec.input_validation",
+      "sec.least_privilege",
+      "sec.secrets_handling",
+      "sec.threat_modeling",
+      "wb.geometry.coordinate_systems",
+      "wb.geometry.mesh_vs_solid",
+      "wb.geometry.primitives",
+      "wb.geometry.transforms",
+      "wb.geometry.units_scale",
+      "wb.materials.pbr_basics",
+      "wb.physics.collision_basics",
+      "wb.recipe.author_pbr_material",
+      "wb.recipe.build_modular_prop",
+      "wb.recipe.watertight_mesh_checklist"
+    ],
+    "materials": [
+      "wb.materials.pbr_basics",
+      "wb.recipe.author_pbr_material"
+    ],
+    "computer_science": [
+      "cs.algorithms",
+      "cs.complexity.big_o",
+      "cs.debugging",
+      "cs.ds.data_structures",
+      "cs.recipe.big_o_estimation",
+      "cs.recipe.choose_data_structure",
+      "cs.recipe.debugging_loop",
+      "cs.recipe.git_safe_workflow",
+      "cs.version_control.mental_model",
+      "daemon.arch.event_driven",
+      "daemon.reliability.retry_backoff",
+      "math.optimization.gradient_descent",
+      "research.reading_papers",
+      "sec.input_validation",
+      "sec.least_privilege",
+      "sec.recipe.threat_model",
+      "sec.recipe.validate_untrusted_input",
+      "sec.secrets_handling",
+      "sec.threat_modeling",
+      "writing.recipe.tech_doc_page",
+      "writing.tech_docs_patterns"
+    ],
+    "cs": [
+      "cs.algorithms",
+      "cs.complexity.big_o",
+      "cs.debugging",
+      "cs.ds.data_structures",
+      "cs.recipe.big_o_estimation",
+      "cs.recipe.choose_data_structure",
+      "cs.version_control.mental_model"
+    ],
+    "data_structures": [
+      "cs.ds.data_structures",
+      "cs.recipe.choose_data_structure"
+    ],
+    "graduate": [
+      "daemon.arch.event_driven",
+      "daemon.observability.logging_telemetry",
+      "daemon.recipe.design_handler",
+      "daemon.recipe.retry_policy",
+      "daemon.reliability.failure_modes",
+      "daemon.reliability.retry_backoff",
+      "daemon.safety.enforceable_policies",
+      "math.optimization.gradient_descent",
+      "math.recipe.gradient_descent",
+      "phys.constraints",
+      "phys.numerical_stability",
+      "phys.recipe.stable_constraints",
+      "phys.rigid_body",
+      "pm.decomposition",
+      "pm.definition_of_done",
+      "pm.dependencies",
+      "pm.estimation",
+      "pm.postmortems",
+      "pm.recipe.agent_execution_plan",
+      "pm.recipe.postmortem_template",
+      "research.baselines",
+      "research.reading_papers",
+      "research.recipe.paper_summary",
+      "sec.recipe.threat_model",
+      "sec.threat_modeling"
+    ],
+    "systems": [
+      "daemon.arch.event_driven",
+      "daemon.observability.logging_telemetry",
+      "daemon.recipe.design_handler",
+      "daemon.recipe.retry_policy",
+      "daemon.reliability.failure_modes",
+      "daemon.reliability.retry_backoff",
+      "daemon.safety.enforceable_policies",
+      "pm.decomposition",
+      "pm.definition_of_done",
+      "pm.dependencies",
+      "pm.estimation",
+      "pm.postmortems",
+      "pm.recipe.agent_execution_plan",
+      "pm.recipe.postmortem_template"
+    ],
+    "ethics": [
+      "daemon.safety.enforceable_policies"
+    ],
+    "research_methods": [
+      "pm.decomposition",
+      "pm.postmortems",
+      "research.baselines",
+      "research.reading_papers",
+      "research.recipe.experiment_design",
+      "research.recipe.paper_summary",
+      "research.recipe.replication_checklist",
+      "research.replication"
+    ],
+    "doctorate": [
+      "research.recipe.experiment_design",
+      "research.recipe.replication_checklist",
+      "research.replication"
+    ],
+    "calculus": [
+      "math.calculus.derivative",
+      "math.recipe.take_derivative"
+    ],
+    "linear_algebra": [
+      "math.linear_algebra.matrix",
+      "math.recipe.matrix_multiply"
+    ],
+    "probability": [
+      "math.probability.bayes",
+      "math.recipe.apply_bayes"
+    ],
+    "optimization": [
+      "math.optimization.gradient_descent",
+      "math.recipe.gradient_descent"
+    ],
+    "humanities": [
+      "writing.argument_structure",
+      "writing.audience_adaptation"
+    ],
+    "security": [
+      "sec.input_validation",
+      "sec.least_privilege",
+      "sec.recipe.threat_model",
+      "sec.recipe.validate_untrusted_input",
+      "sec.secrets_handling",
+      "sec.threat_modeling"
     ]
   },
   "tokens": {
@@ -175,15 +474,24 @@
       "recipe.how_do_i_extrude_a_profile_into_a_solid",
       "recipe.how_do_i_solve_a_linear_equation_like_2x_3_11",
       "shape.bevel",
-      "shape.extrude"
+      "shape.extrude",
+      "wb.geometry.primitives"
     ],
     "create": [
-      "shape.extrude"
+      "cs.recipe.git_safe_workflow",
+      "pm.recipe.agent_execution_plan",
+      "pm.recipe.postmortem_template",
+      "research.recipe.replication_checklist",
+      "sec.recipe.threat_model",
+      "shape.extrude",
+      "wb.recipe.author_pbr_material",
+      "wb.recipe.build_modular_prop"
     ],
     "solid": [
       "k12.science.states_of_matter",
       "recipe.how_do_i_extrude_a_profile_into_a_solid",
-      "shape.extrude"
+      "shape.extrude",
+      "wb.geometry.mesh_vs_solid"
     ],
     "extending": [
       "shape.extrude"
@@ -198,22 +506,32 @@
       "shape.extrude"
     ],
     "direction": [
+      "math.optimization.gradient_descent",
+      "phys.vectors",
       "shape.extrude"
     ],
     "given": [
+      "math.probability.bayes",
       "shape.extrude"
     ],
     "height": [
       "shape.extrude"
     ],
     "should": [
+      "daemon.arch.event_driven",
+      "daemon.reliability.failure_modes",
+      "daemon.reliability.retry_backoff",
+      "daemon.safety.enforceable_policies",
       "shape.bevel",
-      "shape.extrude"
+      "shape.extrude",
+      "wb.materials.pbr_basics"
     ],
     "closed": [
       "recipe.how_do_i_extrude_a_profile_into_a_solid",
       "recipe.how_do_i_solve_a_linear_equation_like_2x_3_11",
-      "shape.extrude"
+      "shape.extrude",
+      "wb.geometry.mesh_vs_solid",
+      "wb.recipe.watertight_mesh_checklist"
     ],
     "sweep": [
       "recipe.how_do_i_extrude_a_profile_into_a_solid",
@@ -224,52 +542,78 @@
       "shape.extrude"
     ],
     "identify": [
+      "cs.recipe.big_o_estimation",
       "k12.recipe.read_history_timeline",
       "k12.recipe.scientific_method",
       "k12.recipe.use_pythagorean_theorem",
+      "pm.recipe.agent_execution_plan",
+      "pm.recipe.postmortem_template",
       "recipe.how_do_i_extrude_a_profile_into_a_solid",
-      "recipe.how_do_i_solve_a_linear_equation_like_2x_3_11"
+      "recipe.how_do_i_solve_a_linear_equation_like_2x_3_11",
+      "sec.threat_modeling"
     ],
     "primitives": [
       "recipe.how_do_i_extrude_a_profile_into_a_solid",
-      "recipe.how_do_i_solve_a_linear_equation_like_2x_3_11"
+      "recipe.how_do_i_solve_a_linear_equation_like_2x_3_11",
+      "wb.geometry.primitives",
+      "wb.recipe.build_modular_prop"
     ],
     "constraints": [
+      "cs.recipe.choose_data_structure",
+      "phys.constraints",
+      "phys.recipe.stable_constraints",
       "recipe.how_do_i_extrude_a_profile_into_a_solid",
-      "recipe.how_do_i_solve_a_linear_equation_like_2x_3_11"
+      "recipe.how_do_i_solve_a_linear_equation_like_2x_3_11",
+      "writing.recipe.tech_doc_page"
     ],
     "select": [
       "recipe.how_do_i_extrude_a_profile_into_a_solid",
       "recipe.how_do_i_solve_a_linear_equation_like_2x_3_11"
     ],
     "operations": [
+      "cs.ds.data_structures",
+      "cs.recipe.big_o_estimation",
+      "cs.recipe.choose_data_structure",
+      "daemon.reliability.retry_backoff",
       "k12.math.order_of_operations",
       "recipe.how_do_i_extrude_a_profile_into_a_solid",
-      "recipe.how_do_i_solve_a_linear_equation_like_2x_3_11"
+      "recipe.how_do_i_solve_a_linear_equation_like_2x_3_11",
+      "wb.geometry.mesh_vs_solid"
     ],
     "boolean": [
       "recipe.how_do_i_extrude_a_profile_into_a_solid",
-      "recipe.how_do_i_solve_a_linear_equation_like_2x_3_11"
+      "recipe.how_do_i_solve_a_linear_equation_like_2x_3_11",
+      "wb.geometry.mesh_vs_solid",
+      "wb.recipe.watertight_mesh_checklist"
     ],
     "bevel": [
       "recipe.how_do_i_extrude_a_profile_into_a_solid",
       "recipe.how_do_i_solve_a_linear_equation_like_2x_3_11",
-      "shape.bevel"
+      "shape.bevel",
+      "wb.geometry.primitives"
     ],
     "stable": [
+      "math.recipe.gradient_descent",
+      "phys.recipe.integrate_motion",
+      "phys.recipe.stable_constraints",
       "recipe.how_do_i_extrude_a_profile_into_a_solid",
       "recipe.how_do_i_solve_a_linear_equation_like_2x_3_11"
     ],
     "order": [
       "k12.math.order_of_operations",
       "k12.recipe.read_history_timeline",
+      "math.recipe.matrix_multiply",
       "recipe.how_do_i_extrude_a_profile_into_a_solid",
       "recipe.how_do_i_solve_a_linear_equation_like_2x_3_11"
     ],
     "run": [
       "k12.recipe.scientific_method",
+      "math.recipe.gradient_descent",
+      "pm.recipe.agent_execution_plan",
       "recipe.how_do_i_extrude_a_profile_into_a_solid",
-      "recipe.how_do_i_solve_a_linear_equation_like_2x_3_11"
+      "recipe.how_do_i_solve_a_linear_equation_like_2x_3_11",
+      "research.recipe.replication_checklist",
+      "wb.recipe.watertight_mesh_checklist"
     ],
     "quality": [
       "recipe.how_do_i_extrude_a_profile_into_a_solid",
@@ -283,35 +627,55 @@
     ],
     "watertight": [
       "recipe.how_do_i_extrude_a_profile_into_a_solid",
-      "recipe.how_do_i_solve_a_linear_equation_like_2x_3_11"
+      "recipe.how_do_i_solve_a_linear_equation_like_2x_3_11",
+      "wb.geometry.mesh_vs_solid",
+      "wb.recipe.watertight_mesh_checklist"
     ],
     "normals": [
       "recipe.how_do_i_extrude_a_profile_into_a_solid",
-      "recipe.how_do_i_solve_a_linear_equation_like_2x_3_11"
+      "recipe.how_do_i_solve_a_linear_equation_like_2x_3_11",
+      "wb.geometry.transforms",
+      "wb.recipe.watertight_mesh_checklist"
     ],
     "self-intersections": [
       "recipe.how_do_i_extrude_a_profile_into_a_solid",
-      "recipe.how_do_i_solve_a_linear_equation_like_2x_3_11"
+      "recipe.how_do_i_solve_a_linear_equation_like_2x_3_11",
+      "wb.recipe.watertight_mesh_checklist"
     ],
     "mesh": [
       "recipe.how_do_i_extrude_a_profile_into_a_solid",
-      "recipe.how_do_i_solve_a_linear_equation_like_2x_3_11"
+      "recipe.how_do_i_solve_a_linear_equation_like_2x_3_11",
+      "wb.geometry.mesh_vs_solid",
+      "wb.physics.collision_basics",
+      "wb.recipe.watertight_mesh_checklist"
     ],
     "consistent": [
       "k12.recipe.use_pythagorean_theorem",
       "recipe.how_do_i_extrude_a_profile_into_a_solid",
-      "recipe.how_do_i_solve_a_linear_equation_like_2x_3_11"
+      "recipe.how_do_i_solve_a_linear_equation_like_2x_3_11",
+      "wb.geometry.coordinate_systems",
+      "wb.geometry.units_scale",
+      "wb.materials.pbr_basics",
+      "wb.recipe.build_modular_prop",
+      "wb.recipe.watertight_mesh_checklist"
     ],
     "non-manifold": [
       "recipe.how_do_i_extrude_a_profile_into_a_solid",
-      "recipe.how_do_i_solve_a_linear_equation_like_2x_3_11"
+      "recipe.how_do_i_solve_a_linear_equation_like_2x_3_11",
+      "wb.geometry.mesh_vs_solid",
+      "wb.recipe.watertight_mesh_checklist"
     ],
     "edges": [
       "recipe.how_do_i_extrude_a_profile_into_a_solid",
       "recipe.how_do_i_solve_a_linear_equation_like_2x_3_11",
-      "shape.bevel"
+      "shape.bevel",
+      "wb.geometry.mesh_vs_solid",
+      "wb.recipe.build_modular_prop",
+      "wb.recipe.watertight_mesh_checklist"
     ],
     "after": [
+      "pm.postmortems",
+      "pm.recipe.postmortem_template",
       "recipe.how_do_i_extrude_a_profile_into_a_solid",
       "recipe.how_do_i_solve_a_linear_equation_like_2x_3_11"
     ],
@@ -334,50 +698,70 @@
       "shape.bevel"
     ],
     "reduce": [
+      "cs.debugging",
+      "cs.recipe.debugging_loop",
       "k12.recipe.add_fractions",
+      "math.recipe.gradient_descent",
+      "phys.recipe.stable_constraints",
+      "pm.decomposition",
       "shape.bevel"
     ],
     "artifacts": [
       "shape.bevel"
     ],
     "radius": [
+      "sec.least_privilege",
       "shape.bevel"
     ],
     "must": [
+      "math.optimization.gradient_descent",
+      "sec.secrets_handling",
       "shape.bevel"
     ],
     "non-negative": [
       "shape.bevel"
     ],
     "avoid": [
-      "shape.bevel"
+      "daemon.reliability.retry_backoff",
+      "research.baselines",
+      "shape.bevel",
+      "wb.recipe.author_pbr_material"
     ],
     "beveling": [
       "shape.bevel"
     ],
     "smaller": [
+      "pm.decomposition",
       "shape.bevel"
     ],
     "than": [
       "shape.bevel"
     ],
     "used": [
+      "cs.complexity.big_o",
       "k12.recipe.use_pythagorean_theorem",
-      "shape.bevel"
+      "phys.vectors",
+      "shape.bevel",
+      "wb.geometry.primitives"
     ],
     "soften": [
       "shape.bevel"
     ],
     "small": [
+      "cs.recipe.git_safe_workflow",
+      "math.recipe.gradient_descent",
       "shape.bevel"
     ],
     "relative": [
-      "shape.bevel"
+      "shape.bevel",
+      "wb.geometry.coordinate_systems"
     ],
     "edge": [
-      "shape.bevel"
+      "shape.bevel",
+      "wb.geometry.mesh_vs_solid"
     ],
     "length": [
+      "sec.recipe.validate_untrusted_input",
       "shape.bevel"
     ],
     "fractions": [
@@ -409,11 +793,13 @@
       "k12.math.fractions"
     ],
     "means": [
-      "k12.math.fractions"
+      "k12.math.fractions",
+      "math.statistics.confidence_interval"
     ],
     "parts": [
       "k12.english.parts_of_speech",
-      "k12.math.fractions"
+      "k12.math.fractions",
+      "wb.geometry.coordinate_systems"
     ],
     "out": [
       "k12.math.fractions"
@@ -460,12 +846,17 @@
       "k12.math.ratios"
     ],
     "then": [
+      "cs.recipe.git_safe_workflow",
       "k12.math.ratios",
-      "k12.recipe.scientific_method"
+      "k12.recipe.scientific_method",
+      "research.reading_papers",
+      "wb.physics.collision_basics"
     ],
     "linear": [
+      "cs.complexity.big_o",
       "k12.math.linear_equation",
       "k12.recipe.solve_linear_equations",
+      "math.linear_algebra.matrix",
       "recipe.how_do_i_solve_a_linear_equation_like_2x_3_11"
     ],
     "equations": [
@@ -480,8 +871,10 @@
       "k12.math.linear_equation"
     ],
     "variables": [
+      "cs.recipe.big_o_estimation",
       "k12.math.linear_equation",
-      "k12.recipe.scientific_method"
+      "k12.recipe.scientific_method",
+      "research.recipe.experiment_design"
     ],
     "have": [
       "k12.math.linear_equation",
@@ -491,6 +884,7 @@
       "k12.math.linear_equation"
     ],
     "solve": [
+      "cs.algorithms",
       "k12.math.linear_equation",
       "k12.recipe.solve_linear_equations",
       "k12.recipe.use_pythagorean_theorem",
@@ -503,7 +897,9 @@
       "k12.math.order_of_operations"
     ],
     "rules": [
-      "k12.math.order_of_operations"
+      "daemon.safety.enforceable_policies",
+      "k12.math.order_of_operations",
+      "math.recipe.take_derivative"
     ],
     "evaluating": [
       "k12.math.order_of_operations"
@@ -518,7 +914,8 @@
       "k12.math.order_of_operations"
     ],
     "multiplication": [
-      "k12.math.order_of_operations"
+      "k12.math.order_of_operations",
+      "math.linear_algebra.matrix"
     ],
     "division": [
       "k12.math.order_of_operations"
@@ -530,17 +927,29 @@
       "k12.math.order_of_operations"
     ],
     "multiply": [
-      "k12.math.order_of_operations"
+      "k12.math.order_of_operations",
+      "math.recipe.matrix_multiply"
     ],
     "before": [
-      "k12.math.order_of_operations"
+      "cs.recipe.git_safe_workflow",
+      "k12.math.order_of_operations",
+      "wb.recipe.watertight_mesh_checklist",
+      "writing.recipe.write_clear_explanation"
     ],
     "add": [
+      "cs.recipe.debugging_loop",
+      "daemon.recipe.design_handler",
+      "daemon.recipe.retry_policy",
       "k12.math.order_of_operations",
       "k12.recipe.add_fractions",
       "k12.recipe.read_history_timeline",
       "k12.recipe.solve_linear_equations",
-      "k12.recipe.write_paragraph"
+      "k12.recipe.write_paragraph",
+      "math.recipe.gradient_descent",
+      "phys.recipe.stable_constraints",
+      "pm.recipe.postmortem_template",
+      "sec.recipe.threat_model",
+      "writing.recipe.tech_doc_page"
     ],
     "pythagorean": [
       "k12.math.pythagorean_theorem",
@@ -576,6 +985,7 @@
       "k12.math.mean_median_mode"
     ],
     "average": [
+      "cs.complexity.big_o",
       "k12.math.mean_median_mode"
     ],
     "middle": [
@@ -583,7 +993,8 @@
     ],
     "value": [
       "k12.math.mean_median_mode",
-      "k12.recipe.solve_linear_equations"
+      "k12.recipe.solve_linear_equations",
+      "math.statistics.confidence_interval"
     ],
     "most": [
       "k12.math.mean_median_mode"
@@ -597,7 +1008,10 @@
     ],
     "method": [
       "k12.recipe.scientific_method",
-      "k12.science.scientific_method"
+      "k12.science.scientific_method",
+      "research.recipe.experiment_design",
+      "research.recipe.paper_summary",
+      "research.replication"
     ],
     "ask": [
       "k12.recipe.scientific_method",
@@ -609,16 +1023,29 @@
       "k12.science.scientific_method"
     ],
     "form": [
-      "k12.science.scientific_method"
+      "cs.recipe.debugging_loop",
+      "cs.version_control.mental_model",
+      "k12.science.scientific_method",
+      "math.recipe.take_derivative",
+      "wb.geometry.primitives"
     ],
     "hypothesis": [
+      "cs.recipe.debugging_loop",
       "k12.recipe.scientific_method",
-      "k12.science.scientific_method"
+      "k12.science.scientific_method",
+      "math.recipe.apply_bayes",
+      "research.recipe.experiment_design"
     ],
     "test": [
-      "k12.science.scientific_method"
+      "cs.debugging",
+      "cs.recipe.debugging_loop",
+      "k12.science.scientific_method",
+      "phys.recipe.stable_constraints",
+      "wb.recipe.author_pbr_material",
+      "wb.recipe.watertight_mesh_checklist"
     ],
     "experiments": [
+      "cs.recipe.git_safe_workflow",
       "k12.science.scientific_method"
     ],
     "analyze": [
@@ -627,13 +1054,18 @@
     ],
     "results": [
       "k12.recipe.scientific_method",
-      "k12.science.scientific_method"
+      "k12.science.scientific_method",
+      "research.baselines",
+      "research.replication"
     ],
     "conclude": [
       "k12.science.scientific_method"
     ],
     "iterate": [
-      "k12.science.scientific_method"
+      "cs.recipe.choose_data_structure",
+      "cs.recipe.debugging_loop",
+      "k12.science.scientific_method",
+      "math.recipe.gradient_descent"
     ],
     "plants": [
       "k12.science.photosynthesis",
@@ -663,13 +1095,19 @@
       "k12.science.cell"
     ],
     "basic": [
-      "k12.science.cell"
+      "k12.science.cell",
+      "math.recipe.take_derivative",
+      "wb.geometry.primitives",
+      "wb.recipe.author_pbr_material"
     ],
     "biology": [
       "k12.science.cell"
     ],
     "unit": [
-      "k12.science.cell"
+      "k12.science.cell",
+      "wb.geometry.primitives",
+      "wb.geometry.units_scale",
+      "wb.recipe.build_modular_prop"
     ],
     "life": [
       "k12.science.cell"
@@ -685,13 +1123,15 @@
       "k12.science.cell"
     ],
     "structures": [
+      "cs.ds.data_structures",
       "k12.science.cell"
     ],
     "perform": [
       "k12.science.cell"
     ],
     "functions": [
-      "k12.science.cell"
+      "k12.science.cell",
+      "math.recipe.take_derivative"
     ],
     "science": [
       "k12.science.cell"
@@ -729,7 +1169,8 @@
       "k12.science.photosynthesis"
     ],
     "energy": [
-      "k12.science.photosynthesis"
+      "k12.science.photosynthesis",
+      "phys.recipe.integrate_motion"
     ],
     "chemical": [
       "k12.science.photosynthesis"
@@ -739,7 +1180,9 @@
     ],
     "simplified": [
       "k12.recipe.add_fractions",
-      "k12.science.photosynthesis"
+      "k12.science.photosynthesis",
+      "math.recipe.take_derivative",
+      "wb.physics.collision_basics"
     ],
     "occurs": [
       "k12.science.photosynthesis"
@@ -754,7 +1197,8 @@
       "k12.science.photosynthesis"
     ],
     "newton": [
-      "k12.science.newtons_laws"
+      "k12.science.newtons_laws",
+      "phys.newton_second"
     ],
     "laws": [
       "k12.history.branches_of_government",
@@ -762,10 +1206,15 @@
       "k12.science.newtons_laws"
     ],
     "motion": [
-      "k12.science.newtons_laws"
+      "k12.science.newtons_laws",
+      "phys.constraints",
+      "phys.kinematics",
+      "phys.recipe.integrate_motion"
     ],
     "inertia": [
-      "k12.science.newtons_laws"
+      "k12.science.newtons_laws",
+      "phys.recipe.stable_constraints",
+      "phys.rigid_body"
     ],
     "opposite": [
       "k12.recipe.use_pythagorean_theorem",
@@ -778,37 +1227,53 @@
       "k12.science.newtons_laws"
     ],
     "mass": [
-      "k12.science.newtons_laws"
+      "k12.science.newtons_laws",
+      "phys.recipe.stable_constraints"
     ],
     "doubles": [
       "k12.science.newtons_laws"
     ],
     "required": [
-      "k12.science.newtons_laws"
+      "cs.recipe.choose_data_structure",
+      "k12.science.newtons_laws",
+      "sec.recipe.validate_untrusted_input"
     ],
     "force": [
-      "k12.science.newtons_laws"
+      "k12.science.newtons_laws",
+      "phys.newton_second",
+      "phys.recipe.integrate_motion",
+      "phys.vectors"
     ],
     "same": [
       "k12.recipe.add_fractions",
       "k12.recipe.solve_linear_equations",
-      "k12.science.newtons_laws"
+      "k12.science.newtons_laws",
+      "research.replication"
     ],
     "acceleration": [
-      "k12.science.newtons_laws"
+      "k12.science.newtons_laws",
+      "phys.kinematics",
+      "phys.newton_second",
+      "phys.recipe.integrate_motion"
     ],
     "states": [
       "k12.history.american_civil_war",
       "k12.recipe.write_paragraph",
-      "k12.science.states_of_matter"
+      "k12.science.states_of_matter",
+      "pm.definition_of_done",
+      "writing.argument_structure"
     ],
     "matter": [
       "k12.recipe.explain_branches_government",
       "k12.science.states_of_matter"
     ],
     "common": [
+      "daemon.reliability.failure_modes",
       "k12.recipe.add_fractions",
-      "k12.science.states_of_matter"
+      "k12.science.states_of_matter",
+      "wb.geometry.coordinate_systems",
+      "writing.recipe.tech_doc_page",
+      "writing.tech_docs_patterns"
     ],
     "liquid": [
       "k12.science.states_of_matter"
@@ -830,7 +1295,9 @@
     ],
     "state": [
       "k12.recipe.explain_branches_government",
-      "k12.science.states_of_matter"
+      "k12.science.states_of_matter",
+      "phys.recipe.integrate_motion",
+      "research.recipe.experiment_design"
     ],
     "water": [
       "k12.science.water_cycle"
@@ -860,7 +1327,12 @@
       "k12.history.ancient_egypt"
     ],
     "overview": [
-      "k12.history.ancient_egypt"
+      "cs.algorithms",
+      "cs.ds.data_structures",
+      "k12.history.ancient_egypt",
+      "writing.recipe.tech_doc_page",
+      "writing.recipe.write_clear_explanation",
+      "writing.tech_docs_patterns"
     ],
     "civilization": [
       "k12.history.ancient_egypt"
@@ -933,7 +1405,9 @@
     ],
     "between": [
       "k12.history.american_civil_war",
-      "k12.recipe.subject_verb_agreement_check"
+      "k12.recipe.subject_verb_agreement_check",
+      "math.recipe.apply_bayes",
+      "pm.recipe.agent_execution_plan"
     ],
     "union": [
       "k12.history.american_civil_war"
@@ -945,7 +1419,8 @@
       "k12.history.american_civil_war"
     ],
     "issues": [
-      "k12.history.american_civil_war"
+      "k12.history.american_civil_war",
+      "wb.geometry.units_scale"
     ],
     "included": [
       "k12.history.american_civil_war"
@@ -958,7 +1433,9 @@
       "k12.history.us_constitution"
     ],
     "world": [
-      "k12.history.world_war_2"
+      "k12.history.world_war_2",
+      "wb.geometry.coordinate_systems",
+      "wb.recipe.build_modular_prop"
     ],
     "global": [
       "k12.history.world_war_2"
@@ -985,14 +1462,18 @@
       "k12.history.world_war_2"
     ],
     "change": [
-      "k12.history.world_war_2"
+      "cs.recipe.git_safe_workflow",
+      "k12.history.world_war_2",
+      "math.calculus.derivative"
     ],
     "constitution": [
       "k12.history.us_constitution"
     ],
     "basics": [
       "k12.english.punctuation_basics",
-      "k12.history.us_constitution"
+      "k12.history.us_constitution",
+      "wb.materials.pbr_basics",
+      "wb.physics.collision_basics"
     ],
     "foundational": [
       "k12.history.us_constitution"
@@ -1001,10 +1482,12 @@
       "k12.history.us_constitution"
     ],
     "document": [
-      "k12.history.us_constitution"
+      "k12.history.us_constitution",
+      "research.recipe.replication_checklist"
     ],
     "defines": [
-      "k12.history.us_constitution"
+      "k12.history.us_constitution",
+      "wb.geometry.coordinate_systems"
     ],
     "government": [
       "k12.history.branches_of_government",
@@ -1012,20 +1495,25 @@
       "k12.recipe.explain_branches_government"
     ],
     "structure": [
+      "cs.recipe.choose_data_structure",
       "k12.english.paragraph_structure",
       "k12.english.thesis_statement",
-      "k12.history.us_constitution"
+      "k12.history.us_constitution",
+      "writing.argument_structure",
+      "writing.clarity"
     ],
     "powers": [
       "k12.history.us_constitution"
     ],
     "via": [
-      "k12.history.us_constitution"
+      "k12.history.us_constitution",
+      "math.recipe.apply_bayes"
     ],
     "amendments": [
       "k12.history.us_constitution"
     ],
     "branches": [
+      "cs.version_control.mental_model",
       "k12.history.branches_of_government",
       "k12.recipe.explain_branches_government"
     ],
@@ -1055,6 +1543,7 @@
       "k12.recipe.explain_branches_government"
     ],
     "history": [
+      "cs.recipe.git_safe_workflow",
       "k12.history.branches_of_government"
     ],
     "us_constitution": [
@@ -1091,7 +1580,8 @@
       "k12.english.parts_of_speech"
     ],
     "quickly": [
-      "k12.english.parts_of_speech"
+      "k12.english.parts_of_speech",
+      "writing.recipe.tech_doc_page"
     ],
     "modifies": [
       "k12.english.parts_of_speech"
@@ -1125,12 +1615,19 @@
       "k12.recipe.subject_verb_agreement_check"
     ],
     "list": [
+      "cs.recipe.choose_data_structure",
       "k12.english.subject_verb_agreement",
-      "k12.recipe.read_history_timeline"
+      "k12.recipe.read_history_timeline",
+      "pm.recipe.agent_execution_plan",
+      "pm.recipe.postmortem_template",
+      "research.recipe.paper_summary",
+      "sec.recipe.threat_model"
     ],
     "items": [
+      "cs.algorithms",
       "k12.english.punctuation_basics",
-      "k12.english.subject_verb_agreement"
+      "k12.english.subject_verb_agreement",
+      "pm.recipe.postmortem_template"
     ],
     "table": [
       "k12.english.subject_verb_agreement"
@@ -1143,7 +1640,8 @@
     ],
     "end": [
       "k12.english.punctuation_basics",
-      "k12.recipe.read_history_timeline"
+      "k12.recipe.read_history_timeline",
+      "writing.recipe.write_clear_explanation"
     ],
     "statements": [
       "k12.english.punctuation_basics"
@@ -1174,10 +1672,14 @@
       "k12.recipe.write_paragraph"
     ],
     "often": [
-      "k12.english.paragraph_structure"
+      "k12.english.paragraph_structure",
+      "phys.recipe.integrate_motion",
+      "wb.geometry.mesh_vs_solid",
+      "wb.physics.collision_basics"
     ],
     "has": [
-      "k12.english.paragraph_structure"
+      "k12.english.paragraph_structure",
+      "wb.geometry.mesh_vs_solid"
     ],
     "topic": [
       "k12.english.paragraph_structure",
@@ -1186,14 +1688,17 @@
     "sentence": [
       "k12.english.paragraph_structure",
       "k12.recipe.subject_verb_agreement_check",
-      "k12.recipe.write_paragraph"
+      "k12.recipe.write_paragraph",
+      "research.recipe.paper_summary"
     ],
     "supporting": [
       "k12.english.paragraph_structure",
       "k12.recipe.write_paragraph"
     ],
     "details": [
-      "k12.english.paragraph_structure"
+      "k12.english.paragraph_structure",
+      "research.recipe.replication_checklist",
+      "research.replication"
     ],
     "concluding": [
       "k12.english.paragraph_structure",
@@ -1206,13 +1711,15 @@
       "k12.english.thesis_statement"
     ],
     "statement": [
-      "k12.english.thesis_statement"
+      "k12.english.thesis_statement",
+      "research.recipe.paper_summary"
     ],
     "concise": [
       "k12.english.thesis_statement"
     ],
     "claim": [
-      "k12.english.thesis_statement"
+      "k12.english.thesis_statement",
+      "writing.argument_structure"
     ],
     "guides": [
       "k12.english.thesis_statement"
@@ -1221,7 +1728,8 @@
       "k12.english.thesis_statement"
     ],
     "argument": [
-      "k12.english.thesis_statement"
+      "k12.english.thesis_statement",
+      "writing.argument_structure"
     ],
     "like": [
       "k12.recipe.solve_linear_equations",
@@ -1233,7 +1741,9 @@
     "simplify": [
       "k12.recipe.add_fractions",
       "k12.recipe.solve_linear_equations",
-      "recipe.how_do_i_solve_a_linear_equation_like_2x_3_11"
+      "math.recipe.take_derivative",
+      "recipe.how_do_i_solve_a_linear_equation_like_2x_3_11",
+      "wb.geometry.coordinate_systems"
     ],
     "both": [
       "k12.recipe.solve_linear_equations",
@@ -1249,7 +1759,9 @@
     ],
     "terms": [
       "k12.recipe.solve_linear_equations",
-      "recipe.how_do_i_solve_a_linear_equation_like_2x_3_11"
+      "recipe.how_do_i_solve_a_linear_equation_like_2x_3_11",
+      "writing.clarity",
+      "writing.recipe.write_clear_explanation"
     ],
     "move": [
       "k12.recipe.solve_linear_equations",
@@ -1260,9 +1772,11 @@
       "recipe.how_do_i_solve_a_linear_equation_like_2x_3_11"
     ],
     "one": [
+      "cs.recipe.debugging_loop",
       "k12.recipe.explain_branches_government",
       "k12.recipe.solve_linear_equations",
-      "recipe.how_do_i_solve_a_linear_equation_like_2x_3_11"
+      "recipe.how_do_i_solve_a_linear_equation_like_2x_3_11",
+      "wb.geometry.transforms"
     ],
     "side": [
       "k12.recipe.solve_linear_equations",
@@ -1294,7 +1808,10 @@
       "k12.recipe.solve_linear_equations",
       "k12.recipe.subject_verb_agreement_check",
       "k12.recipe.use_pythagorean_theorem",
-      "recipe.how_do_i_solve_a_linear_equation_like_2x_3_11"
+      "math.recipe.apply_bayes",
+      "math.recipe.matrix_multiply",
+      "recipe.how_do_i_solve_a_linear_equation_like_2x_3_11",
+      "wb.recipe.watertight_mesh_checklist"
     ],
     "substituting": [
       "k12.recipe.solve_linear_equations"
@@ -1316,10 +1833,15 @@
     ],
     "forgetting": [
       "k12.recipe.solve_linear_equations",
-      "k12.recipe.use_pythagorean_theorem"
+      "k12.recipe.use_pythagorean_theorem",
+      "math.recipe.apply_bayes"
     ],
     "apply": [
-      "k12.recipe.solve_linear_equations"
+      "k12.recipe.solve_linear_equations",
+      "math.recipe.apply_bayes",
+      "math.recipe.take_derivative",
+      "sec.recipe.validate_untrusted_input",
+      "wb.recipe.build_modular_prop"
     ],
     "operation": [
       "k12.recipe.solve_linear_equations"
@@ -1334,7 +1856,8 @@
     ],
     "least": [
       "k12.recipe.add_fractions",
-      "k12.recipe.explain_branches_government"
+      "k12.recipe.explain_branches_government",
+      "sec.least_privilege"
     ],
     "multiple": [
       "k12.recipe.add_fractions"
@@ -1343,18 +1866,25 @@
       "k12.recipe.add_fractions"
     ],
     "rewrite": [
-      "k12.recipe.add_fractions"
+      "k12.recipe.add_fractions",
+      "math.recipe.take_derivative"
     ],
     "each": [
       "k12.recipe.add_fractions",
       "k12.recipe.explain_branches_government",
-      "k12.recipe.read_history_timeline"
+      "k12.recipe.read_history_timeline",
+      "math.recipe.matrix_multiply",
+      "phys.constraints",
+      "research.recipe.experiment_design"
     ],
     "numerators": [
       "k12.recipe.add_fractions"
     ],
     "keep": [
-      "k12.recipe.add_fractions"
+      "daemon.recipe.design_handler",
+      "k12.recipe.add_fractions",
+      "wb.recipe.author_pbr_material",
+      "wb.recipe.build_modular_prop"
     ],
     "resulting": [
       "k12.recipe.add_fractions"
@@ -1374,7 +1904,9 @@
     ],
     "needed": [
       "k12.recipe.add_fractions",
-      "k12.recipe.use_pythagorean_theorem"
+      "k12.recipe.use_pythagorean_theorem",
+      "math.recipe.apply_bayes",
+      "math.recipe.take_derivative"
     ],
     "reduced": [
       "k12.recipe.add_fractions"
@@ -1392,23 +1924,37 @@
       "k12.recipe.add_fractions"
     ],
     "use": [
+      "cs.recipe.big_o_estimation",
+      "cs.recipe.git_safe_workflow",
+      "daemon.recipe.retry_policy",
       "k12.recipe.use_pythagorean_theorem",
-      "k12.recipe.write_paragraph"
+      "k12.recipe.write_paragraph",
+      "math.recipe.take_derivative",
+      "phys.recipe.stable_constraints",
+      "wb.geometry.transforms",
+      "wb.physics.collision_basics"
     ],
     "missing": [
-      "k12.recipe.use_pythagorean_theorem"
+      "daemon.recipe.design_handler",
+      "daemon.reliability.failure_modes",
+      "k12.recipe.use_pythagorean_theorem",
+      "math.recipe.take_derivative",
+      "writing.recipe.tech_doc_page"
     ],
     "angle": [
       "k12.recipe.use_pythagorean_theorem"
     ],
     "assign": [
-      "k12.recipe.use_pythagorean_theorem"
+      "k12.recipe.use_pythagorean_theorem",
+      "pm.recipe.agent_execution_plan"
     ],
     "plug": [
       "k12.recipe.use_pythagorean_theorem"
     ],
     "values": [
-      "k12.recipe.use_pythagorean_theorem"
+      "k12.recipe.use_pythagorean_theorem",
+      "phys.recipe.stable_constraints",
+      "wb.recipe.author_pbr_material"
     ],
     "unknown": [
       "k12.recipe.use_pythagorean_theorem"
@@ -1417,50 +1963,84 @@
       "k12.recipe.use_pythagorean_theorem"
     ],
     "root": [
-      "k12.recipe.use_pythagorean_theorem"
+      "cs.recipe.debugging_loop",
+      "k12.recipe.use_pythagorean_theorem",
+      "pm.recipe.postmortem_template"
     ],
     "result": [
-      "k12.recipe.use_pythagorean_theorem"
+      "k12.recipe.use_pythagorean_theorem",
+      "math.recipe.apply_bayes",
+      "math.recipe.matrix_multiply",
+      "math.recipe.take_derivative",
+      "research.recipe.replication_checklist"
     ],
     "reasonable": [
-      "k12.recipe.use_pythagorean_theorem"
+      "k12.recipe.use_pythagorean_theorem",
+      "phys.recipe.stable_constraints"
     ],
     "lengths": [
       "k12.recipe.use_pythagorean_theorem"
     ],
     "correctly": [
-      "k12.recipe.use_pythagorean_theorem"
+      "k12.recipe.use_pythagorean_theorem",
+      "math.recipe.take_derivative"
     ],
     "units": [
-      "k12.recipe.use_pythagorean_theorem"
+      "k12.recipe.use_pythagorean_theorem",
+      "phys.recipe.integrate_motion",
+      "wb.geometry.coordinate_systems",
+      "wb.geometry.units_scale"
     ],
     "mixing": [
-      "k12.recipe.use_pythagorean_theorem"
+      "k12.recipe.use_pythagorean_theorem",
+      "math.recipe.matrix_multiply"
     ],
     "design": [
-      "k12.recipe.scientific_method"
+      "daemon.recipe.design_handler",
+      "k12.recipe.scientific_method",
+      "research.recipe.experiment_design"
     ],
     "simple": [
       "k12.recipe.read_history_timeline",
-      "k12.recipe.scientific_method"
+      "k12.recipe.scientific_method",
+      "math.recipe.take_derivative",
+      "phys.numerical_stability",
+      "phys.recipe.stable_constraints",
+      "sec.recipe.threat_model",
+      "wb.recipe.build_modular_prop"
     ],
     "experiment": [
-      "k12.recipe.scientific_method"
+      "k12.recipe.scientific_method",
+      "research.recipe.experiment_design"
     ],
     "using": [
-      "k12.recipe.scientific_method"
+      "k12.recipe.scientific_method",
+      "phys.recipe.integrate_motion",
+      "wb.recipe.build_modular_prop",
+      "writing.recipe.write_clear_explanation"
     ],
     "clear": [
+      "cs.recipe.git_safe_workflow",
       "k12.recipe.scientific_method",
-      "k12.recipe.write_paragraph"
+      "k12.recipe.write_paragraph",
+      "pm.decomposition",
+      "research.recipe.experiment_design",
+      "sec.recipe.validate_untrusted_input",
+      "writing.recipe.write_clear_explanation"
     ],
     "testable": [
       "k12.recipe.scientific_method"
     ],
     "write": [
+      "cs.recipe.debugging_loop",
       "k12.recipe.read_history_timeline",
       "k12.recipe.scientific_method",
-      "k12.recipe.write_paragraph"
+      "k12.recipe.write_paragraph",
+      "math.recipe.apply_bayes",
+      "pm.recipe.postmortem_template",
+      "research.recipe.paper_summary",
+      "writing.recipe.tech_doc_page",
+      "writing.recipe.write_clear_explanation"
     ],
     "because": [
       "k12.recipe.scientific_method"
@@ -1472,16 +2052,29 @@
       "k12.recipe.scientific_method"
     ],
     "record": [
-      "k12.recipe.scientific_method"
+      "daemon.observability.logging_telemetry",
+      "k12.recipe.scientific_method",
+      "research.recipe.experiment_design",
+      "research.recipe.paper_summary",
+      "research.recipe.replication_checklist"
     ],
     "observations": [
       "k12.recipe.scientific_method"
     ],
     "data": [
-      "k12.recipe.scientific_method"
+      "cs.ds.data_structures",
+      "cs.recipe.choose_data_structure",
+      "k12.recipe.scientific_method",
+      "research.recipe.experiment_design",
+      "research.recipe.replication_checklist",
+      "research.replication",
+      "sec.input_validation",
+      "sec.recipe.threat_model"
     ],
     "decide": [
-      "k12.recipe.scientific_method"
+      "cs.recipe.choose_data_structure",
+      "k12.recipe.scientific_method",
+      "wb.recipe.author_pbr_material"
     ],
     "whether": [
       "k12.recipe.scientific_method"
@@ -1490,6 +2083,7 @@
       "k12.recipe.scientific_method"
     ],
     "support": [
+      "cs.ds.data_structures",
       "k12.recipe.scientific_method"
     ],
     "conclusion": [
@@ -1500,7 +2094,8 @@
     ],
     "next": [
       "k12.recipe.scientific_method",
-      "k12.recipe.write_paragraph"
+      "k12.recipe.write_paragraph",
+      "writing.recipe.write_clear_explanation"
     ],
     "academic": [
       "k12.recipe.write_paragraph"
@@ -1511,10 +2106,12 @@
       "k12.recipe.write_paragraph"
     ],
     "point": [
-      "k12.recipe.write_paragraph"
+      "k12.recipe.write_paragraph",
+      "math.recipe.take_derivative"
     ],
     "sentences": [
-      "k12.recipe.write_paragraph"
+      "k12.recipe.write_paragraph",
+      "writing.clarity"
     ],
     "facts": [
       "k12.recipe.write_paragraph"
@@ -1524,13 +2121,16 @@
     ],
     "examples": [
       "k12.recipe.explain_branches_government",
-      "k12.recipe.write_paragraph"
+      "k12.recipe.write_paragraph",
+      "writing.audience_adaptation",
+      "writing.recipe.tech_doc_page"
     ],
     "transitions": [
       "k12.recipe.write_paragraph"
     ],
     "flow": [
-      "k12.recipe.write_paragraph"
+      "k12.recipe.write_paragraph",
+      "writing.outlining"
     ],
     "however": [
       "k12.recipe.write_paragraph"
@@ -1540,7 +2140,8 @@
     ],
     "example": [
       "k12.recipe.solve_linear_equations",
-      "k12.recipe.write_paragraph"
+      "k12.recipe.write_paragraph",
+      "writing.recipe.write_clear_explanation"
     ],
     "bridge": [
       "k12.recipe.write_paragraph"
@@ -1549,13 +2150,16 @@
       "k12.recipe.write_paragraph"
     ],
     "idea": [
-      "k12.recipe.write_paragraph"
+      "k12.recipe.write_paragraph",
+      "research.recipe.paper_summary"
     ],
     "revise": [
-      "k12.recipe.write_paragraph"
+      "k12.recipe.write_paragraph",
+      "pm.estimation"
     ],
     "clarity": [
-      "k12.recipe.write_paragraph"
+      "k12.recipe.write_paragraph",
+      "writing.clarity"
     ],
     "grammar": [
       "k12.recipe.write_paragraph"
@@ -1575,13 +2179,18 @@
     ],
     "what": [
       "k12.recipe.read_history_timeline",
-      "k12.recipe.subject_verb_agreement_check"
+      "k12.recipe.subject_verb_agreement_check",
+      "pm.postmortems",
+      "pm.recipe.postmortem_template",
+      "research.recipe.paper_summary",
+      "writing.audience_adaptation"
     ],
     "doing": [
       "k12.recipe.subject_verb_agreement_check"
     ],
     "action": [
-      "k12.recipe.subject_verb_agreement_check"
+      "k12.recipe.subject_verb_agreement_check",
+      "pm.recipe.postmortem_template"
     ],
     "ignore": [
       "k12.recipe.subject_verb_agreement_check"
@@ -1593,7 +2202,9 @@
       "k12.recipe.subject_verb_agreement_check"
     ],
     "match": [
-      "k12.recipe.subject_verb_agreement_check"
+      "k12.recipe.subject_verb_agreement_check",
+      "math.recipe.matrix_multiply",
+      "writing.audience_adaptation"
     ],
     "re-read": [
       "k12.recipe.subject_verb_agreement_check"
@@ -1602,9 +2213,11 @@
       "k12.recipe.subject_verb_agreement_check"
     ],
     "correctness": [
+      "cs.algorithms",
       "k12.recipe.subject_verb_agreement_check"
     ],
     "identified": [
+      "cs.recipe.big_o_estimation",
       "k12.recipe.subject_verb_agreement_check"
     ],
     "agreeing": [
@@ -1617,49 +2230,64 @@
       "k12.recipe.subject_verb_agreement_check"
     ],
     "true": [
-      "k12.recipe.subject_verb_agreement_check"
+      "k12.recipe.subject_verb_agreement_check",
+      "math.statistics.confidence_interval"
     ],
     "summarize": [
-      "k12.recipe.read_history_timeline"
+      "k12.recipe.read_history_timeline",
+      "research.recipe.paper_summary"
     ],
     "historical": [
       "k12.recipe.read_history_timeline"
     ],
     "timeline": [
-      "k12.recipe.read_history_timeline"
+      "k12.recipe.read_history_timeline",
+      "pm.recipe.postmortem_template"
     ],
     "start": [
-      "k12.recipe.read_history_timeline"
+      "k12.recipe.read_history_timeline",
+      "phys.recipe.stable_constraints"
     ],
     "dates": [
       "k12.recipe.read_history_timeline"
     ],
     "approximate": [
-      "k12.recipe.read_history_timeline"
+      "k12.recipe.read_history_timeline",
+      "math.recipe.gradient_descent"
     ],
     "era": [
       "k12.recipe.read_history_timeline"
     ],
     "key": [
-      "k12.recipe.read_history_timeline"
+      "cs.ds.data_structures",
+      "cs.recipe.debugging_loop",
+      "k12.recipe.read_history_timeline",
+      "research.recipe.paper_summary",
+      "writing.recipe.write_clear_explanation"
     ],
     "events": [
-      "k12.recipe.read_history_timeline"
+      "daemon.arch.event_driven",
+      "daemon.observability.logging_telemetry",
+      "k12.recipe.read_history_timeline",
+      "math.recipe.apply_bayes"
     ],
     "chronological": [
       "k12.recipe.read_history_timeline"
     ],
     "causes": [
-      "k12.recipe.read_history_timeline"
+      "k12.recipe.read_history_timeline",
+      "pm.recipe.postmortem_template"
     ],
     "effects": [
       "k12.recipe.read_history_timeline"
     ],
     "lines": [
-      "k12.recipe.read_history_timeline"
+      "k12.recipe.read_history_timeline",
+      "wb.geometry.primitives"
     ],
     "note": [
-      "k12.recipe.read_history_timeline"
+      "k12.recipe.read_history_timeline",
+      "research.recipe.paper_summary"
     ],
     "important": [
       "k12.recipe.read_history_timeline"
@@ -1677,10 +2305,12 @@
       "k12.recipe.read_history_timeline"
     ],
     "summary": [
-      "k12.recipe.read_history_timeline"
+      "k12.recipe.read_history_timeline",
+      "writing.recipe.write_clear_explanation"
     ],
     "explain": [
-      "k12.recipe.explain_branches_government"
+      "k12.recipe.explain_branches_government",
+      "writing.recipe.write_clear_explanation"
     ],
     "three": [
       "k12.recipe.explain_branches_government"
@@ -1689,49 +2319,66 @@
       "k12.recipe.explain_branches_government"
     ],
     "branch": [
+      "cs.recipe.git_safe_workflow",
+      "cs.version_control.mental_model",
       "k12.recipe.explain_branches_government"
     ],
     "role": [
       "k12.recipe.explain_branches_government"
     ],
     "enforce": [
-      "k12.recipe.explain_branches_government"
+      "k12.recipe.explain_branches_government",
+      "phys.constraints"
     ],
     "interpret": [
       "k12.recipe.explain_branches_government"
     ],
     "give": [
-      "k12.recipe.explain_branches_government"
+      "k12.recipe.explain_branches_government",
+      "writing.recipe.write_clear_explanation"
     ],
     "veto": [
       "k12.recipe.explain_branches_government"
     ],
     "review": [
-      "k12.recipe.explain_branches_government"
+      "cs.recipe.git_safe_workflow",
+      "daemon.safety.enforceable_policies",
+      "k12.recipe.explain_branches_government",
+      "pm.definition_of_done"
     ],
     "why": [
-      "k12.recipe.explain_branches_government"
+      "k12.recipe.explain_branches_government",
+      "pm.postmortems",
+      "writing.recipe.write_clear_explanation"
     ],
     "prevent": [
-      "k12.recipe.explain_branches_government"
+      "k12.recipe.explain_branches_government",
+      "pm.postmortems"
     ],
     "abuse": [
       "k12.recipe.explain_branches_government"
     ],
     "power": [
-      "k12.recipe.explain_branches_government"
+      "k12.recipe.explain_branches_government",
+      "math.recipe.take_derivative"
     ],
     "roles": [
       "k12.recipe.explain_branches_government"
     ],
     "correct": [
-      "k12.recipe.explain_branches_government"
+      "k12.recipe.explain_branches_government",
+      "math.recipe.matrix_multiply",
+      "phys.recipe.stable_constraints",
+      "wb.geometry.transforms"
     ],
     "substitution": [
       "recipe.how_do_i_solve_a_linear_equation_like_2x_3_11"
     ],
     "work": [
-      "k12.recipe.solve_linear_equations"
+      "daemon.arch.event_driven",
+      "daemon.recipe.design_handler",
+      "k12.recipe.solve_linear_equations",
+      "pm.definition_of_done"
     ],
     "through": [
       "k12.recipe.solve_linear_equations"
@@ -1740,7 +2387,2697 @@
       "k12.recipe.solve_linear_equations"
     ],
     "step-by-step": [
+      "cs.algorithms",
       "k12.recipe.solve_linear_equations"
+    ],
+    "geometric": [
+      "wb.geometry.primitives"
+    ],
+    "shapes": [
+      "wb.geometry.primitives",
+      "wb.physics.collision_basics"
+    ],
+    "building": [
+      "wb.geometry.primitives"
+    ],
+    "blocks": [
+      "wb.geometry.primitives"
+    ],
+    "points": [
+      "sec.recipe.threat_model",
+      "sec.threat_modeling",
+      "wb.geometry.primitives",
+      "wb.geometry.transforms"
+    ],
+    "planes": [
+      "wb.geometry.primitives"
+    ],
+    "triangles": [
+      "wb.geometry.primitives"
+    ],
+    "boxes": [
+      "wb.geometry.primitives"
+    ],
+    "spheres": [
+      "wb.geometry.primitives",
+      "wb.physics.collision_basics"
+    ],
+    "cylinders": [
+      "wb.geometry.primitives"
+    ],
+    "fundamental": [
+      "wb.geometry.primitives"
+    ],
+    "real-time": [
+      "wb.geometry.primitives"
+    ],
+    "meshes": [
+      "wb.geometry.mesh_vs_solid",
+      "wb.geometry.primitives"
+    ],
+    "box": [
+      "wb.geometry.primitives",
+      "wb.recipe.build_modular_prop"
+    ],
+    "primitive": [
+      "wb.geometry.primitives"
+    ],
+    "beveled": [
+      "wb.geometry.primitives"
+    ],
+    "hollowed": [
+      "wb.geometry.primitives"
+    ],
+    "crate": [
+      "wb.geometry.primitives"
+    ],
+    "transforms": [
+      "wb.geometry.coordinate_systems",
+      "wb.geometry.transforms",
+      "wb.recipe.build_modular_prop"
+    ],
+    "translation": [
+      "wb.geometry.transforms"
+    ],
+    "rotation": [
+      "math.linear_algebra.matrix",
+      "phys.rigid_body",
+      "wb.geometry.transforms"
+    ],
+    "scale": [
+      "wb.geometry.transforms",
+      "wb.geometry.units_scale",
+      "wb.recipe.build_modular_prop"
+    ],
+    "transform": [
+      "wb.geometry.transforms"
+    ],
+    "maps": [
+      "cs.ds.data_structures",
+      "wb.geometry.transforms",
+      "wb.materials.pbr_basics",
+      "wb.recipe.author_pbr_material"
+    ],
+    "coordinate": [
+      "wb.geometry.coordinate_systems",
+      "wb.geometry.transforms"
+    ],
+    "frame": [
+      "phys.newton_second",
+      "wb.geometry.transforms"
+    ],
+    "another": [
+      "wb.geometry.transforms"
+    ],
+    "commonly": [
+      "wb.geometry.transforms"
+    ],
+    "represented": [
+      "wb.geometry.transforms"
+    ],
+    "matrices": [
+      "math.linear_algebra.matrix",
+      "math.recipe.matrix_multiply",
+      "wb.geometry.transforms"
+    ],
+    "non-uniform": [
+      "wb.geometry.transforms"
+    ],
+    "distort": [
+      "wb.geometry.transforms"
+    ],
+    "recompute": [
+      "wb.geometry.transforms",
+      "wb.recipe.watertight_mesh_checklist"
+    ],
+    "normal": [
+      "wb.geometry.transforms",
+      "wb.materials.pbr_basics",
+      "wb.recipe.author_pbr_material"
+    ],
+    "matrix": [
+      "math.linear_algebra.matrix",
+      "wb.geometry.transforms"
+    ],
+    "rotate": [
+      "sec.secrets_handling",
+      "wb.geometry.transforms"
+    ],
+    "around": [
+      "wb.geometry.transforms"
+    ],
+    "align": [
+      "wb.geometry.transforms"
+    ],
+    "doorway": [
+      "wb.geometry.transforms"
+    ],
+    "wall": [
+      "wb.geometry.transforms"
+    ],
+    "geometry": [
+      "wb.geometry.coordinate_systems",
+      "wb.geometry.transforms"
+    ],
+    "coordinate_systems": [
+      "wb.geometry.transforms"
+    ],
+    "systems": [
+      "phys.numerical_stability",
+      "wb.geometry.coordinate_systems"
+    ],
+    "system": [
+      "daemon.arch.event_driven",
+      "phys.recipe.integrate_motion",
+      "pm.recipe.agent_execution_plan",
+      "sec.recipe.threat_model",
+      "wb.geometry.coordinate_systems"
+    ],
+    "axes": [
+      "wb.geometry.coordinate_systems"
+    ],
+    "local": [
+      "wb.geometry.coordinate_systems"
+    ],
+    "camera": [
+      "sec.recipe.threat_model",
+      "wb.geometry.coordinate_systems",
+      "wb.geometry.units_scale"
+    ],
+    "coordinates": [
+      "wb.geometry.coordinate_systems"
+    ],
+    "about": [
+      "cs.complexity.big_o",
+      "wb.geometry.coordinate_systems"
+    ],
+    "handedness": [
+      "wb.geometry.coordinate_systems"
+    ],
+    "right-hand": [
+      "wb.geometry.coordinate_systems"
+    ],
+    "left-hand": [
+      "wb.geometry.coordinate_systems"
+    ],
+    "across": [
+      "daemon.observability.logging_telemetry",
+      "wb.geometry.coordinate_systems"
+    ],
+    "tools": [
+      "wb.geometry.coordinate_systems"
+    ],
+    "pipelines": [
+      "wb.geometry.coordinate_systems"
+    ],
+    "placing": [
+      "wb.geometry.coordinate_systems"
+    ],
+    "parent": [
+      "wb.geometry.coordinate_systems"
+    ],
+    "meter": [
+      "wb.geometry.units_scale"
+    ],
+    "prevents": [
+      "wb.geometry.units_scale",
+      "writing.outlining"
+    ],
+    "physics": [
+      "phys.recipe.stable_constraints",
+      "wb.geometry.units_scale"
+    ],
+    "animation": [
+      "wb.geometry.units_scale"
+    ],
+    "stability": [
+      "phys.numerical_stability",
+      "wb.geometry.units_scale"
+    ],
+    "collision": [
+      "wb.geometry.units_scale",
+      "wb.physics.collision_basics"
+    ],
+    "tolerances": [
+      "wb.geometry.units_scale"
+    ],
+    "depend": [
+      "wb.geometry.units_scale"
+    ],
+    "character": [
+      "wb.geometry.units_scale",
+      "wb.physics.collision_basics"
+    ],
+    "tall": [
+      "wb.geometry.units_scale"
+    ],
+    "door": [
+      "wb.geometry.units_scale"
+    ],
+    "might": [
+      "wb.geometry.units_scale"
+    ],
+    "solids": [
+      "wb.geometry.mesh_vs_solid",
+      "wb.recipe.watertight_mesh_checklist"
+    ],
+    "watertightness": [
+      "wb.geometry.mesh_vs_solid"
+    ],
+    "model": [
+      "cs.version_control.mental_model",
+      "sec.recipe.threat_model",
+      "wb.geometry.mesh_vs_solid",
+      "wb.recipe.build_modular_prop"
+    ],
+    "surface": [
+      "wb.geometry.mesh_vs_solid",
+      "wb.recipe.watertight_mesh_checklist"
+    ],
+    "many": [
+      "cs.recipe.debugging_loop",
+      "wb.geometry.mesh_vs_solid"
+    ],
+    "booleans": [
+      "wb.geometry.mesh_vs_solid",
+      "wb.recipe.watertight_mesh_checklist"
+    ],
+    "assume": [
+      "wb.geometry.mesh_vs_solid"
+    ],
+    "inputs": [
+      "daemon.reliability.failure_modes",
+      "pm.decomposition",
+      "sec.input_validation",
+      "wb.geometry.mesh_vs_solid"
+    ],
+    "holes": [
+      "wb.geometry.mesh_vs_solid",
+      "wb.recipe.watertight_mesh_checklist"
+    ],
+    "break": [
+      "pm.decomposition",
+      "wb.geometry.mesh_vs_solid"
+    ],
+    "every": [
+      "wb.geometry.mesh_vs_solid"
+    ],
+    "shared": [
+      "wb.geometry.mesh_vs_solid",
+      "wb.recipe.watertight_mesh_checklist"
+    ],
+    "exactly": [
+      "wb.geometry.mesh_vs_solid"
+    ],
+    "two": [
+      "math.recipe.matrix_multiply",
+      "wb.geometry.mesh_vs_solid"
+    ],
+    "faces": [
+      "wb.geometry.mesh_vs_solid",
+      "wb.recipe.watertight_mesh_checklist"
+    ],
+    "boolean_ops": [
+      "wb.geometry.mesh_vs_solid"
+    ],
+    "detection": [
+      "wb.physics.collision_basics"
+    ],
+    "uses": [
+      "wb.materials.pbr_basics",
+      "wb.physics.collision_basics"
+    ],
+    "aabb": [
+      "wb.physics.collision_basics"
+    ],
+    "obb": [
+      "wb.physics.collision_basics"
+    ],
+    "capsules": [
+      "wb.physics.collision_basics"
+    ],
+    "convex": [
+      "wb.physics.collision_basics",
+      "wb.recipe.build_modular_prop"
+    ],
+    "hulls": [
+      "wb.physics.collision_basics"
+    ],
+    "speed": [
+      "wb.physics.collision_basics"
+    ],
+    "coarse-to-fine": [
+      "wb.physics.collision_basics"
+    ],
+    "broadphase": [
+      "wb.physics.collision_basics"
+    ],
+    "narrowphase": [
+      "wb.physics.collision_basics"
+    ],
+    "controllers": [
+      "wb.physics.collision_basics"
+    ],
+    "capsule": [
+      "wb.physics.collision_basics",
+      "wb.recipe.build_modular_prop"
+    ],
+    "collider": [
+      "wb.physics.collision_basics"
+    ],
+    "pbr": [
+      "wb.materials.pbr_basics",
+      "wb.recipe.author_pbr_material"
+    ],
+    "material": [
+      "wb.materials.pbr_basics",
+      "wb.recipe.author_pbr_material"
+    ],
+    "physically": [
+      "wb.materials.pbr_basics",
+      "wb.recipe.author_pbr_material"
+    ],
+    "based": [
+      "wb.materials.pbr_basics"
+    ],
+    "rendering": [
+      "wb.materials.pbr_basics"
+    ],
+    "albedo": [
+      "wb.materials.pbr_basics",
+      "wb.recipe.author_pbr_material"
+    ],
+    "base": [
+      "wb.materials.pbr_basics"
+    ],
+    "color": [
+      "wb.materials.pbr_basics"
+    ],
+    "roughness": [
+      "wb.materials.pbr_basics",
+      "wb.recipe.author_pbr_material"
+    ],
+    "metallic": [
+      "wb.materials.pbr_basics",
+      "wb.recipe.author_pbr_material"
+    ],
+    "include": [
+      "wb.materials.pbr_basics"
+    ],
+    "baked": [
+      "wb.materials.pbr_basics"
+    ],
+    "lighting": [
+      "wb.materials.pbr_basics",
+      "wb.recipe.author_pbr_material"
+    ],
+    "controls": [
+      "research.recipe.experiment_design",
+      "wb.materials.pbr_basics"
+    ],
+    "microfacet": [
+      "wb.materials.pbr_basics"
+    ],
+    "scattering": [
+      "wb.materials.pbr_basics"
+    ],
+    "metal": [
+      "wb.materials.pbr_basics",
+      "wb.recipe.author_pbr_material"
+    ],
+    "dielectric": [
+      "wb.materials.pbr_basics",
+      "wb.recipe.author_pbr_material"
+    ],
+    "glossiness": [
+      "wb.materials.pbr_basics"
+    ],
+    "validate": [
+      "cs.recipe.big_o_estimation",
+      "daemon.recipe.design_handler",
+      "phys.recipe.integrate_motion",
+      "pm.recipe.agent_execution_plan",
+      "sec.input_validation",
+      "sec.recipe.validate_untrusted_input",
+      "wb.recipe.watertight_mesh_checklist"
+    ],
+    "export": [
+      "wb.recipe.build_modular_prop",
+      "wb.recipe.watertight_mesh_checklist"
+    ],
+    "checklist": [
+      "pm.definition_of_done",
+      "wb.recipe.watertight_mesh_checklist"
+    ],
+    "ensure": [
+      "daemon.recipe.retry_policy",
+      "daemon.reliability.retry_backoff",
+      "wb.recipe.watertight_mesh_checklist"
+    ],
+    "remove": [
+      "wb.recipe.watertight_mesh_checklist"
+    ],
+    "duplicate": [
+      "wb.recipe.watertight_mesh_checklist"
+    ],
+    "vertices": [
+      "wb.recipe.watertight_mesh_checklist"
+    ],
+    "consistently": [
+      "wb.recipe.watertight_mesh_checklist"
+    ],
+    "outward": [
+      "wb.recipe.watertight_mesh_checklist"
+    ],
+    "re-import": [
+      "wb.recipe.watertight_mesh_checklist"
+    ],
+    "confirm": [
+      "math.recipe.matrix_multiply",
+      "research.recipe.replication_checklist",
+      "wb.recipe.watertight_mesh_checklist"
+    ],
+    "integrity": [
+      "wb.recipe.watertight_mesh_checklist"
+    ],
+    "author": [
+      "wb.recipe.author_pbr_material"
+    ],
+    "set": [
+      "wb.recipe.author_pbr_material"
+    ],
+    "game": [
+      "wb.recipe.author_pbr_material"
+    ],
+    "asset": [
+      "wb.recipe.author_pbr_material"
+    ],
+    "type": [
+      "daemon.recipe.design_handler",
+      "sec.input_validation",
+      "wb.recipe.author_pbr_material"
+    ],
+    "reference": [
+      "wb.recipe.author_pbr_material",
+      "writing.tech_docs_patterns"
+    ],
+    "real": [
+      "wb.recipe.author_pbr_material"
+    ],
+    "materials": [
+      "wb.recipe.author_pbr_material"
+    ],
+    "plausible": [
+      "wb.recipe.author_pbr_material"
+    ],
+    "pure": [
+      "wb.recipe.author_pbr_material"
+    ],
+    "white": [
+      "wb.recipe.author_pbr_material"
+    ],
+    "except": [
+      "wb.recipe.author_pbr_material"
+    ],
+    "near": [
+      "wb.recipe.author_pbr_material"
+    ],
+    "snow": [
+      "wb.recipe.author_pbr_material"
+    ],
+    "modular": [
+      "wb.recipe.build_modular_prop"
+    ],
+    "prop": [
+      "wb.recipe.build_modular_prop"
+    ],
+    "fits": [
+      "wb.recipe.build_modular_prop"
+    ],
+    "grid": [
+      "wb.recipe.build_modular_prop"
+    ],
+    "choose": [
+      "cs.recipe.choose_data_structure",
+      "math.recipe.gradient_descent",
+      "pm.recipe.agent_execution_plan",
+      "research.recipe.experiment_design",
+      "wb.recipe.build_modular_prop"
+    ],
+    "size": [
+      "cs.complexity.big_o",
+      "cs.recipe.big_o_estimation",
+      "cs.recipe.choose_data_structure",
+      "math.optimization.gradient_descent",
+      "phys.numerical_stability",
+      "wb.recipe.build_modular_prop"
+    ],
+    "increments": [
+      "wb.recipe.build_modular_prop"
+    ],
+    "pivots": [
+      "wb.recipe.build_modular_prop"
+    ],
+    "bevels": [
+      "wb.recipe.build_modular_prop"
+    ],
+    "chamfers": [
+      "wb.recipe.build_modular_prop"
+    ],
+    "believable": [
+      "wb.recipe.build_modular_prop"
+    ],
+    "colliders": [
+      "phys.recipe.stable_constraints",
+      "wb.recipe.build_modular_prop"
+    ],
+    "aligned": [
+      "wb.recipe.build_modular_prop"
+    ],
+    "naming": [
+      "wb.recipe.build_modular_prop"
+    ],
+    "verify": [
+      "math.recipe.take_derivative",
+      "wb.recipe.build_modular_prop"
+    ],
+    "ways": [
+      "cs.ds.data_structures"
+    ],
+    "organize": [
+      "cs.ds.data_structures"
+    ],
+    "efficient": [
+      "cs.ds.data_structures"
+    ],
+    "lookup": [
+      "cs.complexity.big_o",
+      "cs.ds.data_structures",
+      "cs.recipe.choose_data_structure"
+    ],
+    "insert": [
+      "cs.ds.data_structures",
+      "cs.recipe.choose_data_structure"
+    ],
+    "delete": [
+      "cs.ds.data_structures",
+      "cs.recipe.choose_data_structure"
+    ],
+    "traversal": [
+      "cs.ds.data_structures"
+    ],
+    "hash": [
+      "cs.complexity.big_o",
+      "cs.ds.data_structures",
+      "cs.recipe.choose_data_structure"
+    ],
+    "fast": [
+      "cs.ds.data_structures",
+      "daemon.arch.event_driven",
+      "daemon.recipe.design_handler"
+    ],
+    "trees": [
+      "cs.ds.data_structures"
+    ],
+    "ordered": [
+      "cs.ds.data_structures"
+    ],
+    "algorithms": [
+      "cs.algorithms"
+    ],
+    "procedures": [
+      "cs.algorithms"
+    ],
+    "problems": [
+      "cs.algorithms"
+    ],
+    "efficiency": [
+      "cs.algorithms"
+    ],
+    "core": [
+      "cs.algorithms"
+    ],
+    "concerns": [
+      "cs.algorithms"
+    ],
+    "binary": [
+      "cs.algorithms"
+    ],
+    "search": [
+      "cs.algorithms"
+    ],
+    "finds": [
+      "cs.algorithms"
+    ],
+    "sorted": [
+      "cs.algorithms",
+      "cs.recipe.choose_data_structure"
+    ],
+    "arrays": [
+      "cs.algorithms"
+    ],
+    "log": [
+      "cs.algorithms",
+      "cs.complexity.big_o",
+      "daemon.observability.logging_telemetry",
+      "daemon.recipe.design_handler",
+      "sec.recipe.validate_untrusted_input"
+    ],
+    "big-o": [
+      "cs.complexity.big_o",
+      "cs.recipe.big_o_estimation"
+    ],
+    "complexity": [
+      "cs.complexity.big_o"
+    ],
+    "describes": [
+      "cs.complexity.big_o",
+      "phys.kinematics"
+    ],
+    "runtime": [
+      "cs.complexity.big_o"
+    ],
+    "memory": [
+      "cs.complexity.big_o",
+      "cs.recipe.choose_data_structure"
+    ],
+    "grows": [
+      "cs.complexity.big_o"
+    ],
+    "input": [
+      "cs.complexity.big_o",
+      "cs.debugging",
+      "cs.recipe.big_o_estimation",
+      "sec.input_validation",
+      "sec.recipe.validate_untrusted_input"
+    ],
+    "reason": [
+      "cs.complexity.big_o"
+    ],
+    "scalability": [
+      "cs.complexity.big_o"
+    ],
+    "scan": [
+      "cs.complexity.big_o"
+    ],
+    "sorting": [
+      "cs.complexity.big_o",
+      "cs.recipe.big_o_estimation"
+    ],
+    "case": [
+      "cs.complexity.big_o",
+      "cs.debugging",
+      "cs.recipe.debugging_loop"
+    ],
+    "debugging": [
+      "cs.debugging"
+    ],
+    "strategies": [
+      "cs.debugging"
+    ],
+    "systematic": [
+      "cs.debugging"
+    ],
+    "process": [
+      "cs.debugging",
+      "daemon.arch.event_driven"
+    ],
+    "reproduce": [
+      "cs.debugging"
+    ],
+    "minimize": [
+      "cs.debugging",
+      "math.optimization.gradient_descent"
+    ],
+    "hypothesize": [
+      "cs.debugging"
+    ],
+    "instrument": [
+      "cs.debugging"
+    ],
+    "fix": [
+      "cs.debugging",
+      "cs.recipe.debugging_loop"
+    ],
+    "failing": [
+      "cs.debugging",
+      "cs.recipe.debugging_loop"
+    ],
+    "smallest": [
+      "cs.debugging",
+      "cs.recipe.debugging_loop"
+    ],
+    "still": [
+      "cs.debugging"
+    ],
+    "fails": [
+      "cs.debugging"
+    ],
+    "version": [
+      "cs.version_control.mental_model"
+    ],
+    "control": [
+      "cs.version_control.mental_model"
+    ],
+    "git": [
+      "cs.recipe.git_safe_workflow",
+      "cs.version_control.mental_model"
+    ],
+    "mental": [
+      "cs.version_control.mental_model"
+    ],
+    "commits": [
+      "cs.version_control.mental_model"
+    ],
+    "directed": [
+      "cs.version_control.mental_model"
+    ],
+    "acyclic": [
+      "cs.version_control.mental_model"
+    ],
+    "graph": [
+      "cs.version_control.mental_model"
+    ],
+    "pointers": [
+      "cs.version_control.mental_model"
+    ],
+    "merging": [
+      "cs.version_control.mental_model"
+    ],
+    "reconciles": [
+      "cs.version_control.mental_model"
+    ],
+    "histories": [
+      "cs.version_control.mental_model"
+    ],
+    "movable": [
+      "cs.version_control.mental_model"
+    ],
+    "label": [
+      "cs.version_control.mental_model"
+    ],
+    "pointing": [
+      "cs.version_control.mental_model"
+    ],
+    "commit": [
+      "cs.recipe.git_safe_workflow",
+      "cs.version_control.mental_model",
+      "research.recipe.replication_checklist"
+    ],
+    "appropriate": [
+      "cs.recipe.choose_data_structure"
+    ],
+    "task": [
+      "cs.recipe.choose_data_structure",
+      "pm.decomposition",
+      "sec.least_privilege"
+    ],
+    "their": [
+      "cs.recipe.choose_data_structure"
+    ],
+    "frequency": [
+      "cs.recipe.choose_data_structure"
+    ],
+    "ordering": [
+      "cs.recipe.choose_data_structure"
+    ],
+    "matters": [
+      "cs.recipe.choose_data_structure",
+      "writing.recipe.write_clear_explanation"
+    ],
+    "iteration": [
+      "cs.recipe.choose_data_structure"
+    ],
+    "min": [
+      "cs.recipe.choose_data_structure"
+    ],
+    "max": [
+      "cs.recipe.choose_data_structure",
+      "daemon.recipe.retry_policy"
+    ],
+    "estimate": [
+      "cs.recipe.big_o_estimation",
+      "cs.recipe.choose_data_structure",
+      "math.statistics.confidence_interval",
+      "pm.estimation"
+    ],
+    "latency": [
+      "cs.recipe.choose_data_structure",
+      "daemon.observability.logging_telemetry"
+    ],
+    "pick": [
+      "cs.recipe.choose_data_structure"
+    ],
+    "candidates": [
+      "cs.recipe.choose_data_structure"
+    ],
+    "array": [
+      "cs.recipe.choose_data_structure"
+    ],
+    "map": [
+      "cs.recipe.choose_data_structure"
+    ],
+    "tree": [
+      "cs.recipe.choose_data_structure"
+    ],
+    "code": [
+      "cs.recipe.big_o_estimation",
+      "research.recipe.replication_checklist",
+      "research.replication"
+    ],
+    "path": [
+      "cs.recipe.big_o_estimation",
+      "pm.dependencies",
+      "pm.recipe.agent_execution_plan"
+    ],
+    "count": [
+      "cs.recipe.big_o_estimation",
+      "daemon.recipe.retry_policy"
+    ],
+    "loops": [
+      "cs.recipe.big_o_estimation"
+    ],
+    "nested": [
+      "cs.recipe.big_o_estimation",
+      "math.recipe.take_derivative"
+    ],
+    "etc": [
+      "cs.recipe.big_o_estimation",
+      "phys.vectors"
+    ],
+    "account": [
+      "cs.recipe.big_o_estimation"
+    ],
+    "expensive": [
+      "cs.recipe.big_o_estimation"
+    ],
+    "inside": [
+      "cs.recipe.big_o_estimation"
+    ],
+    "hashing": [
+      "cs.recipe.big_o_estimation"
+    ],
+    "recursion": [
+      "cs.recipe.big_o_estimation"
+    ],
+    "worst-case": [
+      "cs.recipe.big_o_estimation"
+    ],
+    "unless": [
+      "cs.recipe.big_o_estimation",
+      "daemon.safety.enforceable_policies"
+    ],
+    "average-case": [
+      "cs.recipe.big_o_estimation"
+    ],
+    "justified": [
+      "cs.recipe.big_o_estimation"
+    ],
+    "safe": [
+      "cs.recipe.big_o_estimation",
+      "daemon.recipe.retry_policy"
+    ],
+    "quick": [
+      "cs.recipe.big_o_estimation"
+    ],
+    "benchmark": [
+      "cs.recipe.big_o_estimation"
+    ],
+    "unsure": [
+      "cs.recipe.big_o_estimation"
+    ],
+    "dominant": [
+      "cs.recipe.big_o_estimation"
+    ],
+    "term": [
+      "cs.recipe.big_o_estimation"
+    ],
+    "debug": [
+      "cs.recipe.debugging_loop"
+    ],
+    "bug": [
+      "cs.recipe.debugging_loop"
+    ],
+    "efficiently": [
+      "cs.recipe.debugging_loop"
+    ],
+    "reproducible": [
+      "cs.recipe.debugging_loop"
+    ],
+    "minimal": [
+      "cs.recipe.debugging_loop",
+      "research.recipe.replication_checklist",
+      "sec.least_privilege"
+    ],
+    "repro": [
+      "cs.recipe.debugging_loop"
+    ],
+    "instrumentation": [
+      "cs.recipe.debugging_loop"
+    ],
+    "logs": [
+      "cs.recipe.debugging_loop",
+      "daemon.observability.logging_telemetry",
+      "pm.recipe.agent_execution_plan"
+    ],
+    "assertions": [
+      "cs.recipe.debugging_loop"
+    ],
+    "boundaries": [
+      "cs.recipe.debugging_loop"
+    ],
+    "regression": [
+      "cs.recipe.debugging_loop"
+    ],
+    "added": [
+      "cs.recipe.debugging_loop"
+    ],
+    "cause": [
+      "cs.recipe.debugging_loop",
+      "phys.constraints",
+      "pm.recipe.postmortem_template"
+    ],
+    "understood": [
+      "cs.recipe.debugging_loop"
+    ],
+    "changing": [
+      "cs.recipe.debugging_loop"
+    ],
+    "things": [
+      "cs.recipe.debugging_loop"
+    ],
+    "once": [
+      "cs.recipe.debugging_loop"
+    ],
+    "safely": [
+      "cs.recipe.git_safe_workflow",
+      "sec.recipe.validate_untrusted_input"
+    ],
+    "changes": [
+      "cs.recipe.git_safe_workflow",
+      "pm.recipe.postmortem_template"
+    ],
+    "coherent": [
+      "cs.recipe.git_safe_workflow",
+      "math.recipe.apply_bayes"
+    ],
+    "steps": [
+      "cs.recipe.git_safe_workflow",
+      "writing.recipe.write_clear_explanation"
+    ],
+    "messages": [
+      "cs.recipe.git_safe_workflow",
+      "daemon.arch.event_driven"
+    ],
+    "diff": [
+      "cs.recipe.git_safe_workflow"
+    ],
+    "committing": [
+      "cs.recipe.git_safe_workflow"
+    ],
+    "pull": [
+      "cs.recipe.git_safe_workflow"
+    ],
+    "merge": [
+      "cs.recipe.git_safe_workflow"
+    ],
+    "integrate": [
+      "cs.recipe.git_safe_workflow",
+      "phys.recipe.integrate_motion"
+    ],
+    "resolve": [
+      "cs.recipe.git_safe_workflow"
+    ],
+    "conflicts": [
+      "cs.recipe.git_safe_workflow"
+    ],
+    "intentionally": [
+      "cs.recipe.git_safe_workflow"
+    ],
+    "stuck": [
+      "cs.recipe.git_safe_workflow",
+      "math.recipe.gradient_descent"
+    ],
+    "backup": [
+      "cs.recipe.git_safe_workflow"
+    ],
+    "stash": [
+      "cs.recipe.git_safe_workflow"
+    ],
+    "reset": [
+      "cs.recipe.git_safe_workflow"
+    ],
+    "carefully": [
+      "cs.recipe.git_safe_workflow"
+    ],
+    "understandable": [
+      "cs.recipe.git_safe_workflow"
+    ],
+    "event-driven": [
+      "daemon.arch.event_driven"
+    ],
+    "architecture": [
+      "daemon.arch.event_driven",
+      "writing.tech_docs_patterns"
+    ],
+    "reacts": [
+      "daemon.arch.event_driven"
+    ],
+    "sources": [
+      "daemon.arch.event_driven"
+    ],
+    "handlers": [
+      "daemon.arch.event_driven"
+    ],
+    "emit": [
+      "daemon.arch.event_driven",
+      "daemon.recipe.design_handler",
+      "daemon.recipe.retry_policy",
+      "daemon.reliability.failure_modes"
+    ],
+    "new": [
+      "daemon.arch.event_driven",
+      "research.recipe.paper_summary"
+    ],
+    "push": [
+      "daemon.arch.event_driven",
+      "daemon.recipe.design_handler"
+    ],
+    "slow": [
+      "daemon.arch.event_driven",
+      "daemon.recipe.design_handler"
+    ],
+    "background": [
+      "daemon.arch.event_driven"
+    ],
+    "workers": [
+      "daemon.arch.event_driven"
+    ],
+    "queues": [
+      "daemon.arch.event_driven"
+    ],
+    "failure": [
+      "daemon.reliability.failure_modes",
+      "pm.postmortems",
+      "research.recipe.paper_summary"
+    ],
+    "modes": [
+      "daemon.reliability.failure_modes"
+    ],
+    "failures": [
+      "daemon.recipe.design_handler",
+      "daemon.recipe.retry_policy",
+      "daemon.reliability.failure_modes"
+    ],
+    "timeouts": [
+      "daemon.recipe.retry_policy",
+      "daemon.reliability.failure_modes"
+    ],
+    "partial": [
+      "daemon.reliability.failure_modes"
+    ],
+    "outages": [
+      "daemon.reliability.failure_modes"
+    ],
+    "invalid": [
+      "daemon.reliability.failure_modes",
+      "sec.input_validation"
+    ],
+    "race": [
+      "daemon.reliability.failure_modes"
+    ],
+    "conditions": [
+      "daemon.reliability.failure_modes"
+    ],
+    "resource": [
+      "daemon.reliability.failure_modes"
+    ],
+    "exhaustion": [
+      "daemon.reliability.failure_modes"
+    ],
+    "mic": [
+      "daemon.reliability.failure_modes",
+      "sec.recipe.threat_model"
+    ],
+    "adapter": [
+      "daemon.reliability.failure_modes"
+    ],
+    "dependency": [
+      "daemon.recipe.retry_policy",
+      "daemon.reliability.failure_modes",
+      "pm.dependencies"
+    ],
+    "system_event": [
+      "daemon.recipe.design_handler",
+      "daemon.reliability.failure_modes"
+    ],
+    "crash": [
+      "daemon.reliability.failure_modes"
+    ],
+    "retry": [
+      "daemon.recipe.retry_policy",
+      "daemon.reliability.retry_backoff"
+    ],
+    "backoff": [
+      "daemon.recipe.retry_policy",
+      "daemon.reliability.retry_backoff"
+    ],
+    "retries": [
+      "daemon.reliability.retry_backoff"
+    ],
+    "bounded": [
+      "daemon.reliability.retry_backoff"
+    ],
+    "spaced": [
+      "daemon.reliability.retry_backoff"
+    ],
+    "exponential": [
+      "daemon.recipe.retry_policy",
+      "daemon.reliability.retry_backoff"
+    ],
+    "jitter": [
+      "daemon.recipe.retry_policy",
+      "daemon.reliability.retry_backoff",
+      "phys.constraints",
+      "phys.recipe.stable_constraints"
+    ],
+    "thundering": [
+      "daemon.reliability.retry_backoff"
+    ],
+    "herds": [
+      "daemon.reliability.retry_backoff"
+    ],
+    "only": [
+      "daemon.reliability.retry_backoff",
+      "sec.least_privilege",
+      "sec.recipe.validate_untrusted_input"
+    ],
+    "idempotent": [
+      "daemon.recipe.design_handler",
+      "daemon.reliability.retry_backoff"
+    ],
+    "deduplication": [
+      "daemon.recipe.design_handler",
+      "daemon.recipe.retry_policy",
+      "daemon.reliability.retry_backoff"
+    ],
+    "logging": [
+      "daemon.observability.logging_telemetry"
+    ],
+    "telemetry": [
+      "daemon.observability.logging_telemetry"
+    ],
+    "metrics": [
+      "daemon.observability.logging_telemetry",
+      "daemon.recipe.retry_policy",
+      "research.baselines",
+      "research.recipe.experiment_design",
+      "research.recipe.paper_summary",
+      "research.recipe.replication_checklist"
+    ],
+    "measure": [
+      "daemon.observability.logging_telemetry"
+    ],
+    "rates": [
+      "daemon.observability.logging_telemetry"
+    ],
+    "traces": [
+      "daemon.observability.logging_telemetry"
+    ],
+    "follow": [
+      "daemon.observability.logging_telemetry"
+    ],
+    "request": [
+      "daemon.observability.logging_telemetry",
+      "daemon.recipe.retry_policy"
+    ],
+    "components": [
+      "daemon.observability.logging_telemetry"
+    ],
+    "secrets": [
+      "daemon.observability.logging_telemetry",
+      "sec.recipe.threat_model",
+      "sec.secrets_handling"
+    ],
+    "sample": [
+      "daemon.observability.logging_telemetry"
+    ],
+    "high-volume": [
+      "daemon.observability.logging_telemetry"
+    ],
+    "safety": [
+      "daemon.safety.enforceable_policies",
+      "pm.definition_of_done"
+    ],
+    "ethics": [
+      "daemon.safety.enforceable_policies"
+    ],
+    "enforceable": [
+      "daemon.safety.enforceable_policies"
+    ],
+    "policy": [
+      "daemon.recipe.retry_policy",
+      "daemon.safety.enforceable_policies",
+      "pm.recipe.postmortem_template"
+    ],
+    "policies": [
+      "daemon.safety.enforceable_policies"
+    ],
+    "machine-checkable": [
+      "daemon.safety.enforceable_policies"
+    ],
+    "gate": [
+      "daemon.safety.enforceable_policies"
+    ],
+    "actions": [
+      "daemon.recipe.design_handler",
+      "daemon.safety.enforceable_policies"
+    ],
+    "approve": [
+      "daemon.safety.enforceable_policies"
+    ],
+    "reject": [
+      "daemon.safety.enforceable_policies",
+      "sec.input_validation",
+      "sec.recipe.validate_untrusted_input"
+    ],
+    "plans": [
+      "daemon.safety.enforceable_policies"
+    ],
+    "containing": [
+      "daemon.safety.enforceable_policies"
+    ],
+    "harm": [
+      "daemon.safety.enforceable_policies"
+    ],
+    "manipulate": [
+      "daemon.safety.enforceable_policies"
+    ],
+    "explicitly": [
+      "daemon.safety.enforceable_policies"
+    ],
+    "safe-reviewed": [
+      "daemon.safety.enforceable_policies"
+    ],
+    "robust": [
+      "daemon.recipe.design_handler"
+    ],
+    "event": [
+      "daemon.recipe.design_handler"
+    ],
+    "handler": [
+      "daemon.recipe.design_handler"
+    ],
+    "schema": [
+      "daemon.recipe.design_handler",
+      "sec.recipe.validate_untrusted_input"
+    ],
+    "payload": [
+      "daemon.recipe.design_handler"
+    ],
+    "source": [
+      "daemon.recipe.design_handler"
+    ],
+    "queue": [
+      "daemon.recipe.design_handler"
+    ],
+    "worker": [
+      "daemon.recipe.design_handler"
+    ],
+    "handle": [
+      "daemon.recipe.design_handler"
+    ],
+    "dependencies": [
+      "daemon.recipe.design_handler",
+      "pm.recipe.agent_execution_plan",
+      "research.recipe.replication_checklist"
+    ],
+    "device": [
+      "daemon.recipe.design_handler"
+    ],
+    "errors": [
+      "daemon.recipe.design_handler",
+      "daemon.recipe.retry_policy",
+      "sec.recipe.validate_untrusted_input",
+      "writing.recipe.tech_doc_page"
+    ],
+    "soft": [
+      "daemon.recipe.design_handler"
+    ],
+    "keys": [
+      "daemon.recipe.design_handler",
+      "sec.secrets_handling"
+    ],
+    "outcomes": [
+      "daemon.recipe.design_handler",
+      "research.recipe.experiment_design"
+    ],
+    "implement": [
+      "daemon.recipe.retry_policy"
+    ],
+    "flaky": [
+      "daemon.recipe.retry_policy"
+    ],
+    "classify": [
+      "daemon.recipe.retry_policy"
+    ],
+    "retryable": [
+      "daemon.recipe.retry_policy"
+    ],
+    "non-retryable": [
+      "daemon.recipe.retry_policy"
+    ],
+    "attempt": [
+      "daemon.recipe.retry_policy",
+      "sec.recipe.validate_untrusted_input"
+    ],
+    "circuit": [
+      "daemon.recipe.retry_policy"
+    ],
+    "breakers": [
+      "daemon.recipe.retry_policy"
+    ],
+    "repeated": [
+      "daemon.recipe.retry_policy"
+    ],
+    "idempotency": [
+      "daemon.recipe.retry_policy"
+    ],
+    "attach": [
+      "daemon.recipe.retry_policy"
+    ],
+    "ids": [
+      "daemon.recipe.retry_policy"
+    ],
+    "retry_count": [
+      "daemon.recipe.retry_policy"
+    ],
+    "reading": [
+      "research.reading_papers"
+    ],
+    "research": [
+      "research.reading_papers"
+    ],
+    "papers": [
+      "research.reading_papers"
+    ],
+    "skim": [
+      "research.reading_papers"
+    ],
+    "abstract": [
+      "research.reading_papers"
+    ],
+    "figures": [
+      "research.reading_papers"
+    ],
+    "first": [
+      "pm.dependencies",
+      "research.reading_papers",
+      "research.recipe.replication_checklist"
+    ],
+    "methods": [
+      "research.reading_papers"
+    ],
+    "extract": [
+      "research.reading_papers"
+    ],
+    "contributions": [
+      "research.reading_papers",
+      "research.recipe.paper_summary"
+    ],
+    "assumptions": [
+      "research.reading_papers",
+      "research.recipe.paper_summary",
+      "writing.recipe.write_clear_explanation"
+    ],
+    "limitations": [
+      "research.reading_papers",
+      "research.recipe.paper_summary"
+    ],
+    "baselines": [
+      "research.baselines"
+    ],
+    "evaluation": [
+      "research.baselines",
+      "research.recipe.experiment_design",
+      "research.recipe.paper_summary"
+    ],
+    "compare": [
+      "math.recipe.apply_bayes",
+      "research.baselines",
+      "research.recipe.replication_checklist"
+    ],
+    "against": [
+      "research.baselines"
+    ],
+    "strong": [
+      "research.baselines"
+    ],
+    "report": [
+      "research.baselines"
+    ],
+    "ablations": [
+      "research.baselines",
+      "research.recipe.experiment_design"
+    ],
+    "cherry-picking": [
+      "research.baselines"
+    ],
+    "replication": [
+      "research.replication"
+    ],
+    "reproducibility": [
+      "research.replication"
+    ],
+    "repeats": [
+      "research.replication"
+    ],
+    "includes": [
+      "research.replication",
+      "writing.recipe.write_clear_explanation"
+    ],
+    "config": [
+      "research.recipe.experiment_design",
+      "research.replication"
+    ],
+    "rerun": [
+      "research.replication"
+    ],
+    "track": [
+      "pm.dependencies",
+      "research.replication"
+    ],
+    "seeds": [
+      "research.recipe.experiment_design",
+      "research.recipe.replication_checklist",
+      "research.replication"
+    ],
+    "versions": [
+      "research.recipe.replication_checklist",
+      "research.replication"
+    ],
+    "environment": [
+      "research.replication"
+    ],
+    "paper": [
+      "research.recipe.paper_summary"
+    ],
+    "compact": [
+      "research.recipe.paper_summary"
+    ],
+    "usable": [
+      "research.recipe.paper_summary"
+    ],
+    "problem": [
+      "research.recipe.paper_summary"
+    ],
+    "bullets": [
+      "research.recipe.paper_summary"
+    ],
+    "describe": [
+      "pm.recipe.postmortem_template",
+      "research.recipe.paper_summary"
+    ],
+    "high": [
+      "research.recipe.paper_summary"
+    ],
+    "level": [
+      "research.recipe.paper_summary"
+    ],
+    "standard": [
+      "research.recipe.paper_summary"
+    ],
+    "datasets": [
+      "research.recipe.paper_summary"
+    ],
+    "benchmarks": [
+      "research.recipe.paper_summary"
+    ],
+    "cases": [
+      "math.recipe.matrix_multiply",
+      "research.recipe.paper_summary"
+    ],
+    "follow-up": [
+      "research.recipe.paper_summary"
+    ],
+    "application": [
+      "research.recipe.paper_summary"
+    ],
+    "tests": [
+      "pm.definition_of_done",
+      "pm.recipe.agent_execution_plan",
+      "pm.recipe.postmortem_template",
+      "research.recipe.experiment_design"
+    ],
+    "falsifiable": [
+      "research.recipe.experiment_design"
+    ],
+    "measurable": [
+      "research.recipe.experiment_design"
+    ],
+    "define": [
+      "math.recipe.apply_bayes",
+      "math.recipe.gradient_descent",
+      "pm.recipe.agent_execution_plan",
+      "research.recipe.experiment_design",
+      "sec.recipe.validate_untrusted_input",
+      "writing.recipe.write_clear_explanation"
+    ],
+    "baseline": [
+      "research.recipe.experiment_design"
+    ],
+    "success": [
+      "pm.recipe.agent_execution_plan",
+      "research.recipe.experiment_design",
+      "writing.recipe.tech_doc_page"
+    ],
+    "criteria": [
+      "math.recipe.gradient_descent",
+      "pm.recipe.agent_execution_plan",
+      "research.recipe.experiment_design"
+    ],
+    "plan": [
+      "pm.recipe.agent_execution_plan",
+      "research.recipe.experiment_design",
+      "writing.outlining"
+    ],
+    "isolate": [
+      "research.recipe.experiment_design"
+    ],
+    "effect": [
+      "research.recipe.experiment_design"
+    ],
+    "component": [
+      "research.recipe.experiment_design"
+    ],
+    "protocol": [
+      "research.recipe.experiment_design"
+    ],
+    "replicated": [
+      "research.recipe.experiment_design"
+    ],
+    "splits": [
+      "research.recipe.experiment_design"
+    ],
+    "replicate": [
+      "research.recipe.replication_checklist"
+    ],
+    "reliably": [
+      "research.recipe.replication_checklist"
+    ],
+    "pin": [
+      "research.recipe.replication_checklist"
+    ],
+    "snapshot": [
+      "research.recipe.replication_checklist"
+    ],
+    "random": [
+      "research.recipe.replication_checklist"
+    ],
+    "hardware": [
+      "research.recipe.replication_checklist"
+    ],
+    "when": [
+      "math.recipe.gradient_descent",
+      "phys.recipe.stable_constraints",
+      "pm.definition_of_done",
+      "pm.recipe.postmortem_template",
+      "research.recipe.replication_checklist"
+    ],
+    "relevant": [
+      "research.recipe.replication_checklist"
+    ],
+    "authors": [
+      "research.recipe.replication_checklist"
+    ],
+    "default": [
+      "research.recipe.replication_checklist"
+    ],
+    "settings": [
+      "research.recipe.replication_checklist"
+    ],
+    "modifications": [
+      "research.recipe.replication_checklist"
+    ],
+    "differences": [
+      "research.recipe.replication_checklist"
+    ],
+    "explained": [
+      "research.recipe.replication_checklist"
+    ],
+    "deviations": [
+      "research.recipe.replication_checklist"
+    ],
+    "derivative": [
+      "math.calculus.derivative",
+      "math.recipe.take_derivative"
+    ],
+    "calculus": [
+      "math.calculus.derivative"
+    ],
+    "measures": [
+      "math.calculus.derivative"
+    ],
+    "instantaneous": [
+      "math.calculus.derivative"
+    ],
+    "rate": [
+      "math.calculus.derivative",
+      "math.optimization.gradient_descent",
+      "math.recipe.gradient_descent",
+      "sec.recipe.threat_model"
+    ],
+    "geometrically": [
+      "math.calculus.derivative"
+    ],
+    "slope": [
+      "math.calculus.derivative"
+    ],
+    "tangent": [
+      "math.calculus.derivative"
+    ],
+    "line": [
+      "math.calculus.derivative"
+    ],
+    "algebra": [
+      "math.linear_algebra.matrix",
+      "math.recipe.take_derivative"
+    ],
+    "represent": [
+      "math.linear_algebra.matrix",
+      "phys.vectors"
+    ],
+    "transformations": [
+      "math.linear_algebra.matrix"
+    ],
+    "composes": [
+      "math.linear_algebra.matrix"
+    ],
+    "rotates": [
+      "math.linear_algebra.matrix"
+    ],
+    "vectors": [
+      "math.linear_algebra.matrix",
+      "phys.vectors"
+    ],
+    "plane": [
+      "math.linear_algebra.matrix"
+    ],
+    "bayes": [
+      "math.probability.bayes",
+      "math.recipe.apply_bayes"
+    ],
+    "rule": [
+      "math.probability.bayes",
+      "math.recipe.apply_bayes",
+      "math.recipe.take_derivative"
+    ],
+    "probability": [
+      "math.probability.bayes",
+      "math.recipe.apply_bayes"
+    ],
+    "useful": [
+      "math.probability.bayes"
+    ],
+    "updating": [
+      "math.probability.bayes"
+    ],
+    "beliefs": [
+      "math.probability.bayes"
+    ],
+    "evidence": [
+      "math.probability.bayes",
+      "math.recipe.apply_bayes",
+      "writing.argument_structure"
+    ],
+    "confidence": [
+      "math.statistics.confidence_interval"
+    ],
+    "interval": [
+      "math.statistics.confidence_interval"
+    ],
+    "statistics": [
+      "math.statistics.confidence_interval"
+    ],
+    "range": [
+      "math.statistics.confidence_interval",
+      "sec.input_validation",
+      "sec.recipe.validate_untrusted_input"
+    ],
+    "parameter": [
+      "math.statistics.confidence_interval"
+    ],
+    "procedure": [
+      "math.statistics.confidence_interval",
+      "writing.recipe.write_clear_explanation"
+    ],
+    "covers": [
+      "math.statistics.confidence_interval"
+    ],
+    "time": [
+      "math.statistics.confidence_interval",
+      "phys.constraints",
+      "phys.recipe.integrate_motion",
+      "phys.recipe.stable_constraints"
+    ],
+    "gradient": [
+      "math.optimization.gradient_descent",
+      "math.recipe.gradient_descent"
+    ],
+    "descent": [
+      "math.optimization.gradient_descent",
+      "math.recipe.gradient_descent"
+    ],
+    "optimization": [
+      "math.optimization.gradient_descent"
+    ],
+    "iteratively": [
+      "math.optimization.gradient_descent"
+    ],
+    "update": [
+      "math.optimization.gradient_descent",
+      "math.recipe.apply_bayes",
+      "phys.recipe.integrate_motion"
+    ],
+    "parameters": [
+      "math.optimization.gradient_descent"
+    ],
+    "negative": [
+      "math.optimization.gradient_descent"
+    ],
+    "loss": [
+      "math.optimization.gradient_descent",
+      "math.recipe.gradient_descent"
+    ],
+    "function": [
+      "math.optimization.gradient_descent",
+      "math.recipe.take_derivative"
+    ],
+    "step": [
+      "math.optimization.gradient_descent",
+      "phys.constraints",
+      "phys.numerical_stability",
+      "phys.recipe.integrate_motion",
+      "phys.recipe.stable_constraints"
+    ],
+    "learning": [
+      "math.optimization.gradient_descent",
+      "math.recipe.gradient_descent"
+    ],
+    "tuned": [
+      "math.optimization.gradient_descent",
+      "phys.constraints"
+    ],
+    "too": [
+      "math.optimization.gradient_descent"
+    ],
+    "large": [
+      "math.optimization.gradient_descent",
+      "math.recipe.gradient_descent"
+    ],
+    "diverge": [
+      "math.optimization.gradient_descent"
+    ],
+    "compute": [
+      "math.recipe.apply_bayes",
+      "math.recipe.gradient_descent",
+      "math.recipe.matrix_multiply",
+      "math.recipe.take_derivative",
+      "phys.recipe.integrate_motion"
+    ],
+    "expand": [
+      "math.recipe.take_derivative"
+    ],
+    "sum": [
+      "math.recipe.take_derivative"
+    ],
+    "product": [
+      "math.recipe.take_derivative"
+    ],
+    "quotient": [
+      "math.recipe.take_derivative"
+    ],
+    "chain": [
+      "math.recipe.take_derivative"
+    ],
+    "optionally": [
+      "math.recipe.take_derivative"
+    ],
+    "numerically": [
+      "math.recipe.take_derivative"
+    ],
+    "applied": [
+      "math.recipe.take_derivative"
+    ],
+    "mistakes": [
+      "math.recipe.take_derivative"
+    ],
+    "inner": [
+      "math.recipe.matrix_multiply"
+    ],
+    "dimensions": [
+      "math.recipe.matrix_multiply"
+    ],
+    "output": [
+      "math.recipe.matrix_multiply"
+    ],
+    "entry": [
+      "math.recipe.matrix_multiply",
+      "sec.recipe.threat_model",
+      "sec.threat_modeling"
+    ],
+    "dot": [
+      "math.recipe.matrix_multiply"
+    ],
+    "row": [
+      "math.recipe.matrix_multiply"
+    ],
+    "column": [
+      "math.recipe.matrix_multiply"
+    ],
+    "assemble": [
+      "math.recipe.matrix_multiply"
+    ],
+    "special": [
+      "math.recipe.matrix_multiply"
+    ],
+    "identity": [
+      "math.recipe.matrix_multiply"
+    ],
+    "zeros": [
+      "math.recipe.matrix_multiply"
+    ],
+    "sanity": [
+      "math.recipe.apply_bayes",
+      "math.recipe.matrix_multiply"
+    ],
+    "spot-check": [
+      "math.recipe.matrix_multiply"
+    ],
+    "entries": [
+      "math.recipe.matrix_multiply"
+    ],
+    "dimension": [
+      "math.recipe.matrix_multiply"
+    ],
+    "mismatch": [
+      "math.recipe.matrix_multiply"
+    ],
+    "down": [
+      "math.recipe.apply_bayes"
+    ],
+    "prior": [
+      "math.recipe.apply_bayes"
+    ],
+    "likelihood": [
+      "math.recipe.apply_bayes"
+    ],
+    "total": [
+      "math.recipe.apply_bayes"
+    ],
+    "defined": [
+      "math.recipe.apply_bayes"
+    ],
+    "probabilities": [
+      "math.recipe.apply_bayes"
+    ],
+    "confusing": [
+      "math.recipe.apply_bayes"
+    ],
+    "differentiable": [
+      "math.recipe.gradient_descent"
+    ],
+    "initialize": [
+      "math.recipe.gradient_descent"
+    ],
+    "monitor": [
+      "math.recipe.gradient_descent"
+    ],
+    "scheduling": [
+      "math.recipe.gradient_descent"
+    ],
+    "unstable": [
+      "math.recipe.gradient_descent",
+      "phys.numerical_stability",
+      "phys.recipe.integrate_motion"
+    ],
+    "stop": [
+      "math.recipe.gradient_descent"
+    ],
+    "convergence": [
+      "math.recipe.gradient_descent"
+    ],
+    "met": [
+      "math.recipe.gradient_descent"
+    ],
+    "improvement": [
+      "math.recipe.gradient_descent"
+    ],
+    "decreases": [
+      "math.recipe.gradient_descent"
+    ],
+    "divergence": [
+      "math.recipe.gradient_descent"
+    ],
+    "due": [
+      "math.recipe.gradient_descent"
+    ],
+    "poor": [
+      "math.recipe.gradient_descent"
+    ],
+    "magnitude": [
+      "phys.vectors"
+    ],
+    "position": [
+      "phys.kinematics",
+      "phys.recipe.integrate_motion",
+      "phys.vectors"
+    ],
+    "velocity": [
+      "phys.kinematics",
+      "phys.recipe.integrate_motion",
+      "phys.rigid_body",
+      "phys.vectors"
+    ],
+    "kinematics": [
+      "phys.kinematics"
+    ],
+    "without": [
+      "phys.kinematics"
+    ],
+    "focusing": [
+      "phys.kinematics"
+    ],
+    "forces": [
+      "phys.kinematics",
+      "phys.recipe.integrate_motion"
+    ],
+    "constant": [
+      "phys.kinematics"
+    ],
+    "second": [
+      "phys.newton_second"
+    ],
+    "law": [
+      "phys.newton_second"
+    ],
+    "relates": [
+      "phys.newton_second"
+    ],
+    "inertial": [
+      "phys.newton_second"
+    ],
+    "rigid": [
+      "phys.rigid_body"
+    ],
+    "body": [
+      "phys.rigid_body"
+    ],
+    "concepts": [
+      "phys.rigid_body"
+    ],
+    "bodies": [
+      "phys.rigid_body"
+    ],
+    "resist": [
+      "phys.rigid_body"
+    ],
+    "deformation": [
+      "phys.rigid_body"
+    ],
+    "involves": [
+      "phys.rigid_body"
+    ],
+    "angular": [
+      "phys.rigid_body"
+    ],
+    "torque": [
+      "phys.rigid_body"
+    ],
+    "tensor": [
+      "phys.rigid_body"
+    ],
+    "restrict": [
+      "phys.constraints"
+    ],
+    "joints": [
+      "phys.constraints"
+    ],
+    "contacts": [
+      "phys.constraints"
+    ],
+    "solvers": [
+      "phys.constraints"
+    ],
+    "them": [
+      "phys.constraints",
+      "pm.recipe.agent_execution_plan",
+      "writing.recipe.write_clear_explanation"
+    ],
+    "approximately": [
+      "phys.constraints"
+    ],
+    "poorly": [
+      "phys.constraints",
+      "pm.recipe.postmortem_template"
+    ],
+    "instability": [
+      "phys.constraints"
+    ],
+    "numerical": [
+      "phys.numerical_stability"
+    ],
+    "simulation": [
+      "phys.numerical_stability",
+      "phys.recipe.stable_constraints"
+    ],
+    "discrete": [
+      "phys.numerical_stability"
+    ],
+    "integration": [
+      "phys.numerical_stability"
+    ],
+    "accumulate": [
+      "phys.numerical_stability"
+    ],
+    "error": [
+      "phys.numerical_stability"
+    ],
+    "solver": [
+      "phys.numerical_stability",
+      "phys.recipe.stable_constraints"
+    ],
+    "choices": [
+      "phys.numerical_stability"
+    ],
+    "determine": [
+      "phys.numerical_stability"
+    ],
+    "explicit": [
+      "phys.numerical_stability",
+      "writing.clarity",
+      "writing.recipe.write_clear_explanation"
+    ],
+    "euler": [
+      "phys.numerical_stability",
+      "phys.recipe.integrate_motion"
+    ],
+    "stiff": [
+      "phys.numerical_stability"
+    ],
+    "particle": [
+      "phys.recipe.integrate_motion"
+    ],
+    "net": [
+      "phys.recipe.integrate_motion"
+    ],
+    "current": [
+      "phys.recipe.integrate_motion"
+    ],
+    "semi-implicit": [
+      "phys.recipe.integrate_motion"
+    ],
+    "clamp": [
+      "phys.recipe.integrate_motion"
+    ],
+    "adapt": [
+      "phys.recipe.integrate_motion"
+    ],
+    "becomes": [
+      "phys.recipe.integrate_motion"
+    ],
+    "behavior": [
+      "phys.recipe.integrate_motion"
+    ],
+    "does": [
+      "phys.recipe.integrate_motion"
+    ],
+    "explode": [
+      "phys.recipe.integrate_motion"
+    ],
+    "over": [
+      "phys.recipe.integrate_motion",
+      "sec.input_validation"
+    ],
+    "tune": [
+      "phys.recipe.stable_constraints"
+    ],
+    "integrator": [
+      "phys.recipe.stable_constraints"
+    ],
+    "increase": [
+      "phys.recipe.stable_constraints"
+    ],
+    "iterations": [
+      "phys.recipe.stable_constraints"
+    ],
+    "gradually": [
+      "phys.recipe.stable_constraints"
+    ],
+    "don": [
+      "phys.recipe.stable_constraints",
+      "sec.recipe.validate_untrusted_input"
+    ],
+    "overspend": [
+      "phys.recipe.stable_constraints"
+    ],
+    "constraint": [
+      "phys.recipe.stable_constraints"
+    ],
+    "stiffness": [
+      "phys.recipe.stable_constraints"
+    ],
+    "damping": [
+      "phys.recipe.stable_constraints"
+    ],
+    "oscillating": [
+      "phys.recipe.stable_constraints"
+    ],
+    "good": [
+      "writing.argument_structure"
+    ],
+    "supports": [
+      "writing.argument_structure"
+    ],
+    "reasons": [
+      "writing.argument_structure"
+    ],
+    "addresses": [
+      "writing.argument_structure"
+    ],
+    "counterarguments": [
+      "writing.argument_structure"
+    ],
+    "concludes": [
+      "writing.argument_structure"
+    ],
+    "outlining": [
+      "writing.outlining"
+    ],
+    "outline": [
+      "writing.outlining"
+    ],
+    "hierarchical": [
+      "writing.outlining"
+    ],
+    "ideas": [
+      "writing.outlining"
+    ],
+    "wandering": [
+      "writing.outlining"
+    ],
+    "ensures": [
+      "writing.outlining"
+    ],
+    "logical": [
+      "writing.outlining"
+    ],
+    "comes": [
+      "writing.clarity"
+    ],
+    "precise": [
+      "writing.clarity"
+    ],
+    "short": [
+      "writing.clarity",
+      "writing.recipe.write_clear_explanation"
+    ],
+    "removing": [
+      "writing.clarity"
+    ],
+    "ambiguity": [
+      "writing.clarity"
+    ],
+    "audience": [
+      "writing.audience_adaptation",
+      "writing.recipe.write_clear_explanation"
+    ],
+    "adaptation": [
+      "writing.audience_adaptation"
+    ],
+    "adjust": [
+      "writing.audience_adaptation"
+    ],
+    "depth": [
+      "writing.audience_adaptation"
+    ],
+    "vocabulary": [
+      "writing.audience_adaptation"
+    ],
+    "knows": [
+      "writing.audience_adaptation"
+    ],
+    "needs": [
+      "writing.audience_adaptation"
+    ],
+    "technical": [
+      "writing.recipe.tech_doc_page",
+      "writing.tech_docs_patterns"
+    ],
+    "documentation": [
+      "writing.recipe.tech_doc_page",
+      "writing.tech_docs_patterns"
+    ],
+    "patterns": [
+      "writing.tech_docs_patterns"
+    ],
+    "quickstart": [
+      "writing.recipe.tech_doc_page",
+      "writing.tech_docs_patterns"
+    ],
+    "api": [
+      "sec.secrets_handling",
+      "writing.recipe.tech_doc_page",
+      "writing.tech_docs_patterns"
+    ],
+    "tutorials": [
+      "writing.tech_docs_patterns"
+    ],
+    "troubleshooting": [
+      "writing.recipe.tech_doc_page",
+      "writing.tech_docs_patterns"
+    ],
+    "explanation": [
+      "writing.recipe.write_clear_explanation"
+    ],
+    "concept": [
+      "writing.recipe.write_clear_explanation"
+    ],
+    "goal": [
+      "writing.recipe.write_clear_explanation"
+    ],
+    "one-paragraph": [
+      "writing.recipe.write_clear_explanation"
+    ],
+    "heavily": [
+      "writing.recipe.write_clear_explanation"
+    ],
+    "provide": [
+      "writing.recipe.tech_doc_page",
+      "writing.recipe.write_clear_explanation"
+    ],
+    "non-example": [
+      "writing.recipe.write_clear_explanation"
+    ],
+    "jargon": [
+      "writing.recipe.write_clear_explanation"
+    ],
+    "draft": [
+      "writing.recipe.tech_doc_page"
+    ],
+    "high-quality": [
+      "writing.recipe.tech_doc_page"
+    ],
+    "page": [
+      "writing.recipe.tech_doc_page"
+    ],
+    "gets": [
+      "writing.recipe.tech_doc_page"
+    ],
+    "reader": [
+      "writing.recipe.tech_doc_page"
+    ],
+    "conceptual": [
+      "writing.recipe.tech_doc_page"
+    ],
+    "commands": [
+      "writing.recipe.tech_doc_page"
+    ],
+    "fixes": [
+      "writing.recipe.tech_doc_page"
+    ],
+    "link": [
+      "writing.recipe.tech_doc_page"
+    ],
+    "deeper": [
+      "writing.recipe.tech_doc_page"
+    ],
+    "references": [
+      "writing.recipe.tech_doc_page"
+    ],
+    "related": [
+      "writing.recipe.tech_doc_page"
+    ],
+    "topics": [
+      "writing.recipe.tech_doc_page"
+    ],
+    "succeed": [
+      "writing.recipe.tech_doc_page"
+    ],
+    "end-to-end": [
+      "writing.recipe.tech_doc_page"
+    ],
+    "documented": [
+      "writing.recipe.tech_doc_page"
+    ],
+    "decomposition": [
+      "pm.decomposition"
+    ],
+    "goals": [
+      "pm.decomposition"
+    ],
+    "tasks": [
+      "pm.decomposition",
+      "pm.dependencies",
+      "pm.recipe.agent_execution_plan"
+    ],
+    "outputs": [
+      "pm.decomposition"
+    ],
+    "coupling": [
+      "pm.decomposition"
+    ],
+    "unknowns": [
+      "pm.decomposition"
+    ],
+    "tracking": [
+      "pm.dependencies"
+    ],
+    "which": [
+      "pm.dependencies"
+    ],
+    "block": [
+      "pm.dependencies"
+    ],
+    "others": [
+      "pm.dependencies"
+    ],
+    "unblock": [
+      "pm.dependencies"
+    ],
+    "critical": [
+      "pm.dependencies",
+      "pm.recipe.agent_execution_plan"
+    ],
+    "estimation": [
+      "pm.estimation"
+    ],
+    "effort": [
+      "pm.estimation"
+    ],
+    "analogy": [
+      "pm.estimation"
+    ],
+    "uncertainty": [
+      "pm.estimation"
+    ],
+    "ranges": [
+      "pm.estimation"
+    ],
+    "estimates": [
+      "pm.estimation"
+    ],
+    "learn": [
+      "pm.estimation"
+    ],
+    "definition": [
+      "pm.definition_of_done",
+      "pm.recipe.agent_execution_plan"
+    ],
+    "done": [
+      "pm.definition_of_done",
+      "pm.recipe.agent_execution_plan"
+    ],
+    "complete": [
+      "pm.definition_of_done"
+    ],
+    "docs": [
+      "pm.definition_of_done"
+    ],
+    "postmortems": [
+      "pm.postmortems"
+    ],
+    "structured": [
+      "pm.postmortems"
+    ],
+    "analysis": [
+      "pm.postmortems"
+    ],
+    "happened": [
+      "pm.postmortems"
+    ],
+    "recurrence": [
+      "pm.postmortems"
+    ],
+    "execution": [
+      "pm.recipe.agent_execution_plan"
+    ],
+    "suitable": [
+      "pm.recipe.agent_execution_plan"
+    ],
+    "agent-based": [
+      "pm.recipe.agent_execution_plan"
+    ],
+    "objective": [
+      "pm.recipe.agent_execution_plan"
+    ],
+    "owners": [
+      "pm.recipe.agent_execution_plan",
+      "pm.recipe.postmortem_template"
+    ],
+    "modules": [
+      "pm.recipe.agent_execution_plan"
+    ],
+    "agents": [
+      "pm.recipe.agent_execution_plan"
+    ],
+    "interfaces": [
+      "pm.recipe.agent_execution_plan"
+    ],
+    "checkpoints": [
+      "pm.recipe.agent_execution_plan"
+    ],
+    "progress": [
+      "pm.recipe.agent_execution_plan"
+    ],
+    "postmortem": [
+      "pm.recipe.postmortem_template"
+    ],
+    "incident": [
+      "pm.recipe.postmortem_template"
+    ],
+    "impact": [
+      "pm.recipe.postmortem_template"
+    ],
+    "users": [
+      "pm.recipe.postmortem_template"
+    ],
+    "saw": [
+      "pm.recipe.postmortem_template"
+    ],
+    "contributing": [
+      "pm.recipe.postmortem_template"
+    ],
+    "factors": [
+      "pm.recipe.postmortem_template"
+    ],
+    "went": [
+      "pm.recipe.postmortem_template"
+    ],
+    "well": [
+      "pm.recipe.postmortem_template"
+    ],
+    "deadlines": [
+      "pm.recipe.postmortem_template"
+    ],
+    "prevention": [
+      "pm.recipe.postmortem_template"
+    ],
+    "monitoring": [
+      "pm.recipe.postmortem_template"
+    ],
+    "privilege": [
+      "sec.least_privilege"
+    ],
+    "grant": [
+      "sec.least_privilege"
+    ],
+    "permissions": [
+      "sec.least_privilege"
+    ],
+    "necessary": [
+      "sec.least_privilege"
+    ],
+    "reduces": [
+      "sec.least_privilege"
+    ],
+    "blast": [
+      "sec.least_privilege"
+    ],
+    "compromise": [
+      "sec.least_privilege"
+    ],
+    "validation": [
+      "sec.input_validation",
+      "sec.recipe.threat_model",
+      "sec.recipe.validate_untrusted_input"
+    ],
+    "treat": [
+      "sec.input_validation"
+    ],
+    "untrusted": [
+      "sec.input_validation",
+      "sec.recipe.validate_untrusted_input"
+    ],
+    "format": [
+      "sec.input_validation"
+    ],
+    "sanitize": [
+      "sec.input_validation"
+    ],
+    "prefer": [
+      "sec.input_validation"
+    ],
+    "allow-lists": [
+      "sec.input_validation"
+    ],
+    "block-lists": [
+      "sec.input_validation"
+    ],
+    "handling": [
+      "sec.secrets_handling"
+    ],
+    "tokens": [
+      "sec.secrets_handling"
+    ],
+    "logged": [
+      "sec.secrets_handling"
+    ],
+    "hardcoded": [
+      "sec.secrets_handling"
+    ],
+    "store": [
+      "sec.secrets_handling"
+    ],
+    "env": [
+      "sec.secrets_handling"
+    ],
+    "secret": [
+      "sec.secrets_handling"
+    ],
+    "managers": [
+      "sec.secrets_handling"
+    ],
+    "compromised": [
+      "sec.secrets_handling"
+    ],
+    "scope": [
+      "sec.secrets_handling"
+    ],
+    "narrowly": [
+      "sec.secrets_handling"
+    ],
+    "threat": [
+      "sec.recipe.threat_model",
+      "sec.threat_modeling"
+    ],
+    "modeling": [
+      "sec.threat_modeling"
+    ],
+    "assets": [
+      "sec.recipe.threat_model",
+      "sec.threat_modeling"
+    ],
+    "attackers": [
+      "sec.threat_modeling"
+    ],
+    "mitigations": [
+      "sec.recipe.threat_model",
+      "sec.threat_modeling"
+    ],
+    "focus": [
+      "sec.threat_modeling"
+    ],
+    "realistic": [
+      "sec.threat_modeling"
+    ],
+    "threats": [
+      "sec.recipe.threat_model",
+      "sec.threat_modeling"
+    ],
+    "subsystem": [
+      "sec.recipe.threat_model"
+    ],
+    "user": [
+      "sec.recipe.threat_model"
+    ],
+    "access": [
+      "sec.recipe.threat_model"
+    ],
+    "web": [
+      "sec.recipe.threat_model"
+    ],
+    "textbox": [
+      "sec.recipe.threat_model"
+    ],
+    "adapters": [
+      "sec.recipe.threat_model"
+    ],
+    "file": [
+      "sec.recipe.threat_model"
+    ],
+    "enumerate": [
+      "sec.recipe.threat_model"
+    ],
+    "spoofing": [
+      "sec.recipe.threat_model"
+    ],
+    "tampering": [
+      "sec.recipe.threat_model"
+    ],
+    "info": [
+      "sec.recipe.threat_model"
+    ],
+    "disclosure": [
+      "sec.recipe.threat_model"
+    ],
+    "dos": [
+      "sec.recipe.threat_model"
+    ],
+    "auth": [
+      "sec.recipe.threat_model"
+    ],
+    "expected": [
+      "sec.recipe.validate_untrusted_input"
+    ],
+    "types": [
+      "sec.recipe.validate_untrusted_input"
+    ],
+    "fields": [
+      "sec.recipe.validate_untrusted_input"
+    ],
+    "allow-list": [
+      "sec.recipe.validate_untrusted_input"
+    ],
+    "limits": [
+      "sec.recipe.validate_untrusted_input"
+    ],
+    "early": [
+      "sec.recipe.validate_untrusted_input"
+    ],
+    "guess": [
+      "sec.recipe.validate_untrusted_input"
+    ],
+    "normalize": [
+      "sec.recipe.validate_untrusted_input"
+    ],
+    "trim": [
+      "sec.recipe.validate_untrusted_input"
+    ],
+    "whitespace": [
+      "sec.recipe.validate_untrusted_input"
+    ],
+    "canonicalize": [
+      "sec.recipe.validate_untrusted_input"
+    ],
+    "encodings": [
+      "sec.recipe.validate_untrusted_input"
+    ],
+    "non-sensitive": [
+      "sec.recipe.validate_untrusted_input"
+    ],
+    "metadata": [
+      "sec.recipe.validate_untrusted_input"
     ]
   }
 }

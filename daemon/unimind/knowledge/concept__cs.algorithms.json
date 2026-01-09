@@ -1,0 +1,18 @@
+{
+  "id": "cs.algorithms",
+  "title": "Algorithms (Overview)",
+  "definition": "Step-by-step procedures to solve problems; correctness and efficiency are core concerns.",
+  "parameters": [],
+  "constraints": [],
+  "related": [],
+  "tags": [
+    "undergrad",
+    "computer_science",
+    "cs"
+  ],
+  "examples": [
+    "Binary search finds items in sorted arrays in O(log n)."
+  ],
+  "created_at": "2026-01-09T20:33:51+00:00",
+  "updated_at": "2026-01-09T20:33:51+00:00"
+}

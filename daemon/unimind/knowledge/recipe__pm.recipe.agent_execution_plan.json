@@ -1,0 +1,28 @@
+{
+  "id": "pm.recipe.agent_execution_plan",
+  "goal": "Create an execution plan suitable for an agent-based system.",
+  "steps": [
+    "Define the objective and success criteria (Definition of Done).",
+    "List tasks and dependencies; identify the critical path.",
+    "Assign owners (modules/agents) and interfaces between them.",
+    "Choose checkpoints (tests/logs) to validate progress.",
+    "Run, measure, and revise plan as new info arrives."
+  ],
+  "quality_checks": [
+    "DoD defined",
+    "dependencies explicit",
+    "checkpoints exist"
+  ],
+  "failure_modes": [
+    "ambiguous DoD",
+    "hidden dependencies causing churn"
+  ],
+  "tags": [
+    "graduate",
+    "engineering",
+    "systems",
+    "recipe"
+  ],
+  "created_at": "2026-01-09T20:33:51+00:00",
+  "updated_at": "2026-01-09T20:33:51+00:00"
+}

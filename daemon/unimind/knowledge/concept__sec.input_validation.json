@@ -1,0 +1,19 @@
+{
+  "id": "sec.input_validation",
+  "title": "Input Validation",
+  "definition": "Treat inputs as untrusted; validate type/format/range and reject or sanitize invalid data.",
+  "parameters": [],
+  "constraints": [
+    "Prefer allow-lists over block-lists."
+  ],
+  "related": [],
+  "tags": [
+    "undergrad",
+    "computer_science",
+    "security",
+    "engineering"
+  ],
+  "examples": [],
+  "created_at": "2026-01-09T20:33:51+00:00",
+  "updated_at": "2026-01-09T20:33:51+00:00"
+}

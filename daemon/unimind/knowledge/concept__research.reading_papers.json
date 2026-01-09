@@ -1,0 +1,16 @@
+{
+  "id": "research.reading_papers",
+  "title": "Reading Research Papers",
+  "definition": "Skim abstract/figures first, then methods; extract contributions, assumptions, and limitations.",
+  "parameters": [],
+  "constraints": [],
+  "related": [],
+  "tags": [
+    "graduate",
+    "research_methods",
+    "computer_science"
+  ],
+  "examples": [],
+  "created_at": "2026-01-09T20:33:51+00:00",
+  "updated_at": "2026-01-09T20:33:51+00:00"
+}

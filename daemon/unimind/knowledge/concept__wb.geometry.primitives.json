@@ -1,0 +1,24 @@
+{
+  "id": "wb.geometry.primitives",
+  "title": "Geometric Primitives",
+  "definition": "Basic shapes used as building blocks: points, lines, planes, triangles, boxes, spheres, cylinders.",
+  "parameters": [],
+  "constraints": [
+    "Triangles are the fundamental unit of real-time meshes."
+  ],
+  "related": [
+    "shape.extrude",
+    "shape.bevel"
+  ],
+  "tags": [
+    "geometry",
+    "worldbuilding",
+    "undergrad",
+    "engineering"
+  ],
+  "examples": [
+    "A box primitive can be beveled and hollowed to form a crate."
+  ],
+  "created_at": "2026-01-09T20:33:51+00:00",
+  "updated_at": "2026-01-09T20:33:51+00:00"
+}

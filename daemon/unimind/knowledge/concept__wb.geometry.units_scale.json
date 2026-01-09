@@ -1,0 +1,22 @@
+{
+  "id": "wb.geometry.units_scale",
+  "title": "Units and Scale",
+  "definition": "A consistent unit scale (e.g., 1 unit = 1 meter) prevents physics, animation, and camera issues.",
+  "parameters": [],
+  "constraints": [
+    "Physics stability and collision tolerances depend on scale."
+  ],
+  "related": [],
+  "tags": [
+    "geometry",
+    "worldbuilding",
+    "engineering",
+    "undergrad",
+    "physics"
+  ],
+  "examples": [
+    "If a character is 1.8m tall, a door might be ~2.1m."
+  ],
+  "created_at": "2026-01-09T20:33:51+00:00",
+  "updated_at": "2026-01-09T20:33:51+00:00"
+}
