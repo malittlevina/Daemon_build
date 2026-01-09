@@ -33,9 +33,29 @@ class ScrollEngine:
             "analyze system": self._analyze_system,
             "diff systems": self._diff_systems,
             "materialize realm": self._materialize_realm,
-            "generate realm": self._generate_realm
+            "generate realm": self._generate_realm,
+            "generate quest": self._generate_quest,
+            "list quests": self._list_quests
         }
         self.active_scrolls = []
+
+    def _generate_quest(self, realm_name):
+        if not self.world_engine: return "[Scroll] No World Engine."
+        from storyrealms.dungeon_master import DungeonMaster
+        dm = DungeonMaster(self.world_engine)
+        quest = dm.generate_quest(realm_name)
+        if quest:
+            return f"[Quest] New Quest: {quest.title}\nObjective: {quest.description}"
+        return "[Quest] Failed to generate quest."
+
+    def _list_quests(self, realm_name):
+        if not self.world_engine: return "[Scroll] No World Engine."
+        from storyrealms.dungeon_master import DungeonMaster
+        dm = DungeonMaster(self.world_engine)
+        quests = dm.list_active_quests(realm_name)
+        if not quests:
+            return "No active quests in this realm."
+        return "\n".join([f"- {q['title']} ({q['status']})" for q in quests])
 
     def _generate_realm(self, name, prompt):
         if not self.world_engine: return "[Scroll] No World Engine."

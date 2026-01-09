@@ -5,6 +5,23 @@ class RealmBuilder:
     def __init__(self, world_engine):
         self.world_engine = world_engine
 
+    def _template_dungeon(self, name, description):
+        realm = self.world_engine.create_realm(name, description)
+        structure = {
+            "Root": {"type": "Entrance", "subregions": ["Hallway"]},
+            "Hallway": {"type": "Corridor", "subregions": ["Chamber_of_Echoes", "Armory"]},
+            "Chamber_of_Echoes": {"type": "PuzzleRoom", "subregions": []},
+            "Armory": {"type": "LootRoom", "subregions": ["Boss_Lair"]},
+            "Boss_Lair": {"type": "ThroneRoom", "subregions": []}
+        }
+        realm.state["structure"] = structure
+        
+        # Add Mobs
+        realm.entities.append(AgentEntity("Skeleton_Guard", role="Guardian", location="Hallway").to_dict())
+        realm.entities.append(AgentEntity("Dungeon_Boss", role="Guardian", location="Boss_Lair", properties={"hp": 100, "aggro": True}).to_dict())
+        
+        return realm
+
     def generate_realm_from_prompt(self, name, prompt):
         """
         Simulates using an LLM to generate a full realm structure from a text prompt.
@@ -20,6 +37,8 @@ class RealmBuilder:
             realm = self._template_city(name, description)
         elif "forest" in prompt.lower():
             realm = self._template_forest(name, description)
+        elif "dungeon" in prompt.lower() or "crypt" in prompt.lower():
+            realm = self._template_dungeon(name, description)
         elif "cyber" in prompt.lower() or "tech" in prompt.lower():
             realm = self._template_cyber(name, description)
         else:
