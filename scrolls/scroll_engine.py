@@ -45,9 +45,15 @@ class ScrollEngine:
             "restore backup": self._restore_backup,
             "construct move": self._construct_move,
             "construct delete": self._construct_delete,
-            "scribe legends": self._scribe_legends
+            "scribe legends": self._scribe_legends,
+            "transmute media": self._transmute_media
         }
         self.active_scrolls = []
+
+    def _transmute_media(self, file_path):
+        from codex.scribe import Scribe
+        scribe = Scribe()
+        return scribe.ingest_media(file_path)
 
     def _scribe_legends(self, target_path="."):
         from codex.bard import TheBard
