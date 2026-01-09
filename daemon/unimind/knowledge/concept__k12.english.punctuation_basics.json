@@ -1,0 +1,16 @@
+{
+  "id": "k12.english.punctuation_basics",
+  "title": "Punctuation Basics",
+  "definition": "Periods end statements, commas separate clauses/items, apostrophes show possession or contractions.",
+  "parameters": [],
+  "constraints": [],
+  "related": [],
+  "tags": [
+    "k12",
+    "english",
+    "grammar"
+  ],
+  "examples": [],
+  "created_at": "2026-01-09T20:17:13+00:00",
+  "updated_at": "2026-01-09T20:17:13+00:00"
+}

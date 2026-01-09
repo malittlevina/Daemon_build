@@ -1,0 +1,16 @@
+{
+  "id": "k12.science.dna",
+  "title": "DNA",
+  "definition": "DNA stores genetic information. Genes are segments of DNA that influence traits.",
+  "parameters": [],
+  "constraints": [],
+  "related": [],
+  "tags": [
+    "k12",
+    "science",
+    "biology"
+  ],
+  "examples": [],
+  "created_at": "2026-01-09T20:17:13+00:00",
+  "updated_at": "2026-01-09T20:17:13+00:00"
+}

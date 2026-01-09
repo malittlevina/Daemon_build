@@ -13,6 +13,7 @@ from .subsystems import EthicsSubsystem, SubsystemReport, UnimindSubsystem
 from .knowledge_store import KnowledgeStore
 from .mind_palace import MindPalace
 from .consolidator import MemoryConsolidator
+from .seed_k12 import seed_k12
 
 
 class Unimind:
@@ -54,6 +55,10 @@ class Unimind:
         self._learning_enabled = enable_learning
         if self._learning_enabled:
             self._consolidator.start()
+
+        # Seed K-12 basics once (if not present) so the mind palace isn't empty.
+        if not self.knowledge.has_tag("k12"):
+            seed_k12(self.knowledge, self.mind_palace)
 
         print("[Unimind] Core initialized.")
 
@@ -174,7 +179,8 @@ class Unimind:
         ctx = ctx.with_note("concept_graph", asdict(graph))
 
         # Recall from knowledge store (small top-k only) to avoid scanning logs.
-        recall = self.knowledge.search(input_text, tags=["geometry"] if "shape" in (input_text or "").lower() else [], top_k=5)
+        recall_tags = self._infer_recall_tags(input_text or "")
+        recall = self.knowledge.search(input_text, tags=recall_tags, top_k=5)
         if recall:
             ctx = ctx.with_note("knowledge_recall", recall)
 
@@ -193,6 +199,36 @@ class Unimind:
             },
         )
         return plan, brain_trace
+
+    def _infer_recall_tags(self, text: str) -> List[str]:
+        """
+        Coarse routing to keep recall small and fast.
+        """
+        t = (text or "").lower()
+        tags: List[str] = []
+
+        # Geometry/world-building
+        if any(w in t for w in ("shape", "extrude", "bevel", "boolean", "mesh", "triangle", "cube", "sphere")):
+            tags += ["geometry"]
+
+        # K-12 domains
+        if any(w in t for w in ("equation", "fraction", "pythagorean", "algebra", "mean", "median", "mode")):
+            tags += ["k12", "math"]
+        elif any(w in t for w in ("photosynthesis", "cell", "dna", "newton", "water cycle", "matter")):
+            tags += ["k12", "science"]
+        elif any(w in t for w in ("civil war", "world war", "constitution", "industrial revolution", "egypt")):
+            tags += ["k12", "history"]
+        elif any(w in t for w in ("grammar", "punctuation", "thesis", "paragraph", "parts of speech")):
+            tags += ["k12", "english"]
+
+        # De-dupe while preserving order
+        out: List[str] = []
+        seen = set()
+        for x in tags:
+            if x not in seen:
+                out.append(x)
+                seen.add(x)
+        return out
 
     def ingest_event(self, event: Dict[str, Any], *, nlu_intent: Any = None):
         """

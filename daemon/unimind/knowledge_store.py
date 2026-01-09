@@ -127,6 +127,12 @@ class KnowledgeStore:
 
         self._load()
 
+    def counts(self) -> Dict[str, int]:
+        return {"concepts": len(self._concepts), "recipes": len(self._recipes), "prefabs": len(self._prefabs)}
+
+    def has_tag(self, tag: str) -> bool:
+        return bool(self._tag_index.get(tag))
+
     # ---- Persistence ----
     def _index_path(self) -> str:
         return os.path.join(self.root, "index.json")
@@ -292,21 +298,33 @@ class KnowledgeStore:
     def search(self, query: str, *, tags: Sequence[str] | None = None, top_k: int = 5) -> List[Dict[str, Any]]:
         tags = list(tags or [])
         q_tokens = _tokens(query or "")
-        candidates: Optional[Set[str]] = None
+        candidates: Set[str] = set()
 
-        for t in tags:
-            ids = self._tag_index.get(t, set())
-            candidates = set(ids) if candidates is None else (candidates & set(ids))
+        # Tag filtering (prefer intersection; fall back to union if too restrictive).
+        tag_candidates: Optional[Set[str]] = None
+        if tags:
+            for t in tags:
+                ids = set(self._tag_index.get(t, set()))
+                tag_candidates = ids if tag_candidates is None else (tag_candidates & ids)
+            if not tag_candidates:
+                # fall back to union across tags
+                tag_candidates = set()
+                for t in tags:
+                    tag_candidates |= set(self._tag_index.get(t, set()))
 
-        for tok in q_tokens[:6]:
-            ids = self._token_index.get(tok, set())
-            candidates = set(ids) if candidates is None else (candidates & set(ids))
+        if tag_candidates:
+            candidates = set(tag_candidates)
 
-        if candidates is None:
-            # fallback: pick anything token-matching loosely
-            candidates = set()
-            for tok in q_tokens[:6]:
-                candidates |= set(self._token_index.get(tok, set()))
+        # Token candidates as a union (used for ranking, and optionally as a filter).
+        token_union: Set[str] = set()
+        for tok in q_tokens[:8]:
+            token_union |= set(self._token_index.get(tok, set()))
+
+        if not candidates:
+            candidates = set(token_union)
+        elif token_union:
+            # Light filter (one-shot), not repeated intersections.
+            candidates = candidates & token_union or candidates
 
         # Rank: simple overlap score
         results: List[Tuple[int, str]] = []

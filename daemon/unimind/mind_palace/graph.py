@@ -6,6 +6,10 @@ from typing import Any, Dict, List, Optional, Sequence, Set, Tuple
 
 DEFAULT_ROOMS = {
     "geometry": {"shape_ops", "primitives", "constraints", "prefabs"},
+    "math": {"arithmetic", "algebra", "geometry", "statistics"},
+    "science": {"biology", "chemistry", "physics", "earth_science"},
+    "history": {"ancient", "medieval", "modern", "civics"},
+    "english": {"grammar", "writing", "literature", "vocabulary"},
     "materials": {"pbr", "textures", "shaders"},
     "physics": {"colliders", "rigid_bodies", "constraints"},
     "story": {"characters", "plot", "dialogue"},
@@ -17,6 +21,14 @@ def _infer_room(tags: Sequence[str]) -> str:
     t = set(tags or [])
     if any(x.startswith(("shape.", "geo.", "geometry", "cad")) for x in t) or "geometry" in t:
         return "geometry"
+    if "math" in t or any(x.startswith(("math.", "algebra", "arithmetic", "geometry.")) for x in t):
+        return "math"
+    if "science" in t or any(x.startswith(("bio", "chem", "phys", "earth_science")) for x in t):
+        return "science"
+    if "history" in t or "civics" in t:
+        return "history"
+    if "english" in t or any(x.startswith(("grammar", "writing", "vocab", "literature")) for x in t):
+        return "english"
     if any(x.startswith(("mat.", "material", "pbr", "shader")) for x in t) or "materials" in t:
         return "materials"
     if any(x.startswith(("phys.", "physics", "rigid", "collider")) for x in t) or "physics" in t:
@@ -36,6 +48,38 @@ def _infer_shelf(room: str, tags: Sequence[str]) -> str:
         if any(x in t for x in ("primitive", "primitives")):
             return "primitives"
         return "constraints" if "constraint" in t else "shape_ops"
+    if room == "math":
+        if "algebra" in t:
+            return "algebra"
+        if "statistics" in t:
+            return "statistics"
+        if any(x in t for x in ("geometry", "geometry.math")):
+            return "geometry"
+        return "arithmetic"
+    if room == "science":
+        if "biology" in t:
+            return "biology"
+        if "chemistry" in t:
+            return "chemistry"
+        if "physics" in t:
+            return "physics"
+        return "earth_science"
+    if room == "history":
+        if "civics" in t:
+            return "civics"
+        if "ancient" in t:
+            return "ancient"
+        if "medieval" in t:
+            return "medieval"
+        return "modern"
+    if room == "english":
+        if "grammar" in t:
+            return "grammar"
+        if "writing" in t:
+            return "writing"
+        if "vocabulary" in t:
+            return "vocabulary"
+        return "literature"
     # default shelf when unknown
     return next(iter(DEFAULT_ROOMS.get(room, {"misc"})))
 

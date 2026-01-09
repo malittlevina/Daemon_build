@@ -1,0 +1,16 @@
+{
+  "id": "k12.science.water_cycle",
+  "title": "Water Cycle",
+  "definition": "Evaporation → condensation → precipitation → collection/runoff.",
+  "parameters": [],
+  "constraints": [],
+  "related": [],
+  "tags": [
+    "k12",
+    "science",
+    "earth_science"
+  ],
+  "examples": [],
+  "created_at": "2026-01-09T20:17:13+00:00",
+  "updated_at": "2026-01-09T20:17:13+00:00"
+}
