@@ -1,29 +1,64 @@
-# lam/symbolic_state.py
+import json
+from datetime import datetime
 
-symbolic_state = {
-    "history": [],
-    "current_context": {},
-    "flags": {}
-}
+class SymbolicStateManager:
+    def __init__(self):
+        self.state = {
+            "beliefs": {},      # Facts the system believes to be true
+            "goals": [],        # Active goals
+            "intentions": [],   # Immediate next steps
+            "history": [],      # Interaction history
+            "context": {        # Current environmental context
+                "mode": "idle",
+                "active_realm": None,
+                "emotional_state": None
+            },
+            "flags": {}
+        }
+        
+    def update_context(self, key, value):
+        self.state["context"][key] = value
 
-def update_state_with_input(user_input):
-    try:
-        # Log input history
-        symbolic_state["history"].append(user_input)
-        symbolic_state["last_input"] = user_input
+    def add_belief(self, subject, predicate, object_):
+        # Triplet store: (Subject, Predicate, Object)
+        key = f"{subject}:{predicate}"
+        self.state["beliefs"][key] = object_
+        print(f"[SymbolicState] Belief added: {subject} {predicate} {object_}")
 
-        # Basic symbolic parsing (placeholder for future logic)
-        if "learn" in user_input.lower():
-            symbolic_state["current_context"]["mode"] = "learning"
-            symbolic_state["flags"]["is_learning"] = True
-        elif "task" in user_input.lower():
-            symbolic_state["current_context"]["mode"] = "task_execution"
-            symbolic_state["flags"]["has_active_task"] = True
-        else:
-            symbolic_state["current_context"]["mode"] = "idle"
-            symbolic_state["flags"].clear()
+    def set_goal(self, goal_description):
+        goal = {
+            "id": int(datetime.now().timestamp()),
+            "description": goal_description,
+            "status": "pending",
+            "created_at": datetime.now().isoformat()
+        }
+        self.state["goals"].append(goal)
+        print(f"[SymbolicState] Goal set: {goal_description}")
+        return goal["id"]
 
-        print(f"[SymbolicState] Updated state: {symbolic_state}")
+    def update_from_input(self, user_input, source="user"):
+        self.state["history"].append({
+            "source": source,
+            "content": user_input,
+            "timestamp": datetime.now().isoformat()
+        })
+        
+        # Heuristic state updates
+        lower_input = user_input.lower()
+        if "learn" in lower_input:
+            self.state["context"]["mode"] = "learning"
+        elif "task" in lower_input or "do" in lower_input:
+            self.state["context"]["mode"] = "execution"
+        elif "stop" in lower_input:
+            self.state["context"]["mode"] = "idle"
+            
+        return self.state
 
-    except Exception as e:
-        print(f"[SymbolicState Error] Failed to update state: {e}")
+    def get_state_snapshot(self):
+        return json.dumps(self.state, indent=2)
+
+# Global Instance
+global_symbolic_state = SymbolicStateManager()
+
+def update_state_with_input(user_input, source="user"):
+    return global_symbolic_state.update_from_input(user_input, source)
