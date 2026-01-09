@@ -2,6 +2,9 @@ from core.module import Module
 from scrolls.scroll_event import ScrollEvent
 from scrolls.trigger_manager import check_scroll_triggers
 from scrolls.api_scrolls import execute_api_scroll
+import concurrent.futures
+import threading
+import uuid
 
 class ScrollTrigger:
     def __init__(self, name, conditions, actions):
@@ -25,29 +28,64 @@ class ScrollEngine(Module):
             "multi step plan": self._multi_step_plan
         }
         self.active_scrolls = []
+        self.executor = None
+        self.running_tasks = {}
 
     def initialize(self):
         self.kernel.log("ScrollEngine", "Initialized.")
         self.kernel.events.subscribe("scroll:invoke", self.handle_invoke_event)
 
     def start(self):
-        pass
+        # Initialize thread pool with 3 workers
+        self.executor = concurrent.futures.ThreadPoolExecutor(max_workers=3, thread_name_prefix="ScrollWorker")
+        self.kernel.log("ScrollEngine", "Started async executor pool.")
 
     def stop(self):
-        pass
+        if self.executor:
+            self.executor.shutdown(wait=False)
+            self.kernel.log("ScrollEngine", "Stopped executor pool.")
 
     def handle_invoke_event(self, event_type, data):
         name = data.get("name")
         args = data.get("args", [])
         kwargs = data.get("kwargs", {})
-        self.invoke(name, *args, **kwargs)
+        # Dispatch to async handler
+        self.invoke_async(name, *args, **kwargs)
+
+    def invoke_async(self, name, *args, **kwargs):
+        """Public method to schedule a scroll asynchronously."""
+        if not self.executor:
+            self.kernel.log("ScrollEngine", "Executor not started, running synchronously.", level="warning")
+            return self.invoke(name, *args, **kwargs)
+
+        task_id = str(uuid.uuid4())[:8]
+        self.kernel.log("ScrollEngine", f"Scheduling task {task_id}: {name}")
+        
+        future = self.executor.submit(self.invoke, name, *args, **kwargs)
+        self.running_tasks[task_id] = future
+        
+        # Add done callback
+        def task_done(f):
+            try:
+                result = f.result()
+                self.kernel.log("ScrollEngine", f"Task {task_id} completed: {result}")
+            except Exception as e:
+                self.kernel.log("ScrollEngine", f"Task {task_id} failed: {e}", level="error")
+            finally:
+                if task_id in self.running_tasks:
+                    del self.running_tasks[task_id]
+
+        future.add_done_callback(task_done)
+        return task_id
 
     def invoke(self, name, *args, **kwargs):
+        """Synchronous internal invoke."""
         if name in self.scrolls:
             return self.scrolls[name](*args, **kwargs)
         else:
             return self.invoke_dynamic_scroll(name)
 
+    # ... [Keeping existing scroll methods _optimize_self, _study_topic, etc.] ...
     def _optimize_self(self):
         from optimizer.auto_upgrade import run_auto_optimization
         return run_auto_optimization()
@@ -138,6 +176,7 @@ class ScrollEngine(Module):
 
         self.kernel.log("TaskRunner", f"Executing task: {task_description}")
         # Simulate task execution
+        time.sleep(2) # Simulate work
         result = f"Task completed: {task_description}"
 
         # Log memory

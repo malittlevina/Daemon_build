@@ -74,6 +74,9 @@ def main():
     from bridge.thoth_bridge import ThothBridge
     kernel.register_module("bridge", ThothBridge(kernel))
 
+    from core.interface import Interface
+    kernel.register_module("interface", Interface(kernel, port=9999))
+
     # Initialize System
     kernel.initialize()
 
