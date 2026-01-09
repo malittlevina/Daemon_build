@@ -110,6 +110,12 @@ def main():
     from core.network import NetworkManager
     kernel.register_module("network", NetworkManager(kernel))
 
+    from core.homeostasis import Homeostasis
+    kernel.register_module("homeostasis", Homeostasis(kernel))
+
+    from apps.holodeck import Holodeck
+    kernel.register_module("holodeck", Holodeck(kernel))
+
     # Initialize System
     kernel.initialize()
 

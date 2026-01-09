@@ -88,6 +88,7 @@ class VFS(Module):
         try:
             with open(real_path, "w") as f:
                 f.write(content)
+            self.kernel.dispatch("file:created", {"path": path, "real_path": real_path})
             return "File written successfully."
         except Exception as e:
             return f"Error writing file: {e}"
@@ -102,6 +103,7 @@ class VFS(Module):
                 shutil.rmtree(real_path)
             else:
                 os.remove(real_path)
+            self.kernel.dispatch("file:deleted", {"path": path})
             return "Deleted."
         except Exception as e:
             return f"Error deleting: {e}"
