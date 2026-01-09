@@ -92,6 +92,9 @@ def main():
     from apps.calculator import Calculator
     kernel.register_module("calculator", Calculator(kernel))
 
+    from world_engine.world import WorldEngine
+    kernel.register_module("world", WorldEngine(kernel))
+
     # Initialize System
     kernel.initialize()
 
