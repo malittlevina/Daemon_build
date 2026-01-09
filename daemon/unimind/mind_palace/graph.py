@@ -10,6 +10,11 @@ DEFAULT_ROOMS = {
     "science": {"biology", "chemistry", "physics", "earth_science"},
     "history": {"ancient", "medieval", "modern", "civics"},
     "english": {"grammar", "writing", "literature", "vocabulary"},
+    # Academic progression (post K-12). These rooms are level-based and are
+    # intended to hold compact artifacts tagged with undergrad/graduate/phd.
+    "undergrad": {"math", "science", "computer_science", "engineering", "humanities", "research_methods"},
+    "graduate": {"math", "science", "computer_science", "engineering", "humanities", "research_methods"},
+    "doctorate": {"math", "science", "computer_science", "engineering", "humanities", "research_methods"},
     "materials": {"pbr", "textures", "shaders"},
     "physics": {"colliders", "rigid_bodies", "constraints"},
     "story": {"characters", "plot", "dialogue"},
@@ -19,6 +24,14 @@ DEFAULT_ROOMS = {
 
 def _infer_room(tags: Sequence[str]) -> str:
     t = set(tags or [])
+    # Level-based rooms (strongest routing when present)
+    if any(x in t for x in ("phd", "doctorate", "doctoral")):
+        return "doctorate"
+    if any(x in t for x in ("graduate", "grad", "masters", "master")):
+        return "graduate"
+    if any(x in t for x in ("undergrad", "undergraduate", "bachelors", "bachelor")):
+        return "undergrad"
+
     if any(x.startswith(("shape.", "geo.", "geometry", "cad")) for x in t) or "geometry" in t:
         return "geometry"
     if "math" in t or any(x.startswith(("math.", "algebra", "arithmetic", "geometry.")) for x in t):
@@ -48,6 +61,19 @@ def _infer_shelf(room: str, tags: Sequence[str]) -> str:
         if any(x in t for x in ("primitive", "primitives")):
             return "primitives"
         return "constraints" if "constraint" in t else "shape_ops"
+    if room in {"undergrad", "graduate", "doctorate"}:
+        # Domain shelves within a level.
+        if any(x in t for x in ("cs", "computer_science", "computer-science", "ai", "ml")):
+            return "computer_science"
+        if "engineering" in t or any(x.startswith(("eng.", "mech", "ee", "ce", "se")) for x in t):
+            return "engineering"
+        if "math" in t or any(x.startswith(("math.", "algebra", "analysis", "topology", "geometry.")) for x in t):
+            return "math"
+        if "science" in t or any(x in t for x in ("physics", "chemistry", "biology")):
+            return "science"
+        if any(x in t for x in ("methods", "research_methods", "research", "paper", "thesis", "dissertation")):
+            return "research_methods"
+        return "humanities"
     if room == "math":
         if "algebra" in t:
             return "algebra"
