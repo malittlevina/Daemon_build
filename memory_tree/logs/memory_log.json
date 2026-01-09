@@ -523,5 +523,650 @@
         "derived_from": "b1ab0874-5156-4e2d-8ac8-b94443c9ce07"
       }
     }
+  },
+  {
+    "timestamp": "2026-01-09T02:34:13.310728+00:00",
+    "type": "memory",
+    "content": "[Storyrealms] alpha :: realm.entered",
+    "context": {
+      "event_id": "f1683ab9-1405-40ac-a563-dcbe1f1b2c4a",
+      "ts": "2026-01-09T02:34:13.309470+00:00",
+      "realm": "alpha",
+      "type": "realm.entered",
+      "actor": "test",
+      "payload": {},
+      "meta": {}
+    }
+  },
+  {
+    "timestamp": "2026-01-09T02:34:13.311581+00:00",
+    "type": "memory",
+    "content": "[Storyrealms] alpha :: flag.set",
+    "context": {
+      "event_id": "9e491039-b821-4c85-9f84-8deb8bf2e47e",
+      "ts": "2026-01-09T02:34:13.311230+00:00",
+      "realm": "alpha",
+      "type": "flag.set",
+      "actor": "test",
+      "payload": {
+        "key": "weather",
+        "value": "rain"
+      },
+      "meta": {}
+    }
+  },
+  {
+    "timestamp": "2026-01-09T02:34:13.312708+00:00",
+    "type": "memory",
+    "content": "[Storyrealms] alpha :: entity.upsert",
+    "context": {
+      "event_id": "9625f661-b18a-40e3-a602-03083ac90a71",
+      "ts": "2026-01-09T02:34:13.312450+00:00",
+      "realm": "alpha",
+      "type": "entity.upsert",
+      "actor": "test",
+      "payload": {
+        "entity_id": "npc:1",
+        "data": {
+          "name": "Ira",
+          "mood": "curious"
+        }
+      },
+      "meta": {}
+    }
+  },
+  {
+    "timestamp": "2026-01-09T02:34:13.314038+00:00",
+    "type": "memory",
+    "content": "[Storyrealms] alpha :: time.tick",
+    "context": {
+      "event_id": "92cafa76-f2da-48a4-87af-6cb4fdf6dbd1",
+      "ts": "2026-01-09T02:34:13.313731+00:00",
+      "realm": "alpha",
+      "type": "time.tick",
+      "actor": "test",
+      "payload": {
+        "delta": 3
+      },
+      "meta": {}
+    }
+  },
+  {
+    "timestamp": "2026-01-09T02:34:13.315323+00:00",
+    "type": "memory",
+    "content": "[Storyrealms] alpha :: entity.upsert",
+    "context": {
+      "event_id": "108ef404-45d6-40ec-8278-c63dd215700d",
+      "ts": "2026-01-09T02:34:13.314969+00:00",
+      "realm": "alpha",
+      "type": "entity.upsert",
+      "actor": "rule_engine",
+      "payload": {
+        "entity_id": "npc:1",
+        "data": {
+          "mood": "pensive"
+        }
+      },
+      "meta": {
+        "derived_from": "92cafa76-f2da-48a4-87af-6cb4fdf6dbd1",
+        "rule": "npc.mood_from_weather"
+      }
+    }
+  },
+  {
+    "timestamp": "2026-01-09T02:34:13.316386+00:00",
+    "type": "memory",
+    "content": "[Storyrealms] alpha :: npc.act",
+    "context": {
+      "event_id": "37b302d6-4e49-4341-8792-c310e8540df3",
+      "ts": "2026-01-09T02:34:13.314984+00:00",
+      "realm": "alpha",
+      "type": "npc.act",
+      "actor": "rule_engine",
+      "payload": {
+        "entity_id": "npc:1",
+        "act": "observe_weather",
+        "mood": "pensive"
+      },
+      "meta": {
+        "derived_from": "92cafa76-f2da-48a4-87af-6cb4fdf6dbd1",
+        "rule": "npc.mood_from_weather"
+      }
+    }
+  },
+  {
+    "timestamp": "2026-01-09T02:34:13.317656+00:00",
+    "type": "memory",
+    "content": "[Storyrealms] alpha :: realm.entered",
+    "context": {
+      "event_id": "7f8fdc5c-1716-4be7-9c9f-b0470185ab04",
+      "ts": "2026-01-09T02:34:13.317383+00:00",
+      "realm": "alpha",
+      "type": "realm.entered",
+      "actor": "test",
+      "payload": {},
+      "meta": {}
+    }
+  },
+  {
+    "timestamp": "2026-01-09T02:34:13.318604+00:00",
+    "type": "memory",
+    "content": "[Storyrealms] alpha :: flag.set",
+    "context": {
+      "event_id": "5c446d09-fb50-4c93-8e48-9883b3855db1",
+      "ts": "2026-01-09T02:34:13.318380+00:00",
+      "realm": "alpha",
+      "type": "flag.set",
+      "actor": "test",
+      "payload": {
+        "key": "scene_auto",
+        "value": true
+      },
+      "meta": {}
+    }
+  },
+  {
+    "timestamp": "2026-01-09T02:34:13.319960+00:00",
+    "type": "memory",
+    "content": "[Storyrealms] alpha :: flag.set",
+    "context": {
+      "event_id": "2913d5c8-830d-4c2e-a68e-5211d2ec45f8",
+      "ts": "2026-01-09T02:34:13.319669+00:00",
+      "realm": "alpha",
+      "type": "flag.set",
+      "actor": "test",
+      "payload": {
+        "key": "scene_period",
+        "value": 2
+      },
+      "meta": {}
+    }
+  },
+  {
+    "timestamp": "2026-01-09T02:34:13.321172+00:00",
+    "type": "memory",
+    "content": "[Storyrealms] alpha :: time.tick",
+    "context": {
+      "event_id": "64a97b8b-56b2-475c-b0ff-034f63b6d89e",
+      "ts": "2026-01-09T02:34:13.320917+00:00",
+      "realm": "alpha",
+      "type": "time.tick",
+      "actor": "test",
+      "payload": {
+        "delta": 1
+      },
+      "meta": {}
+    }
+  },
+  {
+    "timestamp": "2026-01-09T02:34:13.322420+00:00",
+    "type": "memory",
+    "content": "[Storyrealms] alpha :: flag.set",
+    "context": {
+      "event_id": "717fa24a-e9eb-41a0-bfa0-36d5fbe8c478",
+      "ts": "2026-01-09T02:34:13.322140+00:00",
+      "realm": "alpha",
+      "type": "flag.set",
+      "actor": "rule_engine",
+      "payload": {
+        "key": "scene_index",
+        "value": 1
+      },
+      "meta": {
+        "derived_from": "64a97b8b-56b2-475c-b0ff-034f63b6d89e",
+        "rule": "scene.auto_advance"
+      }
+    }
+  },
+  {
+    "timestamp": "2026-01-09T02:34:13.323460+00:00",
+    "type": "memory",
+    "content": "[Storyrealms] alpha :: time.tick",
+    "context": {
+      "event_id": "7ede2eca-26cd-4124-9249-8fa1bc77eff1",
+      "ts": "2026-01-09T02:34:13.323181+00:00",
+      "realm": "alpha",
+      "type": "time.tick",
+      "actor": "test",
+      "payload": {
+        "delta": 1
+      },
+      "meta": {}
+    }
+  },
+  {
+    "timestamp": "2026-01-09T02:34:13.324596+00:00",
+    "type": "memory",
+    "content": "[Storyrealms] alpha :: flag.set",
+    "context": {
+      "event_id": "d74047bc-0941-424d-83e2-b097ede675ab",
+      "ts": "2026-01-09T02:34:13.324314+00:00",
+      "realm": "alpha",
+      "type": "flag.set",
+      "actor": "rule_engine",
+      "payload": {
+        "key": "scene_index",
+        "value": 2
+      },
+      "meta": {
+        "derived_from": "7ede2eca-26cd-4124-9249-8fa1bc77eff1",
+        "rule": "scene.auto_advance"
+      }
+    }
+  },
+  {
+    "timestamp": "2026-01-09T02:34:13.325634+00:00",
+    "type": "memory",
+    "content": "[Storyrealms] alpha :: scene.set",
+    "context": {
+      "event_id": "ee7d2afe-1207-45a4-91ea-ca9f7af011a0",
+      "ts": "2026-01-09T02:34:13.324328+00:00",
+      "realm": "alpha",
+      "type": "scene.set",
+      "actor": "rule_engine",
+      "payload": {
+        "scene": "scene:1"
+      },
+      "meta": {
+        "derived_from": "7ede2eca-26cd-4124-9249-8fa1bc77eff1",
+        "rule": "scene.auto_advance"
+      }
+    }
+  },
+  {
+    "timestamp": "2026-01-09T02:34:13.326620+00:00",
+    "type": "memory",
+    "content": "[Storyrealms] alpha :: narrative.beat",
+    "context": {
+      "event_id": "7bfe57e4-8415-48e4-84ca-885d274e46d7",
+      "ts": "2026-01-09T02:34:13.324334+00:00",
+      "realm": "alpha",
+      "type": "narrative.beat",
+      "actor": "rule_engine",
+      "payload": {
+        "beat": "scene_advanced",
+        "scene": "scene:1"
+      },
+      "meta": {
+        "derived_from": "7ede2eca-26cd-4124-9249-8fa1bc77eff1",
+        "rule": "scene.auto_advance"
+      }
+    }
+  },
+  {
+    "timestamp": "2026-01-09T02:34:13.328033+00:00",
+    "type": "memory",
+    "content": "[Storyrealms] alpha :: realm.entered",
+    "context": {
+      "event_id": "375dd8fa-ea26-4597-bc1a-6cb30521f197",
+      "ts": "2026-01-09T02:34:13.327729+00:00",
+      "realm": "alpha",
+      "type": "realm.entered",
+      "actor": "test",
+      "payload": {},
+      "meta": {}
+    }
+  },
+  {
+    "timestamp": "2026-01-09T02:34:13.329144+00:00",
+    "type": "memory",
+    "content": "[Storyrealms] alpha :: flag.set",
+    "context": {
+      "event_id": "6804cbcb-a1a4-475e-bc8d-5e8c9547c50c",
+      "ts": "2026-01-09T02:34:13.328867+00:00",
+      "realm": "alpha",
+      "type": "flag.set",
+      "actor": "test",
+      "payload": {
+        "key": "weather",
+        "value": "rain"
+      },
+      "meta": {}
+    }
+  },
+  {
+    "timestamp": "2026-01-09T02:34:13.330540+00:00",
+    "type": "memory",
+    "content": "[Storyrealms] alpha :: entity.upsert",
+    "context": {
+      "event_id": "b56d5633-eef3-44bf-abdb-c5257ba852e5",
+      "ts": "2026-01-09T02:34:13.330288+00:00",
+      "realm": "alpha",
+      "type": "entity.upsert",
+      "actor": "test",
+      "payload": {
+        "entity_id": "npc:1",
+        "data": {
+          "kind": "npc",
+          "mood": "neutral"
+        }
+      },
+      "meta": {}
+    }
+  },
+  {
+    "timestamp": "2026-01-09T02:34:13.331865+00:00",
+    "type": "memory",
+    "content": "[Storyrealms] alpha :: time.tick",
+    "context": {
+      "event_id": "9fbc9429-5e92-426c-8830-c166d8b784e4",
+      "ts": "2026-01-09T02:34:13.331591+00:00",
+      "realm": "alpha",
+      "type": "time.tick",
+      "actor": "test",
+      "payload": {
+        "delta": 1
+      },
+      "meta": {}
+    }
+  },
+  {
+    "timestamp": "2026-01-09T02:34:13.333535+00:00",
+    "type": "memory",
+    "content": "[Storyrealms] alpha :: entity.upsert",
+    "context": {
+      "event_id": "8158f814-2c20-44af-83f1-47d730cca153",
+      "ts": "2026-01-09T02:34:13.333219+00:00",
+      "realm": "alpha",
+      "type": "entity.upsert",
+      "actor": "rule_engine",
+      "payload": {
+        "entity_id": "npc:1",
+        "data": {
+          "mood": "pensive"
+        }
+      },
+      "meta": {
+        "derived_from": "9fbc9429-5e92-426c-8830-c166d8b784e4",
+        "rule": "npc.mood_from_weather"
+      }
+    }
+  },
+  {
+    "timestamp": "2026-01-09T02:34:13.334894+00:00",
+    "type": "memory",
+    "content": "[Storyrealms] alpha :: npc.act",
+    "context": {
+      "event_id": "eca93afa-5b0a-40e3-a882-fe8cb6124b11",
+      "ts": "2026-01-09T02:34:13.333238+00:00",
+      "realm": "alpha",
+      "type": "npc.act",
+      "actor": "rule_engine",
+      "payload": {
+        "entity_id": "npc:1",
+        "act": "observe_weather",
+        "mood": "pensive"
+      },
+      "meta": {
+        "derived_from": "9fbc9429-5e92-426c-8830-c166d8b784e4",
+        "rule": "npc.mood_from_weather"
+      }
+    }
+  },
+  {
+    "timestamp": "2026-01-09T02:34:17.381184+00:00",
+    "type": "memory",
+    "content": "[Storyrealms] alpha :: realm.entered",
+    "context": {
+      "event_id": "09ef179e-c1c7-444d-840f-49afe3e25ef1",
+      "ts": "2026-01-09T02:34:17.380436+00:00",
+      "realm": "alpha",
+      "type": "realm.entered",
+      "actor": "cli",
+      "payload": {},
+      "meta": {}
+    }
+  },
+  {
+    "timestamp": "2026-01-09T02:34:17.383116+00:00",
+    "type": "memory",
+    "content": "[Storyrealms] alpha :: entity.upsert",
+    "context": {
+      "event_id": "1cd2c0e7-e05f-44cb-9c1b-996f684dec64",
+      "ts": "2026-01-09T02:34:17.382676+00:00",
+      "realm": "alpha",
+      "type": "entity.upsert",
+      "actor": "cli",
+      "payload": {
+        "entity_id": "npc:1",
+        "data": {
+          "kind": "npc",
+          "name": "Ira",
+          "mood": "neutral"
+        }
+      },
+      "meta": {}
+    }
+  },
+  {
+    "timestamp": "2026-01-09T02:34:17.384544+00:00",
+    "type": "memory",
+    "content": "[Storyrealms] alpha :: flag.set",
+    "context": {
+      "event_id": "f8271e5a-1217-4dbe-8181-84b071990f4b",
+      "ts": "2026-01-09T02:34:17.384303+00:00",
+      "realm": "alpha",
+      "type": "flag.set",
+      "actor": "cli",
+      "payload": {
+        "key": "scene_auto",
+        "value": "true"
+      },
+      "meta": {}
+    }
+  },
+  {
+    "timestamp": "2026-01-09T02:34:17.386963+00:00",
+    "type": "memory",
+    "content": "[Storyrealms] alpha :: flag.set",
+    "context": {
+      "event_id": "76d33500-8ad5-4aa6-8866-e685047976dd",
+      "ts": "2026-01-09T02:34:17.386595+00:00",
+      "realm": "alpha",
+      "type": "flag.set",
+      "actor": "cli",
+      "payload": {
+        "key": "scene_period",
+        "value": "2"
+      },
+      "meta": {}
+    }
+  },
+  {
+    "timestamp": "2026-01-09T02:34:17.388748+00:00",
+    "type": "memory",
+    "content": "[Storyrealms] alpha :: time.tick",
+    "context": {
+      "event_id": "d8e32df8-80a4-46de-b9f0-c1aa01400175",
+      "ts": "2026-01-09T02:34:17.388461+00:00",
+      "realm": "alpha",
+      "type": "time.tick",
+      "actor": "cli",
+      "payload": {
+        "delta": 1
+      },
+      "meta": {}
+    }
+  },
+  {
+    "timestamp": "2026-01-09T02:34:17.390491+00:00",
+    "type": "memory",
+    "content": "[Storyrealms] alpha :: entity.upsert",
+    "context": {
+      "event_id": "7b96924c-fe6f-4b4f-bca1-75b3008d1185",
+      "ts": "2026-01-09T02:34:17.390203+00:00",
+      "realm": "alpha",
+      "type": "entity.upsert",
+      "actor": "rule_engine",
+      "payload": {
+        "entity_id": "npc:1",
+        "data": {
+          "mood": "pensive"
+        }
+      },
+      "meta": {
+        "derived_from": "d8e32df8-80a4-46de-b9f0-c1aa01400175",
+        "rule": "npc.mood_from_weather"
+      }
+    }
+  },
+  {
+    "timestamp": "2026-01-09T02:34:17.392100+00:00",
+    "type": "memory",
+    "content": "[Storyrealms] alpha :: npc.act",
+    "context": {
+      "event_id": "f884a88d-d509-41c7-8982-413955768938",
+      "ts": "2026-01-09T02:34:17.390214+00:00",
+      "realm": "alpha",
+      "type": "npc.act",
+      "actor": "rule_engine",
+      "payload": {
+        "entity_id": "npc:1",
+        "act": "observe_weather",
+        "mood": "pensive"
+      },
+      "meta": {
+        "derived_from": "d8e32df8-80a4-46de-b9f0-c1aa01400175",
+        "rule": "npc.mood_from_weather"
+      }
+    }
+  },
+  {
+    "timestamp": "2026-01-09T02:34:17.394074+00:00",
+    "type": "memory",
+    "content": "[Storyrealms] alpha :: flag.set",
+    "context": {
+      "event_id": "bf3f0018-bfd9-45b3-a9f8-671af4f269d4",
+      "ts": "2026-01-09T02:34:17.390224+00:00",
+      "realm": "alpha",
+      "type": "flag.set",
+      "actor": "rule_engine",
+      "payload": {
+        "key": "scene_index",
+        "value": 1
+      },
+      "meta": {
+        "derived_from": "d8e32df8-80a4-46de-b9f0-c1aa01400175",
+        "rule": "scene.auto_advance"
+      }
+    }
+  },
+  {
+    "timestamp": "2026-01-09T02:34:17.395861+00:00",
+    "type": "memory",
+    "content": "[Storyrealms] alpha :: time.tick",
+    "context": {
+      "event_id": "9ac1141b-373d-402a-a659-cec1a2ec6727",
+      "ts": "2026-01-09T02:34:17.395601+00:00",
+      "realm": "alpha",
+      "type": "time.tick",
+      "actor": "cli",
+      "payload": {
+        "delta": 1
+      },
+      "meta": {}
+    }
+  },
+  {
+    "timestamp": "2026-01-09T02:34:17.397896+00:00",
+    "type": "memory",
+    "content": "[Storyrealms] alpha :: entity.upsert",
+    "context": {
+      "event_id": "f33a6d09-ba6d-46ca-985a-c68dc8c09dbf",
+      "ts": "2026-01-09T02:34:17.397496+00:00",
+      "realm": "alpha",
+      "type": "entity.upsert",
+      "actor": "rule_engine",
+      "payload": {
+        "entity_id": "npc:1",
+        "data": {
+          "mood": "pensive"
+        }
+      },
+      "meta": {
+        "derived_from": "9ac1141b-373d-402a-a659-cec1a2ec6727",
+        "rule": "npc.mood_from_weather"
+      }
+    }
+  },
+  {
+    "timestamp": "2026-01-09T02:34:17.399715+00:00",
+    "type": "memory",
+    "content": "[Storyrealms] alpha :: npc.act",
+    "context": {
+      "event_id": "590f6f2a-c94b-4f0d-bcd8-f23cac7c99e0",
+      "ts": "2026-01-09T02:34:17.397512+00:00",
+      "realm": "alpha",
+      "type": "npc.act",
+      "actor": "rule_engine",
+      "payload": {
+        "entity_id": "npc:1",
+        "act": "observe_weather",
+        "mood": "pensive"
+      },
+      "meta": {
+        "derived_from": "9ac1141b-373d-402a-a659-cec1a2ec6727",
+        "rule": "npc.mood_from_weather"
+      }
+    }
+  },
+  {
+    "timestamp": "2026-01-09T02:34:17.401038+00:00",
+    "type": "memory",
+    "content": "[Storyrealms] alpha :: flag.set",
+    "context": {
+      "event_id": "b5099939-de95-4a17-8baa-4bfe96b0d42d",
+      "ts": "2026-01-09T02:34:17.397534+00:00",
+      "realm": "alpha",
+      "type": "flag.set",
+      "actor": "rule_engine",
+      "payload": {
+        "key": "scene_index",
+        "value": 2
+      },
+      "meta": {
+        "derived_from": "9ac1141b-373d-402a-a659-cec1a2ec6727",
+        "rule": "scene.auto_advance"
+      }
+    }
+  },
+  {
+    "timestamp": "2026-01-09T02:34:17.403081+00:00",
+    "type": "memory",
+    "content": "[Storyrealms] alpha :: scene.set",
+    "context": {
+      "event_id": "73d521af-50f6-4eab-873e-7c9999c4aa5c",
+      "ts": "2026-01-09T02:34:17.397541+00:00",
+      "realm": "alpha",
+      "type": "scene.set",
+      "actor": "rule_engine",
+      "payload": {
+        "scene": "scene:1"
+      },
+      "meta": {
+        "derived_from": "9ac1141b-373d-402a-a659-cec1a2ec6727",
+        "rule": "scene.auto_advance"
+      }
+    }
+  },
+  {
+    "timestamp": "2026-01-09T02:34:17.405196+00:00",
+    "type": "memory",
+    "content": "[Storyrealms] alpha :: narrative.beat",
+    "context": {
+      "event_id": "677cf5b4-3a55-44c8-a087-bccfef9058ea",
+      "ts": "2026-01-09T02:34:17.397547+00:00",
+      "realm": "alpha",
+      "type": "narrative.beat",
+      "actor": "rule_engine",
+      "payload": {
+        "beat": "scene_advanced",
+        "scene": "scene:1"
+      },
+      "meta": {
+        "derived_from": "9ac1141b-373d-402a-a659-cec1a2ec6727",
+        "rule": "scene.auto_advance"
+      }
+    }
   }
 ]

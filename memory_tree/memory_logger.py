@@ -1,7 +1,7 @@
 # memory_tree/memory_logger.py
 import json
 import os
-from datetime import datetime
+from datetime import datetime, timezone
 
 class MemoryLogger:
     def __init__(self, log_dir="memory_tree/logs"):
@@ -9,7 +9,8 @@ class MemoryLogger:
         self.log_file = os.path.join(log_dir, "memory_log.json")
 
     def log_event(self, event_type, content, context=None):
-        timestamp = datetime.utcnow().isoformat()
+        # Use timezone-aware UTC timestamps (avoids deprecated utcnow()).
+        timestamp = datetime.now(timezone.utc).isoformat()
         log_entry = {
             "timestamp": timestamp,
             "type": event_type,

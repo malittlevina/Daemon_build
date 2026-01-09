@@ -27,8 +27,10 @@ class StoryrealmsService:
     store: StoryrealmsStore = field(default_factory=StoryrealmsStore)
     bus: EventBus = field(default_factory=EventBus)
     rules: RuleEngine = field(default_factory=RuleEngine)
+    snapshot_every: int = 1
     current_realm: str = "default"
     _states: Dict[str, RealmState] = field(default_factory=dict)
+    _event_counts: Dict[str, int] = field(default_factory=dict)
 
     def __post_init__(self) -> None:
         # Default integrations are soft/optional.
@@ -141,8 +143,12 @@ class StoryrealmsService:
         self._states[event.realm] = new_state
 
         self.store.append_event(event)
-        # snapshot on every event for now; can be optimized later (N events).
-        self.store.save_snapshot(new_state)
+        # Snapshot cadence (default: every event).
+        n = int(self._event_counts.get(event.realm, 0)) + 1
+        self._event_counts[event.realm] = n
+        every = max(int(self.snapshot_every or 1), 1)
+        if n % every == 0:
+            self.store.save_snapshot(new_state)
 
         self.bus.publish(event)
 

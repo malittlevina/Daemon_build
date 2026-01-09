@@ -46,6 +46,22 @@ class StoryrealmsRouter:
         if cmd.name == "time.tick":
             return self.engine.tick(int(cmd.args.get("delta") or 1), realm=target_realm, actor=actor)
 
+        if cmd.name == "entity.show":
+            entity_id = str(cmd.args.get("entity_id") or "")
+            state = self.engine.query_state(realm=target_realm)["state"]
+            ent = (state.get("entities") or {}).get(entity_id)
+            return {"realm": target_realm, "entity_id": entity_id, "entity": ent}
+
+        if cmd.name == "npc.list":
+            state = self.engine.query_state(realm=target_realm)["state"]
+            entities = state.get("entities") or {}
+            npc_ids = []
+            for eid, data in entities.items():
+                if isinstance(data, dict) and (data.get("kind") == "npc" or str(eid).startswith("npc:")):
+                    npc_ids.append(eid)
+            npc_ids = sorted(npc_ids)
+            return {"realm": target_realm, "npcs": [{"id": eid, **(entities.get(eid) or {})} for eid in npc_ids]}
+
         # Default mapping: emit the command name as event type.
         return self.engine.emit_event(cmd.name, dict(cmd.args), realm=target_realm, actor=actor)
 

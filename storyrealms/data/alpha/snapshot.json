@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "realm": "alpha",
-  "time": 1,
+  "time": 3,
   "entities": {
     "npc:1": {
       "kind": "npc",
@@ -13,8 +13,11 @@
   "relationships": {},
   "flags": {
     "k": 1,
-    "weather": "rain"
+    "weather": "rain",
+    "scene_auto": "true",
+    "scene_period": "2",
+    "scene_index": 2
   },
-  "current_scene": null,
-  "last_event_id": "f24ac610-af62-4d34-95d3-3f4591d670d9"
+  "current_scene": "scene:1",
+  "last_event_id": "677cf5b4-3a55-44c8-a087-bccfef9058ea"
 }

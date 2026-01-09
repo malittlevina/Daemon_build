@@ -52,6 +52,8 @@ class StoryrealmsConsole:
                 "  scene set <scene>\n"
                 "  flag set <key> <value>\n"
                 "  entity set <id> k=v k=v ...\n"
+                "  entity show <id>\n"
+                "  npc list\n"
                 "  location set <id> k=v k=v ...\n"
                 "  scroll trigger <scroll name>\n"
             )
@@ -73,6 +75,37 @@ class StoryrealmsConsole:
                 f"  entities: {len(s.get('entities') or {})}\n"
                 f"  locations: {len(s.get('locations') or {})}\n"
             )
+
+        if name == "entity.show":
+            entity_id = str(args.get("entity_id") or "")
+            out = self.engine.query_state()
+            s = out["state"]
+            ent = (s.get("entities") or {}).get(entity_id)
+            if ent is None:
+                return f"[Storyrealms] entity not found: {entity_id}"
+            if not isinstance(ent, dict):
+                return f"[Storyrealms] entity {entity_id}: {ent}"
+            return f"[Storyrealms] entity {entity_id}:\n{_fmt_kv(ent, indent=2)}"
+
+        if name == "npc.list":
+            out = self.engine.query_state()
+            s = out["state"]
+            entities = s.get("entities") or {}
+            npc_ids = []
+            for eid, data in entities.items():
+                if isinstance(data, dict) and (data.get("kind") == "npc" or str(eid).startswith("npc:")):
+                    npc_ids.append(eid)
+            npc_ids = sorted(npc_ids)
+            if not npc_ids:
+                return "[Storyrealms] no NPCs"
+            lines = [f"[Storyrealms] NPCs ({len(npc_ids)}):"]
+            for eid in npc_ids:
+                d = entities.get(eid) or {}
+                if isinstance(d, dict):
+                    lines.append(f"  - {eid}: name={d.get('name')} mood={d.get('mood')}")
+                else:
+                    lines.append(f"  - {eid}: {d}")
+            return "\n".join(lines)
 
         if name == "realm.events":
             limit = args.get("limit", 50)

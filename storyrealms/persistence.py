@@ -17,6 +17,39 @@ def _atomic_write_json(path: str, data) -> None:
     os.replace(tmp, path)
 
 
+class _FileLock:
+    """
+    Best-effort advisory file lock (Linux: fcntl.flock).
+    Falls back to no-op if unavailable.
+    """
+
+    def __init__(self, lock_path: str):
+        self.lock_path = lock_path
+        self._fh = None
+
+    def __enter__(self):
+        try:
+            import fcntl  # linux/unix only
+
+            os.makedirs(os.path.dirname(self.lock_path), exist_ok=True)
+            self._fh = open(self.lock_path, "a+", encoding="utf-8")
+            fcntl.flock(self._fh.fileno(), fcntl.LOCK_EX)
+        except Exception:
+            self._fh = None
+        return self
+
+    def __exit__(self, exc_type, exc, tb):
+        try:
+            if self._fh is not None:
+                import fcntl
+
+                fcntl.flock(self._fh.fileno(), fcntl.LOCK_UN)
+                self._fh.close()
+        except Exception:
+            pass
+        self._fh = None
+
+
 @dataclass(slots=True)
 class StoryrealmsStore:
     """
@@ -32,6 +65,9 @@ class StoryrealmsStore:
         safe = realm.replace("/", "_").replace("\\", "_").strip() or "default"
         return os.path.join(self.base_dir, safe)
 
+    def lock_path(self, realm: str) -> str:
+        return os.path.join(self._realm_dir(realm), ".lock")
+
     def event_log_path(self, realm: str) -> str:
         return os.path.join(self._realm_dir(realm), "events.jsonl")
 
@@ -41,8 +77,9 @@ class StoryrealmsStore:
     def append_event(self, event: RealmEvent) -> None:
         path = self.event_log_path(event.realm)
         os.makedirs(os.path.dirname(path), exist_ok=True)
-        with open(path, "a", encoding="utf-8") as f:
-            f.write(json.dumps(event.to_dict(), ensure_ascii=False) + "\n")
+        with _FileLock(self.lock_path(event.realm)):
+            with open(path, "a", encoding="utf-8") as f:
+                f.write(json.dumps(event.to_dict(), ensure_ascii=False) + "\n")
 
     def iter_events(self, realm: str) -> Iterator[RealmEvent]:
         path = self.event_log_path(realm)
@@ -80,7 +117,8 @@ class StoryrealmsStore:
         return events[-n:]
 
     def save_snapshot(self, state: RealmState) -> None:
-        _atomic_write_json(self.snapshot_path(state.realm), state.to_dict())
+        with _FileLock(self.lock_path(state.realm)):
+            _atomic_write_json(self.snapshot_path(state.realm), state.to_dict())
 
     def load_snapshot(self, realm: str) -> Optional[RealmState]:
         path = self.snapshot_path(realm)

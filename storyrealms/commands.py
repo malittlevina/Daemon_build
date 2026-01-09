@@ -44,6 +44,8 @@ def parse_storyrealms_command(text: str) -> Optional[ParsedCommand]:
     - scene set <scene>
     - flag set <key> <value>
     - entity set <entity_id> k=v k=v ...
+    - entity show <entity_id>
+    - npc list
     - location set <location_id> k=v k=v ...
     - scroll trigger "<scroll name>"
     """
@@ -106,6 +108,13 @@ def parse_storyrealms_command(text: str) -> Optional[ParsedCommand]:
             k, v = _parse_kv(tok)
             data[k] = v
         return ParsedCommand("entity.upsert", {"entity_id": entity_id, "data": data})
+
+    if head == "entity" and len(rest) >= 2 and rest[0].lower() == "show":
+        entity_id = rest[1]
+        return ParsedCommand("entity.show", {"entity_id": entity_id})
+
+    if head == "npc" and rest and rest[0].lower() == "list":
+        return ParsedCommand("npc.list", {})
 
     if head == "location" and len(rest) >= 3 and rest[0].lower() == "set":
         location_id = rest[1]

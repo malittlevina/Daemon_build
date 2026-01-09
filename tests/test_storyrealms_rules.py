@@ -19,6 +19,22 @@ class TestStoryrealmsRules(unittest.TestCase):
             state = svc.query_state(realm="alpha")["state"]
             self.assertEqual(state["entities"]["npc:1"]["mood"], "pensive")
 
+    def test_scene_auto_advance_rule(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            store = StoryrealmsStore(base_dir=os.path.join(tmp, "data"))
+            svc = StoryrealmsService(store=store)
+            svc.enter_realm("alpha", actor="test")
+            svc.emit_event("flag.set", {"key": "scene_auto", "value": True}, actor="test")
+            svc.emit_event("flag.set", {"key": "scene_period", "value": 2}, actor="test")
+
+            svc.tick(1, actor="test")
+            s1 = svc.query_state(realm="alpha")["state"]
+            self.assertIsNone(s1.get("current_scene"))
+
+            svc.tick(1, actor="test")
+            s2 = svc.query_state(realm="alpha")["state"]
+            self.assertEqual(s2.get("current_scene"), "scene:1")
+
 
 if __name__ == "__main__":
     unittest.main()
