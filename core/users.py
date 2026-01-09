@@ -15,9 +15,11 @@ class UserManager(Module):
         self.registry = self.kernel.get_module("registry")
         self.kernel.log("UserManager", "Initialized (Secure Mode).")
         
-        # Ensure default admin exists
+        # Ensure default admin exists if not present
         if self.registry:
             if not self.registry.get("user:admin"):
+                self.kernel.log("UserManager", "Default admin not found. Creating...")
+                # We hardcode the initial creation to ensure it works
                 self.create_user("admin", "root", role="superuser")
 
     def start(self):
@@ -54,13 +56,18 @@ class UserManager(Module):
 
         try:
             # Verify Hash
-            # Handle legacy plain text if migration needed, but for now assume new
             if "password_hash" in user_data:
                 self.hasher.verify(user_data["password_hash"], password)
+                # Rehash if needed (Argon2 feature)
+                if self.hasher.check_needs_rehash(user_data["password_hash"]):
+                    new_hash = self.hasher.hash(password)
+                    user_data["password_hash"] = new_hash
+                    self.registry.set(f"user:{username}", user_data)
             elif "password" in user_data:
                 # Auto-migrate legacy
                 if user_data["password"] == password:
-                    self.create_user(username, password, user_data["role"]) # Re-save with hash
+                    self.kernel.log("UserManager", f"Migrating legacy user {username} to secure hash.")
+                    self.create_user(username, password, user_data["role"]) 
                 else:
                     return None
             
@@ -87,7 +94,8 @@ class UserManager(Module):
 
     def logout(self):
         if self.current_user:
-            del self.sessions[self.current_user["id"]]
+            if self.current_user["id"] in self.sessions:
+                del self.sessions[self.current_user["id"]]
             self.kernel.log("UserManager", f"User {self.current_user['username']} logged out.")
             self.current_user = None
 

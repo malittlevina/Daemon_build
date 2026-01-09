@@ -40,4 +40,7 @@ def load_kernel_services(kernel):
     kernel.register_module("interface", Interface(kernel, port=9999))
     kernel.register_module("xr_server", XRServer(kernel))
     
+    from core.p2p import P2P
+    kernel.register_module("p2p", P2P(kernel))
+    
     kernel.log("Boot", "Kernel Services Loaded.")

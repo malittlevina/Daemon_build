@@ -42,19 +42,24 @@ class VFS(Module):
 
     def _check_permission(self, path, mode="r"):
         users = self.kernel.get_module("users")
-        if not users: return True # No user system loaded, allow all (boot mode)
+        if not users: return True # Boot mode
         
         user = users.get_current_user()
         role = user.get("role", "guest")
         
-        # Admin can do anything
+        # Admin Override
         if role == "superuser":
             return True
             
         # Protect System Files
         for protected in self.protected_paths:
-            if protected in path:
-                if mode == "w": return False # Read-only for system files
+            # Need to be smarter about path matching
+            # protected is "core", path might be "/workspace/core/vfs.py"
+            # We check if the protected token is in the relative path segments
+            if protected in path.split(os.path.sep):
+                if mode == "w" or mode == "d": # Write/Delete blocked
+                    return False
+                # Read allowed? Maybe strict mode later.
         
         return True
 
