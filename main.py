@@ -27,6 +27,9 @@ if __name__ == "__main__":
     memory = MemoryLogger()
     rituals = RitualRegistry()
     
+    # Register modules with Unimind
+    unimind.register("emotion", emotions)
+    
     # Designate Story Realms as the World Engine
     world_engine = StoryRealmsEngine()
     print("[Daemon] World Engine (Story Realms) active.")
