@@ -10,6 +10,7 @@ from optimizer.auto_upgrade import run_auto_optimization
 from scrolls.scroll_engine import ScrollEngine
 ## from sensors.vision import VisionSensor
 from nlu.nlu_engine import NLUEngine
+from storyrealms.engine import StoryRealmsEngine
 import subprocess
 import json
 import time
@@ -25,12 +26,18 @@ if __name__ == "__main__":
     emotions = EmotionEngine()
     memory = MemoryLogger()
     rituals = RitualRegistry()
-    scrolls = ScrollEngine()
+    
+    # Designate Story Realms as the World Engine
+    world_engine = StoryRealmsEngine()
+    print("[Daemon] World Engine (Story Realms) active.")
+
+    scrolls = ScrollEngine(world_engine=world_engine)
     # vision = VisionSensor()
     personality = PersonalityTracker()
+
     try:
         global nlu
-        nlu = NLUEngine(scrolls)
+        nlu = NLUEngine(scrolls, world_engine=world_engine)
     except Exception as e:
         print(f"[Daemon Init Error] Failed to initialize NLU: {e}")
         nlu = None

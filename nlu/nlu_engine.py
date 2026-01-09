@@ -1,21 +1,39 @@
 import os
 import datetime
-from codex.codex_engine import log_codex_entry
-from code.code_generator import propose_improvements
-from unimind.reasoner import symbolic_reasoning_chain
+# from codex.codex_engine import log_codex_entry
+# from code.code_generator import propose_improvements
+# from unimind.reasoner import symbolic_reasoning_chain
 from lam.symbolic_state import update_state_with_input
 
 REFLECTION_LOG = "logs/self_reflection.log"
 MAX_LOG_SIZE = 10000  # characters
 
 class NLUEngine:
-    def __init__(self):
+    def __init__(self, scrolls=None, world_engine=None):
+        self.scrolls = scrolls
+        self.world_engine = world_engine
         self.learned_phrases = {}
         self.use_ollama_fallback = True
 
     def interpret(self, user_input):
         if user_input in self.learned_phrases:
             return self.learned_phrases[user_input]
+        
+        # Check world context
+        if self.world_engine:
+            context = self.world_engine.get_current_context()
+            # In a real implementation, we would use this context to bias the NLU
+            # For now, we just print it to show awareness
+            # print(f"[NLU Context] {context}")
+
+        # Basic command handling via scrolls
+        if self.scrolls:
+            # Simple keyword matching for scrolls
+            if "change realm" in user_input.lower():
+                parts = user_input.split("to")
+                if len(parts) > 1:
+                    realm_name = parts[1].strip()
+                    return self.scrolls.invoke("change realm", realm_name)
 
         # Pattern match for known phrases
         if "learn python" in user_input.lower():

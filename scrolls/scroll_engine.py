@@ -14,15 +14,34 @@ class ScrollTrigger:
                 action.execute(event)
 
 class ScrollEngine:
-    def __init__(self):
+    def __init__(self, world_engine=None):
+        self.world_engine = world_engine
         self.scrolls = {
             "optimize self": self._optimize_self,
             "study topic": self._study_topic,
             "trigger api scroll": self._trigger_api_scroll,
             "run task": self._run_task,
-            "multi step plan": self._multi_step_plan
+            "multi step plan": self._multi_step_plan,
+            "change realm": self._change_realm
         }
         self.active_scrolls = []
+
+    def _change_realm(self, realm_name):
+        if not realm_name:
+            return "[Realm] No realm name provided."
+            
+        if self.world_engine:
+            if self.world_engine.enter_realm(realm_name):
+                return f"[Realm] Entered realm: {realm_name}"
+            else:
+                return f"[Realm] Could not find realm: {realm_name}"
+        else:
+            # Fallback if not injected, try to load directly
+            from storyrealms.engine import StoryRealmsEngine
+            temp_engine = StoryRealmsEngine()
+            if temp_engine.enter_realm(realm_name):
+                return f"[Realm] Entered realm: {realm_name} (Warning: Temporary Engine Instance)"
+            return f"[Realm] Could not find realm: {realm_name}"
 
     def invoke(self, name, *args, **kwargs):
         if name in self.scrolls:
