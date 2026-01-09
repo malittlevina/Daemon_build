@@ -16,6 +16,16 @@ class Kernel:
         
         self.log("Kernel", "Kernel Infrastructure Initialized.")
 
+    def handle_panic(self, module_name, exception):
+        """Global Panic Handler."""
+        self.log("Kernel", f"PANIC in {module_name}: {exception}", level="critical")
+        # Could trigger safe mode or restart module
+        homeostasis = self.get_module("homeostasis")
+        if homeostasis:
+            # Manually inject error logic since we don't have a direct method exposed
+            homeostasis.error_count += 1
+            homeostasis.health_score -= 20
+
     def log(self, source, message, level="info"):
         if level == "info":
             self.logger.info(source, message)

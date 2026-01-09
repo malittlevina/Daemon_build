@@ -77,4 +77,7 @@ def load_daemon_services(kernel):
     kernel.register_module("architect", Architect(kernel))
     kernel.register_module("sims", SimController(kernel))
 
+    from apps.monitor import SystemMonitor
+    kernel.register_module("monitor", SystemMonitor(kernel))
+
     kernel.log("Boot", "Daemon Intelligence Loaded.")

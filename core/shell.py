@@ -74,6 +74,12 @@ class Shell(Module):
             self._read_file(parts)
         elif command == "monitor":
             self._show_monitor()
+        elif command == "tui":
+            monitor = self.kernel.get_module("monitor")
+            if monitor:
+                monitor.launch()
+            else:
+                print(f"{C_RED}System Monitor module not loaded.{C_RESET}")
         else:
             # Fallback to NLU
             self._dispatch_nlu(user_input)

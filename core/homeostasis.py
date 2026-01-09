@@ -13,6 +13,21 @@ class Homeostasis(Module):
         # Listen to all logs to catch errors
         # Note: In a real system, we'd hook into the Logger directly or use a specific event.
         # For now, we assume modules dispatch 'system:error' or we poll status.
+
+    def handle_error(self, module_name, exception):
+        """Centralized Error Handler"""
+        self.kernel.log(module_name, f"CRITICAL ERROR: {exception}", level="error")
+        
+        # Dispatch Panic Event
+        self.kernel.dispatch("system:panic", {"module": module_name, "error": str(exception)})
+        
+        # Automatic Recovery Logic
+        homeostasis = self.kernel.get_module("homeostasis")
+        if homeostasis:
+            homeostasis.error_count += 1
+            homeostasis.health_score -= 10
+            self.kernel.log("ErrorHandler", "Notified Homeostasis of failure.")
+            # In future: homeostasis.attempt_restart(module_name)
         
     def start(self):
         # Register a background check
