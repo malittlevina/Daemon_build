@@ -42,9 +42,29 @@ class ScrollEngine:
             "sentry scan": self._sentry_scan,
             "exorcise": self._exorcise,
             "create backup": self._create_backup,
-            "restore backup": self._restore_backup
+            "restore backup": self._restore_backup,
+            "construct move": self._construct_move,
+            "construct delete": self._construct_delete,
+            "scribe legends": self._scribe_legends
         }
         self.active_scrolls = []
+
+    def _scribe_legends(self, target_path="."):
+        from codex.bard import TheBard
+        bard = TheBard()
+        return bard.scribe_legend(target_path)
+
+    def _construct_move(self, realm_name, artifact, target_region):
+        if not self.world_engine: return "[Scroll] No World Engine."
+        from storyrealms.construct import Construct
+        construct = Construct(self.world_engine)
+        return construct.move_artifact(realm_name, artifact, target_region)
+
+    def _construct_delete(self, realm_name, artifact):
+        if not self.world_engine: return "[Scroll] No World Engine."
+        from storyrealms.construct import Construct
+        construct = Construct(self.world_engine)
+        return construct.delete_artifact(realm_name, artifact)
 
     def _create_backup(self):
         from guardian.backup_agent import BackupAgent
