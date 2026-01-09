@@ -13,6 +13,11 @@ from nlu.nlu_engine import NLUEngine
 from storyrealms.ux_console import StoryrealmsConsole
 from storyrealms.service import StoryrealmsService
 from storyrealms.http_api import start_storyrealms_http_server
+from core.kernel import Kernel
+from storyrealms.kernel_adapter import StoryrealmsKernelAdapter
+from scrolls.kernel_adapter import ScrollsKernelAdapter
+from memory_tree.kernel_adapter import MemoryKernelAdapter
+from nlu.kernel_adapter import NluKernelAdapter
 import subprocess
 import json
 import time
@@ -31,6 +36,10 @@ if __name__ == "__main__":
     scrolls = ScrollEngine()
     storyrealms = StoryrealmsService()
     story_ux = StoryrealmsConsole(storyrealms)
+    kernel = Kernel()
+    kernel.register("storyrealms", StoryrealmsKernelAdapter(storyrealms, story_ux))
+    kernel.register("scrolls", ScrollsKernelAdapter(scrolls))
+    kernel.register("memory", MemoryKernelAdapter(memory))
     if os.environ.get("STORYREALMS_HTTP") == "1":
         host = os.environ.get("STORYREALMS_HTTP_HOST", "127.0.0.1")
         port = int(os.environ.get("STORYREALMS_HTTP_PORT", "7777"))
@@ -41,6 +50,7 @@ if __name__ == "__main__":
     try:
         global nlu
         nlu = NLUEngine(scrolls, storyrealms=storyrealms)
+        kernel.register("nlu", NluKernelAdapter(nlu))
     except Exception as e:
         print(f"[Daemon Init Error] Failed to initialize NLU: {e}")
         nlu = None
@@ -103,25 +113,27 @@ if __name__ == "__main__":
                 personality.log_state()
                 unimind.reflect()
             else:
-                result = None
-                # Storyrealms UX takes precedence over NLU for explicit world commands.
-                ux_out = story_ux.handle(user_input)
-                if ux_out is not None:
-                    print(ux_out)
-                    continue
-                if nlu:
-                    try:
-                        result = nlu.interpret(user_input)
-                        if result is None or (isinstance(result, str) and result.startswith("[NLUEngine] No known intent")):
+                # Kernel is the single routing point.
+                try:
+                    kr = kernel.handle_text(user_input, actor="cli", source="cli")
+                    if kr.text:
+                        print(kr.text)
+                    elif kr.ok and kr.data:
+                        print(f"[Daemon] Result: {kr.data.get('result', kr.data)}")
+                    else:
+                        # Fall back to legacy behavior for anything kernel doesn't handle.
+                        result = None
+                        if nlu:
+                            result = nlu.interpret(user_input)
+                            if result is None or (isinstance(result, str) and result.startswith("[NLUEngine] No known intent")):
+                                result = handle_fallback(user_input)
+                        else:
                             result = handle_fallback(user_input)
-                    except Exception as e:
-                        print(f"[Daemon Error] NLU failed: {e}")
-                        result = handle_fallback(user_input)
-                else:
-                    print("[Daemon Warning] NLU not available. Using fallback response.")
+                        print(f"[Daemon] NLU Result: {result}")
+                except Exception as e:
+                    print(f"[Daemon Kernel Error] {e}")
                     result = handle_fallback(user_input)
-
-                print(f"[Daemon] NLU Result: {result}")
+                    print(f"[Daemon] NLU Result: {result}")
 
         except Exception as loop_error:
             print(f"[Daemon Critical Loop Error] {loop_error}")

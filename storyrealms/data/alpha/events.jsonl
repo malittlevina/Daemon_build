@@ -1,0 +1,1 @@
+{"id": "1b3cf1b8-dae7-49db-b660-3f395e69c7f6", "ts": "2026-01-09T03:49:59.985854+00:00", "type": "realm.entered", "realm": "alpha", "actor": "cli", "payload": {}, "meta": {"source": "enter_realm", "actor_role": "user_agent", "intent_id": "df3eb023-ec11-4f9c-bcd1-7806faf5f651"}}
