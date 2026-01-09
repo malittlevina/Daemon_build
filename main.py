@@ -107,6 +107,9 @@ def main():
     from core.process import ProcessManager
     kernel.register_module("process_manager", ProcessManager(kernel))
 
+    from core.network import NetworkManager
+    kernel.register_module("network", NetworkManager(kernel))
+
     # Initialize System
     kernel.initialize()
 
