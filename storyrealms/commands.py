@@ -47,6 +47,7 @@ def parse_storyrealms_command(text: str) -> Optional[ParsedCommand]:
     - entity show <entity_id>
     - npc list
     - npc goal add <npc_id> <goal>
+    - npc plan show <npc_id>
     - location set <location_id> k=v k=v ...
     - scroll trigger "<scroll name>"
     """
@@ -123,6 +124,10 @@ def parse_storyrealms_command(text: str) -> Optional[ParsedCommand]:
         npc_id = rest[2]
         goal = " ".join(rest[3:]).strip()
         return ParsedCommand("npc.goal.set", {"entity_id": npc_id, "goal": goal})
+
+    if head == "npc" and len(rest) >= 3 and rest[0].lower() == "plan" and rest[1].lower() == "show":
+        npc_id = rest[2]
+        return ParsedCommand("npc.plan.show", {"entity_id": npc_id})
 
     if head == "location" and len(rest) >= 3 and rest[0].lower() == "set":
         location_id = rest[1]

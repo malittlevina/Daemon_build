@@ -91,6 +91,41 @@ def apply_event(state: RealmState, event: RealmEvent) -> RealmState:
             s.entities[entity_id] = _deep_merge(existing, data)
         return s
 
+    if et == "npc.plan.set":
+        entity_id = p.get("entity_id")
+        steps = p.get("steps")
+        goal = p.get("goal")
+        try:
+            idx = int(p.get("idx") or 0)
+        except Exception:
+            idx = 0
+        if isinstance(entity_id, str) and entity_id and isinstance(steps, list):
+            existing = deepcopy(s.entities.get(entity_id) or {})
+            if not isinstance(existing, dict):
+                existing = {}
+            existing["plan"] = {"goal": goal, "steps": list(steps), "idx": max(idx, 0)}
+            s.entities[entity_id] = existing
+        return s
+
+    if et == "npc.plan.advance":
+        entity_id = p.get("entity_id")
+        try:
+            delta = int(p.get("delta") or 1)
+        except Exception:
+            delta = 1
+        if isinstance(entity_id, str) and entity_id:
+            existing = deepcopy(s.entities.get(entity_id) or {})
+            if isinstance(existing, dict) and isinstance(existing.get("plan"), dict):
+                plan = deepcopy(existing["plan"])
+                try:
+                    idx = int(plan.get("idx") or 0)
+                except Exception:
+                    idx = 0
+                plan["idx"] = max(idx + max(delta, 0), 0)
+                existing["plan"] = plan
+                s.entities[entity_id] = existing
+        return s
+
     if et == "location.upsert":
         location_id = p.get("location_id")
         data = p.get("data") or {}

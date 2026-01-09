@@ -25,12 +25,20 @@ def build_realm_view(state: RealmState, events: Optional[List[RealmEvent]] = Non
     for nid in npc_ids[:20]:
         d = (state.entities or {}).get(nid) or {}
         if isinstance(d, dict):
+            plan = d.get("plan") if isinstance(d.get("plan"), dict) else None
             npc_cards.append(
                 {
                     "id": nid,
                     "name": d.get("name"),
                     "mood": d.get("mood"),
                     "loc": d.get("location"),
+                    "plan": {
+                        "goal": plan.get("goal") if plan else None,
+                        "idx": plan.get("idx") if plan else None,
+                        "steps": plan.get("steps") if plan else None,
+                    }
+                    if plan
+                    else None,
                 }
             )
         else:

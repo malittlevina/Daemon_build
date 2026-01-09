@@ -46,6 +46,11 @@ class TestStoryrealmsRules(unittest.TestCase):
             svc.tick(1, actor="test")
 
             state = svc.query_state(realm="alpha")["state"]
+            # Planner should have created a plan on npc:1 and advanced at least one step.
+            plan = state["entities"]["npc:1"].get("plan")
+            self.assertIsInstance(plan, dict)
+            self.assertIn("steps", plan)
+
             rel = state.get("relationships") or {}
             # Social physics should have created/adjusted trust between npc:1 and npc:2.
             self.assertIn("npc:1", rel)

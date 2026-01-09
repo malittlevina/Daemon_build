@@ -47,6 +47,8 @@ class PolicyEngine:
                 "entity.upsert",
                 "npc.intent",
                 "npc.act",
+                "npc.plan.set",
+                "npc.plan.advance",
                 "relationship.adjust",
                 "flag.set",
                 "scene.set",

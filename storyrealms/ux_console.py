@@ -56,6 +56,7 @@ class StoryrealmsConsole:
                 "  entity show <id>\n"
                 "  npc list\n"
                 "  npc goal add <npc_id> <goal>\n"
+                "  npc plan show <npc_id>\n"
                 "  location set <id> k=v k=v ...\n"
                 "  scroll trigger <scroll name>\n"
             )
@@ -120,6 +121,20 @@ class StoryrealmsConsole:
                 else:
                     lines.append(f"  - {eid}: {d}")
             return "\n".join(lines)
+
+        if name == "npc.plan.show":
+            entity_id = str(args.get("entity_id") or "")
+            out = self.engine.query_state()
+            ent = (out["state"].get("entities") or {}).get(entity_id)
+            if not isinstance(ent, dict) or not isinstance(ent.get("plan"), dict):
+                return f"[Storyrealms] no plan for {entity_id}"
+            plan = ent["plan"]
+            return (
+                f"[Storyrealms] plan for {entity_id}:\n"
+                f"  goal: {plan.get('goal')}\n"
+                f"  idx: {plan.get('idx')}\n"
+                f"  steps: {plan.get('steps')}\n"
+            )
 
         if name == "realm.events":
             limit = args.get("limit", 50)

@@ -12,6 +12,7 @@ from scrolls.scroll_engine import ScrollEngine
 from nlu.nlu_engine import NLUEngine
 from storyrealms.ux_console import StoryrealmsConsole
 from storyrealms.service import StoryrealmsService
+from storyrealms.http_api import start_storyrealms_http_server
 import subprocess
 import json
 import time
@@ -30,6 +31,11 @@ if __name__ == "__main__":
     scrolls = ScrollEngine()
     storyrealms = StoryrealmsService()
     story_ux = StoryrealmsConsole(storyrealms)
+    if os.environ.get("STORYREALMS_HTTP") == "1":
+        host = os.environ.get("STORYREALMS_HTTP_HOST", "127.0.0.1")
+        port = int(os.environ.get("STORYREALMS_HTTP_PORT", "7777"))
+        start_storyrealms_http_server(storyrealms, host=host, port=port, daemon=True)
+        print(f"[Storyrealms] HTTP API listening on {host}:{port}")
     # vision = VisionSensor()
     personality = PersonalityTracker()
     try:

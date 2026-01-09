@@ -65,6 +65,13 @@ class StoryrealmsRouter:
             npc_ids = sorted(npc_ids)
             return {"realm": target_realm, "npcs": [{"id": eid, **(entities.get(eid) or {})} for eid in npc_ids]}
 
+        if cmd.name == "npc.plan.show":
+            entity_id = str(cmd.args.get("entity_id") or "")
+            state = self.engine.query_state(realm=target_realm)["state"]
+            ent = (state.get("entities") or {}).get(entity_id)
+            plan = ent.get("plan") if isinstance(ent, dict) else None
+            return {"realm": target_realm, "entity_id": entity_id, "plan": plan}
+
         # Default mapping: emit the command name as event type.
         return self.engine.emit_event(cmd.name, dict(cmd.args), realm=target_realm, actor=actor)
 

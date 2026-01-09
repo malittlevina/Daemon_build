@@ -192,6 +192,139 @@ class NpcGoalPlannerRule:
 
 
 @dataclass(slots=True)
+class NpcPlanningAndActingRule:
+    """
+    Richer deterministic NPC planner:
+    - if NPC has a goal and no active plan: create plan (npc.plan.set)
+    - if NPC has an active plan: emit one npc.act per tick and advance plan (npc.plan.advance)
+
+    Plan is stored in entity state under `plan`:
+      {"goal": <str>, "steps": [<str>], "idx": <int>}
+    """
+
+    name: str = "npc.planning_and_acting"
+
+    def on_event(self, state: RealmState, event: RealmEvent) -> List[RealmEvent]:
+        if event.type != "time.tick":
+            return []
+
+        npc_goals = (state.goals or {}).get("npc") or {}
+        if not isinstance(npc_goals, dict):
+            return []
+
+        derived: List[RealmEvent] = []
+        npc_ids = _npc_ids(state)
+        for npc_id in npc_ids:
+            goals = npc_goals.get(npc_id)
+            if not isinstance(goals, list) or not goals:
+                continue
+
+            npc = (state.entities or {}).get(npc_id) or {}
+            plan = npc.get("plan") if isinstance(npc, dict) else None
+
+            goal = str(goals[0])
+
+            if not isinstance(plan, dict) or not isinstance(plan.get("steps"), list):
+                # Build a deterministic plan.
+                steps: List[str]
+                target_id = None
+                if goal == "socialize":
+                    others = [x for x in npc_ids if x != npc_id]
+                    target_id = others[0] if others else None
+                    if target_id:
+                        steps = [f"approach:{target_id}", f"greet:{target_id}", f"talk:{target_id}"]
+                    else:
+                        steps = ["idle"]
+                elif goal == "explore":
+                    loc_ids = sorted((state.locations or {}).keys())
+                    loc = loc_ids[0] if loc_ids else "loc:0"
+                    if not loc_ids:
+                        derived.append(
+                            RealmEvent(
+                                type="location.upsert",
+                                realm=state.realm,
+                                payload={"location_id": loc, "data": {"name": "Unknown"}},  # deterministic default
+                                meta={"derived_from": event.id, "rule": self.name},
+                                actor="rule_engine",
+                            )
+                        )
+                    steps = [f"wander:{loc}", "observe"]
+                else:
+                    steps = ["idle"]
+
+                derived.append(
+                    RealmEvent(
+                        type="npc.intent",
+                        realm=state.realm,
+                        payload={"entity_id": npc_id, "goal": goal, "intent": "execute_plan"},
+                        meta={"derived_from": event.id, "rule": self.name},
+                        actor="rule_engine",
+                    )
+                )
+                derived.append(
+                    RealmEvent(
+                        type="npc.plan.set",
+                        realm=state.realm,
+                        payload={"entity_id": npc_id, "goal": goal, "steps": steps, "idx": 0},
+                        meta={"derived_from": event.id, "rule": self.name},
+                        actor="rule_engine",
+                    )
+                )
+                continue
+
+            steps = plan.get("steps") or []
+            try:
+                idx = int(plan.get("idx") or 0)
+            except Exception:
+                idx = 0
+            if not isinstance(steps, list) or idx >= len(steps):
+                continue
+            step = str(steps[idx])
+
+            act = step
+            target_id = None
+            location_id = None
+            if ":" in step:
+                act, rest = step.split(":", 1)
+                if act in ("approach", "greet", "talk"):
+                    target_id = rest
+                if act == "wander":
+                    location_id = rest
+
+            derived.append(
+                RealmEvent(
+                    type="npc.act",
+                    realm=state.realm,
+                    payload={"entity_id": npc_id, "act": act, "target_id": target_id, "location_id": location_id},
+                    meta={"derived_from": event.id, "rule": self.name, "plan_idx": idx},
+                    actor="rule_engine",
+                )
+            )
+            if act == "wander" and location_id:
+                derived.append(
+                    RealmEvent(
+                        type="entity.upsert",
+                        realm=state.realm,
+                        payload={"entity_id": npc_id, "data": {"location": location_id}},
+                        meta={"derived_from": event.id, "rule": self.name},
+                        actor="rule_engine",
+                    )
+                )
+
+            derived.append(
+                RealmEvent(
+                    type="npc.plan.advance",
+                    realm=state.realm,
+                    payload={"entity_id": npc_id, "delta": 1},
+                    meta={"derived_from": event.id, "rule": self.name},
+                    actor="rule_engine",
+                )
+            )
+
+        return derived
+
+
+@dataclass(slots=True)
 class SocialPhysicsRule:
     """
     Relationship + social physics:
@@ -234,7 +367,9 @@ class RuleEngine:
         default_factory=lambda: [
             NpcMoodFromWeatherRule(),
             SceneAutoAdvanceRule(),
+            # Keep the old marker rule for now, but planner below is authoritative.
             NpcGoalPlannerRule(),
+            NpcPlanningAndActingRule(),
             SocialPhysicsRule(),
         ]
     )

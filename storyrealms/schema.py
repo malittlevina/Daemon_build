@@ -67,6 +67,23 @@ def validate_npc_goal_set(ev: RealmEvent) -> None:
     _require_str(p.get("goal"), "payload.goal")
 
 
+def validate_npc_plan_set(ev: RealmEvent) -> None:
+    p = _require_dict(ev.payload, "payload")
+    _require_str(p.get("entity_id"), "payload.entity_id")
+    steps = p.get("steps")
+    if not isinstance(steps, list):
+        raise SchemaError("payload.steps must be a list")
+
+
+def validate_npc_plan_advance(ev: RealmEvent) -> None:
+    p = _require_dict(ev.payload, "payload")
+    _require_str(p.get("entity_id"), "payload.entity_id")
+    try:
+        int(p.get("delta") or 1)
+    except Exception:
+        raise SchemaError("payload.delta must be int-like")
+
+
 DEFAULT_VALIDATORS: Dict[str, Validator] = {
     "flag.set": validate_flag_set,
     "entity.upsert": validate_entity_upsert,
@@ -74,6 +91,8 @@ DEFAULT_VALIDATORS: Dict[str, Validator] = {
     "scene.set": validate_scene_set,
     "relationship.adjust": validate_relationship_adjust,
     "npc.goal.set": validate_npc_goal_set,
+    "npc.plan.set": validate_npc_plan_set,
+    "npc.plan.advance": validate_npc_plan_advance,
 }
 
 
