@@ -137,6 +137,12 @@ def main():
     from apps.sims import SimController
     kernel.register_module("sims", SimController(kernel))
 
+    from world_engine.spatial_map import SpatialMap
+    kernel.register_module("spatial_map", SpatialMap(kernel))
+
+    from bridge.xr_server import XRServer
+    kernel.register_module("xr_server", XRServer(kernel))
+
     # Initialize System
     kernel.initialize()
 

@@ -23,6 +23,16 @@ class Collider(Component):
         self.is_trigger = is_trigger # If True, detects overlap but doesn't block movement
         self.collisions = [] # List of entity UIDs currently colliding with
 
+class SpatialAnchor(Component):
+    """
+    Links this entity to a persistent real-world location.
+    anchor_id: The UUID provided by the AR/Cloud Anchor service.
+    offset: Relative transform from the anchor.
+    """
+    def __init__(self, anchor_id: str, offset_pos=(0,0,0)):
+        self.anchor_id = anchor_id
+        self.offset_pos = list(offset_pos)
+
 # --- Identity & Logic ---
 
 class Name(Component):
@@ -64,3 +74,10 @@ class Light(Component):
         self.color = color
         self.intensity = intensity
         self.type = type
+
+class UIWindow(Component):
+    """Represents a floating GUI window in 3D space."""
+    def __init__(self, pid: str, width=1.0, height=0.7):
+        self.pid = pid
+        self.width = width
+        self.height = height
