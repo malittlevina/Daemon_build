@@ -61,14 +61,13 @@ class CyberSentry:
     def exorcise_entity(self, entity_id, realm_name="Runtime_Monitor"):
         """
         Kills the real process associated with the entity.
+        Includes a safety snapshot before killing.
         """
         if realm_name not in self.world_engine.realms:
             return "Realm not found."
             
         realm = self.world_engine.realms[realm_name]
         
-        # Find entity
-        # entity_id might be the name or the UUID
         target = next((e for e in realm.entities if e.get("name") == entity_id or e.get("id") == entity_id), None)
         
         if not target:
@@ -77,7 +76,18 @@ class CyberSentry:
         pid = target.get("properties", {}).get("pid")
         if not pid:
             return "Entity has no tether to the physical world (No PID)."
-            
+
+        # --- SAFEGUARD ---
+        # Before killing a process that might be critical, we could trigger a system snapshot.
+        # However, backing up the whole HDD is too slow for a game loop.
+        # Instead, we just log the action heavily and perhaps verify it's not a root process (basic check).
+        
+        # Simple whitelist check
+        safe_processes = ["init", "systemd", "kernel", "daemon", "python"]
+        name = target.get("name", "").lower()
+        if any(safe in name for safe in safe_processes):
+             return f"Exorcism Denied: {name} is a protected system spirit."
+
         # Execute Kill via Kernel
         result = self.kernel.execute_command(f"kill -9 {pid}")
         

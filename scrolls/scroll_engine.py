@@ -40,9 +40,21 @@ class ScrollEngine:
             "sync reality": self._sync_reality,
             "generate reality quest": self._generate_reality_quest,
             "sentry scan": self._sentry_scan,
-            "exorcise": self._exorcise
+            "exorcise": self._exorcise,
+            "create backup": self._create_backup,
+            "restore backup": self._restore_backup
         }
         self.active_scrolls = []
+
+    def _create_backup(self):
+        from guardian.backup_agent import BackupAgent
+        agent = BackupAgent()
+        return agent.create_backup()
+
+    def _restore_backup(self, backup_name=None):
+        from guardian.backup_agent import BackupAgent
+        agent = BackupAgent()
+        return agent.restore_backup(backup_name)
 
     def _sentry_scan(self):
         if not self.world_engine: return "[Scroll] No World Engine."

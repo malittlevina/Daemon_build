@@ -49,6 +49,53 @@ class BackupAgent:
         except Exception as e:
             return f"Backup failed: {e}"
 
+    def restore_backup(self, backup_name=None):
+        """
+        Restores the system state from a backup.
+        If backup_name is None, restores the latest backup.
+        """
+        try:
+            # 1. Select Backup
+            if not backup_name:
+                files = [f for f in os.listdir(self.backup_dir) if f.endswith('.zip') or os.path.isdir(os.path.join(self.backup_dir, f))]
+                if not files:
+                    return "No backups found."
+                # Sort by time
+                files.sort(key=lambda x: os.path.getmtime(os.path.join(self.backup_dir, x)), reverse=True)
+                backup_name = files[0]
+
+            backup_path = os.path.join(self.backup_dir, backup_name)
+            if not os.path.exists(backup_path):
+                return f"Backup '{backup_name}' not found."
+
+            print(f"[BackupAgent] Restoring from {backup_name}...")
+
+            # 2. Safety Check: Verify Integrity (Simple unzip test)
+            if zipfile.is_zipfile(backup_path):
+                with zipfile.ZipFile(backup_path, 'r') as zip_ref:
+                    if zip_ref.testzip() is not None:
+                        return "Backup corrupted."
+                        
+                    # 3. Restore
+                    # We extract to current directory (self.src)
+                    # Warning: This overwrites files.
+                    zip_ref.extractall(self.src)
+            else:
+                 # It's a directory
+                 shutil.copytree(backup_path, self.src, dirs_exist_ok=True)
+
+            return f"System restored from {backup_name}."
+
+        except Exception as e:
+            return f"Restore failed: {e}"
+
+    def list_backups(self):
+        try:
+            files = [f for f in os.listdir(self.backup_dir) if not f.startswith('.')]
+            return sorted(files)
+        except:
+            return []
+
     def _prune_old_backups(self):
         # List all backups
         files = [os.path.join(self.backup_dir, f) for f in os.listdir(self.backup_dir)]
