@@ -18,13 +18,21 @@ class WorldEngine(Module):
         self.tick_rate = 1.0 / self.target_fps
         self.serializer = WorldSerializer()
 
+from world_engine.hud import HUDSystem
+
+class WorldEngine(Module):
+    def __init__(self, kernel):
+        super().__init__(kernel)
+        # ... existing init ...
+
     def initialize(self):
         # Register default systems
         self.add_system(MovementSystem(self))
         self.add_system(CollisionSystem(self))
-        self.add_system(SemanticPhysicsSystem(self)) # Added Semantic Logic
+        self.add_system(SemanticPhysicsSystem(self))
         self.add_system(PhysicsSystem(self))
         self.add_system(ScriptSystem(self))
+        self.add_system(HUDSystem(self)) # Added HUD
         self.kernel.log("WorldEngine", "Initialized.")
 
     def add_system(self, system):
@@ -63,8 +71,15 @@ class WorldEngine(Module):
 
     # --- Public API for Daemon ---
 
-    def create_object(self, name: str, position=(0,0,0)):
-        """Create a basic game object with a Transform."""
+    def create_hud_window(self, title, content):
+        """Public API to spawn a floating UI window."""
+        uid = self.create_object(f"HUD: {title}", position=(0, 1.5, 2))
+        entity = self.entity_manager.get_entity(uid)
+        entity.add_component(UIWindow(pid="sys", width=0.8, height=0.5))
+        # Add visual mesh for the window
+        entity.add_component(Mesh(asset_id="plane_16:9", material_id="glass_ui"))
+        self.kernel.log("WorldEngine", f"Spawned HUD Window: {title}")
+        return uid
         entity = self.entity_manager.create_entity()
         entity.add_component(Name(name))
         entity.add_component(Transform(position))
