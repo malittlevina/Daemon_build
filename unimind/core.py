@@ -8,6 +8,7 @@ from typing import Any, Dict, List, Optional
 
 from unimind.context import ConceptGraph, UnimindContext, UnimindPlan, UnimindSignals
 from unimind.decision_matrix import DecisionMatrix
+from unimind.brain import Brain
 from unimind.subsystems import EthicsSubsystem, SubsystemReport, UnimindSubsystem
 
 
@@ -36,6 +37,7 @@ class Unimind:
         self._subsystems: List[UnimindSubsystem] = []
         self._ethics: Optional[EthicsSubsystem] = None
         self._decision = DecisionMatrix()
+        self._brain = Brain(decision=self._decision, ethics=self._ethics)
         self._log_dir = log_dir
         os.makedirs(self._log_dir, exist_ok=True)
         print("[Unimind] Core initialized.")
@@ -51,6 +53,8 @@ class Unimind:
         self._subsystems.append(subsystem)
         if getattr(subsystem, "name", None) == "ethics" and isinstance(subsystem, EthicsSubsystem):
             self._ethics = subsystem
+            # Keep brain wired to ethics if/when ethics is attached later.
+            self._brain = Brain(decision=self._decision, ethics=self._ethics)
         print(f"[Unimind] Attached subsystem: {getattr(subsystem, 'name', 'unknown')}")
 
     def build_context(self, input_text: Optional[str] = None, intent: Any = None) -> UnimindContext:
@@ -145,7 +149,8 @@ class Unimind:
         graph = self.expand_concepts(ctx)
         ctx = ctx.with_note("concept_graph", asdict(graph))
 
-        plan = self.decide_next(ctx)
+        plan, brain_trace = self._brain.think(ctx)
+        ctx = ctx.with_note("brain_trace", asdict(brain_trace))
         self._log_jsonl(
             "unimind_cycles.jsonl",
             {
@@ -154,6 +159,7 @@ class Unimind:
                 "intent": intent,
                 "plan": asdict(plan),
                 "concept_graph": asdict(graph),
+                "brain_trace": asdict(brain_trace),
                 "signals": asdict(ctx.signals),
             },
         )
@@ -200,7 +206,7 @@ class Unimind:
 
     def decide_next(self, ctx: UnimindContext) -> UnimindPlan:
         """
-        Build candidate options from context and score them.
+        Legacy decision path. Kept for compatibility; new behavior uses `Brain`.
         """
         # Candidates are symbolic actions; execution can be handled elsewhere.
         lam_plan = (ctx.notes.get("subsystem_thoughts", {}) or {}).get("lam_plan")
