@@ -95,6 +95,12 @@ def main():
     from world_engine.world import WorldEngine
     kernel.register_module("world", WorldEngine(kernel))
 
+    from memory_tree.graph import KnowledgeGraph
+    kernel.register_module("knowledge_graph", KnowledgeGraph(kernel))
+
+    from core.packager import PackageManager
+    kernel.register_module("packager", PackageManager(kernel))
+
     # Initialize System
     kernel.initialize()
 
