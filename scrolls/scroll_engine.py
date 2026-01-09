@@ -14,17 +14,25 @@ class ScrollTrigger:
                 action.execute(event)
 
 class ScrollEngine:
-    def __init__(self, world_engine=None):
+    def __init__(self, world_engine=None, kernel_bridge=None):
         self.world_engine = world_engine
+        self.kernel_bridge = kernel_bridge
         self.scrolls = {
             "optimize self": self._optimize_self,
             "study topic": self._study_topic,
             "trigger api scroll": self._trigger_api_scroll,
             "run task": self._run_task,
             "multi step plan": self._multi_step_plan,
-            "change realm": self._change_realm
+            "change realm": self._change_realm,
+            "system status": self._system_status
         }
         self.active_scrolls = []
+
+    def _system_status(self):
+        if self.kernel_bridge:
+            stats = self.kernel_bridge.get_system_stats()
+            return f"[System] Status: CPU {stats['cpu_percent']}%, MEM {stats['memory_percent']}%, DISK {stats['disk_percent']}%"
+        return "[System] Kernel Bridge not available."
 
     def _change_realm(self, realm_name):
         if not realm_name:

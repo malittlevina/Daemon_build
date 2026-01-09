@@ -11,6 +11,7 @@ from scrolls.scroll_engine import ScrollEngine
 ## from sensors.vision import VisionSensor
 from nlu.nlu_engine import NLUEngine
 from storyrealms.engine import StoryRealmsEngine
+from daemon.kernel_bridge import KernelBridge
 import subprocess
 import json
 import time
@@ -34,7 +35,10 @@ if __name__ == "__main__":
     world_engine = StoryRealmsEngine()
     print("[Daemon] World Engine (Story Realms) active.")
 
-    scrolls = ScrollEngine(world_engine=world_engine)
+    # Initialize Kernel Bridge
+    kernel_bridge = KernelBridge()
+    
+    scrolls = ScrollEngine(world_engine=world_engine, kernel_bridge=kernel_bridge)
     # vision = VisionSensor()
     personality = PersonalityTracker()
 
