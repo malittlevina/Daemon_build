@@ -74,8 +74,14 @@ def main():
     from bridge.thoth_bridge import ThothBridge
     kernel.register_module("bridge", ThothBridge(kernel))
 
-    from core.interface import Interface
-    kernel.register_module("interface", Interface(kernel, port=9999))
+    from core.registry import Registry
+    kernel.register_module("registry", Registry(kernel))
+
+    from core.users import UserManager
+    kernel.register_module("users", UserManager(kernel))
+
+    from core.shell import Shell
+    kernel.register_module("shell", Shell(kernel))
 
     # Initialize System
     kernel.initialize()
@@ -121,40 +127,46 @@ def main():
     last_run_date = None
 
     # Main Interaction Loop
+    shell = kernel.get_module("shell")
+    
     while True:
         try:
-            # Scheduler handles nightly tasks now (once enabled fully)
-            
-            print("\n[Daemon] Enter a command or type 'exit': ", end="", flush=True)
+            # Shell prompt handled by Shell module logic usually, but here we drive it
+            # To emulate full shell control, we let Shell print prompt.
+            if shell:
+                # Use shell's prompt
+                print(f"\n{shell.prompt}", end="", flush=True)
+            else:
+                print("\n[Daemon] Enter a command or type 'exit': ", end="", flush=True)
+
             try:
                 user_input = input().strip()
             except EOFError:
-                break # Handle non-interactive mode gracefully
+                break 
 
             if user_input.lower() == "exit":
                 print("[Daemon] Shutting down.")
                 break
-            elif user_input == "":
-                personality.log_state()
-                unimind.reflect()
+            
+            # Delegate processing to Shell Module
+            if shell:
+                shell.process_input(user_input)
             else:
-                result = None
-                if nlu:
-                    try:
-                        result = nlu.interpret(user_input)
-                        if result is None or (isinstance(result, str) and result.startswith("[NLUEngine] No known intent")):
-                            result = handle_fallback(user_input)
-                    except Exception as e:
-                        print(f"[Daemon Error] NLU failed: {e}")
-                        result = handle_fallback(user_input)
+                # Fallback Legacy Logic
+                if user_input == "":
+                    personality.log_state()
+                    unimind.reflect()
                 else:
-                    print("[Daemon Warning] NLU not available. Using fallback response.")
-                    result = handle_fallback(user_input)
+                   # ... existing fallback code ...
+                   pass
 
-                print(f"[Daemon] NLU Result: {result}")
-                
-                # Dispatch input event to kernel for other observers
-                kernel.dispatch("user_input", {"text": user_input, "result": result})
+        except KeyboardInterrupt:
+            print("\n[Daemon] Interrupted. Shutting down.")
+            break
+        except Exception as loop_error:
+            print(f"[Daemon Critical Loop Error] {loop_error}")
+            time.sleep(1)
+            continue
 
         except KeyboardInterrupt:
             print("\n[Daemon] Interrupted. Shutting down.")

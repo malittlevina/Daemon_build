@@ -106,3 +106,50 @@
 2026-01-09 00:16:04,600 - [INFO] - [Scheduler] Stopped.
 2026-01-09 00:16:04,600 - [INFO] - [ScrollEngine] Stopped executor pool.
 2026-01-09 00:16:04,600 - [INFO] - [Unimind] Reasoning engine stopped.
+2026-01-09 00:18:10,959 - [INFO] - [Kernel] Kernel Infrastructure Initialized.
+2026-01-09 00:18:10,960 - [INFO] - [Kernel] Registered module: unimind
+2026-01-09 00:18:10,960 - [INFO] - [Kernel] Registered module: prometheus
+2026-01-09 00:18:10,960 - [INFO] - [Kernel] Registered module: emotion
+2026-01-09 00:18:10,960 - [INFO] - [Kernel] Registered module: memory
+2026-01-09 00:18:10,960 - [INFO] - [Kernel] Registered module: scrolls
+2026-01-09 00:18:10,960 - [INFO] - [Kernel] Registered module: rituals
+2026-01-09 00:18:10,960 - [INFO] - [Kernel] Registered module: personality
+2026-01-09 00:18:10,960 - [INFO] - [Kernel] Registered module: nlu
+2026-01-09 00:18:10,960 - [INFO] - [Kernel] Registered module: state
+2026-01-09 00:18:10,960 - [INFO] - [Kernel] Registered module: symbolic
+2026-01-09 00:18:10,960 - [INFO] - [Kernel] Registered module: scheduler
+2026-01-09 00:18:10,960 - [INFO] - [Kernel] Registered module: guardian
+2026-01-09 00:18:10,961 - [INFO] - [Kernel] Registered module: bridge
+2026-01-09 00:18:10,963 - [INFO] - [Kernel] Registered module: registry
+2026-01-09 00:18:10,964 - [INFO] - [Kernel] Registered module: users
+2026-01-09 00:18:10,965 - [INFO] - [Kernel] Registered module: shell
+2026-01-09 00:18:10,965 - [INFO] - [Kernel] Initializing modules...
+2026-01-09 00:18:10,965 - [INFO] - [Unimind] Core initialized.
+2026-01-09 00:18:10,965 - [INFO] - [Prometheus] Specialties initialized.
+2026-01-09 00:18:10,965 - [INFO] - [EmotionEngine] Initialized.
+2026-01-09 00:18:10,965 - [INFO] - [MemoryLogger] Initialized.
+2026-01-09 00:18:10,965 - [INFO] - [ScrollEngine] Initialized.
+2026-01-09 00:18:10,965 - [INFO] - [RitualRegistry] Initialized.
+2026-01-09 00:18:10,965 - [INFO] - [PersonalityTracker] Initialized.
+2026-01-09 00:18:10,965 - [INFO] - [NLUEngine] Initialized.
+2026-01-09 00:18:10,965 - [INFO] - [StateManager] Initialized.
+2026-01-09 00:18:10,965 - [INFO] - [SymbolicLayer] Initialized.
+2026-01-09 00:18:10,965 - [INFO] - [Scheduler] Initialized.
+2026-01-09 00:18:10,965 - [INFO] - [Guardian] Ethical Core Initialized.
+2026-01-09 00:18:10,965 - [INFO] - [ThothBridge] Initialized.
+2026-01-09 00:18:10,970 - [INFO] - [Registry] Connected to config/registry.db
+2026-01-09 00:18:10,970 - [INFO] - [UserManager] Initialized.
+2026-01-09 00:18:10,972 - [INFO] - [UserManager] Created user: admin
+2026-01-09 00:18:10,972 - [INFO] - [Shell] Initialized.
+2026-01-09 00:18:10,972 - [INFO] - [Scheduler] Scheduled daily task 'nightly_reflection' at 02:00
+2026-01-09 00:18:10,972 - [INFO] - [Kernel] Starting services...
+2026-01-09 00:18:10,972 - [INFO] - [Unimind] Reasoning engine started.
+2026-01-09 00:18:10,972 - [INFO] - [ScrollEngine] Started async executor pool.
+2026-01-09 00:18:10,973 - [INFO] - [Scheduler] Started task loop.
+2026-01-09 00:18:10,973 - [INFO] - [ThothBridge] Bridge active.
+2026-01-09 00:18:10,974 - [INFO] - [Unimind] Observed input: {'text': 'help\\nwhoami\\nlogin admin root\\nwhoami\\nlogout\\nexit', 'result': '[NLUEngine] Ollama not installed.'}
+2026-01-09 00:18:10,974 - [INFO] - [SymbolicLayer] Updated state: {'history': ['help\\nwhoami\\nlogin admin root\\nwhoami\\nlogout\\nexit'], 'current_context': {'mode': 'idle'}, 'flags': {}, 'last_input': 'help\\nwhoami\\nlogin admin root\\nwhoami\\nlogout\\nexit'}
+2026-01-09 00:18:10,974 - [INFO] - [Kernel] Stopping services...
+2026-01-09 00:18:11,973 - [INFO] - [Scheduler] Stopped.
+2026-01-09 00:18:11,973 - [INFO] - [ScrollEngine] Stopped executor pool.
+2026-01-09 00:18:11,973 - [INFO] - [Unimind] Reasoning engine stopped.
