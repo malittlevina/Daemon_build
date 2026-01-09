@@ -1,32 +1,24 @@
 from typing import Dict, Any, List
 from core.events import EventBus, Event
-from .modules.base import MindModule
-from .modules.logic import LogicModule
-from .modules.ethics import EthicsModule
 from .modules.strategy import StrategyModule
+from .hemispheres.left_brain import LeftHemisphere
+from .hemispheres.right_brain import RightHemisphere
 
 class Unimind:
     def __init__(self):
         self.bus = None
-        self.pipeline: List[MindModule] = []
         
-        # Initialize default unified stack
-        self._init_modules()
+        # The Two Hemispheres
+        self.left_brain = LeftHemisphere()
+        self.right_brain = RightHemisphere()
         
-        print("[Unimind] Unified Core initialized.")
-
-    def _init_modules(self):
-        self.register_module(LogicModule())
-        self.register_module(EthicsModule())
-        self.register_module(StrategyModule())
-
-    def register_module(self, module: MindModule):
-        self.pipeline.append(module)
-        print(f"[Unimind] Attached module: {module.name}")
+        # The Integrator
+        self.synthesizer = StrategyModule()
+        
+        print("[Unimind] Bicameral Mind initialized.")
 
     def register_events(self, bus: EventBus):
         self.bus = bus
-        # Listen for analysis requests or game events
         bus.subscribe("unimind:analyze", self._on_analyze_request)
         bus.subscribe("game:encounter", self._on_game_encounter)
         print("[Unimind] Connected to Event Bus.")
@@ -35,47 +27,58 @@ class Unimind:
         context = event.payload
         result = self.think(context)
         print(f"[Unimind] Analysis Result: {result}")
-        # Optionally publish result back
         if self.bus:
             self.bus.publish("unimind:analysis_complete", result)
 
     def _on_game_encounter(self, event: Event):
-        # Create a thinking context for this encounter
         context = {
             "event_type": "encounter",
-            "threat_level": 0.8, # Simulated high threat for enemy
+            "threat_level": 0.8, 
             "entity": event.payload.get("entity")
         }
-        print(f"[Unimind] Processing encounter via pipeline...")
+        print(f"[Unimind] Processing encounter...")
         result = self.think(context)
         
-        action = result.get("recommended_action")
-        print(f"[Unimind] Strategic Recommendation: {action}")
+        action = result.get("selected_option", result.get("recommended_action"))
+        print(f"[Unimind] Final Decision: {action}")
+        
+        if self.bus:
+            self.bus.publish("unimind:decision", {"decision": action, "context": result})
 
     def think(self, initial_context: Dict[str, Any]) -> Dict[str, Any]:
         """
-        Passes the context through the module pipeline.
-        Each module can read and modify the context.
+        Bicameral Processing:
+        1. Left Brain analyzes logic/safety.
+        2. Right Brain generates creative options.
+        3. Synthesizer merges and decides.
         """
         context = initial_context.copy()
         
-        for module in self.pipeline:
-            updates = module.process(context)
-            if updates:
-                context.update(updates)
-                
-            # Early exit if blocked
-            if context.get("action_blocked"):
-                print(f"[Unimind] Processing halted by {module.name}: {context.get('block_reason')}")
-                break
-                
+        # 1. Left Brain Processing
+        left_updates = self.left_brain.process(context)
+        
+        # 2. Right Brain Processing
+        right_updates = self.right_brain.process(context)
+        
+        # Merge (Right brain adds to options, Left brain sets constraints/recommendations)
+        # Note: If Left Brain blocks an action, we must respect it.
+        context.update(left_updates)
+        context.update(right_updates) # Right brain might overwrite or add
+        
+        # Conflict Resolution / Synthesis
+        if context.get("action_blocked"):
+            print(f"[Unimind] Left Brain Halt: {context.get('block_reason')}")
+            return context
+            
+        # 3. Synthesis (Strategy)
+        final_updates = self.synthesizer.process(context)
+        context.update(final_updates)
+        
         return context
 
     # Legacy support
     def register(self, type, module):
-        # We don't use the old list dict anymore but keep for compatibility if main calls it
         pass
     
     def reflect(self):
-        # Simple self-check
         pass
