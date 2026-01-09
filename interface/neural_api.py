@@ -17,66 +17,72 @@ app = FastAPI(title="Daemon Neural Interface", version="1.0.0")
 class InputPayload(BaseModel):
     text: str
     source: str = "api"
+    client_id: str = "guest"  # New field for multiplayer identification
 
-class MemoryPayload(BaseModel):
-    content: str
-    context: dict = None
+class JoinPayload(BaseModel):
+    client_id: str
+    player_name: str
+    realm_name: str
 
-# --- Helpers ---
-def get_kernel():
-    # Instantiate a fresh bridge for stats
-    return KernelBridge()
+# ... (existing imports)
 
-def get_world():
-    # Attempt to load the singleton or create a reader
-    return StoryRealmsEngine()
-
-# --- Endpoints ---
-
-@app.get("/")
-def read_root():
-    return {
-        "status": "online",
-        "system": "Daemon AI-Native OS",
-        "endpoints": ["/status", "/memory", "/interact", "/realm"]
-    }
-
-@app.get("/status")
-def get_system_status():
-    kernel = get_kernel()
-    return {
-        "emotion": emotion_state.get_emotion_name(),
-        "pad_state": emotion_state.state,
-        "kernel": kernel.get_system_stats(),
-        "environment": kernel.get_environment_info()
-    }
-
-@app.get("/memory")
-def read_memories(limit: int = 10):
-    return retrieve_log()[-limit:]
-
-@app.post("/memory")
-def add_memory(payload: MemoryPayload):
-    log_memory(payload.content, payload.context)
-    return {"status": "stored", "content": payload.content}
-
-@app.get("/realm")
-def get_current_realm():
+@app.post("/join")
+def join_realm(payload: JoinPayload):
     world = get_world()
-    if world.current_realm:
-        return world.current_realm.to_dict()
-    return {"status": "void", "message": "No active realm"}
+    
+    # Switch global context (Shared World Model)
+    # Note: In a true multi-realm server, we wouldn't switch the *global* current_realm,
+    # but rather handle players in specific instances. For now, we assume one active realm.
+    if world.current_realm and world.current_realm.name != payload.realm_name:
+        if not world.enter_realm(payload.realm_name):
+            return {"error": "Realm not found"}
+            
+    player = world.current_realm.add_player(payload.client_id, payload.player_name)
+    world.save_realm(world.current_realm)
+    
+    return {
+        "status": "joined",
+        "realm": payload.realm_name,
+        "location": player.location,
+        "message": f"Welcome to {payload.realm_name}, {payload.player_name}."
+    }
 
 @app.post("/interact")
 def interact(payload: InputPayload):
-    # This is a bit tricky as the main loop reads stdin. 
-    # For now, we'll log it as an "external signal" which the daemon *might* pick up 
-    # if we implement a shared queue.
-    # TODO: Implement a shared PriorityQueue between API and Main Loop.
+    world = get_world()
+    if not world.current_realm:
+        return {"error": "No active realm"}
+
+    # Handle multiplayer actions
+    player = world.current_realm.active_players.get(payload.client_id)
     
-    log_memory(f"API Input Received: {payload.text}", {"source": payload.source})
+    response_text = ""
+    
+    if player:
+        # Simple parser for player actions
+        text = payload.text.lower()
+        if text.startswith("move "):
+            dest = text.replace("move ", "").strip()
+            if player.move(dest, {"current_realm": world.current_realm}):
+                response_text = f"Moved to {dest}"
+            else:
+                response_text = f"Cannot move to {dest}"
+        elif text.startswith("interact "):
+            target = text.replace("interact ", "").strip()
+            response_text = player.interact(target, {"current_realm": world.current_realm})
+        else:
+            response_text = f"Logged: {payload.text}"
+            log_memory(f"Player {player.name}: {payload.text}", {"realm": world.current_realm.name})
+            
+        # Save state
+        world.save_realm(world.current_realm)
+    else:
+        # Guest / System interaction
+        log_memory(f"API Input Received: {payload.text}", {"source": payload.source})
+        response_text = "Input received (Guest Mode)."
+
     emotion_state.update_emotion("interaction")
-    return {"response": "Input received and logged. (Direct interaction pending Queue implementation)"}
+    return {"response": response_text, "context": world.get_current_context()}
 
 # --- Runner ---
 def start_api_server(host="0.0.0.0", port=8000):

@@ -1,6 +1,7 @@
 import json
 import os
 import time
+from .player import PlayerEntity
 
 class Realm:
     def __init__(self, name, description, rules=None, entities=None):
@@ -9,8 +10,45 @@ class Realm:
         self.rules = rules or {}
         self.entities = entities or []
         self.state = {}
+        self.active_players = {}  # Map client_id -> PlayerEntity
+
+    def add_player(self, client_id, player_name):
+        if client_id in self.active_players:
+            return self.active_players[client_id]
+        
+        # Check if player entity already exists in persistent list
+        existing = next((e for e in self.entities if e.get("type") == "Player" and e.get("client_id") == client_id), None)
+        
+        if existing:
+            player = PlayerEntity(existing["name"], existing["location"], existing.get("properties"), client_id)
+            player.inventory = existing.get("inventory", [])
+            player.xp = existing.get("xp", 0)
+        else:
+            player = PlayerEntity(player_name, client_id=client_id)
+            self.entities.append(player.to_dict())
+            
+        self.active_players[client_id] = player
+        return player
+
+    def remove_player(self, client_id):
+        if client_id in self.active_players:
+            # Sync state back to entities list before removing from memory
+            player = self.active_players[client_id]
+            # Update the dictionary representation in the main list
+            for i, e in enumerate(self.entities):
+                if e.get("client_id") == client_id:
+                    self.entities[i] = player.to_dict()
+                    break
+            del self.active_players[client_id]
 
     def to_dict(self):
+        # Ensure active players are synced to entities list before saving
+        for pid, player in self.active_players.items():
+            for i, e in enumerate(self.entities):
+                if e.get("client_id") == pid:
+                    self.entities[i] = player.to_dict()
+                    break
+                    
         return {
             "name": self.name,
             "description": self.description,
