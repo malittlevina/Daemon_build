@@ -56,8 +56,9 @@ class Unimind:
         if self._learning_enabled:
             self._consolidator.start()
 
-        # Seed K-12 basics once (if not present) so the mind palace isn't empty.
-        if not self.knowledge.has_tag("k12"):
+        # Seed K-12 basics (idempotent). This ensures both concept cards AND
+        # procedural recipes exist even if an older run seeded only concepts.
+        if (not self.knowledge.has_tag("k12")) or (self.knowledge.get("k12.recipe.solve_linear_equations") is None):
             seed_k12(self.knowledge, self.mind_palace)
 
         print("[Unimind] Core initialized.")

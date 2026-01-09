@@ -1,0 +1,32 @@
+{
+  "id": "recipe.how_do_i_solve_a_linear_equation_like_2x_3_11",
+  "goal": "How do I solve a linear equation like 2x+3=11?",
+  "steps": [
+    "Simplify both sides (combine like terms).",
+    "Move variable terms to one side and constants to the other.",
+    "Divide by the coefficient of the variable.",
+    "Check by substitution."
+  ],
+  "quality_checks": [
+    "watertight mesh",
+    "no self-intersections",
+    "normals consistent",
+    "solution satisfies original equation"
+  ],
+  "failure_modes": [
+    "non-manifold edges after boolean",
+    "profile not closed for extrude",
+    "sign errors",
+    "not applying operations to both sides"
+  ],
+  "tags": [
+    "geometry",
+    "procedural",
+    "recipe",
+    "k12",
+    "math",
+    "algebra"
+  ],
+  "created_at": "2026-01-09T20:21:26+00:00",
+  "updated_at": "2026-01-09T20:23:12+00:00"
+}

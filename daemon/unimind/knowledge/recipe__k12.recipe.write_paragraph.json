@@ -1,0 +1,27 @@
+{
+  "id": "k12.recipe.write_paragraph",
+  "goal": "Write a clear academic paragraph.",
+  "steps": [
+    "Write a topic sentence that states the main point.",
+    "Add 2–4 supporting sentences (facts, reasoning, examples).",
+    "Use transitions for flow (however, therefore, for example).",
+    "Write a concluding/bridge sentence that links to the next idea.",
+    "Revise for clarity, grammar, and concision."
+  ],
+  "quality_checks": [
+    "single main idea",
+    "topic sentence matches support"
+  ],
+  "failure_modes": [
+    "multiple topics in one paragraph",
+    "no evidence/examples"
+  ],
+  "tags": [
+    "k12",
+    "english",
+    "writing",
+    "recipe"
+  ],
+  "created_at": "2026-01-09T20:23:12+00:00",
+  "updated_at": "2026-01-09T20:23:12+00:00"
+}

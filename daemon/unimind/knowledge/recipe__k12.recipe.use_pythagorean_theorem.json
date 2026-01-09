@@ -1,0 +1,27 @@
+{
+  "id": "k12.recipe.use_pythagorean_theorem",
+  "goal": "Use the Pythagorean theorem to find a missing side in a right triangle.",
+  "steps": [
+    "Identify the hypotenuse (side opposite the right angle).",
+    "Assign legs as a and b, hypotenuse as c.",
+    "Use a² + b² = c² and plug in known values.",
+    "Solve for the unknown (square root if needed).",
+    "Check if the result is reasonable for triangle side lengths."
+  ],
+  "quality_checks": [
+    "used hypotenuse correctly",
+    "units consistent"
+  ],
+  "failure_modes": [
+    "mixing up hypotenuse vs legs",
+    "forgetting square root"
+  ],
+  "tags": [
+    "k12",
+    "math",
+    "geometry",
+    "recipe"
+  ],
+  "created_at": "2026-01-09T20:23:12+00:00",
+  "updated_at": "2026-01-09T20:23:12+00:00"
+}

@@ -1,0 +1,26 @@
+{
+  "id": "k12.recipe.subject_verb_agreement_check",
+  "goal": "Check subject–verb agreement in a sentence.",
+  "steps": [
+    "Find the main verb.",
+    "Ask 'who/what is doing the action?' to find the subject.",
+    "Ignore prepositional phrases between subject and verb (e.g., 'of the…').",
+    "Make the verb match the subject (singular vs plural).",
+    "Re-read the sentence for meaning and correctness."
+  ],
+  "quality_checks": [
+    "main subject identified",
+    "verb matches subject number"
+  ],
+  "failure_modes": [
+    "agreeing with a nearby noun instead of the true subject"
+  ],
+  "tags": [
+    "k12",
+    "english",
+    "grammar",
+    "recipe"
+  ],
+  "created_at": "2026-01-09T20:23:12+00:00",
+  "updated_at": "2026-01-09T20:23:12+00:00"
+}

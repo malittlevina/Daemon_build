@@ -37,12 +37,18 @@ class Thalamus:
             for a in recall[:5]:
                 if not isinstance(a, dict):
                     continue
+                snippet = ""
+                if a.get("kind") == "recipe":
+                    steps = a.get("steps") or []
+                    if isinstance(steps, list) and steps:
+                        snippet = str(steps[0])[:200]
                 recall_summaries.append(
                     {
                         "id": a.get("id"),
                         "kind": a.get("kind"),
                         "title": a.get("title") or a.get("name") or a.get("goal"),
                         "definition": (a.get("definition") or a.get("description") or "")[:200],
+                        "snippet": snippet,
                         "tags": (a.get("tags") or [])[:8],
                     }
                 )

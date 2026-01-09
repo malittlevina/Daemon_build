@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from typing import List, Tuple
 
-from daemon.unimind.knowledge_store import ConceptCard, KnowledgeStore
+from daemon.unimind.knowledge_store import ConceptCard, KnowledgeStore, SkillRecipe
 from daemon.unimind.mind_palace import MindPalace
 
 
@@ -14,6 +14,7 @@ def seed_k12(store: KnowledgeStore, palace: MindPalace) -> None:
     """
 
     cards: List[ConceptCard] = []
+    recipes: List[SkillRecipe] = []
 
     # ---- Math ----
     cards += [
@@ -194,5 +195,125 @@ def seed_k12(store: KnowledgeStore, palace: MindPalace) -> None:
 
     for c in cards:
         out = store.upsert_concept(c)
+        palace.place(out.id, tags=out.tags)
+
+    # ---- K-12 procedural recipes (small, reusable) ----
+    recipes += [
+        SkillRecipe(
+            id="k12.recipe.solve_linear_equations",
+            goal="Solve a one-variable linear equation (ax + b = c).",
+            steps=[
+                "Simplify both sides (combine like terms).",
+                "Move variable terms to one side (add/subtract the same value on both sides).",
+                "Move constants to the other side.",
+                "Divide both sides by the coefficient of x.",
+                "Check by substituting the solution back into the original equation.",
+            ],
+            quality_checks=["solution satisfies original equation"],
+            failure_modes=["forgetting to apply an operation to both sides", "sign errors when moving terms"],
+            tags=["k12", "math", "algebra", "recipe"],
+        ),
+        SkillRecipe(
+            id="k12.recipe.add_fractions",
+            goal="Add or subtract fractions.",
+            steps=[
+                "Find a common denominator (least common multiple is ideal).",
+                "Rewrite each fraction with the common denominator.",
+                "Add/subtract numerators; keep the denominator the same.",
+                "Simplify the resulting fraction (reduce by greatest common factor).",
+                "Convert to a mixed number if needed.",
+            ],
+            quality_checks=["fraction reduced/simplified"],
+            failure_modes=["adding denominators directly", "not simplifying"],
+            tags=["k12", "math", "arithmetic", "recipe"],
+        ),
+        SkillRecipe(
+            id="k12.recipe.use_pythagorean_theorem",
+            goal="Use the Pythagorean theorem to find a missing side in a right triangle.",
+            steps=[
+                "Identify the hypotenuse (side opposite the right angle).",
+                "Assign legs as a and b, hypotenuse as c.",
+                "Use a² + b² = c² and plug in known values.",
+                "Solve for the unknown (square root if needed).",
+                "Check if the result is reasonable for triangle side lengths.",
+            ],
+            quality_checks=["used hypotenuse correctly", "units consistent"],
+            failure_modes=["mixing up hypotenuse vs legs", "forgetting square root"],
+            tags=["k12", "math", "geometry", "recipe"],
+        ),
+        SkillRecipe(
+            id="k12.recipe.scientific_method",
+            goal="Design a simple experiment using the scientific method.",
+            steps=[
+                "Ask a clear, testable question.",
+                "Write a hypothesis (If… then… because…).",
+                "Identify variables: independent, dependent, and controlled.",
+                "Run the experiment and record observations/data.",
+                "Analyze results and decide whether they support the hypothesis.",
+                "Write a conclusion and propose next questions.",
+            ],
+            quality_checks=["controls identified", "measurements recorded"],
+            failure_modes=["changing multiple variables at once", "small sample/biased observations"],
+            tags=["k12", "science", "earth_science", "recipe"],
+        ),
+        SkillRecipe(
+            id="k12.recipe.write_paragraph",
+            goal="Write a clear academic paragraph.",
+            steps=[
+                "Write a topic sentence that states the main point.",
+                "Add 2–4 supporting sentences (facts, reasoning, examples).",
+                "Use transitions for flow (however, therefore, for example).",
+                "Write a concluding/bridge sentence that links to the next idea.",
+                "Revise for clarity, grammar, and concision.",
+            ],
+            quality_checks=["single main idea", "topic sentence matches support"],
+            failure_modes=["multiple topics in one paragraph", "no evidence/examples"],
+            tags=["k12", "english", "writing", "recipe"],
+        ),
+        SkillRecipe(
+            id="k12.recipe.subject_verb_agreement_check",
+            goal="Check subject–verb agreement in a sentence.",
+            steps=[
+                "Find the main verb.",
+                "Ask 'who/what is doing the action?' to find the subject.",
+                "Ignore prepositional phrases between subject and verb (e.g., 'of the…').",
+                "Make the verb match the subject (singular vs plural).",
+                "Re-read the sentence for meaning and correctness.",
+            ],
+            quality_checks=["main subject identified", "verb matches subject number"],
+            failure_modes=["agreeing with a nearby noun instead of the true subject"],
+            tags=["k12", "english", "grammar", "recipe"],
+        ),
+        SkillRecipe(
+            id="k12.recipe.read_history_timeline",
+            goal="Summarize a historical period as a simple timeline.",
+            steps=[
+                "Identify the start/end dates (or approximate era).",
+                "List key events in chronological order.",
+                "Add causes and effects for major events (1–2 lines each).",
+                "Note important people/locations involved.",
+                "Write a brief summary of what changed over the period.",
+            ],
+            quality_checks=["events in chronological order", "cause/effect included"],
+            failure_modes=["mixing up event order", "listing facts without explaining impact"],
+            tags=["k12", "history", "modern", "recipe"],
+        ),
+        SkillRecipe(
+            id="k12.recipe.explain_branches_government",
+            goal="Explain the three branches of government and checks/balances.",
+            steps=[
+                "Name each branch: legislative, executive, judicial.",
+                "State each branch’s main role (make/enforce/interpret laws).",
+                "Give 1–2 examples of checks and balances (e.g., veto, judicial review).",
+                "Explain why checks and balances matter (prevent abuse of power).",
+            ],
+            quality_checks=["roles correct", "at least one check/balance example"],
+            failure_modes=["mixing roles of branches", "missing how they constrain each other"],
+            tags=["k12", "history", "civics", "recipe"],
+        ),
+    ]
+
+    for r in recipes:
+        out = store.upsert_recipe(r)
         palace.place(out.id, tags=out.tags)
 

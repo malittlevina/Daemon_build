@@ -1,0 +1,27 @@
+{
+  "id": "k12.recipe.read_history_timeline",
+  "goal": "Summarize a historical period as a simple timeline.",
+  "steps": [
+    "Identify the start/end dates (or approximate era).",
+    "List key events in chronological order.",
+    "Add causes and effects for major events (1–2 lines each).",
+    "Note important people/locations involved.",
+    "Write a brief summary of what changed over the period."
+  ],
+  "quality_checks": [
+    "events in chronological order",
+    "cause/effect included"
+  ],
+  "failure_modes": [
+    "mixing up event order",
+    "listing facts without explaining impact"
+  ],
+  "tags": [
+    "k12",
+    "history",
+    "modern",
+    "recipe"
+  ],
+  "created_at": "2026-01-09T20:23:12+00:00",
+  "updated_at": "2026-01-09T20:23:12+00:00"
+}

@@ -1,0 +1,26 @@
+{
+  "id": "k12.recipe.add_fractions",
+  "goal": "Add or subtract fractions.",
+  "steps": [
+    "Find a common denominator (least common multiple is ideal).",
+    "Rewrite each fraction with the common denominator.",
+    "Add/subtract numerators; keep the denominator the same.",
+    "Simplify the resulting fraction (reduce by greatest common factor).",
+    "Convert to a mixed number if needed."
+  ],
+  "quality_checks": [
+    "fraction reduced/simplified"
+  ],
+  "failure_modes": [
+    "adding denominators directly",
+    "not simplifying"
+  ],
+  "tags": [
+    "k12",
+    "math",
+    "arithmetic",
+    "recipe"
+  ],
+  "created_at": "2026-01-09T20:23:12+00:00",
+  "updated_at": "2026-01-09T20:23:12+00:00"
+}

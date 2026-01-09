@@ -1,0 +1,28 @@
+{
+  "id": "k12.recipe.scientific_method",
+  "goal": "Design a simple experiment using the scientific method.",
+  "steps": [
+    "Ask a clear, testable question.",
+    "Write a hypothesis (If… then… because…).",
+    "Identify variables: independent, dependent, and controlled.",
+    "Run the experiment and record observations/data.",
+    "Analyze results and decide whether they support the hypothesis.",
+    "Write a conclusion and propose next questions."
+  ],
+  "quality_checks": [
+    "controls identified",
+    "measurements recorded"
+  ],
+  "failure_modes": [
+    "changing multiple variables at once",
+    "small sample/biased observations"
+  ],
+  "tags": [
+    "k12",
+    "science",
+    "earth_science",
+    "recipe"
+  ],
+  "created_at": "2026-01-09T20:23:12+00:00",
+  "updated_at": "2026-01-09T20:23:12+00:00"
+}
