@@ -1,30 +1,42 @@
-# bridge/thoth_bridge.py
+from core.module import Module
 
-class ThothBridge:
-    def __init__(self):
+class ThothBridge(Module):
+    def __init__(self, kernel):
+        super().__init__(kernel)
         self.registered_apps = {}
-        print("[ThothBridge] Connecting daemon to native ThothOS app.")
+
+    def initialize(self):
+        self.kernel.log("ThothBridge", "Initialized.")
+
+    def start(self):
+        self.kernel.log("ThothBridge", "Bridge active.")
+
+    def stop(self):
+        pass
 
     def register_app(self, app_name, handler):
         self.registered_apps[app_name] = handler
-        print(f"[ThothBridge] App registered: {app_name}")
+        self.kernel.log("ThothBridge", f"App registered: {app_name}")
 
     def invoke_app(self, app_name, payload=None):
         if app_name in self.registered_apps:
-            print(f"[ThothBridge] Invoking app: {app_name}")
-            self.registered_apps[app_name](payload)
+            self.kernel.log("ThothBridge", f"Invoking app: {app_name}")
+            try:
+                self.registered_apps[app_name](payload)
+            except Exception as e:
+                self.kernel.log("ThothBridge", f"Error invoking app {app_name}: {e}", level="error")
         else:
-            print(f"[ThothBridge] App '{app_name}' not found.")
+            self.kernel.log("ThothBridge", f"App '{app_name}' not found.", level="warning")
 
     def send_command(self, command: str, metadata: dict = {}):
-        print(f"[ThothBridge] Command sent: {command}")
-        print(f"  Metadata: {metadata}")
+        self.kernel.log("ThothBridge", f"Command sent: {command} | Meta: {metadata}")
         # Placeholder for ThothOS command protocol
+        # Could publish an event for external listeners
+        self.kernel.dispatch("bridge:command", {"command": command, "metadata": metadata})
 
     def receive_status(self):
-        # Simulated response
         return {
             "status": "active",
-            "uptime": "32m",
-            "modules": ["daemon", "codex", "scroll_engine"]
+            "uptime": "Unknown", # Could fetch from Kernel/State
+            "modules": list(self.kernel.modules.keys())
         }

@@ -64,8 +64,31 @@ def main():
     from lam.symbolic_state import SymbolicLayer
     kernel.register_module("symbolic", SymbolicLayer(kernel))
 
+    from core.scheduler import Scheduler
+    scheduler = Scheduler(kernel)
+    kernel.register_module("scheduler", scheduler)
+
+    from guardian.ethical_core import Guardian
+    kernel.register_module("guardian", Guardian(kernel))
+
+    from bridge.thoth_bridge import ThothBridge
+    kernel.register_module("bridge", ThothBridge(kernel))
+
     # Initialize System
     kernel.initialize()
+
+    # Define and Schedule Tasks
+    def nightly_reflection_task():
+        kernel.log("Scheduler", "Executing nightly reflection...")
+        unimind = kernel.get_module("unimind")
+        if unimind:
+            unimind.reflect()
+        
+        with open("logs/improvement_history.log", "a") as log_file:
+            log_file.write(f"{time.asctime()} - Nightly reflection triggered via Scheduler\n")
+            
+    scheduler.schedule_daily(2, 0, "nightly_reflection", nightly_reflection_task)
+    
     kernel.start()
 
     print("[Daemon] Prometheus daemon active.")
@@ -97,17 +120,8 @@ def main():
     # Main Interaction Loop
     while True:
         try:
-            # Nightly reflection check
-            current_hour = time.localtime().tm_hour
-            today = date.today()
-            if current_hour == 2 and last_run_date != today:
-                from code_tools import code_generator
-                unimind.reflect()
-                code_generator.propose_improvements("Nightly system reflection and improvement")
-                with open("logs/improvement_history.log", "a") as log_file:
-                    log_file.write(f"{time.asctime()} - Nightly reflection and improvement triggered\n")
-                last_run_date = today
-
+            # Scheduler handles nightly tasks now (once enabled fully)
+            
             print("\n[Daemon] Enter a command or type 'exit': ", end="", flush=True)
             try:
                 user_input = input().strip()
