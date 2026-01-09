@@ -3,6 +3,8 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from typing import Any, Dict, Optional
 
+from storyrealms.migrations import CURRENT_SCHEMA_VERSION, migrate_state_dict
+
 
 @dataclass(slots=True)
 class RealmState:
@@ -14,12 +16,13 @@ class RealmState:
     """
 
     realm: str
-    schema_version: int = 1
+    schema_version: int = CURRENT_SCHEMA_VERSION
     time: int = 0  # discrete ticks
     entities: Dict[str, Dict[str, Any]] = field(default_factory=dict)
     locations: Dict[str, Dict[str, Any]] = field(default_factory=dict)
     relationships: Dict[str, Any] = field(default_factory=dict)
     flags: Dict[str, Any] = field(default_factory=dict)
+    goals: Dict[str, Any] = field(default_factory=dict)
     current_scene: Optional[str] = None
     last_event_id: Optional[str] = None
 
@@ -32,21 +35,24 @@ class RealmState:
             "locations": self.locations,
             "relationships": self.relationships,
             "flags": self.flags,
+            "goals": self.goals,
             "current_scene": self.current_scene,
             "last_event_id": self.last_event_id,
         }
 
     @staticmethod
     def from_dict(data: Dict[str, Any]) -> "RealmState":
+        data = migrate_state_dict(dict(data or {}))
         realm = str(data.get("realm") or "default")
         state = RealmState(
             realm=realm,
-            schema_version=int(data.get("schema_version") or 1),
+            schema_version=int(data.get("schema_version") or CURRENT_SCHEMA_VERSION),
             time=int(data.get("time") or 0),
             entities=dict(data.get("entities") or {}),
             locations=dict(data.get("locations") or {}),
             relationships=dict(data.get("relationships") or {}),
             flags=dict(data.get("flags") or {}),
+            goals=dict(data.get("goals") or {}),
             current_scene=data.get("current_scene"),
             last_event_id=data.get("last_event_id"),
         )

@@ -21,6 +21,16 @@ def _deep_merge(dst: Dict[str, Any], src: Dict[str, Any]) -> Dict[str, Any]:
     return dst
 
 
+def _ensure_rel(rel: Dict[str, Any], a: str, b: str) -> Dict[str, Any]:
+    rel.setdefault(a, {})
+    if not isinstance(rel[a], dict):
+        rel[a] = {}
+    rel[a].setdefault(b, {})
+    if not isinstance(rel[a][b], dict):
+        rel[a][b] = {}
+    return rel[a][b]
+
+
 def apply_event(state: RealmState, event: RealmEvent) -> RealmState:
     """
     Deterministic state transition function.
@@ -57,6 +67,22 @@ def apply_event(state: RealmState, event: RealmEvent) -> RealmState:
             s.flags[key] = p.get("value")
         return s
 
+    if et == "npc.goal.set":
+        entity_id = p.get("entity_id")
+        goal = p.get("goal")
+        if isinstance(entity_id, str) and entity_id and isinstance(goal, str) and goal:
+            s.goals.setdefault("npc", {})
+            if not isinstance(s.goals["npc"], dict):
+                s.goals["npc"] = {}
+            # Store as list of goal strings per NPC.
+            npc_goals = s.goals["npc"].get(entity_id)
+            if not isinstance(npc_goals, list):
+                npc_goals = []
+            if goal not in npc_goals:
+                npc_goals.append(goal)
+            s.goals["npc"][entity_id] = npc_goals
+        return s
+
     if et == "entity.upsert":
         entity_id = p.get("entity_id")
         data = p.get("data") or {}
@@ -71,6 +97,29 @@ def apply_event(state: RealmState, event: RealmEvent) -> RealmState:
         if isinstance(location_id, str) and location_id and isinstance(data, dict):
             existing = deepcopy(s.locations.get(location_id) or {})
             s.locations[location_id] = _deep_merge(existing, data)
+        return s
+
+    if et == "relationship.adjust":
+        a = p.get("a")
+        b = p.get("b")
+        delta = p.get("delta")
+        if isinstance(a, str) and a and isinstance(b, str) and b and a != b:
+            try:
+                d = float(delta)
+            except Exception:
+                d = 0.0
+            ab = _ensure_rel(s.relationships, a, b)
+            ba = _ensure_rel(s.relationships, b, a)
+            try:
+                ab_trust = float(ab.get("trust") or 0.0) + d
+            except Exception:
+                ab_trust = d
+            try:
+                ba_trust = float(ba.get("trust") or 0.0) + d
+            except Exception:
+                ba_trust = d
+            ab["trust"] = max(min(ab_trust, 1.0), -1.0)
+            ba["trust"] = max(min(ba_trust, 1.0), -1.0)
         return s
 
     # Non-stateful events still advance last_event_id (already done).

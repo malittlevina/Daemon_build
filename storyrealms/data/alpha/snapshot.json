@@ -1,23 +1,46 @@
 {
-  "schema_version": 1,
+  "schema_version": 2,
   "realm": "alpha",
-  "time": 3,
+  "time": 4,
   "entities": {
     "npc:1": {
       "kind": "npc",
       "name": "Ira",
       "mood": "pensive"
+    },
+    "npc:2": {
+      "kind": "npc",
+      "name": "Sol",
+      "mood": "pensive"
     }
   },
   "locations": {},
-  "relationships": {},
+  "relationships": {
+    "npc:1": {
+      "npc:2": {
+        "trust": 0.05
+      }
+    },
+    "npc:2": {
+      "npc:1": {
+        "trust": 0.05
+      }
+    }
+  },
   "flags": {
     "k": 1,
     "weather": "rain",
     "scene_auto": "true",
     "scene_period": "2",
-    "scene_index": 2
+    "scene_index": 3
+  },
+  "goals": {
+    "npc": {
+      "npc:1": [
+        "socialize"
+      ]
+    }
   },
   "current_scene": "scene:1",
-  "last_event_id": "677cf5b4-3a55-44c8-a087-bccfef9058ea"
+  "last_event_id": "345cb547-b94b-4d56-bb01-a14c7f45beef"
 }

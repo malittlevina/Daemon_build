@@ -126,6 +126,103 @@ class SceneAutoAdvanceRule:
 
 
 @dataclass(slots=True)
+class NpcGoalPlannerRule:
+    """
+    Deterministic NPC layer 2: goals -> intents -> acts (on tick).
+
+    Reads `state.goals["npc"][<npc_id>]` (list of goal strings).
+    Emits:
+    - npc.intent (non-stateful marker)
+    - npc.act (non-stateful marker)
+    - possibly entity.upsert / relationship.adjust via other rules
+    """
+
+    name: str = "npc.goal_planner"
+
+    def on_event(self, state: RealmState, event: RealmEvent) -> List[RealmEvent]:
+        if event.type != "time.tick":
+            return []
+
+        npc_goals = (state.goals or {}).get("npc") or {}
+        if not isinstance(npc_goals, dict):
+            return []
+
+        derived: List[RealmEvent] = []
+        for npc_id in sorted(npc_goals.keys()):
+            goals = npc_goals.get(npc_id)
+            if not isinstance(goals, list) or not goals:
+                continue
+            # Deterministic choice: first goal string.
+            goal = str(goals[0])
+
+            # Deterministic intent mapping.
+            if goal == "socialize":
+                intent = "talk"
+            elif goal == "explore":
+                intent = "wander"
+            else:
+                intent = "idle"
+
+            # Choose a deterministic target NPC (lowest other npc id).
+            target_id = None
+            if intent == "talk":
+                others = [x for x in _npc_ids(state) if x != npc_id]
+                target_id = others[0] if others else None
+
+            derived.append(
+                RealmEvent(
+                    type="npc.intent",
+                    realm=state.realm,
+                    payload={"entity_id": npc_id, "goal": goal, "intent": intent, "target_id": target_id},
+                    meta={"derived_from": event.id, "rule": self.name},
+                    actor="rule_engine",
+                )
+            )
+            derived.append(
+                RealmEvent(
+                    type="npc.act",
+                    realm=state.realm,
+                    payload={"entity_id": npc_id, "act": intent, "target_id": target_id},
+                    meta={"derived_from": event.id, "rule": self.name},
+                    actor="rule_engine",
+                )
+            )
+
+        return derived
+
+
+@dataclass(slots=True)
+class SocialPhysicsRule:
+    """
+    Relationship + social physics:
+    - 'talk' acts increase mutual trust slightly.
+    """
+
+    name: str = "social.physics"
+
+    def on_event(self, state: RealmState, event: RealmEvent) -> List[RealmEvent]:
+        if event.type != "npc.act":
+            return []
+        p = event.payload or {}
+        act = p.get("act")
+        a = p.get("entity_id")
+        b = p.get("target_id")
+        if act != "talk":
+            return []
+        if not isinstance(a, str) or not isinstance(b, str) or not a or not b or a == b:
+            return []
+        return [
+            RealmEvent(
+                type="relationship.adjust",
+                realm=state.realm,
+                payload={"a": a, "b": b, "delta": 0.05},
+                meta={"derived_from": event.id, "rule": self.name},
+                actor="rule_engine",
+            )
+        ]
+
+
+@dataclass(slots=True)
 class RuleEngine:
     """
     Deterministic rule engine executed on tick.
@@ -133,7 +230,14 @@ class RuleEngine:
     Produces additional events derived from current state + triggering event.
     """
 
-    rules: List[Rule] = field(default_factory=lambda: [NpcMoodFromWeatherRule(), SceneAutoAdvanceRule()])
+    rules: List[Rule] = field(
+        default_factory=lambda: [
+            NpcMoodFromWeatherRule(),
+            SceneAutoAdvanceRule(),
+            NpcGoalPlannerRule(),
+            SocialPhysicsRule(),
+        ]
+    )
 
     def on_event(self, state: RealmState, event: RealmEvent) -> List[RealmEvent]:
         derived: List[RealmEvent] = []

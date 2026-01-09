@@ -35,6 +35,25 @@ class TestStoryrealmsRules(unittest.TestCase):
             s2 = svc.query_state(realm="alpha")["state"]
             self.assertEqual(s2.get("current_scene"), "scene:1")
 
+    def test_npc_goal_planner_and_social_physics(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            store = StoryrealmsStore(base_dir=os.path.join(tmp, "data"))
+            svc = StoryrealmsService(store=store)
+            svc.enter_realm("alpha", actor="test")
+            svc.emit_event("entity.upsert", {"entity_id": "npc:1", "data": {"kind": "npc"}}, actor="test")
+            svc.emit_event("entity.upsert", {"entity_id": "npc:2", "data": {"kind": "npc"}}, actor="test")
+            svc.emit_event("npc.goal.set", {"entity_id": "npc:1", "goal": "socialize"}, actor="test")
+            svc.tick(1, actor="test")
+
+            state = svc.query_state(realm="alpha")["state"]
+            rel = state.get("relationships") or {}
+            # Social physics should have created/adjusted trust between npc:1 and npc:2.
+            self.assertIn("npc:1", rel)
+            self.assertIn("npc:2", rel.get("npc:1", {}))
+            trust = rel["npc:1"]["npc:2"].get("trust")
+            self.assertIsNotNone(trust)
+            self.assertGreaterEqual(float(trust), 0.05)
+
 
 if __name__ == "__main__":
     unittest.main()

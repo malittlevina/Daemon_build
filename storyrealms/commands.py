@@ -46,6 +46,7 @@ def parse_storyrealms_command(text: str) -> Optional[ParsedCommand]:
     - entity set <entity_id> k=v k=v ...
     - entity show <entity_id>
     - npc list
+    - npc goal add <npc_id> <goal>
     - location set <location_id> k=v k=v ...
     - scroll trigger "<scroll name>"
     """
@@ -82,6 +83,8 @@ def parse_storyrealms_command(text: str) -> Optional[ParsedCommand]:
                 except Exception:
                     args["realm"] = " ".join(tail).strip()
             return ParsedCommand("realm.events", args)
+        if verb == "view":
+            return ParsedCommand("realm.view", {})
         return ParsedCommand("realm.help", {"unknown": verb})
 
     if head == "tick":
@@ -115,6 +118,11 @@ def parse_storyrealms_command(text: str) -> Optional[ParsedCommand]:
 
     if head == "npc" and rest and rest[0].lower() == "list":
         return ParsedCommand("npc.list", {})
+
+    if head == "npc" and len(rest) >= 4 and rest[0].lower() == "goal" and rest[1].lower() == "add":
+        npc_id = rest[2]
+        goal = " ".join(rest[3:]).strip()
+        return ParsedCommand("npc.goal.set", {"entity_id": npc_id, "goal": goal})
 
     if head == "location" and len(rest) >= 3 and rest[0].lower() == "set":
         location_id = rest[1]

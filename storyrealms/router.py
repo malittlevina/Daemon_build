@@ -43,6 +43,9 @@ class StoryrealmsRouter:
                 limit=cmd.args.get("limit", 100),
             )
 
+        if cmd.name == "realm.view":
+            return self.engine.get_view(realm=target_realm, events_limit=50)
+
         if cmd.name == "time.tick":
             return self.engine.tick(int(cmd.args.get("delta") or 1), realm=target_realm, actor=actor)
 

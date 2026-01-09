@@ -1,0 +1,1 @@
+{"id": "345cb547-b94b-4d56-bb01-a14c7f45beef", "ts": "2026-01-09T02:38:45.275544+00:00", "type": "relationship.adjust", "realm": "alpha", "actor": "rule_engine", "payload": {"a": "npc:1", "b": "npc:2", "delta": 0.05}, "meta": {"derived_from": "e83d9ab3-b180-4fe4-95a0-2718ae6a8c2f", "rule": "social.physics"}}

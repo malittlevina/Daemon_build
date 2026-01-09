@@ -49,3 +49,7 @@ def list_realm_events():
         "events": svc.list_events(limit=200).get("events", []),
         "state": svc.query_state(),
     }
+
+
+def get_realm_view():
+    return _service().get_view()

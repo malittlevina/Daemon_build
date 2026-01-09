@@ -6,10 +6,13 @@ from typing import Any, Dict, Optional
 from storyrealms.bus import EventBus
 from storyrealms.events import RealmEvent
 from storyrealms.integrations import compose_sinks, memory_logger_sink, scroll_trigger_sink
+from storyrealms.policy import PolicyEngine
 from storyrealms.persistence import StoryrealmsStore
 from storyrealms.reducer import apply_event
 from storyrealms.rules import RuleEngine
+from storyrealms.schema import DEFAULT_VALIDATORS, SchemaError, SchemaRegistry
 from storyrealms.state import RealmState
+from storyrealms.view_models import build_realm_view
 
 
 @dataclass(slots=True)
@@ -27,7 +30,11 @@ class StoryrealmsService:
     store: StoryrealmsStore = field(default_factory=StoryrealmsStore)
     bus: EventBus = field(default_factory=EventBus)
     rules: RuleEngine = field(default_factory=RuleEngine)
-    snapshot_every: int = 1
+    policy: PolicyEngine = field(default_factory=PolicyEngine)
+    schema: SchemaRegistry = field(default_factory=lambda: SchemaRegistry(DEFAULT_VALIDATORS))
+    snapshot_every: int = 10
+    archive_events_on_snapshot: bool = False
+    truncate_events_on_snapshot: bool = False
     current_realm: str = "default"
     _states: Dict[str, RealmState] = field(default_factory=dict)
     _event_counts: Dict[str, int] = field(default_factory=dict)
@@ -67,6 +74,7 @@ class StoryrealmsService:
             realm=realm_name,
             actor=actor,
             payload={"scene": scene} if scene else {},
+            meta=self.policy.enrich_meta({}, actor=actor, source="enter_realm"),
         )
         self._record(ev)
         return {"status": "entered", "realm": realm_name}
@@ -82,7 +90,8 @@ class StoryrealmsService:
     ) -> Dict[str, Any]:
         r = (realm or self.current_realm).strip() or "default"
         _ = self._get_or_load_state(r)
-        ev = RealmEvent(type=event_type, realm=r, actor=actor, payload=payload or {}, meta=meta or {})
+        enriched_meta = self.policy.enrich_meta(meta or {}, actor=actor, source="emit_event")
+        ev = RealmEvent(type=event_type, realm=r, actor=actor, payload=payload or {}, meta=enriched_meta)
         self._record(ev)
         return {"status": "event_emitted", "event": ev.to_dict()}
 
@@ -117,12 +126,12 @@ class StoryrealmsService:
         snap = self.store.load_snapshot(r)
         if snap is None:
             state = RealmState(realm=r)
-            for ev in self.store.iter_events(r):
+            for ev in self.store.iter_all_events(r):
                 state = apply_event(state, ev)
         else:
             state = snap
             seen_snapshot_event = snap.last_event_id is None
-            for ev in self.store.iter_events(r):
+            for ev in self.store.iter_all_events(r):
                 if not seen_snapshot_event:
                     if ev.id == snap.last_event_id:
                         seen_snapshot_event = True
@@ -133,10 +142,39 @@ class StoryrealmsService:
 
     def list_events(self, *, realm: Optional[str] = None, limit: Optional[int] = 100) -> Dict[str, Any]:
         r = (realm or self.current_realm).strip() or "default"
+        # For UX/debugging, this returns current-log events only (fast).
         events = self.store.read_events(r, limit=limit)
         return {"realm": r, "events": [e.to_dict() for e in events]}
 
+    def get_view(self, *, realm: Optional[str] = None, events_limit: int = 50) -> Dict[str, Any]:
+        r = (realm or self.current_realm).strip() or "default"
+        state = self._get_or_load_state(r)
+        events = self.store.read_events(r, limit=events_limit)
+        return {"realm": r, "view": build_realm_view(state, events)}
+
+    def optimize_storage(self, *, realm: Optional[str] = None, archive: bool = True, truncate: bool = True) -> Dict[str, Any]:
+        """
+        Performance maintenance:
+        - writes a snapshot
+        - optionally archives current event log
+        - optionally truncates current event log (keeping history in archive)
+        """
+        r = (realm or self.current_realm).strip() or "default"
+        state = self._get_or_load_state(r)
+        self.store.save_snapshot(state, archive_events=archive, truncate_events=truncate)
+        return {"realm": r, "status": "optimized", "archive": archive, "truncate": truncate}
+
     def _record(self, event: RealmEvent) -> None:
+        # Schema validation + authorization happen before persistence.
+        try:
+            self.schema.validate(event)
+        except SchemaError as e:
+            raise
+
+        ok, reason = self.policy.authorize(event)
+        if not ok:
+            raise PermissionError(reason)
+
         # Apply deterministically, then persist.
         state = self._get_or_load_state(event.realm)
         new_state = apply_event(state, event)
@@ -148,7 +186,11 @@ class StoryrealmsService:
         self._event_counts[event.realm] = n
         every = max(int(self.snapshot_every or 1), 1)
         if n % every == 0:
-            self.store.save_snapshot(new_state)
+            self.store.save_snapshot(
+                new_state,
+                archive_events=self.archive_events_on_snapshot,
+                truncate_events=self.truncate_events_on_snapshot,
+            )
 
         self.bus.publish(event)
 

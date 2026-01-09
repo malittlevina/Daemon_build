@@ -48,12 +48,14 @@ class StoryrealmsConsole:
                 "  realm enter <name>\n"
                 "  realm state [name]\n"
                 "  realm events [limit] [name]\n"
+                "  realm view\n"
                 "  tick [delta]\n"
                 "  scene set <scene>\n"
                 "  flag set <key> <value>\n"
                 "  entity set <id> k=v k=v ...\n"
                 "  entity show <id>\n"
                 "  npc list\n"
+                "  npc goal add <npc_id> <goal>\n"
                 "  location set <id> k=v k=v ...\n"
                 "  scroll trigger <scroll name>\n"
             )
@@ -74,6 +76,18 @@ class StoryrealmsConsole:
                 f"  flags:\n{_fmt_kv(s.get('flags') or {}, indent=4)}\n"
                 f"  entities: {len(s.get('entities') or {})}\n"
                 f"  locations: {len(s.get('locations') or {})}\n"
+            )
+
+        if name == "realm.view":
+            out = self.engine.get_view(events_limit=50)
+            v = out["view"]
+            return (
+                f"[Storyrealms] view: realm={out['realm']}\n"
+                f"  scene: {v.get('scene', {}).get('current')}\n"
+                f"  time: {v.get('time', {}).get('tick')}\n"
+                f"  counts: {v.get('counts')}\n"
+                f"  npcs: {len(v.get('npcs') or [])}\n"
+                f"  timeline: {len(v.get('timeline') or [])}\n"
             )
 
         if name == "entity.show":
@@ -124,7 +138,7 @@ class StoryrealmsConsole:
             self.engine.tick(delta, actor="cli")
             return f"[Storyrealms] ticked +{delta}"
 
-        if name in ("scene.set", "flag.set", "entity.upsert", "location.upsert", "scroll.trigger"):
+        if name in ("scene.set", "flag.set", "entity.upsert", "location.upsert", "scroll.trigger", "npc.goal.set"):
             self.engine.emit_event(name, dict(args), actor="cli")
             return f"[Storyrealms] ok: {name}"
 
