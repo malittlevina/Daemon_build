@@ -32,9 +32,17 @@ class ScrollEngine:
             "map runtime": self._map_runtime,
             "analyze system": self._analyze_system,
             "diff systems": self._diff_systems,
-            "materialize realm": self._materialize_realm
+            "materialize realm": self._materialize_realm,
+            "generate realm": self._generate_realm
         }
         self.active_scrolls = []
+
+    def _generate_realm(self, name, prompt):
+        if not self.world_engine: return "[Scroll] No World Engine."
+        from storyrealms.builder import RealmBuilder
+        builder = RealmBuilder(self.world_engine)
+        builder.generate_realm_from_prompt(name, prompt)
+        return f"[Scroll] Generated realm '{name}' from prompt: {prompt}"
 
     def _diff_systems(self, realm_a, realm_b):
         if not self.system_mapper: return "[Scroll] No System Mapper."

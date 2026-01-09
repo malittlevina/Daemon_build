@@ -83,6 +83,47 @@ class StoryRealmsEngine:
         print(f"[StoryRealms] Entered realm: {name}")
         return True
 
+    def update(self):
+        """
+        Main loop for the World Engine.
+        Updates entities and environment physics.
+        """
+        if not self.current_realm:
+            return
+
+        # 1. Update Entities
+        # We need to instantiate classes from the dicts if they aren't already
+        # For simplicity in this version, we just look for 'Agent' types and run logic
+        # In a robust system, we would maintain a list of active objects.
+        
+        from .entities import AgentEntity
+        
+        updated_entities = []
+        for entity_data in self.current_realm.entities:
+            if entity_data.get("type") == "Agent":
+                # Hydrate
+                agent = AgentEntity(
+                    entity_data["name"], 
+                    entity_data.get("role", "Observer"),
+                    entity_data.get("location", "Root"),
+                    entity_data.get("properties")
+                )
+                # Run logic
+                context = {"current_realm": self.current_realm}
+                agent.update(context)
+                
+                # Dehydrate
+                updated_entities.append(agent.to_dict())
+            else:
+                updated_entities.append(entity_data)
+        
+        self.current_realm.entities = updated_entities
+        
+        # 2. Random Environmental Events
+        import random
+        if random.random() < 0.01:
+            self.trigger_event("Ambient shift in realm atmosphere.")
+
     def get_current_context(self):
         if not self.current_realm:
             return "Void"

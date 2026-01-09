@@ -99,6 +99,10 @@ if __name__ == "__main__":
 
     while True:
         try:
+            # Update World Engine (Entity Loop)
+            if world_engine:
+                world_engine.update()
+            
             # Nightly reflection & self-improvement at 2 AM
             current_hour = time.localtime().tm_hour
             today = date.today()
