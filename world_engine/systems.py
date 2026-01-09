@@ -1,5 +1,5 @@
 from world_engine.ecs import System
-from world_engine.components import Transform, Velocity, Script, Collider, Name
+from world_engine.components import Transform, Velocity, Script, Collider, Name, SemanticMaterial
 
 class MovementSystem(System):
     def update(self, delta_time: float):
@@ -22,7 +22,7 @@ class CollisionSystem(System):
         for e in entities:
             e.get_component(Collider).collisions = []
 
-        # Brute force O(N^2) check (Optimization needed later: Octree)
+        # Brute force O(N^2) check
         count = len(entities)
         for i in range(count):
             e1 = entities[i]
@@ -42,12 +42,8 @@ class CollisionSystem(System):
                     # Resolve Physics (simple bounce/stop) if not triggers
                     if not c1.is_trigger and not c2.is_trigger:
                         self._resolve_collision(e1, e2)
-                        
-                    # Log event
-                    # print(f"[Collision] {e1.uid} hit {e2.uid}")
 
     def _check_aabb(self, t1, c1, t2, c2):
-        # Calculate bounds
         min1 = [t1.position[k] - c1.size[k]/2 for k in range(3)]
         max1 = [t1.position[k] + c1.size[k]/2 for k in range(3)]
         
@@ -59,12 +55,47 @@ class CollisionSystem(System):
                 min1[2] <= max2[2] and max1[2] >= min2[2])
 
     def _resolve_collision(self, e1, e2):
-        # Very basic resolution: stop velocity
         v1 = e1.get_component(Velocity)
         v2 = e2.get_component(Velocity)
-        
         if v1: v1.vector = [0.0, 0.0, 0.0]
         if v2: v2.vector = [0.0, 0.0, 0.0]
+
+class SemanticPhysicsSystem(System):
+    """
+    Apply logic based on 'meaning' rather than just geometry.
+    Ex: Fire + Wood = Burn
+    """
+    def update(self, delta_time: float):
+        entities = self.world.entity_manager.get_entities_with(Collider, SemanticMaterial)
+        
+        for entity in entities:
+            collider = entity.get_component(Collider)
+            mat_self = entity.get_component(SemanticMaterial)
+            
+            for other_uid in collider.collisions:
+                other = self.world.entity_manager.get_entity(other_uid)
+                if other and other.has_component(SemanticMaterial):
+                    mat_other = other.get_component(SemanticMaterial)
+                    self._resolve_semantic_interaction(entity, mat_self, other, mat_other)
+
+    def _resolve_semantic_interaction(self, e1, m1, e2, m2):
+        # Define Reactions (This could be expanded to an external Rule Engine or LLM)
+        
+        # Fire vs Flammable
+        if m1.material == "fire" and "flammable" in m2.properties:
+            if "burning" not in m2.properties:
+                m2.properties.append("burning")
+                # e2.add_component(Light(color=(1, 0.5, 0), intensity=2.0)) # Visual feedback
+                print(f"[SemanticPhysics] {e1.uid} (Fire) set {e2.uid} ({m2.material}) ON FIRE!")
+
+        # Water vs Fire
+        if m1.material == "water" and (m2.material == "fire" or "burning" in m2.properties):
+            if "burning" in m2.properties:
+                m2.properties.remove("burning")
+                print(f"[SemanticPhysics] {e1.uid} (Water) EXTINGUISHED {e2.uid}")
+            if m2.material == "fire":
+                # Destroy fire entity? For now just log
+                print(f"[SemanticPhysics] {e1.uid} (Water) doused {e2.uid} (Fire source)")
 
 class ScriptSystem(System):
     def update(self, delta_time: float):
@@ -72,17 +103,11 @@ class ScriptSystem(System):
         for entity in entities:
             script = entity.get_component(Script)
             try:
-                # Inject useful context
                 name = entity.get_component(Name).name if entity.get_component(Name) else "Unknown"
                 collisions = entity.get_component(Collider).collisions if entity.has_component(Collider) else []
-                
                 local_scope = {
-                    "entity": entity, 
-                    "dt": delta_time, 
-                    "state": script.state, 
-                    "print": print,
-                    "name": name,
-                    "collisions": collisions
+                    "entity": entity, "dt": delta_time, "state": script.state, 
+                    "print": print, "name": name, "collisions": collisions
                 }
                 exec(script.source_code, {}, local_scope)
             except Exception as e:

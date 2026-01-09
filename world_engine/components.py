@@ -39,6 +39,18 @@ class Script(Component):
         self.source_code = source_code
         self.state = {}
 
+class SemanticMaterial(Component):
+    """
+    Defines what an object 'is' conceptually for semantic physics.
+    E.g., material="wood", properties=["flammable", "solid"]
+    """
+    def __init__(self, material: str, properties: List[str] = None):
+        self.material = material
+        self.properties = properties or []
+
+    def __repr__(self):
+        return f"Material({self.material}, {self.properties})"
+
 # --- Rendering / Representation (Symbolic) ---
 
 class Mesh(Component):

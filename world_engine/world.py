@@ -1,7 +1,7 @@
 from core.module import Module
 from world_engine.ecs import EntityManager
-from world_engine.systems import MovementSystem, ScriptSystem, PhysicsSystem, CollisionSystem
-from world_engine.components import Transform, Name, Velocity, Collider, Script
+from world_engine.systems import MovementSystem, ScriptSystem, PhysicsSystem, CollisionSystem, SemanticPhysicsSystem
+from world_engine.components import Transform, Name, Velocity, Collider, Script, SemanticMaterial
 from world_engine.serializer import WorldSerializer
 import time
 import threading
@@ -21,7 +21,8 @@ class WorldEngine(Module):
     def initialize(self):
         # Register default systems
         self.add_system(MovementSystem(self))
-        self.add_system(CollisionSystem(self)) # Added Collision
+        self.add_system(CollisionSystem(self))
+        self.add_system(SemanticPhysicsSystem(self)) # Added Semantic Logic
         self.add_system(PhysicsSystem(self))
         self.add_system(ScriptSystem(self))
         self.kernel.log("WorldEngine", "Initialized.")
@@ -75,6 +76,13 @@ class WorldEngine(Module):
         if entity:
             entity.add_component(Velocity(velocity))
             entity.add_component(Collider(collider_size, is_trigger=trigger))
+            return True
+        return False
+
+    def add_semantic_material(self, uid, material, properties=None):
+        entity = self.entity_manager.get_entity(uid)
+        if entity:
+            entity.add_component(SemanticMaterial(material, properties))
             return True
         return False
 
