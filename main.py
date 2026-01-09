@@ -131,6 +131,12 @@ def main():
     from core.view import ViewManager
     kernel.register_module("view", ViewManager(kernel))
 
+    from apps.architect import Architect
+    kernel.register_module("architect", Architect(kernel))
+
+    from apps.sims import SimController
+    kernel.register_module("sims", SimController(kernel))
+
     # Initialize System
     kernel.initialize()
 
