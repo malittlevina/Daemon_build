@@ -27,13 +27,12 @@ def execute_api_scroll(name, context):
     if name == "fetch weather":
         city = context.get("city", "Denver")
         scroll_invoke_weather(city)
+        return "ok"
     elif name == "get news":
         headlines = get_news_headlines(context.get("api_key", ""), context.get("topic", "technology"))
         for headline in headlines:
             print(f"[SCROLL] News Headline: {headline}")
+        return "ok"
     else:
         print(f"[SCROLL] Unknown API scroll: {name}")
-
-def execute_api_scroll(*args, **kwargs):
-    print("[api_scrolls] Executing API scroll...")
-    return "API scroll executed"
+        return "unknown"

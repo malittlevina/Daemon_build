@@ -36,7 +36,11 @@ class ScrollEngine:
 
     def _study_topic(self, topic):
         from codex.ingestion import ingest_observation, ingest_web_or_pdf
-        from code_tools.tutor import study_topic  # Optional enhancement hook
+        # Optional enhancement hook (may not exist in this repo layout)
+        try:
+            from code_tools.tutor import study_topic  # type: ignore
+        except Exception:
+            study_topic = None  # type: ignore
 
         if not topic:
             return "[Study] No topic provided."
@@ -48,10 +52,17 @@ class ScrollEngine:
         try:
             import os
             import time
-            from codex.summarizer import summarize_content  # You need to implement this if not existing
+            # Summarizer is optional; fall back gracefully if absent.
+            try:
+                from codex.summarizer import summarize_content  # type: ignore
+            except Exception:
+                summarize_content = None  # type: ignore
 
             # Summarize the topic and save to knowledge file
-            summary = summarize_content(topic)
+            if callable(summarize_content):
+                summary = summarize_content(topic)
+            else:
+                summary = f"(summary unavailable) Topic captured for later ingestion: {topic}"
             print(f"[Study] Knowledge Digest:\n{summary[:500]}...\n")
             knowledge_path = f"knowledge/{topic.lower().replace(' ', '_')}.md"
             os.makedirs(os.path.dirname(knowledge_path), exist_ok=True)
@@ -135,12 +146,19 @@ class ScrollEngine:
         import os
         import time
         from codex.ingestion import ingest_observation
-        from code_tools.planner import generate_plan  # You need to implement this module
+        # Planner exists in this repo, but keep a safe fallback.
+        try:
+            from code_tools.planner import generate_plan  # type: ignore
+        except Exception:
+            generate_plan = None  # type: ignore
 
         if not goal:
             return "[Planner] No goal provided."
 
-        plan = generate_plan(goal)
+        if callable(generate_plan):
+            plan = generate_plan(goal)
+        else:
+            plan = {"task": goal, "steps": ["(planner unavailable)"], "timestamp": time.ctime()}
         os.makedirs("logs", exist_ok=True)
         with open("logs/task_memory.log", "a") as log_file:
             log_file.write(f"{time.ctime()} - Goal: {goal}\nPlan: {plan}\n")

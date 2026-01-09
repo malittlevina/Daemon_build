@@ -1,8 +1,29 @@
 import os
 import datetime
-from codex.codex_engine import log_codex_entry
-from code.code_generator import propose_improvements
-from unimind.reasoner import symbolic_reasoning_chain
+
+# These imports are optional in this repo layout; keep NLU robust if subsystems
+# are absent or renamed.
+try:
+    # Not present in the current workspace; kept for forward compatibility.
+    from codex.codex_engine import log_codex_entry  # type: ignore
+except Exception:
+    def log_codex_entry(category: str, content: str) -> None:  # type: ignore
+        os.makedirs("logs", exist_ok=True)
+        with open("logs/codex_fallback.log", "a", encoding="utf-8") as f:
+            f.write(f"[{category}] {content}\n\n")
+
+try:
+    from code_tools.code_generator import propose_improvements  # type: ignore
+except Exception:
+    def propose_improvements(context: str = "") -> str:  # type: ignore
+        return f"[NLU] propose_improvements unavailable: {context}"
+
+try:
+    from unimind.reasoner import symbolic_reasoning_chain  # type: ignore
+except Exception:
+    def symbolic_reasoning_chain(prompt: str) -> str:  # type: ignore
+        return f"[NLU] symbolic_reasoning_chain unavailable: {prompt}"
+
 from lam.symbolic_state import update_state_with_input
 from storyrealms.router import StoryrealmsRouter
 from storyrealms.service import StoryrealmsService
