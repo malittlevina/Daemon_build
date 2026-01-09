@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "realm": "beta",
+  "time": 0,
+  "entities": {
+    "npc:1": {
+      "name": "Ira"
+    }
+  },
+  "locations": {},
+  "relationships": {},
+  "flags": {},
+  "current_scene": null,
+  "last_event_id": "7d5f8c12-37cf-4002-93c0-735675c9907a"
+}

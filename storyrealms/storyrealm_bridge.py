@@ -1,37 +1,51 @@
 # storyrealms/storyrealm_bridge.py
 
-import json
-import os
+"""
+Compatibility bridge for Storyrealms (world engine).
 
-# Simulated database for realm state
-REALM_STATE_FILE = "storyrealms/realm_state.json"
+This file preserves the original simple functions while delegating to the
+event-sourced StoryrealmsService underneath.
+"""
 
-def _load_realm_state():
-    if not os.path.exists(REALM_STATE_FILE):
-        return {"current_realm": None, "events": []}
-    with open(REALM_STATE_FILE, "r") as f:
-        return json.load(f)
+from __future__ import annotations
 
-def _save_realm_state(state):
-    with open(REALM_STATE_FILE, "w") as f:
-        json.dump(state, f, indent=2)
+from typing import Any, Dict, Optional
+
+from storyrealms.service import StoryrealmsService
+
+
+_SERVICE: Optional[StoryrealmsService] = None
+
+
+def _service() -> StoryrealmsService:
+    global _SERVICE
+    if _SERVICE is None:
+        _SERVICE = StoryrealmsService()
+    return _SERVICE
+
 
 def enter_storyrealm(realm_name: str):
-    state = _load_realm_state()
-    state["current_realm"] = realm_name
-    _save_realm_state(state)
-    return {"status": "entered", "realm": realm_name}
+    return _service().enter_realm(realm_name, actor="storyrealm_bridge")
+
 
 def push_event_to_realm(event_data: dict):
-    state = _load_realm_state()
-    state.setdefault("events", []).append(event_data)
-    _save_realm_state(state)
-    return {"status": "event_pushed", "event": event_data}
+    # Back-compat: treat incoming dict as a generic realm event.
+    event_type = str(event_data.get("type") or "realm.event")
+    payload: Dict[str, Any] = dict(event_data.get("payload") or {})
+    meta: Dict[str, Any] = dict(event_data.get("meta") or {})
+    actor = event_data.get("actor")
+    realm = event_data.get("realm")
+    return _service().emit_event(event_type, payload, realm=realm, actor=actor, meta=meta)
+
 
 def get_current_realm():
-    state = _load_realm_state()
-    return {"current_realm": state.get("current_realm")}
+    return {"current_realm": _service().current_realm}
+
 
 def list_realm_events():
-    state = _load_realm_state()
-    return {"events": state.get("events", [])}
+    # Compatibility: return recent events + current state snapshot.
+    svc = _service()
+    return {
+        "events": svc.list_events(limit=200).get("events", []),
+        "state": svc.query_state(),
+    }

@@ -1,0 +1,200 @@
+[
+  {
+    "timestamp": "2026-01-09T02:26:56.619216",
+    "type": "memory",
+    "content": "[Storyrealms] alpha :: realm.entered",
+    "context": {
+      "event_id": "616385ef-40ab-4dca-b3fb-4b59b2961e64",
+      "ts": "2026-01-09T02:26:56.617930+00:00",
+      "realm": "alpha",
+      "type": "realm.entered",
+      "actor": "test",
+      "payload": {},
+      "meta": {}
+    }
+  },
+  {
+    "timestamp": "2026-01-09T02:26:56.619573",
+    "type": "memory",
+    "content": "[Storyrealms] alpha :: flag.set",
+    "context": {
+      "event_id": "963b0d03-0534-4e2e-8808-3e0f1fca088a",
+      "ts": "2026-01-09T02:26:56.619330+00:00",
+      "realm": "alpha",
+      "type": "flag.set",
+      "actor": "test",
+      "payload": {
+        "key": "weather",
+        "value": "rain"
+      },
+      "meta": {}
+    }
+  },
+  {
+    "timestamp": "2026-01-09T02:26:56.619945",
+    "type": "memory",
+    "content": "[Storyrealms] alpha :: entity.upsert",
+    "context": {
+      "event_id": "4ef8b423-9dd9-41de-9ab4-3f60fcc52703",
+      "ts": "2026-01-09T02:26:56.619699+00:00",
+      "realm": "alpha",
+      "type": "entity.upsert",
+      "actor": "test",
+      "payload": {
+        "entity_id": "npc:1",
+        "data": {
+          "name": "Ira",
+          "mood": "curious"
+        }
+      },
+      "meta": {}
+    }
+  },
+  {
+    "timestamp": "2026-01-09T02:26:56.620217",
+    "type": "memory",
+    "content": "[Storyrealms] alpha :: time.tick",
+    "context": {
+      "event_id": "3e49b2e0-494e-46a6-9e05-69395b5cfd74",
+      "ts": "2026-01-09T02:26:56.620068+00:00",
+      "realm": "alpha",
+      "type": "time.tick",
+      "actor": "test",
+      "payload": {
+        "delta": 3
+      },
+      "meta": {}
+    }
+  },
+  {
+    "timestamp": "2026-01-09T02:26:56.827427",
+    "type": "memory",
+    "content": "[Storyrealms] alpha :: realm.entered",
+    "context": {
+      "event_id": "622e0dee-7c0f-4645-a9b4-eb3d8421eab5",
+      "ts": "2026-01-09T02:26:56.826831+00:00",
+      "realm": "alpha",
+      "type": "realm.entered",
+      "actor": null,
+      "payload": {},
+      "meta": {}
+    }
+  },
+  {
+    "timestamp": "2026-01-09T02:26:56.827913",
+    "type": "memory",
+    "content": "[Storyrealms] alpha :: flag.set",
+    "context": {
+      "event_id": "dc29b6b2-59a6-4091-b901-e3c1c2df57f8",
+      "ts": "2026-01-09T02:26:56.827669+00:00",
+      "realm": "alpha",
+      "type": "flag.set",
+      "actor": null,
+      "payload": {
+        "key": "k",
+        "value": 1
+      },
+      "meta": {}
+    }
+  },
+  {
+    "timestamp": "2026-01-09T02:26:58.034271",
+    "type": "memory",
+    "content": "[Storyrealms] beta :: realm.entered",
+    "context": {
+      "event_id": "8c743c94-bfb3-4a82-9987-093501c1ce45",
+      "ts": "2026-01-09T02:26:58.033673+00:00",
+      "realm": "beta",
+      "type": "realm.entered",
+      "actor": "RealmInterface",
+      "payload": {},
+      "meta": {}
+    }
+  },
+  {
+    "timestamp": "2026-01-09T02:26:58.034752",
+    "type": "memory",
+    "content": "[Storyrealms] beta :: entity.upsert",
+    "context": {
+      "event_id": "7d5f8c12-37cf-4002-93c0-735675c9907a",
+      "ts": "2026-01-09T02:26:58.034523+00:00",
+      "realm": "beta",
+      "type": "entity.upsert",
+      "actor": "RealmInterface",
+      "payload": {
+        "entity_id": "npc:1",
+        "data": {
+          "name": "Ira"
+        }
+      },
+      "meta": {}
+    }
+  },
+  {
+    "timestamp": "2026-01-09T02:27:12.835878",
+    "type": "memory",
+    "content": "[Storyrealms] alpha :: realm.entered",
+    "context": {
+      "event_id": "4a9e0c62-7508-4eb7-ae2a-e08fdae50fb0",
+      "ts": "2026-01-09T02:27:12.835182+00:00",
+      "realm": "alpha",
+      "type": "realm.entered",
+      "actor": "test",
+      "payload": {},
+      "meta": {}
+    }
+  },
+  {
+    "timestamp": "2026-01-09T02:27:12.836435",
+    "type": "memory",
+    "content": "[Storyrealms] alpha :: flag.set",
+    "context": {
+      "event_id": "4056fd67-5c58-49f7-9df1-c3579c185381",
+      "ts": "2026-01-09T02:27:12.836118+00:00",
+      "realm": "alpha",
+      "type": "flag.set",
+      "actor": "test",
+      "payload": {
+        "key": "weather",
+        "value": "rain"
+      },
+      "meta": {}
+    }
+  },
+  {
+    "timestamp": "2026-01-09T02:27:12.837107",
+    "type": "memory",
+    "content": "[Storyrealms] alpha :: entity.upsert",
+    "context": {
+      "event_id": "0c40734f-9537-4716-82af-688d08f02a8f",
+      "ts": "2026-01-09T02:27:12.836676+00:00",
+      "realm": "alpha",
+      "type": "entity.upsert",
+      "actor": "test",
+      "payload": {
+        "entity_id": "npc:1",
+        "data": {
+          "name": "Ira",
+          "mood": "curious"
+        }
+      },
+      "meta": {}
+    }
+  },
+  {
+    "timestamp": "2026-01-09T02:27:12.837610",
+    "type": "memory",
+    "content": "[Storyrealms] alpha :: time.tick",
+    "context": {
+      "event_id": "2f34452a-2048-4f7d-a254-4f3f66b805ea",
+      "ts": "2026-01-09T02:27:12.837346+00:00",
+      "realm": "alpha",
+      "type": "time.tick",
+      "actor": "test",
+      "payload": {
+        "delta": 3
+      },
+      "meta": {}
+    }
+  }
+]

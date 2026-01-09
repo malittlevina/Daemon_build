@@ -13,6 +13,24 @@ This is the official Prometheus daemon build (v2_origin), an intelligent AI agen
 - ✅ **Reflection Journal** (self-coding + evolution logs)
 - ✅ **Codex Ingestion** (PDF/web summarization knowledge)
 - ✅ **Multi-language Code Execution** (Python, Rust, Julia)
+- ✅ **Storyrealms (World Engine)** (event-sourced realm state + deterministic replay)
+
+## Storyrealms (World Engine)
+Storyrealms is the canonical "world engine" subsystem (`storyrealms/`). It provides:
+- event-sourced realm state (append-only log + snapshots)
+- deterministic replay for debugging/time-travel
+- soft integrations into memory logging and scroll triggers
+
+Minimal usage (Python):
+
+```python
+from storyrealms import StoryrealmsService
+
+svc = StoryrealmsService()
+svc.enter_realm("alpha", actor="user")
+svc.emit_event("entity.upsert", {"entity_id": "npc:1", "data": {"name": "Ira"}})
+print(svc.query_state())
+```
 
 ## Installation
 ```bash

@@ -1,0 +1,2 @@
+{"id": "8c743c94-bfb3-4a82-9987-093501c1ce45", "ts": "2026-01-09T02:26:58.033673+00:00", "type": "realm.entered", "realm": "beta", "actor": "RealmInterface", "payload": {}, "meta": {}}
+{"id": "7d5f8c12-37cf-4002-93c0-735675c9907a", "ts": "2026-01-09T02:26:58.034523+00:00", "type": "entity.upsert", "realm": "beta", "actor": "RealmInterface", "payload": {"entity_id": "npc:1", "data": {"name": "Ira"}}, "meta": {}}
