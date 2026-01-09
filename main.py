@@ -1,5 +1,6 @@
 import threading
 from unimind.core import Unimind
+from unimind.bootstrap import attach_default_subsystems
 from prometheus.specialties import PrometheusSpecialties
 from codex.ingestion import ingest_documents
 from emotion.emotion_engine import EmotionEngine
@@ -10,6 +11,9 @@ from optimizer.auto_upgrade import run_auto_optimization
 from scrolls.scroll_engine import ScrollEngine
 ## from sensors.vision import VisionSensor
 from nlu.nlu_engine import NLUEngine
+from guardian.ethical_core import EthicalCore
+from lam import symbolic_state as lam_state_module
+from lam import lam_planner as lam_planner_module
 import subprocess
 import json
 import time
@@ -24,6 +28,7 @@ if __name__ == "__main__":
     prom = PrometheusSpecialties()
     emotions = EmotionEngine()
     memory = MemoryLogger()
+    ethics = EthicalCore()
     rituals = RitualRegistry()
     scrolls = ScrollEngine()
     # vision = VisionSensor()
@@ -34,6 +39,16 @@ if __name__ == "__main__":
     except Exception as e:
         print(f"[Daemon Init Error] Failed to initialize NLU: {e}")
         nlu = None
+
+    # Wire Unimind to connected subsystems (agent-native orchestration)
+    attach_default_subsystems(
+        unimind,
+        emotion_engine=emotions,
+        memory_logger=memory,
+        ethical_core=ethics,
+        lam_state_module=lam_state_module,
+        lam_planner_module=lam_planner_module,
+    )
 
     print("[Daemon] Starting Prometheus daemon...")
 
@@ -107,6 +122,14 @@ if __name__ == "__main__":
                     result = handle_fallback(user_input)
 
                 print(f"[Daemon] NLU Result: {result}")
+
+                # Run a Unimind cycle to expand concepts + propose next action.
+                try:
+                    plan = unimind.cycle(user_input, intent=result)
+                    print(f"[Unimind] Plan: {plan.action}")
+                    print(f"[Unimind] Rationale: {plan.rationale}")
+                except Exception as e:
+                    print(f"[Unimind] Cycle error: {e}")
 
         except Exception as loop_error:
             print(f"[Daemon Critical Loop Error] {loop_error}")

@@ -1,17 +1,17 @@
 import os
 import datetime
-from codex.codex_engine import log_codex_entry
-from code.code_generator import propose_improvements
-from unimind.reasoner import symbolic_reasoning_chain
+from codex.ingestion import ingest_observation
+from code_tools.code_generator import propose_improvements
 from lam.symbolic_state import update_state_with_input
 
 REFLECTION_LOG = "logs/self_reflection.log"
 MAX_LOG_SIZE = 10000  # characters
 
 class NLUEngine:
-    def __init__(self):
+    def __init__(self, scroll_engine=None):
         self.learned_phrases = {}
         self.use_ollama_fallback = True
+        self.scroll_engine = scroll_engine
 
     def interpret(self, user_input):
         if user_input in self.learned_phrases:
@@ -50,19 +50,19 @@ def run_self_analysis():
     # Symbolic diagnostic prompt
     reflection["timestamp"] = str(datetime.datetime.now())
     reflection["status"] = "Running self-analysis"
-    reflection["reasoning_trace"] = symbolic_reasoning_chain("analyze internal state for weaknesses")
+    reflection["reasoning_trace"] = "[NLU] Symbolic reasoning chain not yet implemented."
 
     # Improvement suggestions
     reflection["proposed_improvements"] = propose_improvements("Nightly self-analysis of daemon")
 
-    # Log reflection to Codex
+    # Log reflection to Codex (fallback to ingestion logger)
     codex_summary = (
         f"Self-reflection at {reflection['timestamp']}\n"
         f"Status: {reflection['status']}\n"
         f"Symbolic Reasoning: {reflection['reasoning_trace']}\n"
         f"Proposed Fixes: {reflection['proposed_improvements']}"
     )
-    log_codex_entry("reflection", codex_summary)
+    ingest_observation({"type": "reflection", "summary": codex_summary})
 
     # Append to local log
     with open(REFLECTION_LOG, "a") as log_file:
