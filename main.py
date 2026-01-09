@@ -24,23 +24,19 @@ def main():
     # Initialize Subsystems
     print("[Launcher] Booting subsystems...")
     
-    # 1. NLU
+    # 1. Unimind (Logic) - Initialize FIRST so NLU can find it
+    unimind = Unimind()
+    kernel.register_module("unimind", unimind)
+    
+    # 2. NLU
     scrolls = ScrollEngine()
     nlu = NLUEngine(scrolls)
     kernel.register_module("nlu", nlu)
-    
-    # 2. Unimind (Logic)
-    unimind = Unimind()
-    kernel.register_module("unimind", unimind)
     
     # 3. Emotions & Personality
     emotions = EmotionEngine()
     personality = PersonalityTracker()
     kernel.register_module("emotions", emotions)
-    
-    # 4. Start Background Threads (Legacy)
-    # ingest_documents("codex/data/") # Can be heavy
-    # threading.Thread(target=run_auto_optimization, daemon=True).start()
     
     # Start Kernel
     kernel.start()

@@ -8,6 +8,10 @@ import datetime
 from storyrealms.storyrealm_bridge import enter_storyrealm, process_action
 from nlu.languages.registry import LanguageRegistry
 
+# Lazy load Unimind to avoid circular import if needed, 
+# but usually it's fine if Unimind doesn't import NLU.
+from core.kernel import get_kernel 
+
 REFLECTION_LOG = "logs/self_reflection.log"
 MAX_LOG_SIZE = 10000  # characters
 
@@ -25,6 +29,20 @@ class NLUEngine:
 
     def interpret(self, user_input):
         user_input_lower = user_input.lower()
+        
+        # 0. Consult Unimind for Global Analysis
+        # We check if Unimind is available via Kernel
+        kernel = get_kernel()
+        unimind_response = None
+        if "unimind" in kernel.modules:
+            unimind = kernel.modules["unimind"]
+            # Create a context for the Unimind
+            ctx = {"user_input": user_input}
+            unimind_response = unimind.think(ctx)
+            
+            # Check if Unimind blocked the action
+            if unimind_response.get("action_blocked"):
+                return f"[Unimind Safety] Action Blocked: {unimind_response.get('block_reason')}"
 
         # 1. Language Switch Check
         new_lang_code = self.registry.detect_language_switch(user_input_lower)
@@ -56,45 +74,39 @@ class NLUEngine:
         if intent:
             return self.current_lang.get_response(intent)
 
-        # 6. Fallback
+        # 6. Fallback (Augmented by Unimind Creative Suggestion)
         if self.use_ollama_fallback:
             try:
+                # If Unimind had a creative suggestion, prepend it to the context?
+                # Or just append it to the output?
+                creative_note = ""
+                if unimind_response and "creative_suggestion" in unimind_response:
+                    creative_note = f"\n[Unimind Idea]: {unimind_response['creative_suggestion']}"
+
                 import subprocess
-                # Pass a system prompt to Ollama to respond in the target language if possible, 
-                # but standard Ollama might just reply in English. 
-                # We'll just append a "respond in [Language]" instruction if needed, 
-                # but for now keep it simple.
                 result = subprocess.run(["ollama", "run", "llama3", user_input], capture_output=True, text=True)
                 if result.returncode == 0:
-                    return result.stdout.strip()
+                    output = result.stdout.strip()
+                    return output + creative_note
                 else:
-                    return f"[NLUEngine] Ollama fallback failed (code {result.returncode})."
+                    return f"[NLUEngine] Ollama fallback failed (code {result.returncode}).{creative_note}"
             except FileNotFoundError:
-                return "[NLUEngine] Ollama not found."
+                return f"[NLUEngine] Ollama not found.{creative_note}" if 'creative_note' in locals() else "[NLUEngine] Ollama not found."
             except Exception as e:
                 return f"[NLUEngine] Fallback exception: {e}"
 
         return self.current_lang.get_fallback_response()
 
     def _handle_game_input(self, text):
-        # Basic Multilingual Support for Game Commands via Regex/Keywords could be added here
-        # For now, we rely on English keywords OR we could add GAME_MOVE to the packs.
-        # Let's support at least the keywords in the packs if we added them? 
-        # I didn't add explicit MOVE/ATTACK intents to packs yet, just ENTER/EXIT.
-        # I'll stick to English command parsing for mechanics, but localized output.
-        
         parts = text.split()
         command = parts[0]
-        
-        # Simple aliasing for other languages could be done here if I had a dictionary.
-        # For now, English commands.
         
         if command in ["move", "walk", "go"]:
             direction = parts[1] if len(parts) > 1 else None
             if direction:
                 res = process_action("move", {"direction": direction})
                 return self.current_lang.format_game_response("move", res)
-            return "Direction?" # Should localize
+            return "Direction?" 
             
         elif command == "scan":
              res = process_action("scan", {})
