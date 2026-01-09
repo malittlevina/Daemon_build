@@ -81,6 +81,25 @@ class XRServer(Module):
             sm = self.kernel.get_module("spatial_map")
             if sm:
                 sm.register_anchor(msg["id"], msg["coords"])
+        elif msg["type"] == "gesture":
+            self._handle_gesture(msg)
+
+    def _handle_gesture(self, msg):
+        gesture = msg.get("gesture")
+        target_uid = msg.get("target_id")
+        
+        self.kernel.log("XRServer", f"Gesture: {gesture} on {target_uid}")
+        
+        if gesture == "pinch":
+            # Select / Click
+            if target_uid:
+                self.kernel.dispatch("xr:select", {"uid": target_uid})
+        elif gesture == "grab":
+            # Move / Drag
+            pass
+        elif gesture == "wave":
+            # Menu / Hello
+            pass
 
     def _broadcast_loop(self):
         """Stream World State @ 10Hz"""

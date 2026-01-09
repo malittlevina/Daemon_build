@@ -31,13 +31,21 @@ class Holodeck(Module):
         elif ext == ".db": material = "metal"
         elif ext == ".json": material = "glass"
 
+        # Spatial Indexing: Place in different "Rooms" based on path
+        # Simple quadrant logic
+        x, z = 0, 0
+        if "apps" in path: x = 10
+        elif "core" in path: x = -10
+        elif "logs" in path: z = 10
+        else: z = -10
+
         # Create physical representation
-        uid = world.create_object(f"File: {os.path.basename(path)}", position=(0, 5, 0)) # Drop from sky
+        uid = world.create_object(f"File: {os.path.basename(path)}", position=(x, 5, z))
         world.add_physics(uid, collider_size=(0.5, 0.5, 0.5))
         world.add_semantic_material(uid, material, properties=["flammable"] if material == "paper" else [])
         
         self.file_entities[path] = uid
-        self.kernel.log("Holodeck", f"Materialized file {path} as entity {uid} ({material})")
+        self.kernel.log("Holodeck", f"Materialized file {path} as entity {uid} ({material}) at ({x}, 5, {z})")
 
     def on_file_deleted(self, event_type, data):
         path = data.get("path")
