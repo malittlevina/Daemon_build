@@ -1,0 +1,21 @@
+{
+  "id": "wb.procgen.grammar",
+  "title": "Procedural Generation via Grammars",
+  "definition": "Rule-based systems (L-systems, shape grammars) generate complex structures from compact rules.",
+  "parameters": [],
+  "constraints": [
+    "Rules must avoid infinite expansion; enforce depth/size budgets."
+  ],
+  "related": [],
+  "tags": [
+    "worldbuilding",
+    "doctorate",
+    "computer_science",
+    "research_methods"
+  ],
+  "examples": [
+    "A building grammar generates floors/windows based on constraints."
+  ],
+  "created_at": "2026-01-09T20:53:15+00:00",
+  "updated_at": "2026-01-09T20:53:15+00:00"
+}

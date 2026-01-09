@@ -1,0 +1,28 @@
+{
+  "id": "logic.recipe.proof_by_induction",
+  "goal": "Prove a statement by mathematical induction.",
+  "steps": [
+    "State the proposition P(n) and the domain (typically integers ≥ 0 or ≥ 1).",
+    "Prove the base case P(n0).",
+    "Assume inductive hypothesis P(k) for arbitrary k ≥ n0.",
+    "Prove P(k+1) using the hypothesis.",
+    "Conclude P(n) holds for all n ≥ n0."
+  ],
+  "quality_checks": [
+    "base case correct",
+    "inductive step uses hypothesis properly"
+  ],
+  "failure_modes": [
+    "assuming P(k+1) (circularity)",
+    "wrong base index"
+  ],
+  "tags": [
+    "logic",
+    "reasoning",
+    "proof",
+    "undergrad",
+    "recipe"
+  ],
+  "created_at": "2026-01-09T20:53:58+00:00",
+  "updated_at": "2026-01-09T20:53:58+00:00"
+}

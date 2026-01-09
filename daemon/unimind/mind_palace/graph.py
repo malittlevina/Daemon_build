@@ -10,6 +10,8 @@ DEFAULT_ROOMS = {
     "science": {"biology", "chemistry", "physics", "earth_science"},
     "history": {"ancient", "medieval", "modern", "civics"},
     "english": {"grammar", "writing", "literature", "vocabulary"},
+    "logic_reasoning": {"logic", "proof", "probability", "decision_theory", "fallacies"},
+    "philosophy": {"epistemology", "ethics", "metaphysics", "mind", "science", "political"},
     # Academic progression (post K-12). These rooms are level-based and are
     # intended to hold compact artifacts tagged with undergrad/graduate/phd.
     "undergrad": {"math", "science", "computer_science", "engineering", "humanities", "research_methods"},
@@ -24,6 +26,10 @@ DEFAULT_ROOMS = {
 
 def _infer_room(tags: Sequence[str]) -> str:
     t = set(tags or [])
+    if "logic" in t or "reasoning" in t or any(x.startswith(("logic.", "proof", "fallacy", "decision_theory")) for x in t):
+        return "logic_reasoning"
+    if "philosophy" in t or any(x in t for x in ("epistemology", "ethics", "metaphysics", "mind", "political_philosophy")):
+        return "philosophy"
     # Level-based rooms (strongest routing when present)
     if any(x in t for x in ("phd", "doctorate", "doctoral")):
         return "doctorate"
@@ -74,6 +80,30 @@ def _infer_shelf(room: str, tags: Sequence[str]) -> str:
         if any(x in t for x in ("methods", "research_methods", "research", "paper", "thesis", "dissertation")):
             return "research_methods"
         return "humanities"
+    if room == "logic_reasoning":
+        if any(x in t for x in ("probability", "bayes", "statistics")):
+            return "probability"
+        if any(x in t for x in ("decision_theory", "game_theory", "utility")):
+            return "decision_theory"
+        if any(x in t for x in ("fallacies", "fallacy")):
+            return "fallacies"
+        if any(x in t for x in ("proof", "proofs", "induction")):
+            return "proof"
+        return "logic"
+    if room == "philosophy":
+        if "epistemology" in t:
+            return "epistemology"
+        if "ethics" in t:
+            return "ethics"
+        if "metaphysics" in t:
+            return "metaphysics"
+        if any(x in t for x in ("mind", "philosophy_of_mind")):
+            return "mind"
+        if any(x in t for x in ("science", "philosophy_of_science")):
+            return "science"
+        if any(x in t for x in ("political", "political_philosophy")):
+            return "political"
+        return "epistemology"
     if room == "math":
         if "algebra" in t:
             return "algebra"

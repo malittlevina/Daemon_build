@@ -1,0 +1,17 @@
+{
+  "id": "sec.authn_authz",
+  "title": "Authentication vs Authorization",
+  "definition": "Authentication verifies identity; authorization decides what an identity may do (permissions/policy).",
+  "parameters": [],
+  "constraints": [],
+  "related": [],
+  "tags": [
+    "graduate",
+    "computer_science",
+    "security",
+    "engineering"
+  ],
+  "examples": [],
+  "created_at": "2026-01-09T20:53:15+00:00",
+  "updated_at": "2026-01-09T20:53:15+00:00"
+}

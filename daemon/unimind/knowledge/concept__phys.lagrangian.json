@@ -1,0 +1,16 @@
+{
+  "id": "phys.lagrangian",
+  "title": "Lagrangian Mechanics (Overview)",
+  "definition": "Formulates dynamics using energy: L = T − V; equations of motion from the Euler–Lagrange equation.",
+  "parameters": [],
+  "constraints": [],
+  "related": [],
+  "tags": [
+    "graduate",
+    "science",
+    "physics"
+  ],
+  "examples": [],
+  "created_at": "2026-01-09T20:53:15+00:00",
+  "updated_at": "2026-01-09T20:53:15+00:00"
+}

@@ -1,0 +1,19 @@
+{
+  "id": "phys.integrators.symplectic",
+  "title": "Symplectic Integrators",
+  "definition": "Integrators designed to preserve geometric properties (like energy behavior) in Hamiltonian systems.",
+  "parameters": [],
+  "constraints": [
+    "Often preferred for long-term stability in conservative systems."
+  ],
+  "related": [],
+  "tags": [
+    "doctorate",
+    "science",
+    "physics",
+    "math"
+  ],
+  "examples": [],
+  "created_at": "2026-01-09T20:53:15+00:00",
+  "updated_at": "2026-01-09T20:53:15+00:00"
+}

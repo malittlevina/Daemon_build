@@ -736,6 +736,221 @@ def seed_security_basics(store: KnowledgeStore, palace: MindPalace) -> None:
     _upsert_all(store, palace, cards=cards, recipes=recipes)
 
 
+def seed_logic_reasoning(store: KnowledgeStore, palace: MindPalace) -> None:
+    cards: List[ConceptCard] = [
+        ConceptCard(
+            id="logic.propositional",
+            title="Propositional Logic",
+            definition="Logic of statements (propositions) combined with connectives: AND, OR, NOT, IMPLIES.",
+            constraints=["Validity depends on form, not on the content of propositions."],
+            tags=["logic", "reasoning", "undergrad", "proof"],
+            examples=["If (P→Q) and P, then Q (modus ponens)."],
+        ),
+        ConceptCard(
+            id="logic.predicate",
+            title="Predicate Logic (First-Order Logic)",
+            definition="Extends propositional logic with quantifiers (∀, ∃) and predicates over objects.",
+            constraints=["Quantifier scope matters; be explicit about domains."],
+            tags=["logic", "reasoning", "graduate", "proof"],
+            examples=["∀x Human(x) → Mortal(x)."],
+        ),
+        ConceptCard(
+            id="logic.proof_techniques",
+            title="Proof Techniques",
+            definition="Common proof methods: direct proof, contrapositive, contradiction, induction, construction.",
+            tags=["logic", "reasoning", "undergrad", "proof"],
+            examples=["Induction proves statements over integers by base case + inductive step."],
+        ),
+        ConceptCard(
+            id="logic.fallacies",
+            title="Common Logical Fallacies",
+            definition="Patterns of bad reasoning that can sound persuasive (ad hominem, strawman, false dilemma, circular reasoning).",
+            tags=["logic", "reasoning", "fallacies", "undergrad"],
+            examples=["False dilemma: presenting only two options when more exist."],
+        ),
+        ConceptCard(
+            id="reasoning.cognitive_biases",
+            title="Cognitive Biases (Overview)",
+            definition="Systematic patterns of deviation from rational judgment (confirmation bias, availability, anchoring).",
+            tags=["logic", "reasoning", "graduate", "humanities"],
+            examples=["Confirmation bias: noticing evidence that supports your belief and ignoring contrary evidence."],
+        ),
+        ConceptCard(
+            id="reasoning.decision_theory",
+            title="Decision Theory (Basics)",
+            definition="Choose actions by comparing expected utilities under uncertainty; requires a utility model and probabilities.",
+            constraints=["Utility functions encode preferences; mismatched utilities lead to wrong choices."],
+            tags=["logic", "reasoning", "decision_theory", "graduate"],
+        ),
+        ConceptCard(
+            id="reasoning.godel",
+            title="Gödel’s Incompleteness (High-Level)",
+            definition="Any sufficiently expressive consistent formal system cannot prove all true statements about arithmetic within itself.",
+            tags=["logic", "reasoning", "doctorate", "proof"],
+        ),
+    ]
+    recipes: List[SkillRecipe] = [
+        SkillRecipe(
+            id="logic.recipe.check_argument_validity",
+            goal="Check whether an argument is logically valid.",
+            steps=[
+                "Identify premises and conclusion clearly.",
+                "Translate into logical form (symbols) if helpful.",
+                "Test validity using known rules (modus ponens/tollens) or truth-table/counterexample.",
+                "If invalid, produce a counterexample where premises are true but conclusion is false.",
+                "If valid, note the rule/structure that justifies it.",
+            ],
+            quality_checks=["premises separated from conclusion", "counterexample found if invalid"],
+            failure_modes=["arguing about truth of premises instead of form", "missing hidden premises"],
+            tags=["logic", "reasoning", "undergrad", "recipe"],
+        ),
+        SkillRecipe(
+            id="logic.recipe.proof_by_induction",
+            goal="Prove a statement by mathematical induction.",
+            steps=[
+                "State the proposition P(n) and the domain (typically integers ≥ 0 or ≥ 1).",
+                "Prove the base case P(n0).",
+                "Assume inductive hypothesis P(k) for arbitrary k ≥ n0.",
+                "Prove P(k+1) using the hypothesis.",
+                "Conclude P(n) holds for all n ≥ n0.",
+            ],
+            quality_checks=["base case correct", "inductive step uses hypothesis properly"],
+            failure_modes=["assuming P(k+1) (circularity)", "wrong base index"],
+            tags=["logic", "reasoning", "proof", "undergrad", "recipe"],
+        ),
+        SkillRecipe(
+            id="reasoning.recipe.expected_utility",
+            goal="Choose between options using expected utility.",
+            steps=[
+                "List options and possible outcomes for each.",
+                "Assign probabilities to outcomes (explicitly state uncertainty).",
+                "Assign utilities to outcomes (what you value).",
+                "Compute expected utility for each option (sum p×u).",
+                "Pick the highest expected utility; sanity-check sensitivity to assumptions.",
+            ],
+            quality_checks=["probabilities sum to 1 per option", "utilities consistent"],
+            failure_modes=["confusing probability with utility", "ignoring rare high-impact risks"],
+            tags=["logic", "reasoning", "decision_theory", "graduate", "recipe"],
+        ),
+    ]
+    _upsert_all(store, palace, cards=cards, recipes=recipes)
+
+
+def seed_philosophy(store: KnowledgeStore, palace: MindPalace) -> None:
+    cards: List[ConceptCard] = [
+        ConceptCard(
+            id="phil.epistemology.knowledge",
+            title="Epistemology: Knowledge",
+            definition="Epistemology studies knowledge—what it is, how we justify beliefs, and limits of certainty.",
+            constraints=["Justification matters: true belief alone is not typically considered knowledge."],
+            tags=["philosophy", "epistemology", "undergrad", "humanities"],
+            examples=["A common framing: knowledge as 'justified true belief' (with known challenges like Gettier cases)."],
+        ),
+        ConceptCard(
+            id="phil.epistemology.gettier",
+            title="Gettier Problems (High-Level)",
+            definition="Thought experiments suggesting 'justified true belief' can still fail to be knowledge due to luck.",
+            tags=["philosophy", "epistemology", "graduate", "humanities"],
+        ),
+        ConceptCard(
+            id="phil.ethics.utilitarianism",
+            title="Utilitarianism",
+            definition="An ethical view that evaluates actions by consequences—often maximizing overall well-being.",
+            constraints=["Requires specifying what counts as well-being and how to aggregate across people."],
+            tags=["philosophy", "ethics", "undergrad", "humanities"],
+            examples=["Choose the action that produces the greatest net benefit (with caveats about measurement)."],
+        ),
+        ConceptCard(
+            id="phil.ethics.deontology",
+            title="Deontology",
+            definition="An ethical view that emphasizes duties/rules; some actions are right/wrong regardless of outcomes.",
+            tags=["philosophy", "ethics", "undergrad", "humanities"],
+            examples=["A rule against lying might hold even if lying could produce better outcomes."],
+        ),
+        ConceptCard(
+            id="phil.ethics.virtue",
+            title="Virtue Ethics",
+            definition="Ethics focused on character and virtues (e.g., courage, temperance); asks what a good person would do.",
+            tags=["philosophy", "ethics", "undergrad", "humanities"],
+        ),
+        ConceptCard(
+            id="phil.metaphysics.identity",
+            title="Metaphysics: Identity Over Time",
+            definition="Explores what makes an entity the same across time despite change (Ship of Theseus-style problems).",
+            tags=["philosophy", "metaphysics", "undergrad", "humanities"],
+        ),
+        ConceptCard(
+            id="phil.mind.consciousness",
+            title="Philosophy of Mind: Consciousness",
+            definition="Studies subjective experience and mental states; debates include physicalism vs dualism and the 'hard problem'.",
+            tags=["philosophy", "mind", "graduate", "humanities"],
+        ),
+        ConceptCard(
+            id="phil.science.demarcation",
+            title="Philosophy of Science: Demarcation",
+            definition="Questions what distinguishes science from non-science; focuses on testability, falsifiability, and methodology.",
+            tags=["philosophy", "science", "graduate", "humanities", "research_methods"],
+        ),
+        ConceptCard(
+            id="phil.political.social_contract",
+            title="Political Philosophy: Social Contract",
+            definition="Views political legitimacy as arising from an implicit/explicit agreement among individuals to form society and government.",
+            tags=["philosophy", "political", "undergrad", "humanities"],
+        ),
+        ConceptCard(
+            id="phil.meta.metaethics",
+            title="Metaethics (High-Level)",
+            definition="Investigates what moral statements mean (objective facts vs attitudes) and whether moral truths exist.",
+            tags=["philosophy", "ethics", "doctorate", "humanities"],
+        ),
+    ]
+    recipes: List[SkillRecipe] = [
+        SkillRecipe(
+            id="phil.recipe.analyze_argument",
+            goal="Analyze a philosophical argument carefully.",
+            steps=[
+                "State the conclusion in one sentence.",
+                "List the premises explicitly (number them).",
+                "Check validity: does the conclusion follow if premises are true?",
+                "Evaluate soundness: are premises plausible/true? what assumptions are hidden?",
+                "Consider counterexamples and alternative interpretations.",
+            ],
+            quality_checks=["premises explicit", "validity vs soundness separated"],
+            failure_modes=["attacking conclusions without addressing premises", "equivocation on key terms"],
+            tags=["philosophy", "epistemology", "undergrad", "recipe"],
+        ),
+        SkillRecipe(
+            id="phil.recipe.compare_ethics",
+            goal="Compare ethical frameworks on a decision.",
+            steps=[
+                "Describe the decision context and stakeholders.",
+                "Apply utilitarian lens (outcomes, harms/benefits).",
+                "Apply deontological lens (duties/rights/rules).",
+                "Apply virtue lens (character, virtues, long-term habits).",
+                "Note where frameworks disagree and why; choose with an explicit rationale.",
+            ],
+            quality_checks=["each framework applied explicitly", "tradeoffs documented"],
+            failure_modes=["mixing frameworks without noticing", "ignoring affected stakeholders"],
+            tags=["philosophy", "ethics", "undergrad", "recipe"],
+        ),
+        SkillRecipe(
+            id="phil.recipe.define_terms",
+            goal="Define key terms to prevent confusion in discussion.",
+            steps=[
+                "List ambiguous words central to the debate (e.g., 'knowledge', 'good', 'freedom').",
+                "Provide working definitions and note alternatives.",
+                "Check whether conclusions depend on one definition vs another.",
+                "Replace ambiguous terms with clearer phrasing when possible.",
+                "Re-run the argument with clarified terms.",
+            ],
+            quality_checks=["definitions stated", "ambiguities flagged"],
+            failure_modes=["talking past others due to different definitions"],
+            tags=["philosophy", "epistemology", "graduate", "recipe"],
+        ),
+    ]
+    _upsert_all(store, palace, cards=cards, recipes=recipes)
+
+
 def seed_all_advanced(store: KnowledgeStore, palace: MindPalace) -> None:
     """
     Seed all 9 requested categories beyond K-12.
@@ -749,4 +964,270 @@ def seed_all_advanced(store: KnowledgeStore, palace: MindPalace) -> None:
     seed_writing_communication(store, palace)
     seed_project_management_agents(store, palace)
     seed_security_basics(store, palace)
+    seed_logic_reasoning(store, palace)
+    seed_philosophy(store, palace)
+
+
+def seed_deeper_tiers(store: KnowledgeStore, palace: MindPalace) -> None:
+    """
+    Add deeper (graduate/doctorate) expansions for all existing categories.
+    These are intentionally compact but non-placeholder: each card has a real definition
+    and each recipe has actionable steps.
+    """
+    cards: List[ConceptCard] = [
+        # ---- Geometry / worldbuilding (grad/phd) ----
+        ConceptCard(
+            id="wb.geometry.computational_geometry",
+            title="Computational Geometry (Overview)",
+            definition="Algorithms for geometric problems (intersections, convex hulls, Voronoi/Delaunay, spatial queries).",
+            constraints=["Robustness matters: floating-point error can break predicates; use epsilon/robust predicates."],
+            tags=["geometry", "worldbuilding", "graduate", "engineering", "computer_science"],
+            examples=["Spatial partitioning (BVH) speeds up ray queries and collisions."],
+        ),
+        ConceptCard(
+            id="wb.geometry.sdf",
+            title="Signed Distance Fields (SDFs)",
+            definition="A scalar field where value is distance to the nearest surface (negative inside, positive outside).",
+            constraints=["SDF composition uses min/max and smooth blends; sampling resolution affects detail."],
+            tags=["geometry", "worldbuilding", "graduate", "computer_science", "engineering"],
+            examples=["Use SDF booleans to model smooth unions procedurally."],
+        ),
+        ConceptCard(
+            id="wb.procgen.grammar",
+            title="Procedural Generation via Grammars",
+            definition="Rule-based systems (L-systems, shape grammars) generate complex structures from compact rules.",
+            constraints=["Rules must avoid infinite expansion; enforce depth/size budgets."],
+            tags=["worldbuilding", "doctorate", "computer_science", "research_methods"],
+            examples=["A building grammar generates floors/windows based on constraints."],
+        ),
+
+        # ---- CS foundations (grad/phd) ----
+        ConceptCard(
+            id="cs.systems.concurrency",
+            title="Concurrency (Threads, Async, Races)",
+            definition="Concurrency runs tasks overlapping in time; correctness requires controlling shared-state access (locks, message passing).",
+            constraints=["Data races cause non-deterministic bugs; prefer immutable data or queues where possible."],
+            tags=["graduate", "computer_science", "systems", "engineering"],
+        ),
+        ConceptCard(
+            id="cs.systems.distributed_systems",
+            title="Distributed Systems (Core Ideas)",
+            definition="Systems across multiple nodes must handle partial failure, latency, and consistency tradeoffs.",
+            constraints=["You cannot assume reliable ordering; design for retries, idempotency, and partitions."],
+            tags=["doctorate", "computer_science", "systems", "engineering"],
+            examples=["Consensus (Raft/Paxos) replicates state safely under failures."],
+        ),
+        ConceptCard(
+            id="cs.formal.verification",
+            title="Formal Verification (Overview)",
+            definition="Mathematically proving program properties (safety/liveness) using logic, types, and model checking.",
+            tags=["doctorate", "computer_science", "research_methods"],
+            examples=["Model checking can prove a protocol never reaches an unsafe state."],
+        ),
+
+        # ---- Daemon operating norms (grad/phd) ----
+        ConceptCard(
+            id="daemon.reliability.chaos_engineering",
+            title="Chaos Engineering",
+            definition="Deliberately inject failures to validate resilience and reveal weak assumptions before real incidents.",
+            constraints=["Use guardrails: limit blast radius; monitor outcomes; revert quickly."],
+            tags=["graduate", "engineering", "systems"],
+        ),
+        ConceptCard(
+            id="daemon.observability.distributed_tracing",
+            title="Distributed Tracing (Spans/Traces)",
+            definition="Tracing correlates work across components using trace/span IDs; reveals latency breakdowns and bottlenecks.",
+            tags=["graduate", "engineering", "systems"],
+            examples=["A trace shows time spent in NLU vs Unimind vs router."],
+        ),
+        ConceptCard(
+            id="daemon.specs.formal_interfaces",
+            title="Formal Interfaces and Contracts",
+            definition="Precise interface contracts (schemas, invariants) reduce ambiguity and enable verification/testing.",
+            tags=["doctorate", "engineering", "systems", "computer_science"],
+        ),
+
+        # ---- Research methods (deeper) ----
+        ConceptCard(
+            id="research.causal_inference",
+            title="Causal Inference (High-Level)",
+            definition="Distinguishes correlation from causation using assumptions, interventions, and causal graphs.",
+            constraints=["Causal claims require strong assumptions or experimental design."],
+            tags=["doctorate", "research_methods", "math", "science"],
+        ),
+
+        # ---- Math beyond K-12 (grad/phd) ----
+        ConceptCard(
+            id="math.analysis.real_analysis",
+            title="Real Analysis (Graduate Overview)",
+            definition="Rigorous foundations of calculus: limits, continuity, differentiation/integration, convergence.",
+            tags=["graduate", "math"],
+        ),
+        ConceptCard(
+            id="math.optimization.convex",
+            title="Convex Optimization",
+            definition="Optimization where the objective and constraints are convex; any local minimum is global.",
+            constraints=["Convexity enables strong guarantees and efficient solvers."],
+            tags=["graduate", "math", "optimization"],
+        ),
+        ConceptCard(
+            id="math.measure_theory",
+            title="Measure Theory (Doctorate Overview)",
+            definition="Generalizes length/area/volume; foundation for probability and integration on complex spaces.",
+            tags=["doctorate", "math"],
+        ),
+
+        # ---- Physics simulation (grad/phd) ----
+        ConceptCard(
+            id="phys.lagrangian",
+            title="Lagrangian Mechanics (Overview)",
+            definition="Formulates dynamics using energy: L = T − V; equations of motion from the Euler–Lagrange equation.",
+            tags=["graduate", "science", "physics"],
+        ),
+        ConceptCard(
+            id="phys.integrators.symplectic",
+            title="Symplectic Integrators",
+            definition="Integrators designed to preserve geometric properties (like energy behavior) in Hamiltonian systems.",
+            constraints=["Often preferred for long-term stability in conservative systems."],
+            tags=["doctorate", "science", "physics", "math"],
+        ),
+
+        # ---- Writing/communication (grad/phd) ----
+        ConceptCard(
+            id="writing.rhetoric",
+            title="Rhetoric (Persuasion Tools)",
+            definition="Rhetoric studies effective persuasion: ethos (credibility), pathos (emotion), logos (logic).",
+            tags=["graduate", "english", "writing", "humanities"],
+        ),
+        ConceptCard(
+            id="writing.scholarly_style",
+            title="Scholarly Writing Style",
+            definition="A style emphasizing clear claims, evidence, precise definitions, and careful limitation of scope.",
+            tags=["doctorate", "english", "writing", "research_methods"],
+        ),
+
+        # ---- Project management (grad/phd) ----
+        ConceptCard(
+            id="pm.risk_management",
+            title="Risk Management",
+            definition="Identify, assess, and mitigate risks; track probability/impact and trigger conditions.",
+            tags=["graduate", "engineering", "systems"],
+        ),
+        ConceptCard(
+            id="pm.sociotechnical",
+            title="Sociotechnical Systems",
+            definition="Systems where humans and technology co-evolve; incidents often arise from interactions, not single faults.",
+            tags=["doctorate", "engineering", "systems", "humanities"],
+        ),
+
+        # ---- Security (grad/phd) ----
+        ConceptCard(
+            id="sec.authn_authz",
+            title="Authentication vs Authorization",
+            definition="Authentication verifies identity; authorization decides what an identity may do (permissions/policy).",
+            tags=["graduate", "computer_science", "security", "engineering"],
+        ),
+        ConceptCard(
+            id="sec.crypto.hashing",
+            title="Cryptographic Hashing",
+            definition="A one-way function mapping input to fixed-size output; used for integrity and password hashing (with salts).",
+            constraints=["Use modern password hashing (bcrypt/argon2) instead of raw SHA for passwords."],
+            tags=["undergrad", "computer_science", "security"],
+        ),
+        ConceptCard(
+            id="sec.privacy.differential_privacy",
+            title="Differential Privacy (High-Level)",
+            definition="A framework that limits what can be learned about any individual from aggregate outputs by adding calibrated noise.",
+            tags=["doctorate", "computer_science", "security", "research_methods"],
+        ),
+    ]
+
+    recipes: List[SkillRecipe] = [
+        SkillRecipe(
+            id="wb.recipe.sdf_modeling_loop",
+            goal="Model a shape procedurally using SDF primitives and operations.",
+            steps=[
+                "Choose SDF primitives (sphere, box, capsule) and define their parameters.",
+                "Combine primitives using min/max (union/intersection/difference).",
+                "Add smooth blends where appropriate for natural transitions.",
+                "Sample the SDF to a mesh (marching cubes) at a chosen resolution.",
+                "Validate watertightness and scale; export and test in-engine.",
+            ],
+            quality_checks=["mesh stable at target resolution", "watertight surface"],
+            failure_modes=["aliasing due to low resolution", "over-smoothing removes key features"],
+            tags=["geometry", "worldbuilding", "graduate", "computer_science", "recipe"],
+        ),
+        SkillRecipe(
+            id="cs.recipe.avoid_data_races",
+            goal="Avoid data races in a concurrent system.",
+            steps=[
+                "Identify shared mutable state and who accesses it.",
+                "Prefer message passing (queues) over shared memory when possible.",
+                "When sharing is necessary, use locks or atomic primitives with clear ownership rules.",
+                "Add tests or stress runs that increase concurrency (repeat, randomize timing).",
+                "Instrument and log concurrency failures with correlation IDs.",
+            ],
+            quality_checks=["no unsynchronized shared writes", "stress test passes repeatedly"],
+            failure_modes=["lock order deadlocks", "race conditions only appearing under load"],
+            tags=["graduate", "computer_science", "systems", "recipe"],
+        ),
+        SkillRecipe(
+            id="daemon.recipe.chaos_test_plan",
+            goal="Design a safe chaos engineering experiment.",
+            steps=[
+                "Pick a hypothesis (e.g., 'daemon remains responsive if mic fails').",
+                "Define blast radius and rollback plan (feature flags, time limits).",
+                "Inject one failure mode (dependency missing, timeout, queue overload).",
+                "Observe metrics/logs; confirm the hypothesis or record deviations.",
+                "Convert learnings into fixes and regression tests.",
+            ],
+            quality_checks=["safe rollback exists", "metrics observed", "action items created"],
+            failure_modes=["too-large blast radius", "no monitoring so outcomes are unclear"],
+            tags=["graduate", "engineering", "systems", "recipe"],
+        ),
+        SkillRecipe(
+            id="math.recipe.check_convexity",
+            goal="Check whether a function is convex (basic cases).",
+            steps=[
+                "Use known convex functions and closure properties (sums, affine composition).",
+                "For twice-differentiable functions in 1D, check second derivative ≥ 0.",
+                "In multiple dimensions, check Hessian is positive semidefinite (where applicable).",
+                "State the domain clearly; convexity depends on domain.",
+                "If unsure, consult references or test numerically (not a proof).",
+            ],
+            quality_checks=["domain stated", "criterion applied correctly"],
+            failure_modes=["ignoring domain restrictions", "confusing local curvature with global convexity"],
+            tags=["graduate", "math", "optimization", "recipe"],
+        ),
+        SkillRecipe(
+            id="sec.recipe.authz_policy",
+            goal="Design an authorization policy for a daemon feature.",
+            steps=[
+                "Define roles/identities (user, daemon, subsystem) and assets (files, sensors, network).",
+                "Define allowed actions per role (least privilege).",
+                "Implement checks at the boundary (router/adapter) not deep inside internals.",
+                "Log decisions with non-sensitive metadata for auditing.",
+                "Test denial cases and escalation attempts.",
+            ],
+            quality_checks=["least privilege enforced", "denials tested", "logs safe"],
+            failure_modes=["implicit trust between modules", "policy bypass via alternate path"],
+            tags=["graduate", "computer_science", "security", "recipe"],
+        ),
+        SkillRecipe(
+            id="research.recipe.ablation_study",
+            goal="Run an ablation study to understand which components matter.",
+            steps=[
+                "Define a full system and a baseline system.",
+                "Remove or alter one component at a time (keep everything else fixed).",
+                "Measure the same metrics and report variance (multiple runs).",
+                "Interpret results cautiously; interactions can hide effects.",
+                "Document configs so others can replicate.",
+            ],
+            quality_checks=["one factor changed at a time", "variance reported"],
+            failure_modes=["multiple confounds", "over-interpreting noisy results"],
+            tags=["doctorate", "research_methods", "recipe"],
+        ),
+    ]
+
+    _upsert_all(store, palace, cards=cards, recipes=recipes)
 

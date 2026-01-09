@@ -1,0 +1,27 @@
+{
+  "id": "cs.recipe.avoid_data_races",
+  "goal": "Avoid data races in a concurrent system.",
+  "steps": [
+    "Identify shared mutable state and who accesses it.",
+    "Prefer message passing (queues) over shared memory when possible.",
+    "When sharing is necessary, use locks or atomic primitives with clear ownership rules.",
+    "Add tests or stress runs that increase concurrency (repeat, randomize timing).",
+    "Instrument and log concurrency failures with correlation IDs."
+  ],
+  "quality_checks": [
+    "no unsynchronized shared writes",
+    "stress test passes repeatedly"
+  ],
+  "failure_modes": [
+    "lock order deadlocks",
+    "race conditions only appearing under load"
+  ],
+  "tags": [
+    "graduate",
+    "computer_science",
+    "systems",
+    "recipe"
+  ],
+  "created_at": "2026-01-09T20:53:15+00:00",
+  "updated_at": "2026-01-09T20:53:15+00:00"
+}

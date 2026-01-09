@@ -1,0 +1,26 @@
+{
+  "id": "research.recipe.ablation_study",
+  "goal": "Run an ablation study to understand which components matter.",
+  "steps": [
+    "Define a full system and a baseline system.",
+    "Remove or alter one component at a time (keep everything else fixed).",
+    "Measure the same metrics and report variance (multiple runs).",
+    "Interpret results cautiously; interactions can hide effects.",
+    "Document configs so others can replicate."
+  ],
+  "quality_checks": [
+    "one factor changed at a time",
+    "variance reported"
+  ],
+  "failure_modes": [
+    "multiple confounds",
+    "over-interpreting noisy results"
+  ],
+  "tags": [
+    "doctorate",
+    "research_methods",
+    "recipe"
+  ],
+  "created_at": "2026-01-09T20:53:15+00:00",
+  "updated_at": "2026-01-09T20:53:15+00:00"
+}

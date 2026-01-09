@@ -1,0 +1,22 @@
+{
+  "id": "wb.geometry.sdf",
+  "title": "Signed Distance Fields (SDFs)",
+  "definition": "A scalar field where value is distance to the nearest surface (negative inside, positive outside).",
+  "parameters": [],
+  "constraints": [
+    "SDF composition uses min/max and smooth blends; sampling resolution affects detail."
+  ],
+  "related": [],
+  "tags": [
+    "geometry",
+    "worldbuilding",
+    "graduate",
+    "computer_science",
+    "engineering"
+  ],
+  "examples": [
+    "Use SDF booleans to model smooth unions procedurally."
+  ],
+  "created_at": "2026-01-09T20:53:15+00:00",
+  "updated_at": "2026-01-09T20:53:15+00:00"
+}

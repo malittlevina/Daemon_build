@@ -1,0 +1,21 @@
+{
+  "id": "logic.propositional",
+  "title": "Propositional Logic",
+  "definition": "Logic of statements (propositions) combined with connectives: AND, OR, NOT, IMPLIES.",
+  "parameters": [],
+  "constraints": [
+    "Validity depends on form, not on the content of propositions."
+  ],
+  "related": [],
+  "tags": [
+    "logic",
+    "reasoning",
+    "undergrad",
+    "proof"
+  ],
+  "examples": [
+    "If (P→Q) and P, then Q (modus ponens)."
+  ],
+  "created_at": "2026-01-09T20:53:58+00:00",
+  "updated_at": "2026-01-09T20:53:58+00:00"
+}

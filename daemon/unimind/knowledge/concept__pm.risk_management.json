@@ -1,0 +1,16 @@
+{
+  "id": "pm.risk_management",
+  "title": "Risk Management",
+  "definition": "Identify, assess, and mitigate risks; track probability/impact and trigger conditions.",
+  "parameters": [],
+  "constraints": [],
+  "related": [],
+  "tags": [
+    "graduate",
+    "engineering",
+    "systems"
+  ],
+  "examples": [],
+  "created_at": "2026-01-09T20:53:15+00:00",
+  "updated_at": "2026-01-09T20:53:15+00:00"
+}

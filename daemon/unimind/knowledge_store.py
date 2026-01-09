@@ -133,6 +133,19 @@ class KnowledgeStore:
     def has_tag(self, tag: str) -> bool:
         return bool(self._tag_index.get(tag))
 
+    def iter_all(self) -> List[Dict[str, Any]]:
+        """
+        Return all artifacts as dicts (for rebuilding the mind palace).
+        """
+        out: List[Dict[str, Any]] = []
+        for c in self._concepts.values():
+            out.append({"kind": "concept", **asdict(c)})
+        for r in self._recipes.values():
+            out.append({"kind": "recipe", **asdict(r)})
+        for p in self._prefabs.values():
+            out.append({"kind": "prefab", **asdict(p)})
+        return out
+
     # ---- Persistence ----
     def _index_path(self) -> str:
         return os.path.join(self.root, "index.json")

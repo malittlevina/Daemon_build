@@ -14,7 +14,7 @@ from .knowledge_store import KnowledgeStore
 from .mind_palace import MindPalace
 from .consolidator import MemoryConsolidator
 from .seed_k12 import seed_k12
-from .seed_academics import seed_all_advanced
+from .seed_academics import seed_all_advanced, seed_deeper_tiers, seed_logic_reasoning, seed_philosophy
 
 
 class Unimind:
@@ -57,6 +57,9 @@ class Unimind:
         if self._learning_enabled:
             self._consolidator.start()
 
+        # Rebuild mind palace placement from durable knowledge on disk.
+        self._rebuild_mind_palace()
+
         # Seed K-12 basics (idempotent). This ensures both concept cards AND
         # procedural recipes exist even if an older run seeded only concepts.
         if (not self.knowledge.has_tag("k12")) or (self.knowledge.get("k12.recipe.solve_linear_equations") is None):
@@ -66,7 +69,28 @@ class Unimind:
         if self.knowledge.get("cs.ds.data_structures") is None:
             seed_all_advanced(self.knowledge, self.mind_palace)
 
+        # Seed deeper graduate/doctorate expansions (idempotent marker).
+        if self.knowledge.get("cs.systems.concurrency") is None:
+            seed_deeper_tiers(self.knowledge, self.mind_palace)
+
+        # Seed newly-added categories idempotently (older installs may not have them).
+        if self.knowledge.get("logic.propositional") is None:
+            seed_logic_reasoning(self.knowledge, self.mind_palace)
+        if self.knowledge.get("phil.ethics.utilitarianism") is None:
+            seed_philosophy(self.knowledge, self.mind_palace)
+
         print("[Unimind] Core initialized.")
+
+    def _rebuild_mind_palace(self) -> None:
+        try:
+            for a in self.knowledge.iter_all():
+                aid = a.get("id")
+                tags = a.get("tags") or []
+                if aid:
+                    self.mind_palace.place(str(aid), tags=tags)
+        except Exception:
+            # Palace rebuild is best-effort; avoid blocking daemon startup.
+            pass
 
     # ---- Backward-compatible registry ----
     def register(self, type: str, module: Any):
@@ -290,6 +314,28 @@ class Unimind:
             tags += ["security", "computer_science", "undergrad"]
         if any(w in t for w in ("threat model", "spoofing", "tampering", "dos", "rate limit")):
             tags += ["security", "computer_science", "graduate"]
+
+        # Logic & reasoning
+        if any(w in t for w in ("logic", "modus ponens", "quantifier", "induction", "proof", "valid", "soundness")):
+            tags += ["logic", "reasoning"]
+        if any(w in t for w in ("fallacy", "strawman", "ad hominem", "false dilemma", "circular reasoning")):
+            tags += ["logic", "reasoning", "fallacies"]
+        if any(w in t for w in ("expected utility", "utility", "decision theory", "bayesian", "posterior", "prior")):
+            tags += ["logic", "reasoning", "decision_theory"]
+
+        # Philosophy
+        if any(w in t for w in ("epistemology", "gettier", "justified true belief")):
+            tags += ["philosophy", "epistemology"]
+        if any(w in t for w in ("ethics", "utilitarian", "deontology", "virtue ethics", "metaethics")):
+            tags += ["philosophy", "ethics"]
+        if any(w in t for w in ("metaphysics", "identity over time", "ship of theseus")):
+            tags += ["philosophy", "metaphysics"]
+        if any(w in t for w in ("consciousness", "philosophy of mind", "dualism", "physicalism")):
+            tags += ["philosophy", "mind"]
+        if any(w in t for w in ("falsifiability", "demarcation", "philosophy of science")):
+            tags += ["philosophy", "science"]
+        if any(w in t for w in ("social contract", "political philosophy")):
+            tags += ["philosophy", "political"]
 
         # De-dupe while preserving order
         out: List[str] = []

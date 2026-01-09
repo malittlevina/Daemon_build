@@ -1,0 +1,19 @@
+{
+  "id": "phil.ethics.deontology",
+  "title": "Deontology",
+  "definition": "An ethical view that emphasizes duties/rules; some actions are right/wrong regardless of outcomes.",
+  "parameters": [],
+  "constraints": [],
+  "related": [],
+  "tags": [
+    "philosophy",
+    "ethics",
+    "undergrad",
+    "humanities"
+  ],
+  "examples": [
+    "A rule against lying might hold even if lying could produce better outcomes."
+  ],
+  "created_at": "2026-01-09T20:53:58+00:00",
+  "updated_at": "2026-01-09T20:53:58+00:00"
+}

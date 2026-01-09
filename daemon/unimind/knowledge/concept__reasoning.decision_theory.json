@@ -1,0 +1,19 @@
+{
+  "id": "reasoning.decision_theory",
+  "title": "Decision Theory (Basics)",
+  "definition": "Choose actions by comparing expected utilities under uncertainty; requires a utility model and probabilities.",
+  "parameters": [],
+  "constraints": [
+    "Utility functions encode preferences; mismatched utilities lead to wrong choices."
+  ],
+  "related": [],
+  "tags": [
+    "logic",
+    "reasoning",
+    "decision_theory",
+    "graduate"
+  ],
+  "examples": [],
+  "created_at": "2026-01-09T20:53:58+00:00",
+  "updated_at": "2026-01-09T20:53:58+00:00"
+}

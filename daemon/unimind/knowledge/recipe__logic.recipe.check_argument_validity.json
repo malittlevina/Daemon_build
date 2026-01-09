@@ -1,0 +1,27 @@
+{
+  "id": "logic.recipe.check_argument_validity",
+  "goal": "Check whether an argument is logically valid.",
+  "steps": [
+    "Identify premises and conclusion clearly.",
+    "Translate into logical form (symbols) if helpful.",
+    "Test validity using known rules (modus ponens/tollens) or truth-table/counterexample.",
+    "If invalid, produce a counterexample where premises are true but conclusion is false.",
+    "If valid, note the rule/structure that justifies it."
+  ],
+  "quality_checks": [
+    "premises separated from conclusion",
+    "counterexample found if invalid"
+  ],
+  "failure_modes": [
+    "arguing about truth of premises instead of form",
+    "missing hidden premises"
+  ],
+  "tags": [
+    "logic",
+    "reasoning",
+    "undergrad",
+    "recipe"
+  ],
+  "created_at": "2026-01-09T20:53:58+00:00",
+  "updated_at": "2026-01-09T20:53:58+00:00"
+}

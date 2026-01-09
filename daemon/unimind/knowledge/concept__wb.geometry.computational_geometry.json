@@ -1,0 +1,22 @@
+{
+  "id": "wb.geometry.computational_geometry",
+  "title": "Computational Geometry (Overview)",
+  "definition": "Algorithms for geometric problems (intersections, convex hulls, Voronoi/Delaunay, spatial queries).",
+  "parameters": [],
+  "constraints": [
+    "Robustness matters: floating-point error can break predicates; use epsilon/robust predicates."
+  ],
+  "related": [],
+  "tags": [
+    "geometry",
+    "worldbuilding",
+    "graduate",
+    "engineering",
+    "computer_science"
+  ],
+  "examples": [
+    "Spatial partitioning (BVH) speeds up ray queries and collisions."
+  ],
+  "created_at": "2026-01-09T20:53:15+00:00",
+  "updated_at": "2026-01-09T20:53:15+00:00"
+}

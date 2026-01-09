@@ -1,0 +1,21 @@
+{
+  "id": "cs.systems.distributed_systems",
+  "title": "Distributed Systems (Core Ideas)",
+  "definition": "Systems across multiple nodes must handle partial failure, latency, and consistency tradeoffs.",
+  "parameters": [],
+  "constraints": [
+    "You cannot assume reliable ordering; design for retries, idempotency, and partitions."
+  ],
+  "related": [],
+  "tags": [
+    "doctorate",
+    "computer_science",
+    "systems",
+    "engineering"
+  ],
+  "examples": [
+    "Consensus (Raft/Paxos) replicates state safely under failures."
+  ],
+  "created_at": "2026-01-09T20:53:15+00:00",
+  "updated_at": "2026-01-09T20:53:15+00:00"
+}
