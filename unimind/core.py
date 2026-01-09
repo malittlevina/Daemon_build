@@ -1,46 +1,81 @@
+from typing import Dict, Any, List
 from core.events import EventBus, Event
+from .modules.base import MindModule
+from .modules.logic import LogicModule
+from .modules.ethics import EthicsModule
+from .modules.strategy import StrategyModule
 
 class Unimind:
     def __init__(self):
-        self.modules = {
-            "logic": [],
-            "emotion": [],
-            "memory": [],
-            "ethics": [],
-            "language": []
-        }
         self.bus = None
-        print("[Unimind] Core initialized.")
+        self.pipeline: List[MindModule] = []
+        
+        # Initialize default unified stack
+        self._init_modules()
+        
+        print("[Unimind] Unified Core initialized.")
 
-    def register(self, type, module):
-        if type in self.modules:
-            self.modules[type].append(module)
-            print(f"[Unimind] Registered module under '{type}'")
+    def _init_modules(self):
+        self.register_module(LogicModule())
+        self.register_module(EthicsModule())
+        self.register_module(StrategyModule())
+
+    def register_module(self, module: MindModule):
+        self.pipeline.append(module)
+        print(f"[Unimind] Attached module: {module.name}")
 
     def register_events(self, bus: EventBus):
         self.bus = bus
-        bus.subscribe("game:moved", self._on_game_move)
+        # Listen for analysis requests or game events
+        bus.subscribe("unimind:analyze", self._on_analyze_request)
         bus.subscribe("game:encounter", self._on_game_encounter)
-        bus.subscribe("game:battle_end", self._on_battle_end)
-        print("[Unimind] Subscribed to game events.")
+        print("[Unimind] Connected to Event Bus.")
 
-    def _on_game_move(self, event: Event):
-        # Log or react
-        # print(f"[Unimind Observation] Player moved to {event.payload.get('location')}")
-        pass
+    def _on_analyze_request(self, event: Event):
+        context = event.payload
+        result = self.think(context)
+        print(f"[Unimind] Analysis Result: {result}")
+        # Optionally publish result back
+        if self.bus:
+            self.bus.publish("unimind:analysis_complete", result)
 
     def _on_game_encounter(self, event: Event):
-        print(f"[Unimind Analysis] Threat detected: {event.payload.get('entity')}. Suggest analyzing weakness.")
-        # Future: Trigger automated scan if authorized
+        # Create a thinking context for this encounter
+        context = {
+            "event_type": "encounter",
+            "threat_level": 0.8, # Simulated high threat for enemy
+            "entity": event.payload.get("entity")
+        }
+        print(f"[Unimind] Processing encounter via pipeline...")
+        result = self.think(context)
+        
+        action = result.get("recommended_action")
+        print(f"[Unimind] Strategic Recommendation: {action}")
 
-    def _on_battle_end(self, event: Event):
-        winner = event.payload.get("winner")
-        if winner == "player":
-             print("[Unimind] Victory observed. Updating strategy matrix.")
-        else:
-             print("[Unimind] Defeat observed. Recommending retreat protocols.")
+    def think(self, initial_context: Dict[str, Any]) -> Dict[str, Any]:
+        """
+        Passes the context through the module pipeline.
+        Each module can read and modify the context.
+        """
+        context = initial_context.copy()
+        
+        for module in self.pipeline:
+            updates = module.process(context)
+            if updates:
+                context.update(updates)
+                
+            # Early exit if blocked
+            if context.get("action_blocked"):
+                print(f"[Unimind] Processing halted by {module.name}: {context.get('block_reason')}")
+                break
+                
+        return context
 
+    # Legacy support
+    def register(self, type, module):
+        # We don't use the old list dict anymore but keep for compatibility if main calls it
+        pass
+    
     def reflect(self):
-        print("[Unimind] Running reflection loop...")
-        for logic_module in self.modules["logic"]:
-            logic_module.think()
+        # Simple self-check
+        pass
