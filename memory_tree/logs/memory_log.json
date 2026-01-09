@@ -90,5 +90,18 @@
         "source": "camera"
       }
     }
+  },
+  {
+    "timestamp": "2026-01-09T19:52:18.074470",
+    "type": "user_input",
+    "content": "study systems",
+    "context": {
+      "intent": "study",
+      "symbolic_state": {
+        "history": [],
+        "current_context": {},
+        "flags": {}
+      }
+    }
   }
 ]

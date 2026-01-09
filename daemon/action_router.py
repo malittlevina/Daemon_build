@@ -4,7 +4,7 @@ from dataclasses import asdict
 from typing import Any, Dict, Optional, Tuple
 
 from codex.ingestion import ingest_observation
-from unimind.context import UnimindPlan
+from daemon.unimind.context import UnimindPlan
 
 
 class ActionRouter:

@@ -23,8 +23,8 @@ from optimizer.auto_upgrade import run_auto_optimization
 from prometheus.specialties import PrometheusSpecialties
 from rituals.ritual_registry import RitualRegistry
 from scrolls.scroll_engine import ScrollEngine
-from unimind.bootstrap import attach_default_subsystems
-from unimind.core import Unimind
+from daemon.unimind.bootstrap import attach_default_subsystems
+from daemon.unimind.core import Unimind
 from lam import symbolic_state as lam_state_module
 from lam import lam_planner as lam_planner_module
 
@@ -41,7 +41,7 @@ def run_daemon(
     """
     Daemon entrypoint: I/O + event loop + action routing.
 
-    The Unimind kernel remains in `unimind/`.
+    Unimind is a daemon subsystem (not the ThothOS kernel).
     """
 
     unimind = Unimind()
