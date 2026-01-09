@@ -1,0 +1,33 @@
+{
+  "id": "shape.extrude",
+  "title": "Extrude",
+  "definition": "Create a solid by extending a 2D profile along a direction for a given height.",
+  "parameters": [
+    {
+      "name": "profile",
+      "type": "closed_polyline"
+    },
+    {
+      "name": "height",
+      "type": "float"
+    }
+  ],
+  "constraints": [
+    "Profile should be closed",
+    "Height should be > 0"
+  ],
+  "related": [
+    "shape.sweep",
+    "shape.boolean_union"
+  ],
+  "tags": [
+    "geometry",
+    "shape.op",
+    "shape.extrude"
+  ],
+  "examples": [
+    "How do I extrude a profile into a solid?"
+  ],
+  "created_at": "2026-01-09T20:11:34+00:00",
+  "updated_at": "2026-01-09T20:11:58+00:00"
+}

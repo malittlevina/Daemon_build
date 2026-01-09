@@ -103,5 +103,45 @@
         "flags": {}
       }
     }
+  },
+  {
+    "timestamp": "2026-01-09T20:11:34.407194",
+    "type": "text_input",
+    "content": "How do I extrude a profile into a solid?",
+    "context": {
+      "intent": "learn",
+      "symbolic_state": {
+        "history": [],
+        "current_context": {},
+        "flags": {}
+      },
+      "event": {
+        "type": "text_input",
+        "payload": {
+          "text": "How do I extrude a profile into a solid?"
+        },
+        "source": "textbox"
+      }
+    }
+  },
+  {
+    "timestamp": "2026-01-09T20:11:34.410911",
+    "type": "text_input",
+    "content": "Bevel is used to soften edges; bevel radius should be small relative to edge length.",
+    "context": {
+      "intent": "learn",
+      "symbolic_state": {
+        "history": [],
+        "current_context": {},
+        "flags": {}
+      },
+      "event": {
+        "type": "text_input",
+        "payload": {
+          "text": "Bevel is used to soften edges; bevel radius should be small relative to edge length."
+        },
+        "source": "textbox"
+      }
+    }
   }
 ]

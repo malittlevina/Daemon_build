@@ -10,6 +10,9 @@ from .context import ConceptGraph, UnimindContext, UnimindPlan, UnimindSignals
 from .decision_matrix import DecisionMatrix
 from .brain import Brain
 from .subsystems import EthicsSubsystem, SubsystemReport, UnimindSubsystem
+from .knowledge_store import KnowledgeStore
+from .mind_palace import MindPalace
+from .consolidator import MemoryConsolidator
 
 
 class Unimind:
@@ -26,7 +29,7 @@ class Unimind:
     - logs artifacts for later reflection
     """
 
-    def __init__(self, log_dir: str = "logs"):
+    def __init__(self, log_dir: str = "logs", *, enable_learning: bool = True):
         self._by_type: Dict[str, List[Any]] = {
             "logic": [],
             "emotion": [],
@@ -40,6 +43,18 @@ class Unimind:
         self._brain = Brain(decision=self._decision, ethics=self._ethics)
         self._log_dir = log_dir
         os.makedirs(self._log_dir, exist_ok=True)
+
+        # Learning substrate (daemon-local, durable)
+        self.knowledge = KnowledgeStore(root="daemon/unimind/knowledge")
+        self.mind_palace = MindPalace()
+        self._consolidator = MemoryConsolidator(
+            self.knowledge,
+            on_upsert=lambda aid, tags: self.mind_palace.place(aid, tags=tags),
+        )
+        self._learning_enabled = enable_learning
+        if self._learning_enabled:
+            self._consolidator.start()
+
         print("[Unimind] Core initialized.")
 
     # ---- Backward-compatible registry ----
@@ -158,6 +173,11 @@ class Unimind:
         graph = self.expand_concepts(ctx)
         ctx = ctx.with_note("concept_graph", asdict(graph))
 
+        # Recall from knowledge store (small top-k only) to avoid scanning logs.
+        recall = self.knowledge.search(input_text, tags=["geometry"] if "shape" in (input_text or "").lower() else [], top_k=5)
+        if recall:
+            ctx = ctx.with_note("knowledge_recall", recall)
+
         plan, brain_trace = self._brain.think(ctx)
         ctx = ctx.with_note("brain_trace", asdict(brain_trace))
         self._log_jsonl(
@@ -194,7 +214,27 @@ class Unimind:
             seed = f"[event] type={etype} source={source} payload={payload}"
 
         intent = nlu_intent if nlu_intent is not None else etype
-        return self.cycle_with_trace(seed, intent=intent, event=event)
+        # Enqueue for consolidation (best-effort, async)
+        if self._learning_enabled:
+            self._consolidator.enqueue(event)
+
+        # Run cognition immediately
+        plan, trace = self.cycle_with_trace(seed, intent=intent, event=event)
+
+        # Place learned/known artifacts into the mind palace (coarse routing by tags)
+        try:
+            # If we recalled artifacts, ensure they are placed for future fast routing.
+            recalled = (trace.notes or {}).get("knowledge_recall") if trace else None
+            if isinstance(recalled, list):
+                for a in recalled[:10]:
+                    aid = a.get("id")
+                    tags = a.get("tags") or []
+                    if aid:
+                        self.mind_palace.place(str(aid), tags=tags)
+        except Exception:
+            pass
+
+        return plan, trace
 
     def reflect(self):
         """

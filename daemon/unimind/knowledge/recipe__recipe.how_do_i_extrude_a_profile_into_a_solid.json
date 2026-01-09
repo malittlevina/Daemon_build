@@ -1,0 +1,25 @@
+{
+  "id": "recipe.how_do_i_extrude_a_profile_into_a_solid",
+  "goal": "How do I extrude a profile into a solid?",
+  "steps": [
+    "Identify primitives and constraints.",
+    "Select operations (extrude/sweep/boolean/bevel) in a stable order.",
+    "Run quality checks (watertight, normals, self-intersections)."
+  ],
+  "quality_checks": [
+    "watertight mesh",
+    "no self-intersections",
+    "normals consistent"
+  ],
+  "failure_modes": [
+    "non-manifold edges after boolean",
+    "profile not closed for extrude"
+  ],
+  "tags": [
+    "geometry",
+    "procedural",
+    "recipe"
+  ],
+  "created_at": "2026-01-09T20:11:34+00:00",
+  "updated_at": "2026-01-09T20:11:58+00:00"
+}

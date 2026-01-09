@@ -1,0 +1,199 @@
+{
+  "updated_at": "2026-01-09T20:11:58+00:00",
+  "tags": {
+    "geometry": [
+      "recipe.how_do_i_extrude_a_profile_into_a_solid",
+      "shape.bevel",
+      "shape.extrude"
+    ],
+    "shape.op": [
+      "shape.bevel",
+      "shape.extrude"
+    ],
+    "shape.extrude": [
+      "shape.extrude"
+    ],
+    "procedural": [
+      "recipe.how_do_i_extrude_a_profile_into_a_solid"
+    ],
+    "recipe": [
+      "recipe.how_do_i_extrude_a_profile_into_a_solid"
+    ],
+    "shape.bevel": [
+      "shape.bevel"
+    ]
+  },
+  "tokens": {
+    "extrude": [
+      "recipe.how_do_i_extrude_a_profile_into_a_solid",
+      "shape.bevel",
+      "shape.extrude"
+    ],
+    "create": [
+      "shape.extrude"
+    ],
+    "solid": [
+      "recipe.how_do_i_extrude_a_profile_into_a_solid",
+      "shape.extrude"
+    ],
+    "extending": [
+      "shape.extrude"
+    ],
+    "profile": [
+      "recipe.how_do_i_extrude_a_profile_into_a_solid",
+      "shape.extrude"
+    ],
+    "along": [
+      "shape.extrude"
+    ],
+    "direction": [
+      "shape.extrude"
+    ],
+    "given": [
+      "shape.extrude"
+    ],
+    "height": [
+      "shape.extrude"
+    ],
+    "should": [
+      "shape.bevel",
+      "shape.extrude"
+    ],
+    "closed": [
+      "recipe.how_do_i_extrude_a_profile_into_a_solid",
+      "shape.extrude"
+    ],
+    "sweep": [
+      "recipe.how_do_i_extrude_a_profile_into_a_solid",
+      "shape.extrude"
+    ],
+    "boolean_union": [
+      "shape.extrude"
+    ],
+    "identify": [
+      "recipe.how_do_i_extrude_a_profile_into_a_solid"
+    ],
+    "primitives": [
+      "recipe.how_do_i_extrude_a_profile_into_a_solid"
+    ],
+    "constraints": [
+      "recipe.how_do_i_extrude_a_profile_into_a_solid"
+    ],
+    "select": [
+      "recipe.how_do_i_extrude_a_profile_into_a_solid"
+    ],
+    "operations": [
+      "recipe.how_do_i_extrude_a_profile_into_a_solid"
+    ],
+    "boolean": [
+      "recipe.how_do_i_extrude_a_profile_into_a_solid"
+    ],
+    "bevel": [
+      "recipe.how_do_i_extrude_a_profile_into_a_solid",
+      "shape.bevel"
+    ],
+    "stable": [
+      "recipe.how_do_i_extrude_a_profile_into_a_solid"
+    ],
+    "order": [
+      "recipe.how_do_i_extrude_a_profile_into_a_solid"
+    ],
+    "run": [
+      "recipe.how_do_i_extrude_a_profile_into_a_solid"
+    ],
+    "quality": [
+      "recipe.how_do_i_extrude_a_profile_into_a_solid"
+    ],
+    "checks": [
+      "recipe.how_do_i_extrude_a_profile_into_a_solid"
+    ],
+    "watertight": [
+      "recipe.how_do_i_extrude_a_profile_into_a_solid"
+    ],
+    "normals": [
+      "recipe.how_do_i_extrude_a_profile_into_a_solid"
+    ],
+    "self-intersections": [
+      "recipe.how_do_i_extrude_a_profile_into_a_solid"
+    ],
+    "mesh": [
+      "recipe.how_do_i_extrude_a_profile_into_a_solid"
+    ],
+    "consistent": [
+      "recipe.how_do_i_extrude_a_profile_into_a_solid"
+    ],
+    "non-manifold": [
+      "recipe.how_do_i_extrude_a_profile_into_a_solid"
+    ],
+    "edges": [
+      "recipe.how_do_i_extrude_a_profile_into_a_solid",
+      "shape.bevel"
+    ],
+    "after": [
+      "recipe.how_do_i_extrude_a_profile_into_a_solid"
+    ],
+    "replace": [
+      "shape.bevel"
+    ],
+    "sharp": [
+      "shape.bevel"
+    ],
+    "chamfer": [
+      "shape.bevel"
+    ],
+    "round": [
+      "shape.bevel"
+    ],
+    "improve": [
+      "shape.bevel"
+    ],
+    "aesthetics": [
+      "shape.bevel"
+    ],
+    "reduce": [
+      "shape.bevel"
+    ],
+    "artifacts": [
+      "shape.bevel"
+    ],
+    "radius": [
+      "shape.bevel"
+    ],
+    "must": [
+      "shape.bevel"
+    ],
+    "non-negative": [
+      "shape.bevel"
+    ],
+    "avoid": [
+      "shape.bevel"
+    ],
+    "beveling": [
+      "shape.bevel"
+    ],
+    "smaller": [
+      "shape.bevel"
+    ],
+    "than": [
+      "shape.bevel"
+    ],
+    "used": [
+      "shape.bevel"
+    ],
+    "soften": [
+      "shape.bevel"
+    ],
+    "small": [
+      "shape.bevel"
+    ],
+    "relative": [
+      "shape.bevel"
+    ],
+    "edge": [
+      "shape.bevel"
+    ],
+    "length": [
+      "shape.bevel"
+    ]
+  }
+}

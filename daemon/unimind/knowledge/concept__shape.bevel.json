@@ -1,0 +1,32 @@
+{
+  "id": "shape.bevel",
+  "title": "Bevel",
+  "definition": "Replace sharp edges with a chamfer/round to improve aesthetics and reduce artifacts.",
+  "parameters": [
+    {
+      "name": "radius",
+      "type": "float"
+    },
+    {
+      "name": "segments",
+      "type": "int"
+    }
+  ],
+  "constraints": [
+    "Radius must be non-negative",
+    "Avoid beveling edges smaller than radius"
+  ],
+  "related": [
+    "shape.extrude"
+  ],
+  "tags": [
+    "geometry",
+    "shape.op",
+    "shape.bevel"
+  ],
+  "examples": [
+    "Bevel is used to soften edges; bevel radius should be small relative to edge length."
+  ],
+  "created_at": "2026-01-09T20:11:34+00:00",
+  "updated_at": "2026-01-09T20:11:34+00:00"
+}
