@@ -89,6 +89,9 @@ def main():
     from apps.ide import IDE
     kernel.register_module("ide", IDE(kernel))
 
+    from apps.calculator import Calculator
+    kernel.register_module("calculator", Calculator(kernel))
+
     # Initialize System
     kernel.initialize()
 
