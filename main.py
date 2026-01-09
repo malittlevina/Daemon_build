@@ -116,6 +116,12 @@ def main():
     from apps.holodeck import Holodeck
     kernel.register_module("holodeck", Holodeck(kernel))
 
+    from apps.bard import Bard
+    kernel.register_module("bard", Bard(kernel))
+
+    from core.dreamer import Dreamer
+    kernel.register_module("dreamer", Dreamer(kernel))
+
     # Initialize System
     kernel.initialize()
 

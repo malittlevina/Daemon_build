@@ -86,16 +86,30 @@ class SemanticPhysicsSystem(System):
             if "burning" not in m2.properties:
                 m2.properties.append("burning")
                 # e2.add_component(Light(color=(1, 0.5, 0), intensity=2.0)) # Visual feedback
-                print(f"[SemanticPhysics] {e1.uid} (Fire) set {e2.uid} ({m2.material}) ON FIRE!")
+                # print(f"[SemanticPhysics] {e1.uid} (Fire) set {e2.uid} ({m2.material}) ON FIRE!")
+                self.world.kernel.dispatch("world:interaction", {
+                    "type": "ignite",
+                    "subject": e1.uid, 
+                    "subject_name": e1.get_component(Name).name,
+                    "object": e2.uid,
+                    "object_name": e2.get_component(Name).name
+                })
 
         # Water vs Fire
         if m1.material == "water" and (m2.material == "fire" or "burning" in m2.properties):
             if "burning" in m2.properties:
                 m2.properties.remove("burning")
-                print(f"[SemanticPhysics] {e1.uid} (Water) EXTINGUISHED {e2.uid}")
+                # print(f"[SemanticPhysics] {e1.uid} (Water) EXTINGUISHED {e2.uid}")
+                self.world.kernel.dispatch("world:interaction", {
+                    "type": "extinguish",
+                    "subject": e1.uid, 
+                    "subject_name": e1.get_component(Name).name,
+                    "object": e2.uid,
+                    "object_name": e2.get_component(Name).name
+                })
             if m2.material == "fire":
                 # Destroy fire entity? For now just log
-                print(f"[SemanticPhysics] {e1.uid} (Water) doused {e2.uid} (Fire source)")
+                pass
 
 class ScriptSystem(System):
     def update(self, delta_time: float):
