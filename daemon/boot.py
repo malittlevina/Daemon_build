@@ -80,4 +80,7 @@ def load_daemon_services(kernel):
     from apps.monitor import SystemMonitor
     kernel.register_module("monitor", SystemMonitor(kernel))
 
+    from apps.web import WebPortal
+    kernel.register_module("web_portal", WebPortal(kernel))
+
     kernel.log("Boot", "Daemon Intelligence Loaded.")

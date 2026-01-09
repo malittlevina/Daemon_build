@@ -67,18 +67,28 @@ class NLUEngine(Module):
         if self.use_ollama_fallback:
             try:
                 # Check if ollama is installed/running before calling subprocess
-                # For now, we assume it might fail if not present
                 result = subprocess.run(["ollama", "run", "prometheus", user_input], capture_output=True, text=True)
                 if result.returncode == 0:
                     return result.stdout.strip()
-                else:
-                    return "[NLUEngine] Ollama fallback failed or model not found."
             except FileNotFoundError:
-                return "[NLUEngine] Ollama not installed."
+                pass # Fall through to simple chatbot
             except Exception as e:
-                return f"[NLUEngine] Fallback exception: {e}"
+                self.kernel.log("NLUEngine", f"Fallback exception: {e}", level="error")
 
-        return "[NLUEngine] No known intent"
+        # Simple Rule-Based Chatbot (The "Lizard" Brain)
+        return self._simple_chat(user_input)
+
+    def _simple_chat(self, text):
+        text = text.lower()
+        if "who are you" in text:
+            return "I am Thoth, a Symbolic Operating System."
+        if "status" in text:
+            return "Systems operational. World Engine active."
+        if "hello" in text or "hi" in text:
+            return "Greetings, User."
+        if "time" in text:
+            return f"The current system time is {datetime.datetime.now().strftime('%H:%M')}."
+        return f"I heard '{text}', but I lack the neural capacity to process it fully."
 
 # Kept as standalone functions or move to a separate util module if needed
 def run_self_analysis():
