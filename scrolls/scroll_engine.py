@@ -35,9 +35,44 @@ class ScrollEngine:
             "materialize realm": self._materialize_realm,
             "generate realm": self._generate_realm,
             "generate quest": self._generate_quest,
-            "list quests": self._list_quests
+            "list quests": self._list_quests,
+            "scan reality": self._scan_reality,
+            "sync reality": self._sync_reality,
+            "generate reality quest": self._generate_reality_quest
         }
         self.active_scrolls = []
+
+    def _generate_reality_quest(self, realm_name):
+        if not self.world_engine: return "[Scroll] No World Engine."
+        from storyrealms.dungeon_master import DungeonMaster
+        dm = DungeonMaster(self.world_engine)
+        quest = dm.generate_reality_quest(realm_name)
+        if quest:
+            return f"[ARG] Reality Quest Linked: {quest.title}\nOrders: {quest.description}"
+        return "[ARG] Signal interference. Cannot link quest."
+
+    def _scan_reality(self):
+        if not self.world_engine: return "[Scroll] No World Engine."
+        from storyrealms.reality_overlay import RealityOverlay
+        overlay = RealityOverlay(self.world_engine)
+        encounter = overlay.scan_reality_for_encounter()
+        
+        # Inject enemy into current realm
+        if self.world_engine.current_realm:
+            from storyrealms.entities import AgentEntity
+            enemy_data = encounter["entity"]
+            enemy = AgentEntity(enemy_data["name"], role="Enemy", location="Root", properties=enemy_data["properties"])
+            self.world_engine.current_realm.entities.append(enemy.to_dict())
+            self.world_engine.save_realm(self.world_engine.current_realm)
+            
+        return f"[ARG] Scan Complete.\n{encounter['description']}\nEnemy '{encounter['entity']['name']}' manifested."
+
+    def _sync_reality(self):
+        if not self.world_engine: return "[Scroll] No World Engine."
+        from storyrealms.reality_overlay import RealityOverlay
+        overlay = RealityOverlay(self.world_engine)
+        weather = overlay.sync_weather_effects()
+        return f"[ARG] Atmosphere Synced: {weather['description']} Effects: {weather['effects']}"
 
     def _generate_quest(self, realm_name):
         if not self.world_engine: return "[Scroll] No World Engine."

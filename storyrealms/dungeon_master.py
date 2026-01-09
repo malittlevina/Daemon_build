@@ -100,3 +100,42 @@ class DungeonMaster:
             return []
         realm = self.world_engine.realms[realm_name]
         return realm.state.get("quests", [])
+
+    def generate_reality_quest(self, realm_name):
+        """
+        Generates a quest that requires real-world movement (ARG style).
+        """
+        if realm_name not in self.world_engine.realms:
+            return None
+            
+        realm = self.world_engine.realms[realm_name]
+        
+        # Simulated GPS coordinates (Relative to user)
+        # In a real app, we'd get current location and add offset
+        offsets = [
+            ("North", 0.001, 0),
+            ("East", 0, 0.001),
+            ("South", -0.001, 0),
+            ("West", 0, -0.001)
+        ]
+        direction, d_lat, d_lon = random.choice(offsets)
+        
+        quest_type = random.choice(["geo_cache", "waypoint"])
+        
+        if quest_type == "geo_cache":
+            title = f"Find the Cache to the {direction}"
+            desc = f"Walk {direction} approximately 100 meters. Look for the signal."
+        else:
+            title = f"Scout the {direction} Perimeter"
+            desc = f"Patrol the real-world area to the {direction} to secure the perimeter."
+
+        quest = Quest(title, desc, reward="Augmented Loot Box")
+        quest.add_step(f"Reach coordinates offset ({d_lat}, {d_lon})", target_location="RealWorld")
+        
+        # Register quest
+        if "quests" not in realm.state:
+            realm.state["quests"] = []
+        realm.state["quests"].append(quest.to_dict())
+        self.world_engine.save_realm(realm)
+        
+        return quest
