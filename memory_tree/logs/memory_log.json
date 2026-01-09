@@ -50,5 +50,45 @@
         "flags": {}
       }
     }
+  },
+  {
+    "timestamp": "2026-01-09T19:16:29.235213",
+    "type": "text_input",
+    "content": "study neural architectures",
+    "context": {
+      "intent": "study",
+      "symbolic_state": {
+        "history": [],
+        "current_context": {},
+        "flags": {}
+      },
+      "event": {
+        "type": "text_input",
+        "payload": {
+          "text": "study neural architectures"
+        },
+        "source": "console"
+      }
+    }
+  },
+  {
+    "timestamp": "2026-01-09T19:16:29.237685",
+    "type": "vision_label",
+    "content": "[vision] scene=Indoor source=camera",
+    "context": {
+      "intent": "vision_label",
+      "symbolic_state": {
+        "history": [],
+        "current_context": {},
+        "flags": {}
+      },
+      "event": {
+        "type": "vision_label",
+        "payload": {
+          "scene": "Indoor"
+        },
+        "source": "camera"
+      }
+    }
   }
 ]

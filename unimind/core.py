@@ -132,7 +132,16 @@ class Unimind:
         """
         Run one perception->expansion->decision pass.
         """
+        plan, _trace = self.cycle_with_trace(input_text=input_text, intent=intent, event=None)
+        return plan
+
+    def cycle_with_trace(self, input_text: str, intent: Any = None, event: Optional[Dict[str, Any]] = None):
+        """
+        Same as `cycle()` but returns (plan, brain_trace) for routing/UX layers.
+        """
         ctx = self.build_context(input_text=input_text, intent=intent)
+        if event:
+            ctx = ctx.with_note("event", event)
 
         # Let subsystems update internal state based on the now-stable context.
         lam_thoughts: Dict[str, Any] = {}
@@ -163,7 +172,29 @@ class Unimind:
                 "signals": asdict(ctx.signals),
             },
         )
-        return plan
+        return plan, brain_trace
+
+    def ingest_event(self, event: Dict[str, Any], *, nlu_intent: Any = None):
+        """
+        Ingest a daemon event, transform it into a reasoning seed, and return (plan, trace).
+        """
+        etype = str(event.get("type") or "system_event")
+        payload = event.get("payload") or {}
+        source = event.get("source") or "unknown"
+
+        seed = ""
+        if isinstance(payload, dict):
+            if isinstance(payload.get("text"), str):
+                seed = payload["text"]
+            elif isinstance(payload.get("scene"), str):
+                seed = f"[vision] scene={payload['scene']} source={source}"
+            else:
+                seed = f"[event] type={etype} source={source} payload={payload}"
+        else:
+            seed = f"[event] type={etype} source={source} payload={payload}"
+
+        intent = nlu_intent if nlu_intent is not None else etype
+        return self.cycle_with_trace(seed, intent=intent, event=event)
 
     def reflect(self):
         """

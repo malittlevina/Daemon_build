@@ -66,15 +66,27 @@ class MemorySubsystem:
 
     def think(self, ctx: UnimindContext) -> Optional[Dict[str, Any]]:
         log_event = getattr(self._logger, "log_event", None)
-        if callable(log_event) and ctx.input_text:
+        event = (ctx.notes or {}).get("event")
+        if callable(log_event) and (ctx.input_text or event):
             try:
+                event_type = "user_input"
+                content = ctx.input_text or ""
+                context: Dict[str, Any] = {
+                    "intent": ctx.intent,
+                    "symbolic_state": ctx.symbolic_state,
+                }
+                if isinstance(event, dict):
+                    event_type = str(event.get("type") or event_type)
+                    context["event"] = event
+                    # Prefer event text when present
+                    payload = event.get("payload") or {}
+                    if isinstance(payload, dict) and isinstance(payload.get("text"), str):
+                        content = payload["text"]
+
                 log_event(
-                    "user_input",
-                    ctx.input_text,
-                    context={
-                        "intent": ctx.intent,
-                        "symbolic_state": ctx.symbolic_state,
-                    },
+                    event_type,
+                    content,
+                    context=context,
                 )
             except Exception:
                 pass

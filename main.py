@@ -14,6 +14,13 @@ from nlu.nlu_engine import NLUEngine
 from guardian.ethical_core import EthicalCore
 from lam import symbolic_state as lam_state_module
 from lam import lam_planner as lam_planner_module
+from daemon.event_bus import EventBus
+from daemon.events import DaemonEvent
+from daemon.action_router import ActionRouter
+from daemon.adapters.console_input import start_console_input
+from daemon.adapters.textbox_server import start_textbox_server
+from daemon.adapters.mic_adapter import start_mic_listener
+from daemon.adapters.camera_adapter import start_camera_watcher
 import subprocess
 import json
 import time
@@ -61,6 +68,22 @@ if __name__ == "__main__":
     # threading.Thread(target=vision.classify_surroundings, daemon=True).start()
     threading.Thread(target=run_auto_optimization, daemon=True).start()
 
+    # Event-driven IO: console + textbox + mic + camera
+    bus = EventBus()
+    router = ActionRouter(scroll_engine=scrolls)
+
+    ENABLE_TEXTBOX = True
+    ENABLE_MIC = False
+    ENABLE_CAMERA = False
+
+    start_console_input(bus)
+    if ENABLE_TEXTBOX:
+        start_textbox_server(bus, host="0.0.0.0", port=8765)
+    if ENABLE_MIC:
+        start_mic_listener(bus)
+    if ENABLE_CAMERA:
+        start_camera_watcher(bus)
+
     # Load Codex documents
     ingest_documents("codex/data/")
 
@@ -98,38 +121,47 @@ if __name__ == "__main__":
                     log_file.write(f"{time.asctime()} - Nightly reflection and improvement triggered\n")
                 last_run_date = today
 
-            print("\n[Daemon] Enter a command or type 'exit': ", end="", flush=True)
-            user_input = input().strip()
+            event = bus.get(timeout=0.25)
+            if event is None:
+                continue
 
-            if user_input.lower() == "exit":
-                print("[Daemon] Shutting down.")
+            if event.type == "shutdown":
+                print(f"[Daemon] Shutting down: {event.payload}")
                 break
-            elif user_input == "":
-                personality.log_state()
-                unimind.reflect()
-            else:
-                result = None
-                if nlu:
-                    try:
-                        result = nlu.interpret(user_input)
-                        if result is None or (isinstance(result, str) and result.startswith("[NLUEngine] No known intent")):
-                            result = handle_fallback(user_input)
-                    except Exception as e:
-                        print(f"[Daemon Error] NLU failed: {e}")
-                        result = handle_fallback(user_input)
+
+            nlu_intent = None
+            if event.type in {"text_input", "audio_transcript"}:
+                text = str((event.payload or {}).get("text") or "")
+                if text:
+                    if nlu:
+                        try:
+                            nlu_intent = nlu.interpret(text)
+                            if (
+                                nlu_intent is None
+                                or (isinstance(nlu_intent, str) and nlu_intent.startswith("[NLUEngine] No known intent"))
+                            ):
+                                nlu_intent = handle_fallback(text)
+                        except Exception as e:
+                            print(f"[Daemon Error] NLU failed: {e}")
+                            nlu_intent = handle_fallback(text)
+                    else:
+                        nlu_intent = handle_fallback(text)
+
+            # Unimind ingest + planning
+            try:
+                plan, trace = unimind.ingest_event(event.to_dict(), nlu_intent=nlu_intent)
+                utterance = (trace.notes or {}).get("utterance_plan", {}) if trace else {}
+                if isinstance(utterance, dict) and utterance.get("text"):
+                    print(utterance["text"])
                 else:
-                    print("[Daemon Warning] NLU not available. Using fallback response.")
-                    result = handle_fallback(user_input)
-
-                print(f"[Daemon] NLU Result: {result}")
-
-                # Run a Unimind cycle to expand concepts + propose next action.
-                try:
-                    plan = unimind.cycle(user_input, intent=result)
                     print(f"[Unimind] Plan: {plan.action}")
                     print(f"[Unimind] Rationale: {plan.rationale}")
-                except Exception as e:
-                    print(f"[Unimind] Cycle error: {e}")
+
+                outcome = router.route(plan, trace=trace.__dict__ if trace else None)
+                if outcome.get("executed"):
+                    print(f"[Router] {outcome.get('result')}")
+            except Exception as e:
+                print(f"[Daemon] Unimind ingest error: {e}")
 
         except Exception as loop_error:
             print(f"[Daemon Critical Loop Error] {loop_error}")
