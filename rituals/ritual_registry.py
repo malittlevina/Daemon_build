@@ -33,11 +33,26 @@ class RitualRegistry:
 
     # ---- Dynamic Rituals ----
     def register(self, name, trigger, action):
+        """
+        Register a new dynamic ritual.
+        
+        Args:
+            name (str): Unique name of the ritual
+            trigger (callable): Function returning Bool. True triggers the ritual.
+            action (callable): Function to execute when triggered.
+        """
         self.dynamic_rituals[name] = {"trigger": trigger, "action": action}
         print(f"[RitualRegistry] Ritual '{name}' registered.")
 
     def evaluate_triggers(self):
+        """Check all dynamic rituals and fire them if their trigger condition is met."""
+        triggered = []
         for name, ritual in self.dynamic_rituals.items():
-            if ritual["trigger"]():
-                print(f"[RitualRegistry] Auto-invoking triggered ritual: {name}")
-                ritual["action"]()
+            try:
+                if ritual["trigger"]():
+                    print(f"[RitualRegistry] Auto-invoking triggered ritual: {name}")
+                    result = ritual["action"]()
+                    triggered.append((name, result))
+            except Exception as e:
+                print(f"[RitualRegistry] Error evaluating ritual '{name}': {e}")
+        return triggered
