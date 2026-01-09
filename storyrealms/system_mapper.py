@@ -136,41 +136,100 @@ class SystemMapper:
         self.world_engine.save_realm(realm)
         return f"[SystemMapper] Mapped runtime to Realm '{realm_name}'."
 
-    def analyze_realm(self, realm_name):
+    def diff_realms(self, realm_a_name, realm_b_name):
         """
-        Performs a structural analysis (breakdown) of a mapped System Realm.
+        Compares two Realms (presumably snapshots of the same system at different times)
+        to detect anomalies, intruders, or mutations.
+        """
+        if realm_a_name not in self.world_engine.realms or realm_b_name not in self.world_engine.realms:
+            return "[SystemMapper] One or both realms not found."
+
+        realm_a = self.world_engine.realms[realm_a_name]
+        realm_b = self.world_engine.realms[realm_b_name]
+
+        report = [f"--- Anomaly Report: {realm_a_name} vs {realm_b_name} ---"]
+        
+        # 1. Compare Entities (Constructs/Artifacts)
+        entities_a = {e["name"]: e for e in realm_a.entities}
+        entities_b = {e["name"]: e for e in realm_b.entities}
+        
+        added = set(entities_b.keys()) - set(entities_a.keys())
+        removed = set(entities_a.keys()) - set(entities_b.keys())
+        
+        if added:
+            report.append(f"\n[!] New Entities Detected ({len(added)}):")
+            for name in added:
+                report.append(f"  + {name} ({entities_b[name].get('type', 'Unknown')})")
+
+        if removed:
+            report.append(f"\n[-] Entities Vanished ({len(removed)}):")
+            for name in removed:
+                report.append(f"  - {name}")
+
+        # 2. Compare Properties of Common Entities
+        common = set(entities_a.keys()) & set(entities_b.keys())
+        mutated = []
+        for name in common:
+            ea = entities_a[name]
+            eb = entities_b[name]
+            
+            # Simple size check
+            size_a = ea.get("properties", {}).get("size", 0)
+            size_b = eb.get("properties", {}).get("size", 0)
+            
+            if size_a != size_b:
+                mutated.append(f"  ~ {name}: Mass changed {size_a} -> {size_b}")
+                
+        if mutated:
+            report.append(f"\n[~] Mutations Detected ({len(mutated)}):")
+            for m in mutated:
+                report.append(m)
+
+        if not added and not removed and not mutated:
+            report.append("\nNo anomalies detected. Systems are identical.")
+
+        return "\n".join(report)
+
+    def materialize_realm(self, realm_name, target_path):
+        """
+        Reconstructs a Realm back into a physical directory structure.
+        Useful for procedural generation or restoring backups.
         """
         if realm_name not in self.world_engine.realms:
             return f"[SystemMapper] Realm '{realm_name}' not found."
-
-        realm = self.world_engine.realms[realm_name]
-        entities = realm.entities
-        
-        # Aggregate stats
-        types = {}
-        extensions = {}
-        total_size = 0
-        
-        for e in entities:
-            etype = e.get("type", "Unknown")
-            types[etype] = types.get(etype, 0) + 1
             
-            props = e.get("properties", {})
-            if "size" in props:
-                total_size += props["size"]
-            if "extension" in props:
-                ext = props["extension"]
-                extensions[ext] = extensions.get(ext, 0) + 1
-
-        # Generate Report
-        report = [
-            f"--- Analysis Report: {realm_name} ---",
-            f"Description: {realm.description}",
-            f"Total Entities: {len(entities)}",
-            f"Entity Types: {types}",
-            f"Code Composition: {extensions}",
-            f"Total Mass (Size): {total_size} bytes",
-            "-----------------------------------"
-        ]
+        realm = self.world_engine.realms[realm_name]
         
-        return "\n".join(report)
+        if not os.path.exists(target_path):
+            os.makedirs(target_path)
+            
+        log = []
+        
+        # 1. Recreate Structure (Regions)
+        structure = realm.state.get("structure", {})
+        for rel_path, data in structure.items():
+            if rel_path == "Root": continue
+            full_path = os.path.join(target_path, rel_path)
+            os.makedirs(full_path, exist_ok=True)
+            
+        # 2. Recreate Artifacts (Empty placeholders or restore if content saved)
+        # Currently we only save "Lore" (snippets), so we can't fully restore code unless we upgrade the mapper.
+        # But we can create the scaffolding.
+        for entity in realm.entities:
+            if entity.get("type") == "Artifact":
+                rel_loc = entity.get("location", "")
+                name = entity.get("name", "artifact")
+                
+                # Handle Root case
+                if rel_loc == "Root":
+                    full_path = os.path.join(target_path, name)
+                else:
+                    full_path = os.path.join(target_path, rel_loc, name)
+                
+                # Create file
+                with open(full_path, "w") as f:
+                    description = entity.get("description", "")
+                    f.write(f"# Restored Artifact: {name}\n# Lore: {description}\n\n# [Content Reconstruct Pending]")
+                log.append(f"Materialized: {name}")
+
+        return f"[SystemMapper] Realm materialized at {target_path}. Created {len(log)} artifacts."

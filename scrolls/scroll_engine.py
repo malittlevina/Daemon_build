@@ -30,9 +30,19 @@ class ScrollEngine:
             "system status": self._system_status,
             "map system": self._map_system,
             "map runtime": self._map_runtime,
-            "analyze system": self._analyze_system
+            "analyze system": self._analyze_system,
+            "diff systems": self._diff_systems,
+            "materialize realm": self._materialize_realm
         }
         self.active_scrolls = []
+
+    def _diff_systems(self, realm_a, realm_b):
+        if not self.system_mapper: return "[Scroll] No System Mapper."
+        return self.system_mapper.diff_realms(realm_a, realm_b)
+
+    def _materialize_realm(self, realm_name, target_path):
+        if not self.system_mapper: return "[Scroll] No System Mapper."
+        return self.system_mapper.materialize_realm(realm_name, target_path)
 
     def _analyze_system(self, realm_name):
         if not self.system_mapper:
