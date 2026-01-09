@@ -67,9 +67,35 @@ def interact(payload: InputPayload):
                 response_text = f"Moved to {dest}"
             else:
                 response_text = f"Cannot move to {dest}"
+@app.post("/interact")
+def interact(payload: InputPayload):
+    world = get_world()
+    if not world.current_realm:
+        return {"error": "No active realm"}
+
+    # Handle multiplayer actions
+    player = world.current_realm.active_players.get(payload.client_id)
+    
+    response_text = ""
+    
+    if player:
+        # Simple parser for player actions
+        text = payload.text.lower()
+        if text.startswith("move "):
+            dest = text.replace("move ", "").strip()
+            if player.move(dest, {"current_realm": world.current_realm}):
+                response_text = f"Moved to {dest}"
+            else:
+                response_text = f"Cannot move to {dest}"
         elif text.startswith("interact "):
             target = text.replace("interact ", "").strip()
             response_text = player.interact(target, {"current_realm": world.current_realm})
+        elif text.startswith("attack "):
+            # Sentry Integration
+            target = text.replace("attack ", "").strip()
+            from guardian.sentry import CyberSentry
+            sentry = CyberSentry(world)
+            response_text = sentry.exorcise_entity(target, world.current_realm.name)
         else:
             response_text = f"Logged: {payload.text}"
             log_memory(f"Player {player.name}: {payload.text}", {"realm": world.current_realm.name})

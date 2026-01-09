@@ -38,9 +38,26 @@ class ScrollEngine:
             "list quests": self._list_quests,
             "scan reality": self._scan_reality,
             "sync reality": self._sync_reality,
-            "generate reality quest": self._generate_reality_quest
+            "generate reality quest": self._generate_reality_quest,
+            "sentry scan": self._sentry_scan,
+            "exorcise": self._exorcise
         }
         self.active_scrolls = []
+
+    def _sentry_scan(self):
+        if not self.world_engine: return "[Scroll] No World Engine."
+        from guardian.sentry import CyberSentry
+        sentry = CyberSentry(self.world_engine)
+        results = sentry.scan_and_manifest()
+        if results:
+            return f"[Sentry] Threats detected and manifested:\n" + "\n".join(results)
+        return "[Sentry] The plane is calm. No heavy processes detected."
+
+    def _exorcise(self, target_name):
+        if not self.world_engine: return "[Scroll] No World Engine."
+        from guardian.sentry import CyberSentry
+        sentry = CyberSentry(self.world_engine)
+        return sentry.exorcise_entity(target_name)
 
     def _generate_reality_quest(self, realm_name):
         if not self.world_engine: return "[Scroll] No World Engine."
