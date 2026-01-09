@@ -1,0 +1,156 @@
+{
+  "name": "Digital Frontier",
+  "current_zone": "StartSector",
+  "player_location": "sector_square",
+  "zones": {
+    "StartSector": {
+      "name": "StartSector",
+      "theme": "Cyberpunk Village",
+      "locations": {
+        "my_apartment": {
+          "id": "my_apartment",
+          "name": "My Apartment",
+          "description": "A small, cozy apartment with glowing neon strips.",
+          "exits": {
+            "out": "sector_square"
+          },
+          "entities": [],
+          "items": [
+            "Potion",
+            "Data Chip"
+          ],
+          "is_puzzle_solved": false
+        },
+        "sector_square": {
+          "id": "sector_square",
+          "name": "Sector Square",
+          "description": "The bustling center of the sector. Holographic ads flicker above.",
+          "exits": {
+            "home": "my_apartment",
+            "north": "high_grass"
+          },
+          "entities": [
+            {
+              "type": "creature",
+              "id": "62131deb-2854-4d2f-b0a5-e7f5d8129c5c",
+              "name": "GlitchRat",
+              "description": "A rat corrupted by bad data.",
+              "location_id": "sector_square",
+              "tags": [],
+              "creature_type": "Data",
+              "stats": {
+                "hp": 20,
+                "max_hp": 20,
+                "energy": 10,
+                "max_energy": 10,
+                "attack": 5,
+                "defense": 2,
+                "speed": 5
+              },
+              "moves": [
+                {
+                  "name": "Byte Bite",
+                  "damage": 5,
+                  "cost": 2,
+                  "description": "A digital bite.",
+                  "effect": null
+                }
+              ],
+              "level": 1,
+              "experience": 0
+            }
+          ],
+          "items": [],
+          "is_puzzle_solved": false
+        },
+        "high_grass": {
+          "id": "high_grass",
+          "name": "High Grass",
+          "description": "Tall static grass that hides creatures.",
+          "exits": {
+            "south": "sector_square"
+          },
+          "entities": [
+            {
+              "type": "creature",
+              "id": "168a307d-9d62-4f3b-907b-24d759b99006",
+              "name": "NullFox",
+              "description": "A fox made of null pointers.",
+              "location_id": "high_grass",
+              "tags": [],
+              "creature_type": "Void",
+              "stats": {
+                "hp": 30,
+                "max_hp": 30,
+                "energy": 20,
+                "max_energy": 20,
+                "attack": 8,
+                "defense": 3,
+                "speed": 10
+              },
+              "moves": [
+                {
+                  "name": "Void Scratch",
+                  "damage": 8,
+                  "cost": 4,
+                  "description": "Scratches with void energy.",
+                  "effect": null
+                }
+              ],
+              "level": 1,
+              "experience": 0
+            }
+          ],
+          "items": [],
+          "is_puzzle_solved": false
+        }
+      },
+      "start_location_id": "my_apartment"
+    }
+  },
+  "player_team": [
+    {
+      "type": "creature",
+      "id": "289b195f-ea63-42d9-bd8f-ae6919b56316",
+      "name": "CodeBit",
+      "description": "A small floating geometric shape.",
+      "location_id": null,
+      "tags": [],
+      "creature_type": "Core",
+      "stats": {
+        "hp": 25,
+        "max_hp": 25,
+        "energy": 15,
+        "max_energy": 15,
+        "attack": 6,
+        "defense": 4,
+        "speed": 6
+      },
+      "moves": [
+        {
+          "name": "Ram",
+          "damage": 6,
+          "cost": 0,
+          "description": "Ram into enemy.",
+          "effect": null
+        }
+      ],
+      "level": 1,
+      "experience": 0
+    }
+  ],
+  "daemon_avatar": {
+    "type": "daemon_avatar",
+    "id": "d172b393-be82-4f62-ad73-7159b6118c7e",
+    "name": "System Daemon",
+    "description": "Your loyal digital companion made manifest.",
+    "location_id": null,
+    "tags": [],
+    "sync_rate": 100.0,
+    "abilities": [
+      "Analyze",
+      "Hack",
+      "Shield"
+    ]
+  }
+}
