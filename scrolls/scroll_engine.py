@@ -1,6 +1,7 @@
 from scrolls.scroll_event import ScrollEvent
 from scrolls.trigger_manager import check_scroll_triggers
 from scrolls.api_scrolls import execute_api_scroll
+from storyrealms.system_mapper import SystemMapper
 
 class ScrollTrigger:
     def __init__(self, name, conditions, actions):
@@ -17,6 +18,8 @@ class ScrollEngine:
     def __init__(self, world_engine=None, kernel_bridge=None):
         self.world_engine = world_engine
         self.kernel_bridge = kernel_bridge
+        self.system_mapper = SystemMapper(world_engine) if world_engine else None
+        
         self.scrolls = {
             "optimize self": self._optimize_self,
             "study topic": self._study_topic,
@@ -24,9 +27,27 @@ class ScrollEngine:
             "run task": self._run_task,
             "multi step plan": self._multi_step_plan,
             "change realm": self._change_realm,
-            "system status": self._system_status
+            "system status": self._system_status,
+            "map system": self._map_system,
+            "map runtime": self._map_runtime,
+            "analyze system": self._analyze_system
         }
         self.active_scrolls = []
+
+    def _analyze_system(self, realm_name):
+        if not self.system_mapper:
+            return "[Scroll] System Mapper not available."
+        return self.system_mapper.analyze_realm(realm_name)
+
+    def _map_system(self, path):
+        if not self.system_mapper:
+            return "[Scroll] System Mapper not available (World Engine missing)."
+        return self.system_mapper.map_filesystem(path)
+
+    def _map_runtime(self):
+        if not self.system_mapper:
+            return "[Scroll] System Mapper not available (World Engine missing)."
+        return self.system_mapper.map_active_runtime()
 
     def _system_status(self):
         if self.kernel_bridge:
