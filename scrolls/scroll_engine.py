@@ -27,7 +27,7 @@ class ScrollEngine(Module):
         self.active_scrolls = []
 
     def initialize(self):
-        print("[ScrollEngine] Initialized.")
+        self.kernel.log("ScrollEngine", "Initialized.")
         self.kernel.events.subscribe("scroll:invoke", self.handle_invoke_event)
 
     def start(self):
@@ -70,29 +70,29 @@ class ScrollEngine(Module):
 
             # Summarize the topic and save to knowledge file
             summary = summarize_content(topic)
-            print(f"[Study] Knowledge Digest:\n{summary[:500]}...\n")
+            self.kernel.log("Study", f"Knowledge Digest:\n{summary[:100]}...")
             knowledge_path = f"knowledge/{topic.lower().replace(' ', '_')}.md"
             os.makedirs(os.path.dirname(knowledge_path), exist_ok=True)
             with open(knowledge_path, "w") as f:
                 f.write(f"# {topic.title()} Summary\n\n{summary}\n")
 
-            print(f"[Study] Summary written to: {knowledge_path}")
+            self.kernel.log("Study", f"Summary written to: {knowledge_path}")
 
             # Add a self-quiz line (simulated reflection test)
             quiz_prompt = f"Explain something important about {topic}"
-            print(f"[Study] Self-quiz prompt: {quiz_prompt}")
+            self.kernel.log("Study", f"Self-quiz prompt: {quiz_prompt}")
             from introspection.personality import respond_to_input
             try:
                 answer = respond_to_input(quiz_prompt)
-                print(f"[Study] Prom's response: {answer}")
+                self.kernel.log("Study", f"Prom's response: {answer}")
                 with open(knowledge_path, "a") as f:
                     f.write(f"\n\n## Self-Quiz\n\n**Q:** {quiz_prompt}\n\n**A:** {answer}\n")
                     score = "✔️" if "loop" in answer.lower() or len(answer.split()) > 5 else "❌"
                     f.write(f"\n**Score:** {score}")
-                print(f"[Study] Quiz result saved to: {knowledge_path}")
-                print(f"[Study] Self-quiz score: {score}")
+                self.kernel.log("Study", f"Quiz result saved to: {knowledge_path}")
+                self.kernel.log("Study", f"Self-quiz score: {score}")
             except Exception as e:
-                print(f"[Study] Failed to quiz Prom: {e}")
+                self.kernel.log("Study", f"Failed to quiz Prom: {e}", level="error")
 
             # Track study history
             os.makedirs("logs", exist_ok=True)
@@ -136,7 +136,7 @@ class ScrollEngine(Module):
         if not task_description:
             return "[TaskRunner] No task description provided."
 
-        print(f"[TaskRunner] Executing task: {task_description}")
+        self.kernel.log("TaskRunner", f"Executing task: {task_description}")
         # Simulate task execution
         result = f"Task completed: {task_description}"
 
@@ -169,6 +169,6 @@ class ScrollEngine(Module):
         with open("logs/task_memory.log", "a") as log_file:
             log_file.write(f"{time.ctime()} - Goal: {goal}\nPlan: {plan}\n")
 
-        print(f"[Planner] Multi-step plan:\n{plan}")
+        self.kernel.log("Planner", f"Multi-step plan:\n{plan}")
         ingest_observation(f"Generated plan for goal: {goal}\n{plan}")
         return f"[Planner] Plan generated for goal: {goal}"

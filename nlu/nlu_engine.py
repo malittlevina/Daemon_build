@@ -29,7 +29,7 @@ class NLUEngine(Module):
         self.scroll_engine = None # Will be resolved from kernel
 
     def initialize(self):
-        print("[NLUEngine] Initialized.")
+        self.kernel.log("NLUEngine", "Initialized.")
         self.scroll_engine = self.kernel.get_module("scrolls")
 
     def start(self):
@@ -50,11 +50,18 @@ class NLUEngine(Module):
 
         # Try LAM state update (stubbed)
         try:
-            result = update_state_with_input(user_input, source="nlu")
-            if result:
-                return result
+            # Connect to Symbolic Module
+            symbolic = self.kernel.get_module("symbolic")
+            if symbolic:
+                # We might want to just check state, or update it.
+                # If we update it here, we duplicate the event listener in SymbolicLayer.
+                # So we should probably just READ it here if needed, or rely on SymbolicLayer to update via event.
+                # However, NLU might want to influence state interpretation.
+                # For now, let's assume SymbolicLayer handles "user_input" event for history,
+                # but NLU might want to explicitly set "intent".
+                pass
         except Exception as e:
-            print(f"[NLUEngine] LAM update failed: {e}")
+            self.kernel.log("NLUEngine", f"LAM access failed: {e}", level="error")
 
         # Ollama Fallback
         if self.use_ollama_fallback:
@@ -106,6 +113,9 @@ def truncate_log_if_needed():
 
 def nightly_reflection():
     print("[SelfReflector] Executing nightly reflection...")
+    # This is a standalone helper used by main.py directly, doesn't have kernel access easily
+    # unless we pass it or refactor. For now, leave print or redirect to a global logger?
+    # We will leave print as it's run by a background thread in main.py not via kernel modules strictly.
     result = run_self_analysis()
     print("[SelfReflector] Reflection complete.")
     return result

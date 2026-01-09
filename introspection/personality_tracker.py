@@ -10,7 +10,7 @@ class PersonalityTracker(Module):
         self.current_traits = {}
 
     def initialize(self):
-        print("[PersonalityTracker] Initialized.")
+        self.kernel.log("PersonalityTracker", "Initialized.")
         self.load()
 
     def start(self):
@@ -65,5 +65,5 @@ class PersonalityTracker(Module):
             "timestamp": timestamp,
             "current_traits": self.current_traits
         }
-        print(f"[PersonalityTracker] Current state: {json.dumps(state_snapshot, indent=2)}")
+        self.kernel.log("PersonalityTracker", f"Current state: {json.dumps(state_snapshot, indent=2)}")
         ingest_observation(f"Personality state logged: {json.dumps(self.current_traits)}")

@@ -11,7 +11,7 @@ class MemoryLogger(Module):
 
     def initialize(self):
         os.makedirs(self.log_dir, exist_ok=True)
-        print("[MemoryLogger] Initialized.")
+        self.kernel.log("MemoryLogger", "Initialized.")
         self.kernel.events.subscribe("log", self.handle_log_event)
 
     def start(self):

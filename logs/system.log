@@ -1,0 +1,28 @@
+2026-01-09 00:10:38,570 - [INFO] - [Kernel] Kernel Infrastructure Initialized.
+2026-01-09 00:10:38,570 - [INFO] - [Kernel] Registered module: unimind
+2026-01-09 00:10:38,571 - [INFO] - [Kernel] Registered module: prometheus
+2026-01-09 00:10:38,571 - [INFO] - [Kernel] Registered module: emotion
+2026-01-09 00:10:38,571 - [INFO] - [Kernel] Registered module: memory
+2026-01-09 00:10:38,571 - [INFO] - [Kernel] Registered module: scrolls
+2026-01-09 00:10:38,571 - [INFO] - [Kernel] Registered module: rituals
+2026-01-09 00:10:38,571 - [INFO] - [Kernel] Registered module: personality
+2026-01-09 00:10:38,571 - [INFO] - [Kernel] Registered module: nlu
+2026-01-09 00:10:38,571 - [INFO] - [Kernel] Registered module: state
+2026-01-09 00:10:38,572 - [INFO] - [Kernel] Registered module: symbolic
+2026-01-09 00:10:38,572 - [INFO] - [Kernel] Initializing modules...
+2026-01-09 00:10:38,572 - [INFO] - [Unimind] Core initialized.
+2026-01-09 00:10:38,572 - [INFO] - [Prometheus] Specialties initialized.
+2026-01-09 00:10:38,572 - [INFO] - [EmotionEngine] Initialized.
+2026-01-09 00:10:38,572 - [INFO] - [MemoryLogger] Initialized.
+2026-01-09 00:10:38,572 - [INFO] - [ScrollEngine] Initialized.
+2026-01-09 00:10:38,572 - [INFO] - [RitualRegistry] Initialized.
+2026-01-09 00:10:38,572 - [INFO] - [PersonalityTracker] Initialized.
+2026-01-09 00:10:38,572 - [INFO] - [NLUEngine] Initialized.
+2026-01-09 00:10:38,573 - [INFO] - [StateManager] Initialized.
+2026-01-09 00:10:38,573 - [INFO] - [SymbolicLayer] Initialized.
+2026-01-09 00:10:38,573 - [INFO] - [Kernel] Starting services...
+2026-01-09 00:10:38,573 - [INFO] - [Unimind] Reasoning engine started.
+2026-01-09 00:10:38,574 - [INFO] - [Unimind] Observed input: {'text': 'task run test', 'result': '[NLUEngine] Ollama not installed.'}
+2026-01-09 00:10:38,574 - [INFO] - [SymbolicLayer] Updated state: {'history': ['task run test'], 'current_context': {'mode': 'task_execution'}, 'flags': {'has_active_task': True}, 'last_input': 'task run test'}
+2026-01-09 00:10:38,574 - [INFO] - [Kernel] Stopping services...
+2026-01-09 00:10:38,574 - [INFO] - [Unimind] Reasoning engine stopped.

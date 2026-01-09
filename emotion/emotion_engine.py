@@ -6,7 +6,7 @@ class EmotionEngine(Module):
         self.current_emotion = "neutral"
 
     def initialize(self):
-        print("[EmotionEngine] Initialized.")
+        self.kernel.log("EmotionEngine", "Initialized.")
         self.kernel.events.subscribe("stimulus", self.handle_stimulus)
 
     def start(self):
@@ -26,7 +26,7 @@ class EmotionEngine(Module):
             "error": "frustrated"
         }
         self.current_emotion = emotion_map.get(stimulus, "neutral")
-        print(f"[EmotionEngine] Emotion updated to: {self.current_emotion}")
+        self.kernel.log("EmotionEngine", f"Emotion updated to: {self.current_emotion}")
 
     def get_emotion(self):
         return self.current_emotion

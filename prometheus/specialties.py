@@ -14,7 +14,7 @@ class PrometheusSpecialties(Module):
         }
 
     def initialize(self):
-        print("[Prometheus] Specialties initialized.")
+        self.kernel.log("Prometheus", "Specialties initialized.")
 
     def start(self):
         pass
@@ -24,8 +24,8 @@ class PrometheusSpecialties(Module):
 
     def specialize(self, topic):
         if topic in self.domains:
-            print(f"[Prometheus] Activating domain: {topic}")
+            self.kernel.log("Prometheus", f"Activating domain: {topic}")
             return self.domains[topic]
         else:
-            print(f"[Prometheus] No knowledge yet in: {topic}")
+            self.kernel.log("Prometheus", f"No knowledge yet in: {topic}")
             return None

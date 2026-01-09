@@ -12,26 +12,26 @@ class Unimind(Module):
         }
 
     def initialize(self):
-        print("[Unimind] Core initialized.")
+        self.kernel.log("Unimind", "Core initialized.")
         # Subscribe to relevant kernel events
         self.kernel.events.subscribe("user_input", self.handle_input)
 
     def start(self):
-        print("[Unimind] Reasoning engine started.")
+        self.kernel.log("Unimind", "Reasoning engine started.")
 
     def stop(self):
-        print("[Unimind] Reasoning engine stopped.")
+        self.kernel.log("Unimind", "Reasoning engine stopped.")
 
     def register(self, type, module):
         if type in self.modules:
             self.modules[type].append(module)
-            print(f"[Unimind] Registered module under '{type}'")
+            self.kernel.log("Unimind", f"Registered module under '{type}'")
 
     def reflect(self):
-        print("[Unimind] Running reflection loop...")
+        self.kernel.log("Unimind", "Running reflection loop...")
         for logic_module in self.modules["logic"]:
             logic_module.think()
 
     def handle_input(self, event_type, data):
         # Example handler
-        print(f"[Unimind] Observed input: {data}")
+        self.kernel.log("Unimind", f"Observed input: {data}")

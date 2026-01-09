@@ -14,7 +14,7 @@ class StateManager(Module):
 
     def initialize(self):
         self._load_state()
-        print("[StateManager] Initialized.")
+        self.kernel.log("StateManager", "Initialized.")
 
     def start(self):
         pass

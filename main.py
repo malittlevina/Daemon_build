@@ -61,6 +61,9 @@ def main():
     from daemon.state_manager import StateManager
     kernel.register_module("state", StateManager(kernel))
 
+    from lam.symbolic_state import SymbolicLayer
+    kernel.register_module("symbolic", SymbolicLayer(kernel))
+
     # Initialize System
     kernel.initialize()
     kernel.start()

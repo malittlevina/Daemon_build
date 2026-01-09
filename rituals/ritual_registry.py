@@ -12,7 +12,7 @@ class RitualRegistry(Module):
         self.dynamic_rituals = {}
 
     def initialize(self):
-        print("[RitualRegistry] Initialized.")
+        self.kernel.log("RitualRegistry", "Initialized.")
 
     def start(self):
         pass
@@ -28,7 +28,7 @@ class RitualRegistry(Module):
         if ritual_name in self.registered_rituals:
             return self.registered_rituals[ritual_name](context)
         elif ritual_name in self.dynamic_rituals:
-            print(f"[RitualRegistry] Invoking dynamic ritual: {ritual_name}")
+            self.kernel.log("RitualRegistry", f"Invoking dynamic ritual: {ritual_name}")
             return self.dynamic_rituals[ritual_name]["action"]()
         else:
             return f"Unknown ritual: {ritual_name}"
@@ -48,10 +48,10 @@ class RitualRegistry(Module):
     # ---- Dynamic Rituals ----
     def register(self, name, trigger, action):
         self.dynamic_rituals[name] = {"trigger": trigger, "action": action}
-        print(f"[RitualRegistry] Ritual '{name}' registered.")
+        self.kernel.log("RitualRegistry", f"Ritual '{name}' registered.")
 
     def evaluate_triggers(self):
         for name, ritual in self.dynamic_rituals.items():
             if ritual["trigger"]():
-                print(f"[RitualRegistry] Auto-invoking triggered ritual: {name}")
+                self.kernel.log("RitualRegistry", f"Auto-invoking triggered ritual: {name}")
                 ritual["action"]()
