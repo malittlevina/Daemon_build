@@ -101,6 +101,12 @@ def main():
     from core.packager import PackageManager
     kernel.register_module("packager", PackageManager(kernel))
 
+    from core.vfs import VFS
+    kernel.register_module("vfs", VFS(kernel))
+
+    from core.process import ProcessManager
+    kernel.register_module("process_manager", ProcessManager(kernel))
+
     # Initialize System
     kernel.initialize()
 
