@@ -14,6 +14,8 @@ from daemon.adapters.console_input import start_console_input
 from daemon.adapters.mic_adapter import start_mic_listener
 from daemon.adapters.textbox_server import start_textbox_server
 from daemon.event_bus import EventBus
+from daemon.avatar.server import AvatarBroadcaster
+from daemon.avatar.router import AvatarRouter
 from emotion.emotion_engine import EmotionEngine
 from guardian.ethical_core import EthicalCore
 from introspection.personality_tracker import PersonalityTracker
@@ -37,6 +39,9 @@ def run_daemon(
     textbox_port: int = 8765,
     enable_mic: bool = False,
     enable_camera: bool = False,
+    enable_avatar_ws: bool = True,
+    avatar_ws_host: str = "0.0.0.0",
+    avatar_ws_port: int = 8766,
 ) -> None:
     """
     Daemon entrypoint: I/O + event loop + action routing.
@@ -76,6 +81,10 @@ def run_daemon(
     # Event-driven IO
     bus = EventBus()
     router = ActionRouter(scroll_engine=scrolls)
+    avatar_router = AvatarRouter()
+    avatar = AvatarBroadcaster(host=avatar_ws_host, port=avatar_ws_port)
+    if enable_avatar_ws:
+        avatar.start()
 
     start_console_input(bus)
     if enable_textbox:
@@ -130,6 +139,13 @@ def run_daemon(
                 print(f"[Daemon] Shutting down: {event.payload}")
                 break
 
+            # Avatar pre-events (e.g., listening gesture)
+            try:
+                for ev in avatar_router.on_event_ingested(event.to_dict()):
+                    avatar.publish(ev)
+            except Exception:
+                pass
+
             nlu_intent = None
             if event.type in {"text_input", "audio_transcript"}:
                 text = str((event.payload or {}).get("text") or "")
@@ -160,6 +176,16 @@ def run_daemon(
                 else:
                     print(f"[Unimind] Plan: {plan.action}")
                     print(f"[Unimind] Rationale: {plan.rationale}")
+
+                # Avatar plan-events
+                try:
+                    # `unimind.build_context()` is expensive; use trace + last known signals only.
+                    # We reuse the idea: expression comes from emotion; provide minimal signals.
+                    ctx_signals = {"emotion": {"current_emotion": emotions.get_emotion()}}
+                    for ev in avatar_router.on_plan(plan=plan, trace=trace, ctx_signals=ctx_signals):
+                        avatar.publish(ev)
+                except Exception:
+                    pass
 
                 outcome = router.route(plan, trace=trace.__dict__ if trace else None)
                 if outcome.get("executed"):
