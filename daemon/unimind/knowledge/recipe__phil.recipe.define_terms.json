@@ -1,0 +1,26 @@
+{
+  "id": "phil.recipe.define_terms",
+  "goal": "Define key terms to prevent confusion in discussion.",
+  "steps": [
+    "List ambiguous words central to the debate (e.g., 'knowledge', 'good', 'freedom').",
+    "Provide working definitions and note alternatives.",
+    "Check whether conclusions depend on one definition vs another.",
+    "Replace ambiguous terms with clearer phrasing when possible.",
+    "Re-run the argument with clarified terms."
+  ],
+  "quality_checks": [
+    "definitions stated",
+    "ambiguities flagged"
+  ],
+  "failure_modes": [
+    "talking past others due to different definitions"
+  ],
+  "tags": [
+    "philosophy",
+    "epistemology",
+    "graduate",
+    "recipe"
+  ],
+  "created_at": "2026-01-09T20:53:58+00:00",
+  "updated_at": "2026-01-09T20:53:58+00:00"
+}

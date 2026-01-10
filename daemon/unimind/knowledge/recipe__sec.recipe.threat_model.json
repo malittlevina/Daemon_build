@@ -1,0 +1,27 @@
+{
+  "id": "sec.recipe.threat_model",
+  "goal": "Create a simple threat model for a daemon subsystem.",
+  "steps": [
+    "List assets (secrets, user data, system access).",
+    "List entry points (web textbox, mic/camera adapters, file IO).",
+    "Enumerate threats (spoofing, tampering, info disclosure, DoS).",
+    "Add mitigations (auth, validation, rate limits, least privilege).",
+    "Decide what to log and what must never be logged (secrets)."
+  ],
+  "quality_checks": [
+    "entry points identified",
+    "mitigations assigned"
+  ],
+  "failure_modes": [
+    "missing a major entry point",
+    "logging sensitive data"
+  ],
+  "tags": [
+    "graduate",
+    "computer_science",
+    "security",
+    "recipe"
+  ],
+  "created_at": "2026-01-09T20:33:51+00:00",
+  "updated_at": "2026-01-09T20:33:51+00:00"
+}

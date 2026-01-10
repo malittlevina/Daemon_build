@@ -1,0 +1,17 @@
+{
+  "id": "sec.threat_modeling",
+  "title": "Threat Modeling",
+  "definition": "Identify assets, attackers, entry points, and mitigations; focus on realistic threats.",
+  "parameters": [],
+  "constraints": [],
+  "related": [],
+  "tags": [
+    "graduate",
+    "computer_science",
+    "security",
+    "engineering"
+  ],
+  "examples": [],
+  "created_at": "2026-01-09T20:33:51+00:00",
+  "updated_at": "2026-01-09T20:33:51+00:00"
+}

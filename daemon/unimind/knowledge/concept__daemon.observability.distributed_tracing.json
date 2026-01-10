@@ -1,0 +1,18 @@
+{
+  "id": "daemon.observability.distributed_tracing",
+  "title": "Distributed Tracing (Spans/Traces)",
+  "definition": "Tracing correlates work across components using trace/span IDs; reveals latency breakdowns and bottlenecks.",
+  "parameters": [],
+  "constraints": [],
+  "related": [],
+  "tags": [
+    "graduate",
+    "engineering",
+    "systems"
+  ],
+  "examples": [
+    "A trace shows time spent in NLU vs Unimind vs router."
+  ],
+  "created_at": "2026-01-09T20:53:15+00:00",
+  "updated_at": "2026-01-09T20:53:15+00:00"
+}

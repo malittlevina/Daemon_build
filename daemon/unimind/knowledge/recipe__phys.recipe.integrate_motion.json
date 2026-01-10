@@ -1,0 +1,28 @@
+{
+  "id": "phys.recipe.integrate_motion",
+  "goal": "Integrate motion for a particle with forces.",
+  "steps": [
+    "Compute net force F at the current state.",
+    "Compute acceleration a = F/m.",
+    "Update velocity v and position x using a time step Δt (semi-implicit Euler is often stable).",
+    "Clamp or adapt Δt if the system becomes unstable.",
+    "Validate energy behavior for your system (does it explode?)."
+  ],
+  "quality_checks": [
+    "stable over time",
+    "units consistent",
+    "Δt appropriate"
+  ],
+  "failure_modes": [
+    "too-large Δt causing explosion",
+    "unit mismatch (meters vs centimeters)"
+  ],
+  "tags": [
+    "undergrad",
+    "science",
+    "physics",
+    "recipe"
+  ],
+  "created_at": "2026-01-09T20:33:51+00:00",
+  "updated_at": "2026-01-09T20:33:51+00:00"
+}

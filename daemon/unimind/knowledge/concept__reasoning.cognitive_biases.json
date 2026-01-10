@@ -1,0 +1,19 @@
+{
+  "id": "reasoning.cognitive_biases",
+  "title": "Cognitive Biases (Overview)",
+  "definition": "Systematic patterns of deviation from rational judgment (confirmation bias, availability, anchoring).",
+  "parameters": [],
+  "constraints": [],
+  "related": [],
+  "tags": [
+    "logic",
+    "reasoning",
+    "graduate",
+    "humanities"
+  ],
+  "examples": [
+    "Confirmation bias: noticing evidence that supports your belief and ignoring contrary evidence."
+  ],
+  "created_at": "2026-01-09T20:53:58+00:00",
+  "updated_at": "2026-01-09T20:53:58+00:00"
+}

@@ -1,0 +1,28 @@
+{
+  "id": "wb.recipe.sdf_modeling_loop",
+  "goal": "Model a shape procedurally using SDF primitives and operations.",
+  "steps": [
+    "Choose SDF primitives (sphere, box, capsule) and define their parameters.",
+    "Combine primitives using min/max (union/intersection/difference).",
+    "Add smooth blends where appropriate for natural transitions.",
+    "Sample the SDF to a mesh (marching cubes) at a chosen resolution.",
+    "Validate watertightness and scale; export and test in-engine."
+  ],
+  "quality_checks": [
+    "mesh stable at target resolution",
+    "watertight surface"
+  ],
+  "failure_modes": [
+    "aliasing due to low resolution",
+    "over-smoothing removes key features"
+  ],
+  "tags": [
+    "geometry",
+    "worldbuilding",
+    "graduate",
+    "computer_science",
+    "recipe"
+  ],
+  "created_at": "2026-01-09T20:53:15+00:00",
+  "updated_at": "2026-01-09T20:53:15+00:00"
+}

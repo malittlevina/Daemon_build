@@ -1,0 +1,30 @@
+{
+  "id": "k12.recipe.solve_linear_equations",
+  "goal": "Solve a one-variable linear equation (ax + b = c).",
+  "steps": [
+    "Simplify both sides (combine like terms).",
+    "Move variable terms to one side (add/subtract the same value on both sides).",
+    "Move constants to the other side.",
+    "Divide both sides by the coefficient of x.",
+    "Check by substituting the solution back into the original equation.",
+    "Work through a concrete example step-by-step.",
+    "Explain the reasoning for each step in one sentence."
+  ],
+  "quality_checks": [
+    "solution satisfies original equation",
+    "final answer checked"
+  ],
+  "failure_modes": [
+    "forgetting to apply an operation to both sides",
+    "sign errors when moving terms",
+    "confusing terms or definitions; re-derive from basics"
+  ],
+  "tags": [
+    "k12",
+    "math",
+    "algebra",
+    "recipe"
+  ],
+  "created_at": "2026-01-09T20:23:12+00:00",
+  "updated_at": "2026-01-09T20:23:12+00:00"
+}

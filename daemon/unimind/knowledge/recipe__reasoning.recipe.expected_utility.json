@@ -1,0 +1,28 @@
+{
+  "id": "reasoning.recipe.expected_utility",
+  "goal": "Choose between options using expected utility.",
+  "steps": [
+    "List options and possible outcomes for each.",
+    "Assign probabilities to outcomes (explicitly state uncertainty).",
+    "Assign utilities to outcomes (what you value).",
+    "Compute expected utility for each option (sum p×u).",
+    "Pick the highest expected utility; sanity-check sensitivity to assumptions."
+  ],
+  "quality_checks": [
+    "probabilities sum to 1 per option",
+    "utilities consistent"
+  ],
+  "failure_modes": [
+    "confusing probability with utility",
+    "ignoring rare high-impact risks"
+  ],
+  "tags": [
+    "logic",
+    "reasoning",
+    "decision_theory",
+    "graduate",
+    "recipe"
+  ],
+  "created_at": "2026-01-09T20:53:58+00:00",
+  "updated_at": "2026-01-09T20:53:58+00:00"
+}

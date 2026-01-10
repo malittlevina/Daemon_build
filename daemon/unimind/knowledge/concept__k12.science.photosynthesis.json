@@ -1,0 +1,18 @@
+{
+  "id": "k12.science.photosynthesis",
+  "title": "Photosynthesis",
+  "definition": "Plants convert light energy into chemical energy: CO₂ + H₂O → glucose + O₂ (simplified).",
+  "parameters": [],
+  "constraints": [],
+  "related": [],
+  "tags": [
+    "k12",
+    "science",
+    "biology"
+  ],
+  "examples": [
+    "Occurs mainly in chloroplasts in plant cells."
+  ],
+  "created_at": "2026-01-09T20:17:13+00:00",
+  "updated_at": "2026-01-09T20:23:12+00:00"
+}

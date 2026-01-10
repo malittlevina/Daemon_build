@@ -1,0 +1,18 @@
+{
+  "id": "k12.english.parts_of_speech",
+  "title": "Parts of Speech",
+  "definition": "Noun, verb, adjective, adverb, pronoun, preposition, conjunction, interjection.",
+  "parameters": [],
+  "constraints": [],
+  "related": [],
+  "tags": [
+    "k12",
+    "english",
+    "grammar"
+  ],
+  "examples": [
+    "Quickly (adverb) modifies a verb: ran quickly."
+  ],
+  "created_at": "2026-01-09T20:17:13+00:00",
+  "updated_at": "2026-01-09T20:23:12+00:00"
+}

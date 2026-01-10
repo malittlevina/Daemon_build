@@ -1,0 +1,27 @@
+{
+  "id": "writing.recipe.write_clear_explanation",
+  "goal": "Write a clear explanation of a concept or procedure.",
+  "steps": [
+    "Define the goal and audience.",
+    "Give a one-paragraph overview and why it matters.",
+    "Explain key terms before using them heavily.",
+    "Provide an example and a non-example.",
+    "End with a short summary and next steps."
+  ],
+  "quality_checks": [
+    "audience assumptions explicit",
+    "includes example"
+  ],
+  "failure_modes": [
+    "using jargon without definitions",
+    "no motivating context"
+  ],
+  "tags": [
+    "undergrad",
+    "english",
+    "writing",
+    "recipe"
+  ],
+  "created_at": "2026-01-09T20:33:51+00:00",
+  "updated_at": "2026-01-09T20:33:51+00:00"
+}

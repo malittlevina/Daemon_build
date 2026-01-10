@@ -1,0 +1,27 @@
+{
+  "id": "cs.recipe.debugging_loop",
+  "goal": "Debug a bug efficiently.",
+  "steps": [
+    "Make the bug reproducible (write a minimal repro or test).",
+    "Reduce the repro to the smallest failing case.",
+    "Add instrumentation (logs/assertions) at key boundaries.",
+    "Form one hypothesis and test it; iterate.",
+    "Fix and add a regression test."
+  ],
+  "quality_checks": [
+    "regression test added",
+    "root cause understood"
+  ],
+  "failure_modes": [
+    "changing many things at once",
+    "fixing symptom not cause"
+  ],
+  "tags": [
+    "undergrad",
+    "computer_science",
+    "engineering",
+    "recipe"
+  ],
+  "created_at": "2026-01-09T20:33:51+00:00",
+  "updated_at": "2026-01-09T20:33:51+00:00"
+}

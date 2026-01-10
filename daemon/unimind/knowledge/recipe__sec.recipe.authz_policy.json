@@ -1,0 +1,28 @@
+{
+  "id": "sec.recipe.authz_policy",
+  "goal": "Design an authorization policy for a daemon feature.",
+  "steps": [
+    "Define roles/identities (user, daemon, subsystem) and assets (files, sensors, network).",
+    "Define allowed actions per role (least privilege).",
+    "Implement checks at the boundary (router/adapter) not deep inside internals.",
+    "Log decisions with non-sensitive metadata for auditing.",
+    "Test denial cases and escalation attempts."
+  ],
+  "quality_checks": [
+    "least privilege enforced",
+    "denials tested",
+    "logs safe"
+  ],
+  "failure_modes": [
+    "implicit trust between modules",
+    "policy bypass via alternate path"
+  ],
+  "tags": [
+    "graduate",
+    "computer_science",
+    "security",
+    "recipe"
+  ],
+  "created_at": "2026-01-09T20:53:15+00:00",
+  "updated_at": "2026-01-09T20:53:15+00:00"
+}

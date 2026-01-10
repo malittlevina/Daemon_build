@@ -1,0 +1,15 @@
+{
+  "id": "math.measure_theory",
+  "title": "Measure Theory (Doctorate Overview)",
+  "definition": "Generalizes length/area/volume; foundation for probability and integration on complex spaces.",
+  "parameters": [],
+  "constraints": [],
+  "related": [],
+  "tags": [
+    "doctorate",
+    "math"
+  ],
+  "examples": [],
+  "created_at": "2026-01-09T20:53:15+00:00",
+  "updated_at": "2026-01-09T20:53:15+00:00"
+}

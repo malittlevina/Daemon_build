@@ -1,0 +1,19 @@
+{
+  "id": "research.causal_inference",
+  "title": "Causal Inference (High-Level)",
+  "definition": "Distinguishes correlation from causation using assumptions, interventions, and causal graphs.",
+  "parameters": [],
+  "constraints": [
+    "Causal claims require strong assumptions or experimental design."
+  ],
+  "related": [],
+  "tags": [
+    "doctorate",
+    "research_methods",
+    "math",
+    "science"
+  ],
+  "examples": [],
+  "created_at": "2026-01-09T20:53:15+00:00",
+  "updated_at": "2026-01-09T20:53:15+00:00"
+}

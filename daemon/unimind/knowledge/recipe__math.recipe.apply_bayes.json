@@ -1,0 +1,27 @@
+{
+  "id": "math.recipe.apply_bayes",
+  "goal": "Apply Bayes’ rule to update a probability.",
+  "steps": [
+    "Define events A (hypothesis) and B (evidence).",
+    "Write down P(A) (prior), P(B|A) (likelihood), and P(B) (evidence).",
+    "Compute P(B) via total probability if needed.",
+    "Compute P(A|B) = P(B|A)P(A)/P(B).",
+    "Sanity check: result between 0 and 1; compare to prior."
+  ],
+  "quality_checks": [
+    "events defined",
+    "probabilities coherent"
+  ],
+  "failure_modes": [
+    "confusing P(A|B) with P(B|A)",
+    "forgetting to compute P(B)"
+  ],
+  "tags": [
+    "undergrad",
+    "math",
+    "probability",
+    "recipe"
+  ],
+  "created_at": "2026-01-09T20:33:51+00:00",
+  "updated_at": "2026-01-09T20:33:51+00:00"
+}

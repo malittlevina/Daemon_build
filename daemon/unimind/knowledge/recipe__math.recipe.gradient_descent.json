@@ -1,0 +1,27 @@
+{
+  "id": "math.recipe.gradient_descent",
+  "goal": "Run gradient descent on a differentiable loss.",
+  "steps": [
+    "Define the loss L(θ) and compute/approximate ∇L(θ).",
+    "Choose a learning rate α and initialize θ.",
+    "Iterate θ ← θ − α∇L(θ).",
+    "Monitor loss; reduce α or add scheduling if unstable.",
+    "Stop when convergence criteria are met (small gradient or no improvement)."
+  ],
+  "quality_checks": [
+    "loss decreases",
+    "learning rate stable"
+  ],
+  "failure_modes": [
+    "divergence due to large α",
+    "stuck due to poor initialization"
+  ],
+  "tags": [
+    "graduate",
+    "math",
+    "optimization",
+    "recipe"
+  ],
+  "created_at": "2026-01-09T20:33:51+00:00",
+  "updated_at": "2026-01-09T20:33:51+00:00"
+}

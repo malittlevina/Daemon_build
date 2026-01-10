@@ -1,0 +1,28 @@
+{
+  "id": "writing.recipe.tech_doc_page",
+  "goal": "Draft a high-quality technical documentation page.",
+  "steps": [
+    "Write a quickstart that gets the reader to success quickly.",
+    "Add conceptual overview and constraints.",
+    "Provide API/commands with examples.",
+    "Add troubleshooting with common errors and fixes.",
+    "Link to deeper references and related topics."
+  ],
+  "quality_checks": [
+    "reader can succeed end-to-end",
+    "errors documented"
+  ],
+  "failure_modes": [
+    "missing examples",
+    "only reference docs with no narrative"
+  ],
+  "tags": [
+    "undergrad",
+    "english",
+    "writing",
+    "computer_science",
+    "recipe"
+  ],
+  "created_at": "2026-01-09T20:33:51+00:00",
+  "updated_at": "2026-01-09T20:33:51+00:00"
+}

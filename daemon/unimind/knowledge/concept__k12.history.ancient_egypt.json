@@ -1,0 +1,16 @@
+{
+  "id": "k12.history.ancient_egypt",
+  "title": "Ancient Egypt (Overview)",
+  "definition": "Ancient civilization along the Nile River known for pharaohs, pyramids, and hieroglyphics.",
+  "parameters": [],
+  "constraints": [],
+  "related": [],
+  "tags": [
+    "k12",
+    "history",
+    "ancient"
+  ],
+  "examples": [],
+  "created_at": "2026-01-09T20:17:13+00:00",
+  "updated_at": "2026-01-09T20:23:12+00:00"
+}

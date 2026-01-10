@@ -1,0 +1,27 @@
+{
+  "id": "pm.recipe.postmortem_template",
+  "goal": "Write a postmortem after an incident.",
+  "steps": [
+    "Describe impact and timeline (what users saw and when).",
+    "Identify root causes and contributing factors.",
+    "List what went well and what went poorly.",
+    "Create action items with owners and deadlines.",
+    "Add prevention: tests, monitoring, and policy changes."
+  ],
+  "quality_checks": [
+    "root cause identified",
+    "action items assigned"
+  ],
+  "failure_modes": [
+    "blame-focused analysis",
+    "no follow-up owners"
+  ],
+  "tags": [
+    "graduate",
+    "engineering",
+    "systems",
+    "recipe"
+  ],
+  "created_at": "2026-01-09T20:33:51+00:00",
+  "updated_at": "2026-01-09T20:33:51+00:00"
+}

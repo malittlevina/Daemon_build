@@ -1,0 +1,16 @@
+{
+  "id": "k12.history.us_constitution",
+  "title": "U.S. Constitution (Basics)",
+  "definition": "Foundational legal document; defines government structure, powers, and rights (via amendments).",
+  "parameters": [],
+  "constraints": [],
+  "related": [],
+  "tags": [
+    "k12",
+    "history",
+    "civics"
+  ],
+  "examples": [],
+  "created_at": "2026-01-09T20:17:13+00:00",
+  "updated_at": "2026-01-09T20:23:12+00:00"
+}

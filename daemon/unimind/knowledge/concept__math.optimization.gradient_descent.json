@@ -1,0 +1,19 @@
+{
+  "id": "math.optimization.gradient_descent",
+  "title": "Gradient Descent (Optimization)",
+  "definition": "Iteratively update parameters in the direction of negative gradient to minimize a loss function.",
+  "parameters": [],
+  "constraints": [
+    "Step size (learning rate) must be tuned; too large can diverge."
+  ],
+  "related": [],
+  "tags": [
+    "graduate",
+    "math",
+    "optimization",
+    "computer_science"
+  ],
+  "examples": [],
+  "created_at": "2026-01-09T20:33:51+00:00",
+  "updated_at": "2026-01-09T20:33:51+00:00"
+}

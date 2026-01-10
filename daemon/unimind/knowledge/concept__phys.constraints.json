@@ -1,0 +1,19 @@
+{
+  "id": "phys.constraints",
+  "title": "Constraints",
+  "definition": "Constraints restrict motion (joints, contacts). Solvers enforce them approximately each time step.",
+  "parameters": [],
+  "constraints": [
+    "Poorly tuned constraints can cause jitter or instability."
+  ],
+  "related": [],
+  "tags": [
+    "graduate",
+    "science",
+    "physics",
+    "engineering"
+  ],
+  "examples": [],
+  "created_at": "2026-01-09T20:33:51+00:00",
+  "updated_at": "2026-01-09T20:33:51+00:00"
+}

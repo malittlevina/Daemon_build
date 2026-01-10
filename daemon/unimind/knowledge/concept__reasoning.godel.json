@@ -1,0 +1,17 @@
+{
+  "id": "reasoning.godel",
+  "title": "Gödel’s Incompleteness (High-Level)",
+  "definition": "Any sufficiently expressive consistent formal system cannot prove all true statements about arithmetic within itself.",
+  "parameters": [],
+  "constraints": [],
+  "related": [],
+  "tags": [
+    "logic",
+    "reasoning",
+    "doctorate",
+    "proof"
+  ],
+  "examples": [],
+  "created_at": "2026-01-09T20:53:58+00:00",
+  "updated_at": "2026-01-09T20:53:58+00:00"
+}

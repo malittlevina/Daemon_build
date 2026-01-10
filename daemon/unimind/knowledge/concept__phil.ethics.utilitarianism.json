@@ -1,0 +1,21 @@
+{
+  "id": "phil.ethics.utilitarianism",
+  "title": "Utilitarianism",
+  "definition": "An ethical view that evaluates actions by consequences—often maximizing overall well-being.",
+  "parameters": [],
+  "constraints": [
+    "Requires specifying what counts as well-being and how to aggregate across people."
+  ],
+  "related": [],
+  "tags": [
+    "philosophy",
+    "ethics",
+    "undergrad",
+    "humanities"
+  ],
+  "examples": [
+    "Choose the action that produces the greatest net benefit (with caveats about measurement)."
+  ],
+  "created_at": "2026-01-09T20:53:58+00:00",
+  "updated_at": "2026-01-09T20:53:58+00:00"
+}

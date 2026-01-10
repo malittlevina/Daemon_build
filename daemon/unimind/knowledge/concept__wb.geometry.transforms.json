@@ -1,0 +1,24 @@
+{
+  "id": "wb.geometry.transforms",
+  "title": "Transforms (Translation/Rotation/Scale)",
+  "definition": "A transform maps points from one coordinate frame to another; commonly represented by 4×4 matrices.",
+  "parameters": [],
+  "constraints": [
+    "Non-uniform scale can distort normals; recompute normals or use correct normal matrix."
+  ],
+  "related": [
+    "wb.geometry.coordinate_systems"
+  ],
+  "tags": [
+    "geometry",
+    "worldbuilding",
+    "undergrad",
+    "engineering",
+    "math"
+  ],
+  "examples": [
+    "Rotate 90° around Z to align a doorway on a wall."
+  ],
+  "created_at": "2026-01-09T20:33:51+00:00",
+  "updated_at": "2026-01-09T20:33:51+00:00"
+}

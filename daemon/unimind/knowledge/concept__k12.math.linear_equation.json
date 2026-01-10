@@ -1,0 +1,20 @@
+{
+  "id": "k12.math.linear_equation",
+  "title": "Linear Equations",
+  "definition": "An equation where variables have exponent 1 (e.g., ax + b = c).",
+  "parameters": [],
+  "constraints": [],
+  "related": [
+    "k12.math.order_of_operations"
+  ],
+  "tags": [
+    "k12",
+    "math",
+    "algebra"
+  ],
+  "examples": [
+    "Solve 2x + 3 = 11 → x = 4."
+  ],
+  "created_at": "2026-01-09T20:17:13+00:00",
+  "updated_at": "2026-01-09T20:23:12+00:00"
+}

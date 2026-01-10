@@ -1,0 +1,18 @@
+{
+  "id": "k12.science.cell",
+  "title": "Cell (Basic Biology)",
+  "definition": "The cell is the basic unit of life. Cells have membranes and internal structures that perform functions.",
+  "parameters": [],
+  "constraints": [],
+  "related": [
+    "k12.science.dna"
+  ],
+  "tags": [
+    "k12",
+    "science",
+    "biology"
+  ],
+  "examples": [],
+  "created_at": "2026-01-09T20:17:13+00:00",
+  "updated_at": "2026-01-09T20:23:12+00:00"
+}

@@ -1,0 +1,27 @@
+{
+  "id": "phil.recipe.analyze_argument",
+  "goal": "Analyze a philosophical argument carefully.",
+  "steps": [
+    "State the conclusion in one sentence.",
+    "List the premises explicitly (number them).",
+    "Check validity: does the conclusion follow if premises are true?",
+    "Evaluate soundness: are premises plausible/true? what assumptions are hidden?",
+    "Consider counterexamples and alternative interpretations."
+  ],
+  "quality_checks": [
+    "premises explicit",
+    "validity vs soundness separated"
+  ],
+  "failure_modes": [
+    "attacking conclusions without addressing premises",
+    "equivocation on key terms"
+  ],
+  "tags": [
+    "philosophy",
+    "epistemology",
+    "undergrad",
+    "recipe"
+  ],
+  "created_at": "2026-01-09T20:53:58+00:00",
+  "updated_at": "2026-01-09T20:53:58+00:00"
+}

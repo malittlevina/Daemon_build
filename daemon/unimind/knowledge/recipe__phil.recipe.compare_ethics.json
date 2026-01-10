@@ -1,0 +1,27 @@
+{
+  "id": "phil.recipe.compare_ethics",
+  "goal": "Compare ethical frameworks on a decision.",
+  "steps": [
+    "Describe the decision context and stakeholders.",
+    "Apply utilitarian lens (outcomes, harms/benefits).",
+    "Apply deontological lens (duties/rights/rules).",
+    "Apply virtue lens (character, virtues, long-term habits).",
+    "Note where frameworks disagree and why; choose with an explicit rationale."
+  ],
+  "quality_checks": [
+    "each framework applied explicitly",
+    "tradeoffs documented"
+  ],
+  "failure_modes": [
+    "mixing frameworks without noticing",
+    "ignoring affected stakeholders"
+  ],
+  "tags": [
+    "philosophy",
+    "ethics",
+    "undergrad",
+    "recipe"
+  ],
+  "created_at": "2026-01-09T20:53:58+00:00",
+  "updated_at": "2026-01-09T20:53:58+00:00"
+}

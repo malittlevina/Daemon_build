@@ -1,0 +1,18 @@
+{
+  "id": "math.optimization.convex",
+  "title": "Convex Optimization",
+  "definition": "Optimization where the objective and constraints are convex; any local minimum is global.",
+  "parameters": [],
+  "constraints": [
+    "Convexity enables strong guarantees and efficient solvers."
+  ],
+  "related": [],
+  "tags": [
+    "graduate",
+    "math",
+    "optimization"
+  ],
+  "examples": [],
+  "created_at": "2026-01-09T20:53:15+00:00",
+  "updated_at": "2026-01-09T20:53:15+00:00"
+}

@@ -1,0 +1,26 @@
+{
+  "id": "math.recipe.take_derivative",
+  "goal": "Compute a basic derivative.",
+  "steps": [
+    "Rewrite the function in a simple form (expand/simplify).",
+    "Apply rules: power rule, sum rule, product/quotient as needed.",
+    "Use chain rule for nested functions.",
+    "Simplify the result and (optionally) verify numerically at a point."
+  ],
+  "quality_checks": [
+    "rules applied correctly",
+    "result simplified"
+  ],
+  "failure_modes": [
+    "missing chain rule",
+    "algebra mistakes"
+  ],
+  "tags": [
+    "undergrad",
+    "math",
+    "calculus",
+    "recipe"
+  ],
+  "created_at": "2026-01-09T20:33:51+00:00",
+  "updated_at": "2026-01-09T20:33:51+00:00"
+}

@@ -1,0 +1,19 @@
+{
+  "id": "logic.fallacies",
+  "title": "Common Logical Fallacies",
+  "definition": "Patterns of bad reasoning that can sound persuasive (ad hominem, strawman, false dilemma, circular reasoning).",
+  "parameters": [],
+  "constraints": [],
+  "related": [],
+  "tags": [
+    "logic",
+    "reasoning",
+    "fallacies",
+    "undergrad"
+  ],
+  "examples": [
+    "False dilemma: presenting only two options when more exist."
+  ],
+  "created_at": "2026-01-09T20:53:58+00:00",
+  "updated_at": "2026-01-09T20:53:58+00:00"
+}

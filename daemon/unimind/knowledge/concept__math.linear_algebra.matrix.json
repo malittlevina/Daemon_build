@@ -1,0 +1,18 @@
+{
+  "id": "math.linear_algebra.matrix",
+  "title": "Matrices (Linear Algebra)",
+  "definition": "Matrices represent linear transformations; multiplication composes transformations.",
+  "parameters": [],
+  "constraints": [],
+  "related": [],
+  "tags": [
+    "undergrad",
+    "math",
+    "linear_algebra"
+  ],
+  "examples": [
+    "A rotation matrix rotates vectors in a plane."
+  ],
+  "created_at": "2026-01-09T20:33:51+00:00",
+  "updated_at": "2026-01-09T20:33:51+00:00"
+}

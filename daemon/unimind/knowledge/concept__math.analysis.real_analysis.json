@@ -1,0 +1,15 @@
+{
+  "id": "math.analysis.real_analysis",
+  "title": "Real Analysis (Graduate Overview)",
+  "definition": "Rigorous foundations of calculus: limits, continuity, differentiation/integration, convergence.",
+  "parameters": [],
+  "constraints": [],
+  "related": [],
+  "tags": [
+    "graduate",
+    "math"
+  ],
+  "examples": [],
+  "created_at": "2026-01-09T20:53:15+00:00",
+  "updated_at": "2026-01-09T20:53:15+00:00"
+}

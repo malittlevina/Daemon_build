@@ -1,0 +1,29 @@
+{
+  "id": "phys.recipe.stable_constraints",
+  "goal": "Tune constraints to reduce jitter in a physics simulation.",
+  "steps": [
+    "Start with simple colliders and correct mass/inertia values.",
+    "Use a stable integrator and reasonable time step.",
+    "Increase solver iterations gradually (don’t overspend).",
+    "Reduce constraint stiffness or add damping when oscillating.",
+    "Test edge cases (stacking, sliding contacts, resting contacts)."
+  ],
+  "quality_checks": [
+    "minimal jitter",
+    "stacking stable",
+    "performance acceptable"
+  ],
+  "failure_modes": [
+    "overly stiff constraints",
+    "insufficient solver iterations"
+  ],
+  "tags": [
+    "graduate",
+    "science",
+    "physics",
+    "engineering",
+    "recipe"
+  ],
+  "created_at": "2026-01-09T20:33:51+00:00",
+  "updated_at": "2026-01-09T20:33:51+00:00"
+}

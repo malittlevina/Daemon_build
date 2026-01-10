@@ -1,0 +1,16 @@
+{
+  "id": "math.probability.bayes",
+  "title": "Bayes’ Rule (Probability)",
+  "definition": "P(A|B) = P(B|A)P(A)/P(B). Useful for updating beliefs given evidence.",
+  "parameters": [],
+  "constraints": [],
+  "related": [],
+  "tags": [
+    "undergrad",
+    "math",
+    "probability"
+  ],
+  "examples": [],
+  "created_at": "2026-01-09T20:33:51+00:00",
+  "updated_at": "2026-01-09T20:33:51+00:00"
+}

@@ -1,0 +1,18 @@
+{
+  "id": "sec.crypto.hashing",
+  "title": "Cryptographic Hashing",
+  "definition": "A one-way function mapping input to fixed-size output; used for integrity and password hashing (with salts).",
+  "parameters": [],
+  "constraints": [
+    "Use modern password hashing (bcrypt/argon2) instead of raw SHA for passwords."
+  ],
+  "related": [],
+  "tags": [
+    "undergrad",
+    "computer_science",
+    "security"
+  ],
+  "examples": [],
+  "created_at": "2026-01-09T20:53:15+00:00",
+  "updated_at": "2026-01-09T20:53:15+00:00"
+}

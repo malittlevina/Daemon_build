@@ -1,0 +1,27 @@
+{
+  "id": "cs.recipe.choose_data_structure",
+  "goal": "Choose an appropriate data structure for a task.",
+  "steps": [
+    "List required operations (lookup/insert/delete/iterate) and their frequency.",
+    "Decide if ordering matters (sorted iteration, min/max).",
+    "Estimate size and constraints (memory, latency).",
+    "Pick candidates (array/list, hash map, tree, heap, graph) and compare big-O and constants.",
+    "Prototype and measure if performance is critical."
+  ],
+  "quality_checks": [
+    "operations match structure strengths",
+    "ordering needs satisfied"
+  ],
+  "failure_modes": [
+    "choosing a structure that makes a frequent operation expensive"
+  ],
+  "tags": [
+    "undergrad",
+    "computer_science",
+    "cs",
+    "data_structures",
+    "recipe"
+  ],
+  "created_at": "2026-01-09T20:33:51+00:00",
+  "updated_at": "2026-01-09T20:33:51+00:00"
+}

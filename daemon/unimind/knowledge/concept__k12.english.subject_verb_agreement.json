@@ -1,0 +1,18 @@
+{
+  "id": "k12.english.subject_verb_agreement",
+  "title": "Subject–Verb Agreement",
+  "definition": "Singular subjects take singular verbs; plural subjects take plural verbs.",
+  "parameters": [],
+  "constraints": [],
+  "related": [],
+  "tags": [
+    "k12",
+    "english",
+    "grammar"
+  ],
+  "examples": [
+    "The list of items is on the table (subject: list)."
+  ],
+  "created_at": "2026-01-09T20:17:13+00:00",
+  "updated_at": "2026-01-09T20:23:12+00:00"
+}

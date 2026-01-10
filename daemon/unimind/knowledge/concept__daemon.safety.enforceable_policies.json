@@ -1,0 +1,19 @@
+{
+  "id": "daemon.safety.enforceable_policies",
+  "title": "Safety/Ethics as Enforceable Policy",
+  "definition": "Policies should be machine-checkable rules that gate actions (approve/reject/review).",
+  "parameters": [],
+  "constraints": [],
+  "related": [],
+  "tags": [
+    "graduate",
+    "engineering",
+    "systems",
+    "ethics"
+  ],
+  "examples": [
+    "Reject plans containing 'harm' or 'manipulate' unless explicitly safe-reviewed."
+  ],
+  "created_at": "2026-01-09T20:33:51+00:00",
+  "updated_at": "2026-01-09T20:33:51+00:00"
+}

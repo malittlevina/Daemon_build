@@ -1,0 +1,26 @@
+{
+  "id": "k12.recipe.explain_branches_government",
+  "goal": "Explain the three branches of government and checks/balances.",
+  "steps": [
+    "Name each branch: legislative, executive, judicial.",
+    "State each branch’s main role (make/enforce/interpret laws).",
+    "Give 1–2 examples of checks and balances (e.g., veto, judicial review).",
+    "Explain why checks and balances matter (prevent abuse of power)."
+  ],
+  "quality_checks": [
+    "roles correct",
+    "at least one check/balance example"
+  ],
+  "failure_modes": [
+    "mixing roles of branches",
+    "missing how they constrain each other"
+  ],
+  "tags": [
+    "k12",
+    "history",
+    "civics",
+    "recipe"
+  ],
+  "created_at": "2026-01-09T20:23:12+00:00",
+  "updated_at": "2026-01-09T20:23:12+00:00"
+}

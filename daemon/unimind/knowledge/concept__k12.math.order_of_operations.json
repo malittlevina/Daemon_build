@@ -1,0 +1,18 @@
+{
+  "id": "k12.math.order_of_operations",
+  "title": "Order of Operations (PEMDAS)",
+  "definition": "Rules for evaluating expressions: parentheses, exponents, multiplication/division, addition/subtraction.",
+  "parameters": [],
+  "constraints": [],
+  "related": [],
+  "tags": [
+    "k12",
+    "math",
+    "arithmetic"
+  ],
+  "examples": [
+    "3 + 2×5 = 13 (multiply before add)."
+  ],
+  "created_at": "2026-01-09T20:17:13+00:00",
+  "updated_at": "2026-01-09T20:23:12+00:00"
+}

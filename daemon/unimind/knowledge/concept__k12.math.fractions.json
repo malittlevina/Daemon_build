@@ -1,0 +1,22 @@
+{
+  "id": "k12.math.fractions",
+  "title": "Fractions",
+  "definition": "A fraction represents a part of a whole: numerator/denominator.",
+  "parameters": [],
+  "constraints": [
+    "Denominator cannot be 0"
+  ],
+  "related": [
+    "k12.math.ratios"
+  ],
+  "tags": [
+    "k12",
+    "math",
+    "arithmetic"
+  ],
+  "examples": [
+    "3/4 means 3 parts out of 4 equal parts."
+  ],
+  "created_at": "2026-01-09T20:17:13+00:00",
+  "updated_at": "2026-01-09T20:23:12+00:00"
+}

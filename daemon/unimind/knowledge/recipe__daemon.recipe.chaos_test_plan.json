@@ -1,0 +1,28 @@
+{
+  "id": "daemon.recipe.chaos_test_plan",
+  "goal": "Design a safe chaos engineering experiment.",
+  "steps": [
+    "Pick a hypothesis (e.g., 'daemon remains responsive if mic fails').",
+    "Define blast radius and rollback plan (feature flags, time limits).",
+    "Inject one failure mode (dependency missing, timeout, queue overload).",
+    "Observe metrics/logs; confirm the hypothesis or record deviations.",
+    "Convert learnings into fixes and regression tests."
+  ],
+  "quality_checks": [
+    "safe rollback exists",
+    "metrics observed",
+    "action items created"
+  ],
+  "failure_modes": [
+    "too-large blast radius",
+    "no monitoring so outcomes are unclear"
+  ],
+  "tags": [
+    "graduate",
+    "engineering",
+    "systems",
+    "recipe"
+  ],
+  "created_at": "2026-01-09T20:53:15+00:00",
+  "updated_at": "2026-01-09T20:53:15+00:00"
+}
