@@ -38,6 +38,10 @@ class ScrollRouterModule:
                     intent.get("delete_raw_run", True),
                 )
 
+        if isinstance(intent, dict) and intent.get("intent") == "memory.sort_day":
+            context.emit("intent_execute", intent)
+            return self.scrolls.invoke("sort my day", intent.get("day"))
+
         # If NLU already produced a non-trivial result, don't override it.
         nlu_result = context.get("nlu_result")
         if nlu_result is not None and not (

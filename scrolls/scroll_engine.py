@@ -21,6 +21,7 @@ class ScrollEngine:
             "trigger api scroll": self._trigger_api_scroll,
             "run task": self._run_task,
             "multi step plan": self._multi_step_plan,
+            "sort my day": self._sort_my_day,
             # AR/XR scrolls
             "xr list apps": self._xr_list_apps,
             "xr launch app": self._xr_launch_app,
@@ -98,6 +99,12 @@ class ScrollEngine:
 
     def _trigger_api_scroll(self, *args, **kwargs):
         return execute_api_scroll(*args, **kwargs)
+
+    def _sort_my_day(self, day=None):
+        from memory_tree.day_sorter import sort_day
+
+        digest = sort_day(day=day)
+        return {"ok": True, "day": digest.day, "output_path": digest.output_path, "counts": digest.counts}
 
     def _get_ar_xr_subsystem(self):
         # Local import to keep daemon boot resilient.

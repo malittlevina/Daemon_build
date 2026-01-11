@@ -75,6 +75,10 @@ class NLUEngine:
                 "steps": 300,
                 "delete_raw_run": True,
             }
+        if text_l == "sort my day":
+            return {"intent": "memory.sort_day", "day": None}
+        if text_l.startswith("sort my day "):
+            return {"intent": "memory.sort_day", "day": text[len("sort my day ") :].strip()}
         return None
 
     def _route_xr(self, text: str) -> Any:

@@ -24,6 +24,7 @@ class ActionPolicy:
             "xr.train_sim",
             # Launch is allowed only as dry-run by default.
             "xr.launch_app",
+            "memory.sort_day",
         }
 
     def evaluate(self, intent: Optional[Dict[str, Any]]) -> PolicyVerdict:

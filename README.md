@@ -4,6 +4,50 @@ This is the daemon build (v2_origin), an intelligent AI agent running on ThothOS
 
 Note: "Prometheus" can be used as the *persona/name* of a specific daemon instance, but the codebase uses "daemon" for system identity to avoid confusion.
 
+## Memory-first “home hub” workflow (devices → home server → sort my day)
+
+This repo now supports a simple pattern:
+
+- **Devices stream events** (and optionally small clips) to your **home daemon server**
+- The home server stores them under `memory_tree/`
+- At end of day, you run **`sort my day`** to generate a daily digest in `memory_tree/daily/YYYY-MM-DD.md`
+
+### Run the home ingest server
+
+Run this on your home server:
+
+```bash
+python3 -m daemon.telemetry_server
+```
+
+Health check: `GET /health` on port `8787`.
+
+### Send events from a device
+
+From any device that can reach the server:
+
+```python
+from daemon.device_client import send_event
+
+send_event(
+    "http://YOUR_HOME_SERVER:8787",
+    device_id="phone",
+    event_type="note",
+    content={"text": "Met Alex for coffee, discussed XR comfort."},
+)
+```
+
+### End-of-day: “sort my day”
+
+In the daemon CLI, run:
+
+```text
+sort my day
+```
+
+This generates a digest markdown file like:
+- `memory_tree/daily/2026-01-11.md`
+
 ## Core Features
 - ✅ **Unimind Reasoning Engine** (brain-based symbolic core)
 - ✅ **Voice Listener** (real-time symbolic command parsing)

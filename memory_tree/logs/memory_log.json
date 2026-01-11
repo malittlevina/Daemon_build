@@ -3957,5 +3957,340 @@
     "context": {
       "subsystem": "unimind"
     }
+  },
+  {
+    "timestamp": "2026-01-11T08:30:21.791182",
+    "type": "interaction",
+    "content": {
+      "input": "sort my day",
+      "output": null,
+      "emotion": "neutral",
+      "ethics": "Review: Requires deeper ethical evaluation.",
+      "events": [
+        {
+          "type": "input_received",
+          "meta": {}
+        },
+        {
+          "type": "module_enter",
+          "meta": {}
+        },
+        {
+          "type": "intent_planned",
+          "meta": {
+            "engine": "NLUEngine"
+          }
+        },
+        {
+          "type": "module_enter",
+          "meta": {}
+        },
+        {
+          "type": "policy_verdict",
+          "meta": {}
+        },
+        {
+          "type": "ethics_verdict",
+          "meta": {}
+        },
+        {
+          "type": "module_enter",
+          "meta": {}
+        },
+        {
+          "type": "intent_execute",
+          "meta": {}
+        },
+        {
+          "type": "module_error",
+          "meta": {}
+        },
+        {
+          "type": "module_enter",
+          "meta": {}
+        },
+        {
+          "type": "emotion_updated",
+          "meta": {}
+        },
+        {
+          "type": "module_enter",
+          "meta": {}
+        }
+      ]
+    },
+    "context": {
+      "subsystem": "unimind"
+    }
+  },
+  {
+    "timestamp": "2026-01-11T08:30:28.200309",
+    "type": "interaction",
+    "content": {
+      "input": "sort my day",
+      "output": null,
+      "emotion": "neutral",
+      "ethics": "Review: Requires deeper ethical evaluation.",
+      "events": [
+        {
+          "type": "input_received",
+          "meta": {}
+        },
+        {
+          "type": "module_enter",
+          "meta": {}
+        },
+        {
+          "type": "intent_planned",
+          "meta": {
+            "engine": "NLUEngine"
+          }
+        },
+        {
+          "type": "module_enter",
+          "meta": {}
+        },
+        {
+          "type": "policy_verdict",
+          "meta": {}
+        },
+        {
+          "type": "ethics_verdict",
+          "meta": {}
+        },
+        {
+          "type": "module_enter",
+          "meta": {}
+        },
+        {
+          "type": "intent_execute",
+          "meta": {}
+        },
+        {
+          "type": "module_error",
+          "meta": {}
+        },
+        {
+          "type": "module_enter",
+          "meta": {}
+        },
+        {
+          "type": "emotion_updated",
+          "meta": {}
+        },
+        {
+          "type": "module_enter",
+          "meta": {}
+        }
+      ]
+    },
+    "context": {
+      "subsystem": "unimind"
+    }
+  },
+  {
+    "timestamp": "2026-01-11T08:31:50.232582",
+    "type": "interaction",
+    "content": {
+      "input": "sort my day",
+      "output": null,
+      "emotion": "neutral",
+      "ethics": "Review: Requires deeper ethical evaluation.",
+      "events": [
+        {
+          "type": "input_received",
+          "meta": {}
+        },
+        {
+          "type": "module_enter",
+          "meta": {}
+        },
+        {
+          "type": "intent_planned",
+          "meta": {
+            "engine": "NLUEngine"
+          }
+        },
+        {
+          "type": "module_enter",
+          "meta": {}
+        },
+        {
+          "type": "policy_verdict",
+          "meta": {}
+        },
+        {
+          "type": "ethics_verdict",
+          "meta": {}
+        },
+        {
+          "type": "module_enter",
+          "meta": {}
+        },
+        {
+          "type": "intent_execute",
+          "meta": {}
+        },
+        {
+          "type": "module_error",
+          "meta": {}
+        },
+        {
+          "type": "module_enter",
+          "meta": {}
+        },
+        {
+          "type": "emotion_updated",
+          "meta": {}
+        },
+        {
+          "type": "module_enter",
+          "meta": {}
+        }
+      ]
+    },
+    "context": {
+      "subsystem": "unimind"
+    }
+  },
+  {
+    "timestamp": "2026-01-11T08:31:55.933441",
+    "type": "interaction",
+    "content": {
+      "input": "sort my day",
+      "output": null,
+      "emotion": "neutral",
+      "ethics": "Review: Requires deeper ethical evaluation.",
+      "events": [
+        {
+          "type": "input_received",
+          "meta": {}
+        },
+        {
+          "type": "module_enter",
+          "meta": {}
+        },
+        {
+          "type": "intent_planned",
+          "meta": {
+            "engine": "NLUEngine"
+          }
+        },
+        {
+          "type": "module_enter",
+          "meta": {}
+        },
+        {
+          "type": "policy_verdict",
+          "meta": {}
+        },
+        {
+          "type": "ethics_verdict",
+          "meta": {}
+        },
+        {
+          "type": "module_enter",
+          "meta": {}
+        },
+        {
+          "type": "intent_execute",
+          "meta": {}
+        },
+        {
+          "type": "module_error",
+          "meta": {}
+        },
+        {
+          "type": "module_enter",
+          "meta": {}
+        },
+        {
+          "type": "emotion_updated",
+          "meta": {}
+        },
+        {
+          "type": "module_enter",
+          "meta": {}
+        }
+      ]
+    },
+    "context": {
+      "subsystem": "unimind"
+    }
+  },
+  {
+    "timestamp": "2026-01-11T08:32:32.245350",
+    "type": "interaction",
+    "content": {
+      "input": "sort my day",
+      "output": {
+        "ok": true,
+        "day": "2026-01-11",
+        "output_path": "memory_tree/daily/2026-01-11.md",
+        "counts": {
+          "memory": 29,
+          "interaction": 18
+        }
+      },
+      "emotion": "neutral",
+      "ethics": "Review: Requires deeper ethical evaluation.",
+      "events": [
+        {
+          "type": "input_received",
+          "meta": {}
+        },
+        {
+          "type": "module_enter",
+          "meta": {}
+        },
+        {
+          "type": "intent_planned",
+          "meta": {
+            "engine": "NLUEngine"
+          }
+        },
+        {
+          "type": "module_enter",
+          "meta": {}
+        },
+        {
+          "type": "policy_verdict",
+          "meta": {}
+        },
+        {
+          "type": "ethics_verdict",
+          "meta": {}
+        },
+        {
+          "type": "module_enter",
+          "meta": {}
+        },
+        {
+          "type": "intent_execute",
+          "meta": {}
+        },
+        {
+          "type": "module_output",
+          "meta": {
+            "output_type": "dict"
+          }
+        },
+        {
+          "type": "module_enter",
+          "meta": {}
+        },
+        {
+          "type": "emotion_updated",
+          "meta": {}
+        },
+        {
+          "type": "module_enter",
+          "meta": {}
+        }
+      ]
+    },
+    "context": {
+      "subsystem": "unimind"
+    }
   }
 ]
