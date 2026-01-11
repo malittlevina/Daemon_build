@@ -25,6 +25,7 @@ class ActionPolicy:
             # Launch is allowed only as dry-run by default.
             "xr.launch_app",
             "memory.sort_day",
+            "memory.garden",
         }
 
     def evaluate(self, intent: Optional[Dict[str, Any]]) -> PolicyVerdict:

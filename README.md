@@ -48,6 +48,18 @@ sort my day
 This generates a digest markdown file like:
 - `memory_tree/daily/2026-01-11.md`
 
+### End-of-day: “Memory Garden” (mind palace view)
+
+To render your day as a “memory garden” (themes/plots with memory “seeds”), run:
+
+```text
+memory garden
+```
+
+This generates:
+- `memory_tree/garden/YYYY-MM-DD.md` (human-readable map)
+- `memory_tree/garden/YYYY-MM-DD.json` (structured map)
+
 ## Core Features
 - ✅ **Unimind Reasoning Engine** (brain-based symbolic core)
 - ✅ **Voice Listener** (real-time symbolic command parsing)

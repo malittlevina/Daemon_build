@@ -79,6 +79,12 @@ class NLUEngine:
             return {"intent": "memory.sort_day", "day": None}
         if text_l.startswith("sort my day "):
             return {"intent": "memory.sort_day", "day": text[len("sort my day ") :].strip()}
+        if text_l in {"memory garden", "garden my day"}:
+            return {"intent": "memory.garden", "day": None}
+        if text_l.startswith("memory garden "):
+            return {"intent": "memory.garden", "day": text[len("memory garden ") :].strip()}
+        if text_l.startswith("garden my day "):
+            return {"intent": "memory.garden", "day": text[len("garden my day ") :].strip()}
         return None
 
     def _route_xr(self, text: str) -> Any:

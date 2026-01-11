@@ -42,6 +42,10 @@ class ScrollRouterModule:
             context.emit("intent_execute", intent)
             return self.scrolls.invoke("sort my day", intent.get("day"))
 
+        if isinstance(intent, dict) and intent.get("intent") == "memory.garden":
+            context.emit("intent_execute", intent)
+            return self.scrolls.invoke("memory garden", intent.get("day"))
+
         # If NLU already produced a non-trivial result, don't override it.
         nlu_result = context.get("nlu_result")
         if nlu_result is not None and not (

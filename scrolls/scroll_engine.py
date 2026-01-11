@@ -22,6 +22,8 @@ class ScrollEngine:
             "run task": self._run_task,
             "multi step plan": self._multi_step_plan,
             "sort my day": self._sort_my_day,
+            "memory garden": self._memory_garden,
+            "garden my day": self._memory_garden,
             # AR/XR scrolls
             "xr list apps": self._xr_list_apps,
             "xr launch app": self._xr_launch_app,
@@ -105,6 +107,12 @@ class ScrollEngine:
 
         digest = sort_day(day=day)
         return {"ok": True, "day": digest.day, "output_path": digest.output_path, "counts": digest.counts}
+
+    def _memory_garden(self, day=None):
+        from memory_tree.garden import build_garden_map
+
+        garden = build_garden_map(day=day)
+        return {"ok": True, "day": garden.day, "output_md": garden.output_md, "output_json": garden.output_json}
 
     def _get_ar_xr_subsystem(self):
         # Local import to keep daemon boot resilient.
