@@ -1,0 +1,60 @@
+{
+  "robotics": {
+    "enabled": true,
+    "simulation_mode": true,
+    "auto_start": false,
+    "control_rate_hz": 50
+  },
+  "hardware": {
+    "interface": "simulation",
+    "serial_port": "/dev/ttyUSB0",
+    "baud_rate": 115200,
+    "i2c_bus": 1
+  },
+  "robot_profile": {
+    "name": "Companion",
+    "type": "miniature_companion",
+    "wheel_base_meters": 0.15,
+    "wheel_radius_meters": 0.03,
+    "max_linear_velocity_mps": 0.5,
+    "max_angular_velocity_radps": 1.5
+  },
+  "motors": {
+    "wheel_left": {"type": "dc_brushed", "inverted": false},
+    "wheel_right": {"type": "dc_brushed", "inverted": false},
+    "neck_pan": {"type": "servo", "min": -90, "max": 90},
+    "neck_tilt": {"type": "servo", "min": -30, "max": 60},
+    "grip_left": {"type": "servo", "min": 0, "max": 90},
+    "grip_right": {"type": "servo", "min": 0, "max": 90},
+    "arm_left": {"type": "servo", "min": -45, "max": 180},
+    "arm_right": {"type": "servo", "min": -45, "max": 180}
+  },
+  "sensors": {
+    "imu_main": {"type": "imu", "rate_hz": 100},
+    "distance_front": {"type": "distance", "rate_hz": 20},
+    "distance_left": {"type": "distance", "rate_hz": 20},
+    "distance_right": {"type": "distance", "rate_hz": 20},
+    "camera_main": {"type": "camera", "rate_hz": 30},
+    "battery": {"type": "battery", "rate_hz": 1},
+    "touch_head": {"type": "touch", "rate_hz": 50}
+  },
+  "behaviors": {
+    "follow_distance_meters": 1.0,
+    "perch_grip_strength": 0.7,
+    "idle_look_interval_seconds": [3.0, 8.0],
+    "gesture_interval_seconds": [10.0, 30.0]
+  },
+  "personality": {
+    "curiosity": 0.7,
+    "playfulness": 0.5,
+    "calmness": 0.6,
+    "affection": 0.8,
+    "energy": 0.5
+  },
+  "locations": {
+    "home": [0.0, 0.0],
+    "charging_station": [0.5, 0.0],
+    "desk": [2.0, 1.0],
+    "door": [3.0, 0.0]
+  }
+}

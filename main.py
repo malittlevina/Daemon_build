@@ -16,8 +16,21 @@ import time
 import os
 from datetime import date
 
+# Robotics control module (optional - runs in simulation if no hardware)
+try:
+    from robotics.robot_core import RobotCore
+    from scrolls.robot_scrolls import RobotScrolls
+    ROBOTICS_AVAILABLE = True
+except ImportError:
+    ROBOTICS_AVAILABLE = False
+    print("[Daemon] Robotics module not available")
+
 # Flag to control use of Ollama fallback
 USE_OLLAMA = False  # Set to True to enable Ollama fallback
+
+# Flag to enable robotics control (simulation mode by default)
+ENABLE_ROBOTICS = True  # Set to True to enable robotics subsystem
+ROBOTICS_SIMULATION = True  # Set to False when using real hardware
 
 if __name__ == "__main__":
     unimind = Unimind()
@@ -36,6 +49,22 @@ if __name__ == "__main__":
         nlu = None
 
     print("[Daemon] Starting Prometheus daemon...")
+
+    # Initialize robotics subsystem if enabled
+    robot = None
+    if ENABLE_ROBOTICS and ROBOTICS_AVAILABLE:
+        try:
+            robot = RobotCore(simulation_mode=ROBOTICS_SIMULATION)
+            if robot.start():
+                print(f"[Daemon] Robotics initialized ({'simulation' if ROBOTICS_SIMULATION else 'hardware'} mode)")
+                # Register robot callbacks for daemon integration
+                robot.register_callback("error", lambda data: print(f"[Robot Error] {data.get('message')}"))
+            else:
+                print("[Daemon] Failed to start robotics subsystem")
+                robot = None
+        except Exception as e:
+            print(f"[Daemon] Robotics initialization error: {e}")
+            robot = None
 
     # Launch sensors and background modules in threads
     ENABLE_VOICE = False
@@ -88,10 +117,49 @@ if __name__ == "__main__":
 
             if user_input.lower() == "exit":
                 print("[Daemon] Shutting down.")
+                if robot:
+                    print("[Daemon] Stopping robotics subsystem...")
+                    robot.stop()
                 break
             elif user_input == "":
                 personality.log_state()
                 unimind.reflect()
+            # Handle robot-specific commands directly
+            elif user_input.lower().startswith("robot ") and robot:
+                robot_cmd = user_input[6:].strip().lower()
+                try:
+                    if robot_cmd == "status":
+                        status = robot.get_status()
+                        print(f"[Robot] Status: {json.dumps(status, indent=2)}")
+                    elif robot_cmd == "follow":
+                        result = robot.execute_command("follow")
+                        print(f"[Robot] {result}")
+                    elif robot_cmd == "stop" or robot_cmd == "halt":
+                        result = robot.execute_command("idle")
+                        print(f"[Robot] {result}")
+                    elif robot_cmd.startswith("perch"):
+                        location = robot_cmd.split()[-1] if len(robot_cmd.split()) > 1 else "shoulder"
+                        result = robot.execute_command("perch", location=location)
+                        print(f"[Robot] {result}")
+                    elif robot_cmd.startswith("go ") or robot_cmd.startswith("navigate "):
+                        target = robot_cmd.split(maxsplit=1)[-1]
+                        result = robot.execute_command("navigate", target=target)
+                        print(f"[Robot] {result}")
+                    elif robot_cmd == "home":
+                        result = robot.execute_command("navigate", target="home")
+                        print(f"[Robot] {result}")
+                    elif robot_cmd.startswith("gesture ") or robot_cmd.startswith("wave") or robot_cmd.startswith("nod"):
+                        gesture = robot_cmd.split()[-1] if " " in robot_cmd else robot_cmd
+                        result = robot.execute_command("gesture", name=gesture)
+                        print(f"[Robot] {result}")
+                    elif robot_cmd == "calibrate":
+                        result = robot.execute_command("calibrate")
+                        print(f"[Robot] {result}")
+                    else:
+                        print(f"[Robot] Unknown command: {robot_cmd}")
+                        print("[Robot] Available: status, follow, stop, perch, go <target>, home, gesture <name>, calibrate")
+                except Exception as e:
+                    print(f"[Robot Error] Command failed: {e}")
             else:
                 result = None
                 if nlu:

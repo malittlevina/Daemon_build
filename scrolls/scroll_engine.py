@@ -2,6 +2,14 @@ from scrolls.scroll_event import ScrollEvent
 from scrolls.trigger_manager import check_scroll_triggers
 from scrolls.api_scrolls import execute_api_scroll
 
+# Import robot scrolls for integration
+try:
+    from scrolls.robot_scrolls import register_robot_scrolls, RobotScrolls
+    ROBOT_SCROLLS_AVAILABLE = True
+except ImportError:
+    ROBOT_SCROLLS_AVAILABLE = False
+    print("[ScrollEngine] Robot scrolls not available")
+
 class ScrollTrigger:
     def __init__(self, name, conditions, actions):
         self.name = name
@@ -23,6 +31,11 @@ class ScrollEngine:
             "multi step plan": self._multi_step_plan
         }
         self.active_scrolls = []
+        
+        # Register robot scrolls if available
+        if ROBOT_SCROLLS_AVAILABLE:
+            register_robot_scrolls(self)
+            print("[ScrollEngine] Robot scrolls registered")
 
     def invoke(self, name, *args, **kwargs):
         if name in self.scrolls:

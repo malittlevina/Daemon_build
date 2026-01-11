@@ -1,0 +1,17 @@
+{
+  "context": {
+    "last_interaction": null,
+    "session_start": 1768168206.7861874,
+    "total_distance_traveled": 0.0,
+    "commands_executed": 0
+  },
+  "flags": {
+    "is_operational": true,
+    "needs_charging": false,
+    "user_following": true,
+    "is_perched": false,
+    "has_obstacle": false,
+    "gesture_playing": false
+  },
+  "timestamp": 1768168206.786209
+}
