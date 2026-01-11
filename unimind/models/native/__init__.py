@@ -129,6 +129,46 @@ from unimind.models.native.first_boot import (
     show_welcome,
 )
 
+# Vocabulary System
+from unimind.models.native.vocabulary import (
+    EnglishVocabulary,
+    WordEntry,
+    PartOfSpeech,
+    WordFrequency,
+    get_vocabulary,
+    CORE_100_WORDS,
+    SEMANTIC_CATEGORIES,
+    SYNONYMS,
+    ANTONYMS,
+)
+
+from unimind.models.native.vocabulary_extended import (
+    EXTENDED_VERBS,
+    EXTENDED_NOUNS,
+    EXTENDED_ADJECTIVES,
+    EXTENDED_ADVERBS,
+    load_extended_vocabulary,
+    get_vocabulary_stats,
+)
+
+from unimind.models.native.vocabulary_domains import (
+    TECHNOLOGY_VOCAB,
+    SCIENCE_VOCAB,
+    BUSINESS_VOCAB,
+    EDUCATION_VOCAB,
+    HEALTH_VOCAB,
+    load_domain_vocabulary,
+    get_domain_stats,
+)
+
+from unimind.models.native.vocabulary_common import (
+    MORE_VERBS,
+    MORE_NOUNS,
+    MORE_ADJECTIVES,
+    load_common_vocabulary,
+    get_common_stats,
+)
+
 
 __all__ = [
     # Main LLM
@@ -211,4 +251,33 @@ __all__ = [
     "get_ready_daemon",
     "quick_start",
     "show_welcome",
+    
+    # Vocabulary
+    "EnglishVocabulary",
+    "WordEntry",
+    "PartOfSpeech",
+    "WordFrequency",
+    "get_vocabulary",
+    "CORE_100_WORDS",
+    "SEMANTIC_CATEGORIES",
+    "SYNONYMS",
+    "ANTONYMS",
+    "EXTENDED_VERBS",
+    "EXTENDED_NOUNS",
+    "EXTENDED_ADJECTIVES",
+    "EXTENDED_ADVERBS",
+    "load_extended_vocabulary",
+    "get_vocabulary_stats",
+    "TECHNOLOGY_VOCAB",
+    "SCIENCE_VOCAB",
+    "BUSINESS_VOCAB",
+    "EDUCATION_VOCAB",
+    "HEALTH_VOCAB",
+    "load_domain_vocabulary",
+    "get_domain_stats",
+    "MORE_VERBS",
+    "MORE_NOUNS",
+    "MORE_ADJECTIVES",
+    "load_common_vocabulary",
+    "get_common_stats",
 ]
