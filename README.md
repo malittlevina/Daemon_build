@@ -3,7 +3,7 @@
 This is the official Prometheus daemon build (v2_origin), an intelligent AI agent running on ThothOS. It includes:
 
 ## Core Features
-- ✅ **Unimind Reasoning Engine** (brain-based symbolic core)
+- ✅ **Unimind Cognitive Architecture** (brain-inspired modular cognition)
 - ✅ **Voice Listener** (real-time symbolic command parsing)
 - ✅ **Scroll Engine** (ritual triggers and symbolic routines)
 - ✅ **Emotion Engine** (emotional modeling for interactions)
@@ -15,6 +15,125 @@ This is the official Prometheus daemon build (v2_origin), an intelligent AI agen
 - ✅ **Multi-language Code Execution** (Python, Rust, Julia)
 - ✅ **AR/XR Subsystem** (augmented, virtual, and mixed reality support)
 - ✅ **LAM Training System** (Language-Action Model with reinforcement learning)
+
+## Unimind Cognitive Architecture
+
+The daemon features an advanced brain-inspired cognitive architecture with specialized modules that communicate via a neural bus system.
+
+### Brain Architecture Overview
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│                     UNIMIND CORTEX                          │
+│  ┌─────────────────────────────────────────────────────┐    │
+│  │           PREFRONTAL CORTEX (Executive)             │    │
+│  │  • Planning & Goal Management                       │    │
+│  │  • Decision Making                                  │    │
+│  │  • Inhibition Control                               │    │
+│  └─────────────────────────────────────────────────────┘    │
+│                          │                                   │
+│  ┌──────────┐    ┌───────┴───────┐    ┌──────────┐          │
+│  │ WORKING  │    │   ATTENTION   │    │ THOUGHT  │          │
+│  │ MEMORY   │────│    SYSTEM     │────│  STREAM  │          │
+│  └──────────┘    └───────────────┘    └──────────┘          │
+└─────────────────────────────────────────────────────────────┘
+                            │
+    ┌───────────────────────┼───────────────────────┐
+    │                       │                       │
+┌───┴───────┐      ┌────────┴────────┐      ┌──────┴───────┐
+│HIPPOCAMPUS│      │    AMYGDALA     │      │  CEREBELLUM  │
+│• Episodic │      │ • Emotions      │      │ • Motor      │
+│  Memory   │      │ • Fear/Reward   │      │   Programs   │
+│• Spatial  │      │ • Motivation    │      │ • Patterns   │
+│  Maps     │      │ • Valence       │      │ • Timing     │
+└───────────┘      └─────────────────┘      └──────────────┘
+                            │
+              ┌─────────────┴─────────────┐
+              │        NEURAL BUS         │
+              │  (Inter-module signals)   │
+              └───────────────────────────┘
+```
+
+### Neural Bus (`unimind/neural_bus.py`)
+- Priority-based signal routing
+- Pub/sub messaging between brain regions
+- Broadcast and targeted signals
+- Attention modulation
+- Synchronization pulses
+
+### Cortex (`unimind/cortex.py`)
+- Central cognitive orchestration
+- Working memory (Baddeley's model)
+- Goal management
+- Cognitive state tracking
+- Consciousness levels (unconscious → meta-aware)
+
+### Prefrontal Cortex (`unimind/regions/prefrontal_cortex.py`)
+- **Executive Function**: Goal-directed planning
+- **Decision Making**: Multi-criteria option evaluation
+- **Inhibition**: Response suppression rules
+- **Cognitive Flexibility**: Task switching
+- **Planning**: Multi-step plan generation
+
+### Hippocampus (`unimind/regions/hippocampus.py`)
+- **Episodic Memory**: Experience storage and retrieval
+- **Semantic Network**: Concept and knowledge graphs
+- **Spatial Maps**: Cognitive maps for navigation
+- **Memory Consolidation**: Short-term to long-term transfer
+- **Pattern Completion**: Recall from partial cues
+
+### Amygdala (`unimind/regions/amygdala.py`)
+- **Emotional State**: Valence/arousal tracking
+- **Discrete Emotions**: Joy, sadness, fear, anger, etc.
+- **Fear Learning**: Threat association
+- **Reward Processing**: Positive reinforcement
+- **Motivation**: Drive state management
+- **Emotional Memory Tags**: Valence tagging of memories
+
+### Cerebellum (`unimind/regions/cerebellum.py`)
+- **Motor Programs**: Action sequence learning
+- **Timing Models**: Duration prediction
+- **Error-Based Learning**: Refinement from mistakes
+- **Pattern-Pattern Association**: Input-output learning
+- **Procedural Memory**: Skill storage
+
+### AI Model Integration (`unimind/ai_models.py`)
+Each brain region can connect to specialized AI models:
+
+| Region | AI Model Type | Purpose |
+|--------|--------------|---------|
+| Prefrontal Cortex | LLM | Reasoning, planning |
+| Hippocampus | Embeddings | Semantic memory search |
+| Amygdala | Sentiment | Emotion detection |
+| Broca's Area | LLM | Language generation |
+| Wernicke's Area | NLU | Language understanding |
+
+### Example Usage
+
+```python
+from unimind.ai_models import create_connected_brain
+
+# Create complete brain with all regions connected
+brain = create_connected_brain()
+
+# Access cortex for high-level thinking
+result = brain['cortex'].think("How should I approach this problem?")
+
+# Use prefrontal cortex for planning
+plan = brain['prefrontal_cortex'].create_plan("Complete the project")
+
+# Store episodic memory
+brain['hippocampus'].store_episodic("Learned about neural networks", importance=0.8)
+
+# Process emotional content
+brain['amygdala'].process_stimulus("This is exciting!")
+
+# Learn motor program
+brain['cerebellum'].learn_motor_program("task_routine", actions=[...])
+
+# Introspect on cognitive state
+state = brain['cortex'].introspect()
+```
 
 ## AR/XR Capabilities
 The daemon now includes full AR/VR/MR support with immersive training capabilities:

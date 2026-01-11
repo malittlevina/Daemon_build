@@ -1,0 +1,31 @@
+{
+  "episodic": [
+    {
+      "memory_id": "mem_1768098266572_3c4df8fc",
+      "content": "Learned about Python data types",
+      "context": {
+        "topic": "Python",
+        "session": "study"
+      },
+      "timestamp": "2026-01-11T02:24:26.572502",
+      "emotional_valence": 0.3,
+      "importance": 0.7,
+      "access_count": 2,
+      "consolidated": false
+    },
+    {
+      "memory_id": "mem_1768098298966_3c4df8fc",
+      "content": "Learned about Python data types",
+      "context": {
+        "topic": "Python",
+        "session": "study"
+      },
+      "timestamp": "2026-01-11T02:24:58.966093",
+      "emotional_valence": 0.3,
+      "importance": 0.7,
+      "access_count": 1,
+      "consolidated": false
+    }
+  ],
+  "saved_at": "2026-01-11T02:24:58.966339"
+}
