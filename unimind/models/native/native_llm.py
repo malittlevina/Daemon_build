@@ -235,10 +235,11 @@ class NativeLLM:
     - Local embeddings (TF-IDF, Word2Vec)
     - Response caching
     - Conversation memory
+    - Pre-trained conversation patterns
     - No external API dependencies
     """
     
-    def __init__(self, config: NativeLLMConfig = None):
+    def __init__(self, config: NativeLLMConfig = None, pretrain: bool = True):
         self.config = config or NativeLLMConfig()
         
         # Initialize components
@@ -270,6 +271,11 @@ class NativeLLM:
         self.conversations: Dict[str, List[ConversationMessage]] = {}
         self.active_conversation: Optional[str] = None
         
+        # Pre-trained conversation engine for immediate responses
+        self.pretrained_engine = None
+        if pretrain:
+            self._initialize_pretrained()
+        
         # Stats
         self.stats = {
             "total_generations": 0,
@@ -278,6 +284,25 @@ class NativeLLM:
         }
         
         print(f"[NativeLLM] Initialized with backend: {self.active_backend.value}")
+        
+    def _initialize_pretrained(self):
+        """Initialize pre-trained conversation engine."""
+        try:
+            from unimind.models.native.bootstrap import ConversationEngine, IntentClassifier
+            
+            self.pretrained_engine = ConversationEngine()
+            self.pretrained_engine.load_pretrained_data()
+            self.intent_classifier = IntentClassifier()
+            
+            # Pre-train embeddings with conversation data
+            from unimind.models.native.pretrain_data import get_all_training_texts
+            training_texts = get_all_training_texts()
+            self.embedding_engine.train(training_texts, model="tfidf")
+            
+            print("[NativeLLM] Pre-trained conversation patterns loaded")
+        except Exception as e:
+            print(f"[NativeLLM] Warning: Could not load pre-trained data: {e}")
+            self.pretrained_engine = None
         
     def _select_backend(self) -> InferenceBackend:
         """Select the best available backend."""
@@ -363,7 +388,8 @@ class NativeLLM:
         self,
         message: str,
         conversation_id: str = None,
-        system_prompt: str = None
+        system_prompt: str = None,
+        use_pretrained: bool = True
     ) -> str:
         """
         Chat interface with conversation memory.
@@ -372,6 +398,7 @@ class NativeLLM:
             message: User message
             conversation_id: Conversation ID (creates new if None)
             system_prompt: System prompt for new conversations
+            use_pretrained: Whether to try pre-trained responses first
             
         Returns:
             Assistant response
@@ -396,18 +423,111 @@ class NativeLLM:
             ConversationMessage(role="user", content=message)
         )
         
-        # Build prompt from conversation
-        prompt = self._build_chat_prompt(conversation_id)
+        response_text = None
         
-        # Generate response
-        result = self.generate(prompt, use_cache=False)
+        # Try pre-trained response first (fast path)
+        if use_pretrained and self.pretrained_engine:
+            response_text = self.pretrained_engine.find_response(message)
+            
+        # Fall back to intelligent response if no pre-trained match
+        if response_text is None:
+            # Use intent-based fallback for better responses
+            if hasattr(self, 'intent_classifier'):
+                intent_result = self.intent_classifier.classify(message)
+                response_text = self._generate_intent_response(message, intent_result)
+            else:
+                # Last resort: try Ollama if available, otherwise use template
+                if self.active_backend == InferenceBackend.OLLAMA and self.ollama_backend.is_available():
+                    prompt = self._build_chat_prompt(conversation_id)
+                    result = self.generate(prompt, use_cache=False)
+                    response_text = result.text
+                else:
+                    response_text = self._generate_helpful_fallback(message)
         
         # Add assistant response
         self.conversations[conversation_id].append(
-            ConversationMessage(role="assistant", content=result.text)
+            ConversationMessage(role="assistant", content=response_text)
         )
         
-        return result.text
+        return response_text
+        
+    def teach(self, user_input: str, correct_response: str):
+        """
+        Teach the daemon a new response pattern.
+        
+        Args:
+            user_input: What the user might say
+            correct_response: How to respond
+        """
+        if self.pretrained_engine:
+            self.pretrained_engine.learn_response(user_input, correct_response)
+            print(f"[NativeLLM] Learned new pattern: '{user_input[:30]}...'")
+        else:
+            print("[NativeLLM] Pre-trained engine not initialized")
+            
+    def add_knowledge(self, topic: str, information: str):
+        """
+        Add knowledge to the daemon's knowledge base.
+        
+        Args:
+            topic: Topic name (e.g., "python", "my project")
+            information: Information about the topic
+        """
+        if self.pretrained_engine:
+            self.pretrained_engine.add_knowledge(topic, information)
+            print(f"[NativeLLM] Added knowledge about: {topic}")
+        else:
+            print("[NativeLLM] Pre-trained engine not initialized")
+            
+    def get_intent(self, message: str) -> Dict:
+        """
+        Detect the intent of a message.
+        
+        Args:
+            message: User message
+            
+        Returns:
+            Dict with intent and confidence
+        """
+        if hasattr(self, 'intent_classifier'):
+            return self.intent_classifier.classify(message)
+        return {"intent": "unknown", "confidence": 0.0}
+        
+    def _generate_intent_response(self, message: str, intent_result: Dict) -> str:
+        """Generate a response based on detected intent."""
+        intent = intent_result.get("intent", "unknown")
+        
+        responses = {
+            "greeting": "Hello! I'm here to help. What would you like to know or do?",
+            "farewell": "Goodbye! Feel free to come back whenever you need assistance.",
+            "question": f"That's a thoughtful question about '{message[:30]}...'. Let me help you think through it.",
+            "command": "I understand you'd like me to help with something. Could you give me a bit more detail?",
+            "request": "I'd be happy to assist with that. What specifically would you like me to do?",
+            "affirmation": "Great! What would you like to do next?",
+            "negation": "No problem. Is there something else I can help you with?",
+            "emotion": "I hear you. I'm here if you'd like to talk or need any help.",
+            "unknown": "I'm here to help! Could you tell me more about what you need?"
+        }
+        
+        return responses.get(intent, responses["unknown"])
+        
+    def _generate_helpful_fallback(self, message: str) -> str:
+        """Generate a helpful fallback response when no pattern matches."""
+        # Simple keyword-based response selection
+        message_lower = message.lower()
+        
+        if any(w in message_lower for w in ["how", "what", "why", "when", "where", "who"]):
+            return f"That's an interesting question. I'd like to help you understand '{message[:40]}...'. Could you provide more context?"
+        elif any(w in message_lower for w in ["help", "assist", "please"]):
+            return "I'm ready to help! Just tell me what you need and I'll do my best to assist."
+        elif any(w in message_lower for w in ["thank", "thanks"]):
+            return "You're welcome! Let me know if you need anything else."
+        elif any(w in message_lower for w in ["hello", "hi", "hey"]):
+            return "Hello! Great to hear from you. How can I help today?"
+        elif any(w in message_lower for w in ["bye", "goodbye", "later"]):
+            return "Goodbye! Come back anytime you need assistance."
+        else:
+            return "I'm listening. Could you tell me more about what you'd like help with?"
         
     def _build_chat_prompt(self, conversation_id: str) -> str:
         """Build prompt from conversation history."""

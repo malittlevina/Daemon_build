@@ -98,6 +98,37 @@ from unimind.models.native.brain_connector import (
     create_self_contained_brain,
 )
 
+# Bootstrap & Pre-training
+from unimind.models.native.pretrain_data import (
+    COMMAND_PATTERNS,
+    RESPONSE_TEMPLATES,
+    DOMAIN_KNOWLEDGE,
+    get_all_training_texts,
+    get_conversation_pairs,
+    get_command_intents,
+)
+
+from unimind.models.native.bootstrap import (
+    BootstrapConfig,
+    ConversationEngine,
+    IntentClassifier,
+    PretrainedDaemon,
+    bootstrap_daemon,
+    get_pretrained_daemon,
+    quick_respond,
+    quick_teach,
+    create_pretrained_native_llm,
+)
+
+from unimind.models.native.first_boot import (
+    FirstBootStatus,
+    FirstBootInitializer,
+    ensure_initialized,
+    get_ready_daemon,
+    quick_start,
+    show_welcome,
+)
+
 
 __all__ = [
     # Main LLM
@@ -153,4 +184,31 @@ __all__ = [
     "BrainCapability",
     "connect_native_llm_to_brain",
     "create_self_contained_brain",
+    
+    # Pre-training Data
+    "COMMAND_PATTERNS",
+    "RESPONSE_TEMPLATES",
+    "DOMAIN_KNOWLEDGE",
+    "get_all_training_texts",
+    "get_conversation_pairs",
+    "get_command_intents",
+    
+    # Bootstrap
+    "BootstrapConfig",
+    "ConversationEngine",
+    "IntentClassifier",
+    "PretrainedDaemon",
+    "bootstrap_daemon",
+    "get_pretrained_daemon",
+    "quick_respond",
+    "quick_teach",
+    "create_pretrained_native_llm",
+    
+    # First Boot
+    "FirstBootStatus",
+    "FirstBootInitializer",
+    "ensure_initialized",
+    "get_ready_daemon",
+    "quick_start",
+    "show_welcome",
 ]

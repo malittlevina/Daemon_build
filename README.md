@@ -579,6 +579,60 @@ plan = brain["native_connector"].process(
 )
 ```
 
+### Pre-trained Conversations (`bootstrap.py`, `pretrain_data.py`)
+
+The daemon comes with pre-trained conversation patterns so it's ready to use immediately:
+
+**47+ Built-in Conversation Patterns:**
+- Greetings and farewells
+- Identity and capability questions  
+- How-to guidance (learning, productivity, planning)
+- Emotional responses (happy, stressed, excited)
+- Task commands (remind, plan, remember)
+- Knowledge queries (AI, machine learning, etc.)
+
+**19+ Command Patterns:**
+- Status checks, help requests
+- Memory and reminder commands
+- Search and information queries
+- Task and planning commands
+- Learning and creative requests
+
+```python
+from unimind.models.native import quick_start
+
+# Get a ready-to-use daemon
+daemon = quick_start()
+
+# Immediate conversations - no training needed!
+daemon.chat("Hello!")  
+# -> "Hello! I'm your daemon assistant. How can I help you today?"
+
+daemon.chat("How do I learn programming?")
+# -> "Great goal! Start with Python - it's beginner-friendly..."
+
+daemon.chat("I'm feeling stressed")
+# -> "Stress can be tough. Would you like to talk about what's bothering you..."
+
+# Teach new patterns
+daemon.teach("what's my favorite food", "You love pizza!")
+
+# Add knowledge
+daemon.add_knowledge("my project", "An AI assistant that runs locally")
+```
+
+**First Boot Initialization:**
+```python
+from unimind.models.native import ensure_initialized
+
+# Runs automatically on first use
+# - Creates directories
+# - Loads pre-trained data
+# - Trains tokenizer
+# - Trains embeddings
+result = ensure_initialized()
+```
+
 ### Native LLM Architecture
 
 ```
