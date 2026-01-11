@@ -75,6 +75,27 @@ class ScrollRouterModule:
                 )
             return "[Garden] Unknown garden intent."
 
+        if isinstance(intent, dict) and intent.get("intent", "").startswith("app."):
+            context.emit("intent_execute", intent)
+            name = intent.get("intent")
+            if name == "app.list":
+                return self.scrolls.invoke("app list")
+            if name == "app.info":
+                return self.scrolls.invoke("app info", intent.get("app_id"))
+            if name == "app.scaffold":
+                return self.scrolls.invoke("app scaffold", intent.get("app_id"))
+            if name == "app.run":
+                if intent.get("error"):
+                    return f"[App] {intent.get('error')}"
+                return self.scrolls.invoke(
+                    "app run",
+                    intent.get("app_id"),
+                    intent.get("action", "default"),
+                    intent.get("params", {}),
+                    intent.get("dry_run", True),
+                )
+            return "[App] Unknown app intent."
+
         # If NLU already produced a non-trivial result, don't override it.
         nlu_result = context.get("nlu_result")
         if nlu_result is not None and not (

@@ -1,0 +1,9 @@
+{
+  "app_id": "entertainment",
+  "name": "Entertainment",
+  "version": "0.1.0",
+  "description": "Entertainment recommendations (safe, dry-run links).",
+  "entrypoint": "app.py:handle",
+  "permissions": ["launch.url"]
+}
+

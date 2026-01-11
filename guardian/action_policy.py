@@ -34,6 +34,10 @@ class ActionPolicy:
             "garden.inspect",
             "garden.tag",
             "garden.promote",
+            "app.list",
+            "app.info",
+            "app.run",
+            "app.scaffold",
         }
 
     def evaluate(self, intent: Optional[Dict[str, Any]]) -> PolicyVerdict:

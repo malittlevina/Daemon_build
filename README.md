@@ -77,6 +77,36 @@ garden status
 
 Promoted items are appended to `memory_tree/long_term/<category>.jsonl` and also ingested into Codex via `ingest_observation(...)` for later retrieval.
 
+## Third-party apps (social + entertainment + utilities)
+
+The daemon includes an “apps” framework so you can add third-party style apps safely.
+
+### List available apps
+
+```text
+app list
+```
+
+### Run an app (dry-run by default)
+
+```text
+entertain me
+open reddit
+app run news open
+app run social list
+app run social open
+```
+
+### Scaffold a new app
+
+Creates a template in `apps/installed/<app_id>/`:
+
+```text
+app scaffold my_app
+```
+
+Apps declare permissions in `manifest.json` (examples: `launch.url`, `network`). The daemon’s safety policy currently treats launches as **dry-run only** by default.
+
 ## Core Features
 - ✅ **Unimind Reasoning Engine** (brain-based symbolic core)
 - ✅ **Voice Listener** (real-time symbolic command parsing)

@@ -4966,5 +4966,474 @@
     "context": {
       "subsystem": "unimind"
     }
+  },
+  {
+    "timestamp": "2026-01-11T08:50:48.947980",
+    "type": "interaction",
+    "content": {
+      "input": "app list",
+      "output": {
+        "ok": true,
+        "apps": [
+          {
+            "app_id": "entertainment",
+            "name": "Entertainment",
+            "version": "0.1.0",
+            "description": "Entertainment recommendations (safe, dry-run links).",
+            "entrypoint": "app.py:handle",
+            "permissions": [
+              "launch.url"
+            ],
+            "source": "builtin"
+          },
+          {
+            "app_id": "news",
+            "name": "News",
+            "version": "0.1.0",
+            "description": "News helper (URLs + optional API-based headlines).",
+            "entrypoint": "app.py:handle",
+            "permissions": [
+              "launch.url",
+              "network"
+            ],
+            "source": "builtin"
+          },
+          {
+            "app_id": "social",
+            "name": "Social",
+            "version": "0.1.0",
+            "description": "Social media launcher (safe dry-run links).",
+            "entrypoint": "app.py:handle",
+            "permissions": [
+              "launch.url"
+            ],
+            "source": "builtin"
+          }
+        ]
+      },
+      "emotion": "neutral",
+      "ethics": "Review: Requires deeper ethical evaluation.",
+      "events": [
+        {
+          "type": "input_received",
+          "meta": {}
+        },
+        {
+          "type": "module_enter",
+          "meta": {}
+        },
+        {
+          "type": "intent_planned",
+          "meta": {
+            "engine": "NLUEngine"
+          }
+        },
+        {
+          "type": "module_enter",
+          "meta": {}
+        },
+        {
+          "type": "policy_verdict",
+          "meta": {}
+        },
+        {
+          "type": "ethics_verdict",
+          "meta": {}
+        },
+        {
+          "type": "module_enter",
+          "meta": {}
+        },
+        {
+          "type": "intent_execute",
+          "meta": {}
+        },
+        {
+          "type": "module_output",
+          "meta": {
+            "output_type": "dict"
+          }
+        },
+        {
+          "type": "module_enter",
+          "meta": {}
+        },
+        {
+          "type": "emotion_updated",
+          "meta": {}
+        },
+        {
+          "type": "module_enter",
+          "meta": {}
+        }
+      ]
+    },
+    "context": {
+      "subsystem": "unimind"
+    }
+  },
+  {
+    "timestamp": "2026-01-11T08:50:48.953702",
+    "type": "interaction",
+    "content": {
+      "input": "app list",
+      "output": {
+        "ok": true,
+        "apps": [
+          {
+            "app_id": "entertainment",
+            "name": "Entertainment",
+            "version": "0.1.0",
+            "description": "Entertainment recommendations (safe, dry-run links).",
+            "entrypoint": "app.py:handle",
+            "permissions": [
+              "launch.url"
+            ],
+            "source": "builtin"
+          },
+          {
+            "app_id": "news",
+            "name": "News",
+            "version": "0.1.0",
+            "description": "News helper (URLs + optional API-based headlines).",
+            "entrypoint": "app.py:handle",
+            "permissions": [
+              "launch.url",
+              "network"
+            ],
+            "source": "builtin"
+          },
+          {
+            "app_id": "social",
+            "name": "Social",
+            "version": "0.1.0",
+            "description": "Social media launcher (safe dry-run links).",
+            "entrypoint": "app.py:handle",
+            "permissions": [
+              "launch.url"
+            ],
+            "source": "builtin"
+          }
+        ]
+      },
+      "emotion": "neutral",
+      "ethics": "Review: Requires deeper ethical evaluation.",
+      "events": [
+        {
+          "type": "input_received",
+          "meta": {}
+        },
+        {
+          "type": "module_enter",
+          "meta": {}
+        },
+        {
+          "type": "intent_planned",
+          "meta": {
+            "engine": "NLUEngine"
+          }
+        },
+        {
+          "type": "module_enter",
+          "meta": {}
+        },
+        {
+          "type": "policy_verdict",
+          "meta": {}
+        },
+        {
+          "type": "ethics_verdict",
+          "meta": {}
+        },
+        {
+          "type": "module_enter",
+          "meta": {}
+        },
+        {
+          "type": "intent_execute",
+          "meta": {}
+        },
+        {
+          "type": "module_output",
+          "meta": {
+            "output_type": "dict"
+          }
+        },
+        {
+          "type": "module_enter",
+          "meta": {}
+        },
+        {
+          "type": "emotion_updated",
+          "meta": {}
+        },
+        {
+          "type": "module_enter",
+          "meta": {}
+        }
+      ]
+    },
+    "context": {
+      "subsystem": "unimind"
+    }
+  },
+  {
+    "timestamp": "2026-01-11T08:50:48.982980",
+    "type": "interaction",
+    "content": {
+      "input": "entertain me",
+      "output": {
+        "ok": true,
+        "app_id": "entertainment",
+        "action": "recommend",
+        "result": {
+          "recommendations": [
+            {
+              "ok": true,
+              "dry_run": true,
+              "url": "https://www.youtube.com/feed/subscriptions",
+              "title": "YouTube Subscriptions"
+            },
+            {
+              "ok": true,
+              "dry_run": true,
+              "url": "https://www.netflix.com/",
+              "title": "Netflix"
+            },
+            {
+              "ok": true,
+              "dry_run": true,
+              "url": "https://www.twitch.tv/directory/following",
+              "title": "Twitch Following"
+            },
+            {
+              "ok": true,
+              "dry_run": true,
+              "url": "https://www.reddit.com/",
+              "title": "Reddit Frontpage"
+            }
+          ],
+          "note": "Links are dry-run by default."
+        }
+      },
+      "emotion": "neutral",
+      "ethics": "Review: Requires deeper ethical evaluation.",
+      "events": [
+        {
+          "type": "input_received",
+          "meta": {}
+        },
+        {
+          "type": "module_enter",
+          "meta": {}
+        },
+        {
+          "type": "intent_planned",
+          "meta": {
+            "engine": "NLUEngine"
+          }
+        },
+        {
+          "type": "module_enter",
+          "meta": {}
+        },
+        {
+          "type": "policy_verdict",
+          "meta": {}
+        },
+        {
+          "type": "ethics_verdict",
+          "meta": {}
+        },
+        {
+          "type": "module_enter",
+          "meta": {}
+        },
+        {
+          "type": "intent_execute",
+          "meta": {}
+        },
+        {
+          "type": "module_output",
+          "meta": {
+            "output_type": "dict"
+          }
+        },
+        {
+          "type": "module_enter",
+          "meta": {}
+        },
+        {
+          "type": "emotion_updated",
+          "meta": {}
+        },
+        {
+          "type": "module_enter",
+          "meta": {}
+        }
+      ]
+    },
+    "context": {
+      "subsystem": "unimind"
+    }
+  },
+  {
+    "timestamp": "2026-01-11T08:50:48.989423",
+    "type": "interaction",
+    "content": {
+      "input": "open reddit",
+      "output": {
+        "ok": true,
+        "app_id": "social",
+        "action": "open",
+        "result": {
+          "ok": true,
+          "platform": "reddit",
+          "open": {
+            "ok": true,
+            "dry_run": true,
+            "url": "https://www.reddit.com/"
+          }
+        }
+      },
+      "emotion": "neutral",
+      "ethics": "Review: Requires deeper ethical evaluation.",
+      "events": [
+        {
+          "type": "input_received",
+          "meta": {}
+        },
+        {
+          "type": "module_enter",
+          "meta": {}
+        },
+        {
+          "type": "intent_planned",
+          "meta": {
+            "engine": "NLUEngine"
+          }
+        },
+        {
+          "type": "module_enter",
+          "meta": {}
+        },
+        {
+          "type": "policy_verdict",
+          "meta": {}
+        },
+        {
+          "type": "ethics_verdict",
+          "meta": {}
+        },
+        {
+          "type": "module_enter",
+          "meta": {}
+        },
+        {
+          "type": "intent_execute",
+          "meta": {}
+        },
+        {
+          "type": "module_output",
+          "meta": {
+            "output_type": "dict"
+          }
+        },
+        {
+          "type": "module_enter",
+          "meta": {}
+        },
+        {
+          "type": "emotion_updated",
+          "meta": {}
+        },
+        {
+          "type": "module_enter",
+          "meta": {}
+        }
+      ]
+    },
+    "context": {
+      "subsystem": "unimind"
+    }
+  },
+  {
+    "timestamp": "2026-01-11T08:50:48.996426",
+    "type": "interaction",
+    "content": {
+      "input": "app run news open",
+      "output": {
+        "ok": true,
+        "app_id": "news",
+        "action": "open",
+        "result": {
+          "topic": "technology",
+          "open": {
+            "ok": true,
+            "dry_run": true,
+            "url": "https://news.google.com/search?q=technology"
+          }
+        }
+      },
+      "emotion": "neutral",
+      "ethics": "Review: Requires deeper ethical evaluation.",
+      "events": [
+        {
+          "type": "input_received",
+          "meta": {}
+        },
+        {
+          "type": "module_enter",
+          "meta": {}
+        },
+        {
+          "type": "intent_planned",
+          "meta": {
+            "engine": "NLUEngine"
+          }
+        },
+        {
+          "type": "module_enter",
+          "meta": {}
+        },
+        {
+          "type": "policy_verdict",
+          "meta": {}
+        },
+        {
+          "type": "ethics_verdict",
+          "meta": {}
+        },
+        {
+          "type": "module_enter",
+          "meta": {}
+        },
+        {
+          "type": "intent_execute",
+          "meta": {}
+        },
+        {
+          "type": "module_output",
+          "meta": {
+            "output_type": "dict"
+          }
+        },
+        {
+          "type": "module_enter",
+          "meta": {}
+        },
+        {
+          "type": "emotion_updated",
+          "meta": {}
+        },
+        {
+          "type": "module_enter",
+          "meta": {}
+        }
+      ]
+    },
+    "context": {
+      "subsystem": "unimind"
+    }
   }
 ]

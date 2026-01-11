@@ -1,0 +1,9 @@
+{
+  "app_id": "social",
+  "name": "Social",
+  "version": "0.1.0",
+  "description": "Social media launcher (safe dry-run links).",
+  "entrypoint": "app.py:handle",
+  "permissions": ["launch.url"]
+}
+

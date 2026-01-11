@@ -32,6 +32,11 @@ class ScrollEngine:
             "garden inspect": self._garden_inspect,
             "garden tag": self._garden_tag,
             "garden promote": self._garden_promote,
+            # Third-party apps
+            "app list": self._app_list,
+            "app info": self._app_info,
+            "app run": self._app_run,
+            "app scaffold": self._app_scaffold,
             # AR/XR scrolls
             "xr list apps": self._xr_list_apps,
             "xr launch app": self._xr_launch_app,
@@ -193,6 +198,36 @@ class ScrollEngine:
         }
         path = promote_to_long_term(item, category=category, ingest_observation=ingest_observation)
         return {"ok": True, "stored": path, "category": category, "seed_id": seed["seed_id"]}
+
+    def _app_list(self):
+        from apps.registry import AppRegistry
+
+        reg = AppRegistry()
+        return {"ok": True, "apps": reg.list_apps()}
+
+    def _app_info(self, app_id):
+        from apps.runtime import AppRuntime
+
+        rt = AppRuntime()
+        return rt.describe(str(app_id))
+
+    def _app_run(self, app_id, action="default", params=None, dry_run=True):
+        from apps.runtime import AppRuntime
+        from codex.ingestion import ingest_observation
+        from memory_tree.memory_logger import log_memory
+
+        rt = AppRuntime()
+        ctx = {
+            "ingest_observation": ingest_observation,
+            "log_memory": log_memory,
+        }
+        return rt.run(str(app_id), action=str(action), params=params if isinstance(params, dict) else {}, context=ctx, dry_run=bool(dry_run))
+
+    def _app_scaffold(self, app_id):
+        from apps.scaffold import scaffold_app
+
+        path = scaffold_app(str(app_id))
+        return {"ok": True, "created": path}
 
     def _get_ar_xr_subsystem(self):
         # Local import to keep daemon boot resilient.

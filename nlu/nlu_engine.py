@@ -151,6 +151,31 @@ class NLUEngine:
                 idx = int(parts[-2])
                 plot = " ".join(parts[:-2]).strip()
             return {"intent": "garden.promote", "plot": plot, "index": idx, "category": cat}
+
+        # Third-party apps
+        if text_l == "app list":
+            return {"intent": "app.list"}
+        if text_l.startswith("app info "):
+            return {"intent": "app.info", "app_id": text[len("app info ") :].strip()}
+        if text_l.startswith("app scaffold "):
+            return {"intent": "app.scaffold", "app_id": text[len("app scaffold ") :].strip()}
+        if text_l.startswith("app run "):
+            # app run <app_id> [action]
+            rest = text[len("app run ") :].strip()
+            parts = rest.split()
+            if not parts:
+                return {"intent": "app.run", "error": "Expected: app run <app_id> [action]"}
+            app_id = parts[0]
+            action = parts[1] if len(parts) > 1 else "default"
+            return {"intent": "app.run", "app_id": app_id, "action": action, "params": {}, "dry_run": True}
+
+        # Convenience entertainment routes
+        if text_l in {"entertain me", "i'm bored", "im bored"}:
+            return {"intent": "app.run", "app_id": "entertainment", "action": "recommend", "params": {}, "dry_run": True}
+        if text_l.startswith("open tiktok"):
+            return {"intent": "app.run", "app_id": "social", "action": "open", "params": {"platform": "tiktok"}, "dry_run": True}
+        if text_l.startswith("open reddit"):
+            return {"intent": "app.run", "app_id": "social", "action": "open", "params": {"platform": "reddit"}, "dry_run": True}
         return None
 
     def _route_xr(self, text: str) -> Any:

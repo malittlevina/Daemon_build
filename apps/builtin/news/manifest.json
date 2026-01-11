@@ -1,0 +1,9 @@
+{
+  "app_id": "news",
+  "name": "News",
+  "version": "0.1.0",
+  "description": "News helper (URLs + optional API-based headlines).",
+  "entrypoint": "app.py:handle",
+  "permissions": ["launch.url", "network"]
+}
+
