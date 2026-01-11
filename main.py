@@ -27,6 +27,17 @@ if __name__ == "__main__":
     rituals = RitualRegistry()
     scrolls = ScrollEngine()
     # vision = VisionSensor()
+    # Initialize Robotics Manager (requires vision)
+    from robotics.manager import RoboticsManager
+    # Assuming vision sensor stub is used for now if actual sensor not available
+    class MockVision:
+        def classify_surroundings(self):
+            return "Indoor"
+    
+    robotics = RoboticsManager(unimind_instance=unimind, vision_sensor=MockVision())
+    robotics.initialize()
+    unimind.register("robotics", robotics)
+
     personality = PersonalityTracker()
     try:
         global nlu
@@ -72,6 +83,7 @@ if __name__ == "__main__":
 
     while True:
         try:
+            robotics.update()
             # Nightly reflection & self-improvement at 2 AM
             current_hour = time.localtime().tm_hour
             today = date.today()
