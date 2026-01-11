@@ -4,6 +4,7 @@ Unimind - The Unified Mind Architecture
 
 A symbolic reasoning engine that integrates multiple cognitive
 modalities: logic, emotion, memory, ethics, and intuition.
+Now enhanced with attention management and metacognitive monitoring.
 """
 
 from typing import Dict, Any, Optional, List, Callable, Tuple
@@ -11,6 +12,25 @@ from dataclasses import dataclass, field
 from datetime import datetime
 from enum import Enum
 import threading
+
+# Import cognitive modules
+try:
+    from unimind.modules.logic_module import LogicModule
+    from unimind.modules.emotion_module import EmotionModule
+    from unimind.modules.memory_module import MemoryModule
+    from unimind.modules.intuition_module import IntuitionModule
+    from unimind.modules.ethics_module import EthicsModule
+    MODULES_AVAILABLE = True
+except ImportError:
+    MODULES_AVAILABLE = False
+
+# Import attention and metacognition
+try:
+    from unimind.attention import AttentionManager, AttentionMode
+    from unimind.metacognition import MetacognitiveMonitor, StrategyType
+    METACOG_AVAILABLE = True
+except ImportError:
+    METACOG_AVAILABLE = False
 
 
 class CognitiveMode(Enum):
@@ -118,7 +138,51 @@ class Unimind:
         self.current_mode = CognitiveMode.ANALYTICAL
         self.attention_focus: Optional[str] = None
         
-        print("[Unimind] Core initialized.")
+        # Initialize attention manager
+        self.attention = None
+        if METACOG_AVAILABLE:
+            self.attention = AttentionManager(capacity=1.0)
+        
+        # Initialize metacognitive monitor
+        self.metacognition = None
+        if METACOG_AVAILABLE:
+            self.metacognition = MetacognitiveMonitor()
+        
+        # Initialize cognitive modules
+        self._init_cognitive_modules()
+        
+        print("[Unimind] Core initialized with enhanced cognitive capabilities.")
+    
+    def _init_cognitive_modules(self):
+        """Initialize and register cognitive modules."""
+        if not MODULES_AVAILABLE:
+            print("[Unimind] Cognitive modules not available, using basic processing.")
+            return
+        
+        try:
+            # Register logic module
+            logic = LogicModule()
+            self.register("logic", logic)
+            
+            # Register emotion module
+            emotion = EmotionModule()
+            self.register("emotion", emotion)
+            
+            # Register memory module
+            memory = MemoryModule()
+            self.register("memory", memory)
+            
+            # Register intuition module
+            intuition = IntuitionModule()
+            self.register("intuition", intuition)
+            
+            # Register ethics module
+            ethics = EthicsModule()
+            self.register("ethics", ethics)
+            
+            print("[Unimind] All cognitive modules initialized.")
+        except Exception as e:
+            print(f"[Unimind] Error initializing modules: {e}")
     
     def initialize(self, kernel) -> bool:
         """Initialize with kernel reference."""
@@ -202,14 +266,38 @@ class Unimind:
         
         start_time = datetime.utcnow()
         
+        # Metacognitive strategy selection
+        strategy_type = None
+        if self.metacognition and METACOG_AVAILABLE:
+            strategy_type, strategy_conf = self.metacognition.select_strategy(prompt, {"mode": context.mode.value})
+            self.metacognition.start_monitoring(prompt, strategy_type)
+        
+        # Attention management - add prompt as target
+        if self.attention:
+            self.attention.add_target(
+                f"prompt_{start_time.timestamp()}",
+                prompt,
+                salience=0.8,
+                relevance=1.0
+            )
+        
         # Phase 1: Perception - gather initial thoughts from all modules
         raw_thoughts = self._perceive(prompt, context)
+        
+        if self.metacognition:
+            self.metacognition.checkpoint("perception", len(raw_thoughts) / 10)
         
         # Phase 2: Integration - combine and weight thoughts
         integrated = self._integrate(raw_thoughts, context)
         
+        if self.metacognition:
+            self.metacognition.checkpoint("integration", len(integrated) / 20)
+        
         # Phase 3: Evaluation - assess quality and coherence
         evaluation = self._evaluate(integrated, context)
+        
+        if self.metacognition:
+            self.metacognition.checkpoint("evaluation", evaluation.get("overall_confidence", 0.5))
         
         # Phase 4: Synthesis - form conclusion
         conclusion = self._synthesize(integrated, evaluation, context)
@@ -217,16 +305,30 @@ class Unimind:
         # Update working memory
         self._update_working_memory(integrated)
         
+        # Calibrate confidence with metacognition
+        raw_confidence = evaluation.get("overall_confidence", 0.5)
+        calibrated_confidence = raw_confidence
+        if self.metacognition:
+            calibrated_confidence = self.metacognition.calibrate_confidence(raw_confidence)
+        
+        # End metacognitive monitoring
+        metacog_result = None
+        if self.metacognition:
+            metacog_result = self.metacognition.end_monitoring(calibrated_confidence, len(integrated))
+        
         # Record in history
         result = {
             "prompt": prompt,
             "mode": context.mode.value,
+            "strategy": strategy_type.value if strategy_type else "default",
             "thoughts": [self._thought_to_dict(t) for t in integrated[:10]],
             "evaluation": evaluation,
             "conclusion": conclusion,
-            "confidence": evaluation.get("overall_confidence", 0.5),
+            "confidence": calibrated_confidence,
+            "raw_confidence": raw_confidence,
             "processing_time_ms": (datetime.utcnow() - start_time).total_seconds() * 1000,
-            "depth": depth
+            "depth": depth,
+            "metacognition": metacog_result
         }
         
         self._record_history(result)
