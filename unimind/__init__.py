@@ -22,6 +22,9 @@ from unimind.regions import (
     Cerebellum
 )
 
+# AI Models (import submodule for easy access)
+from unimind import models
+
 __all__ = [
     # Core
     "Unimind",
@@ -51,5 +54,8 @@ __all__ = [
     "PrefrontalCortex",
     "Hippocampus",
     "Amygdala",
-    "Cerebellum"
+    "Cerebellum",
+    
+    # AI Models Package
+    "models"
 ]

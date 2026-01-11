@@ -135,6 +135,276 @@ brain['cerebellum'].learn_motor_program("task_routine", actions=[...])
 state = brain['cortex'].introspect()
 ```
 
+## Enhanced AI Models System (`unimind/models/`)
+
+The daemon includes a comprehensive AI models package with advanced capabilities for training, reasoning, and specialized cognitive processing.
+
+### LLM Provider System (`unimind/models/llm_providers.py`)
+
+Multi-provider LLM support with intelligent routing:
+
+| Provider | Features | Use Case |
+|----------|----------|----------|
+| **Ollama** | Local models (Llama, Mistral) | Privacy-focused, offline use |
+| **OpenAI** | GPT-4, GPT-3.5 | High-quality reasoning |
+| **Mock** | Simulated responses | Testing and development |
+
+Features:
+- Automatic failover between providers
+- Response caching with TTL
+- Token usage tracking
+- Configurable temperature and parameters
+
+```python
+from unimind.models import create_llm_manager
+
+# Create manager with automatic failover
+manager = create_llm_manager(use_ollama=True, use_mock=True)
+
+# Generate text
+response = manager.generate("Explain machine learning", use_cache=True)
+print(response.text)
+```
+
+### Chain-of-Thought Reasoning (`unimind/models/chain_of_thought.py`)
+
+Advanced reasoning engine with multiple strategies:
+
+| Strategy | Description |
+|----------|-------------|
+| **Step-by-Step** | Linear reasoning chain |
+| **Tree-of-Thought** | Branching exploration of solutions |
+| **Self-Consistency** | Multiple paths with voting |
+| **Least-to-Most** | Build from simple to complex |
+| **Verify-and-Edit** | Generate then verify/correct |
+
+```python
+from unimind.models import ChainOfThoughtEngine, ReasoningStrategy
+
+reasoner = ChainOfThoughtEngine()
+trace = reasoner.reason(
+    "If a train travels 60 mph for 3 hours, how far does it go?",
+    strategy=ReasoningStrategy.STEP_BY_STEP
+)
+
+print(trace.get_formatted_chain())
+# 📋 Observation 1: Analyzing the question...
+# 🧩 Decomposition 2: Key components identified...
+# 🔗 Deduction 3: Applying speed formula...
+# 🎯 Conclusion 4: The train travels 180 miles
+```
+
+### Specialized Cognitive Models (`unimind/models/cognitive_models.py`)
+
+#### NLU Model
+- Intent classification
+- Named entity extraction
+- Semantic analysis
+- Formality detection
+
+#### Reasoning Model
+- Deductive reasoning (syllogisms)
+- Inductive reasoning (pattern detection)
+- Causal reasoning
+- Analogical reasoning
+
+#### Creative Model
+- Story generation
+- Conceptual blending
+- Metaphor creation
+- Ideation/brainstorming
+
+#### Emotional Intelligence Model
+- Emotion recognition
+- Empathetic response generation
+- Sentiment analysis
+- Emotional tone adaptation
+
+```python
+from unimind.models import create_cognitive_models
+
+registry = create_cognitive_models()
+
+# NLU processing
+nlu_result = registry.process("nlu", "Can you help me find restaurants nearby?")
+print(f"Intent: {nlu_result.content['intent']}")
+
+# Creative generation
+creative_result = registry.process("creative", "space", task="ideate", num_ideas=5)
+print(creative_result.content)
+
+# Emotional analysis
+emotion_result = registry.process("emotional", "I'm so happy today!", generate_response=True)
+print(f"Emotion: {emotion_result.content['primary_emotion']}")
+```
+
+### Training Framework (`unimind/models/training_framework.py`)
+
+Comprehensive cognitive model training:
+
+| Training Mode | Description |
+|--------------|-------------|
+| **Supervised** | Learn from labeled examples |
+| **Reinforcement** | Learn from reward signals |
+| **Curriculum** | Progressive difficulty |
+| **Imitation** | Learn from demonstrations |
+| **RLHF** | Human feedback integration |
+
+```python
+from unimind.models import (
+    TrainingDataset, CognitiveTrainer, TrainingConfig, 
+    DatasetBuilder, RewardModel
+)
+
+# Create dataset
+dataset = DatasetBuilder.create_conversation_dataset()
+
+# Configure training
+config = TrainingConfig(
+    mode=TrainingMode.CURRICULUM,
+    epochs=5,
+    batch_size=16,
+    curriculum_enabled=True
+)
+
+# Train model
+trainer = CognitiveTrainer(model, config)
+trainer.set_dataset(dataset)
+metrics = trainer.train()
+
+# Add human feedback
+trainer.train_from_feedback(
+    input_text="What's AI?",
+    output="AI is artificial intelligence...",
+    rating=0.9
+)
+```
+
+### Fine-Tuning & Adaptation (`unimind/models/fine_tuning.py`)
+
+Advanced model adaptation with LoRA support:
+
+| Method | Description | Memory |
+|--------|-------------|--------|
+| **LoRA** | Low-rank adaptation | Very Low |
+| **QLoRA** | Quantized LoRA | Minimal |
+| **Adapter** | Adapter layers | Low |
+| **Full** | Full fine-tuning | High |
+
+Domain adaptation for specialized tasks:
+- Medical, Legal, Technical, Creative
+- Automatic domain detection
+- Domain-specific model routing
+
+```python
+from unimind.models import (
+    FineTuner, FineTuneConfig, FineTuneMethod,
+    DomainAdapter, create_instruction_dataset
+)
+
+# Create fine-tuner with LoRA
+config = FineTuneConfig(
+    method=FineTuneMethod.LORA,
+    lora_rank=8,
+    epochs=3
+)
+
+fine_tuner = FineTuner(model, config)
+fine_tuner.set_dataset(create_instruction_dataset())
+result = fine_tuner.fine_tune()
+
+print(f"Final loss: {result.final_loss}")
+print(f"Model saved to: {result.model_path}")
+```
+
+### Model Orchestration (`unimind/models/orchestration.py`)
+
+Enterprise-grade model management:
+
+- **Task Routing**: Capability-based request routing
+- **Load Balancing**: Round-robin, least-loaded, lowest-latency
+- **Pipelines**: Chain multiple models together
+- **Ensembles**: Combine model outputs
+- **Priority Queues**: Task prioritization
+
+```python
+from unimind.models import ModelOrchestrator, ModelType, ModelPipeline
+
+# Create orchestrator
+orchestrator = ModelOrchestrator(max_workers=4)
+orchestrator.register_model("nlu", ModelType.NLU, nlu_model)
+orchestrator.register_model("reasoning", ModelType.REASONING, reasoning_model)
+
+# Create processing pipeline
+pipeline = orchestrator.create_pipeline("understand_and_reason")
+pipeline.add_stage("nlu", nlu_model.process)
+pipeline.add_stage("reasoning", reasoning_model.process)
+
+# Execute pipeline
+result = pipeline.execute("Why is the sky blue?")
+```
+
+### Brain Integration (`unimind/models/brain_integration.py`)
+
+Connect enhanced AI models to brain regions:
+
+```python
+from unimind.models.brain_integration import connect_brain_with_enhanced_models
+
+# Create brain with enhanced models
+brain = connect_brain_with_enhanced_models()
+
+# Use chain-of-thought reasoning
+cot_result = brain["enhanced_connector"].reason_with_cot(
+    "Should I exercise today?",
+    strategy="step_by_step"
+)
+
+# Train region-specific models
+brain["enhanced_connector"].train_region_model(
+    "prefrontal_cortex",
+    training_data=[
+        {"input": "Plan a project", "output": "Step 1: Define goals..."}
+    ]
+)
+
+# Fine-tune for domain
+brain["enhanced_connector"].fine_tune_for_domain(
+    "technical",
+    training_data=[...]
+)
+```
+
+### Model Capabilities Summary
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│                  AI MODELS ARCHITECTURE                      │
+├─────────────────────────────────────────────────────────────┤
+│  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐       │
+│  │ LLM Providers │  │ CoT Engine   │  │ Orchestrator │       │
+│  │ Ollama/OpenAI │  │ 5 Strategies │  │ Routing/Queue│       │
+│  └──────────────┘  └──────────────┘  └──────────────┘       │
+│          │                │                  │               │
+│  ┌───────┴────────────────┴──────────────────┴───────┐      │
+│  │              COGNITIVE MODEL REGISTRY              │      │
+│  │  ┌─────┐  ┌──────────┐  ┌────────┐  ┌──────────┐  │      │
+│  │  │ NLU │  │Reasoning │  │Creative│  │Emotional │  │      │
+│  │  └─────┘  └──────────┘  └────────┘  └──────────┘  │      │
+│  └────────────────────────────────────────────────────┘      │
+│                            │                                 │
+│  ┌─────────────────────────┴─────────────────────────┐      │
+│  │              TRAINING & FINE-TUNING               │      │
+│  │  Curriculum • RLHF • LoRA • Domain Adaptation     │      │
+│  └───────────────────────────────────────────────────┘      │
+│                            │                                 │
+│  ┌─────────────────────────┴─────────────────────────┐      │
+│  │              BRAIN REGION INTEGRATION             │      │
+│  │  Prefrontal ↔ Hippocampus ↔ Amygdala ↔ Cerebellum │      │
+│  └───────────────────────────────────────────────────┘      │
+└─────────────────────────────────────────────────────────────┘
+```
+
 ## AR/XR Capabilities
 The daemon now includes full AR/VR/MR support with immersive training capabilities:
 
