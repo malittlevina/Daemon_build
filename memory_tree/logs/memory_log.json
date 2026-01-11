@@ -381,5 +381,541 @@
       "subsystem": "ar_xr",
       "event_type": "sim_run_deleted"
     }
+  },
+  {
+    "timestamp": "2026-01-11T01:58:51.963329",
+    "type": "memory",
+    "content": {
+      "ok": true,
+      "kind": null,
+      "apps": [
+        {
+          "id": "webxr-sample",
+          "name": "WebXR Sample",
+          "kind": "xr",
+          "runtime": "webxr"
+        },
+        {
+          "id": "openxr-tooling",
+          "name": "OpenXR Tooling Check",
+          "kind": "xr",
+          "runtime": "openxr"
+        }
+      ]
+    },
+    "context": {
+      "kind": null,
+      "count": 2,
+      "subsystem": "ar_xr",
+      "event_type": "list_apps"
+    }
+  },
+  {
+    "timestamp": "2026-01-11T01:58:51.974575",
+    "type": "memory",
+    "content": {
+      "knowledge": {
+        "kind": "xr",
+        "title": "XR Sim Distillation: reach target comfortably",
+        "summary": "Ran 300 sim steps in 'world_xr_training' and distilled a motion/physics sketch into keyframes + control heuristics.",
+        "heuristics": [
+          "Use timestep dt\u22480.0167s; larger dt increases integration error.",
+          "Linear drag\u22480.020 stabilizes motion; too high slows convergence.",
+          "Reward shaping can be distance-to-target (final reward -118.079).",
+          "Gravity=(0.0, -9.81, 0.0) implies comfort tuning (fall speed, jump impulse) matters."
+        ],
+        "params": {
+          "physics": {
+            "gravity": [
+              0.0,
+              -9.81,
+              0.0
+            ],
+            "timestep_s": 0.016666666666666666,
+            "drag": 0.02
+          },
+          "steps": 300
+        },
+        "keyframes": [
+          {
+            "t": 0.0,
+            "agent_pos": [
+              1.1402693871680372e-05,
+              1.5972715791918386,
+              0.0
+            ],
+            "agent_vel": [
+              0.0006841616323008223,
+              -0.16370524848969026,
+              0.0
+            ],
+            "reward": -2.087268005950565
+          },
+          {
+            "t": 0.4166666666666667,
+            "agent_pos": [
+              0.00405340969439858,
+              0.6452879490736962,
+              0.0
+            ],
+            "agent_vel": [
+              0.018139377534480607,
+              -4.235959131750579,
+              0.0
+            ],
+            "reward": -2.0272206171072997
+          },
+          {
+            "t": 0.8333333333333334,
+            "agent_pos": [
+              0.014953989685927588,
+              -1.9936470311470829,
+              0.0
+            ],
+            "agent_vel": [
+              0.03224694688096759,
+              -8.262250988287983,
+              0.0
+            ],
+            "reward": -3.591981376644311
+          },
+          {
+            "t": 1.25,
+            "agent_pos": [
+              0.030015227320245228,
+              -6.301184671635231,
+              0.0
+            ],
+            "agent_vel": [
+              0.038898720453710484,
+              -12.248565273594703,
+              0.0
+            ],
+            "reward": -7.562283888740978
+          },
+          {
+            "t": 1.6666666666666667,
+            "agent_pos": [
+              0.04698546327981685,
+              -12.262198759553723,
+              0.0
+            ],
+            "agent_vel": [
+              0.042084740420751325,
+              -16.20066704886551,
+              0.0
+            ],
+            "reward": -13.405229640649527
+          },
+          {
+            "t": 2.0833333333333335,
+            "agent_pos": [
+              0.0649298745496862,
+              -19.86274340638894,
+              0.0
+            ],
+            "agent_vel": [
+              0.043817656425826676,
+              -20.119730431230675,
+              0.0
+            ],
+            "reward": -20.95229244811258
+          },
+          {
+            "t": 2.5,
+            "agent_pos": [
+              0.08342410459826634,
+              -29.089155965659447,
+              0.0
+            ],
+            "agent_vel": [
+              0.04482695535555123,
+              -24.006194468834412,
+              0.0
+            ],
+            "reward": -30.150133828701563
+          },
+          {
+            "t": 2.9166666666666665,
+            "agent_pos": [
+              0.10224271709684503,
+              -39.92792333953987,
+              0.0
+            ],
+            "agent_vel": [
+              0.04542609563450693,
+              -27.86037358421638,
+              0.0
+            ],
+            "reward": -40.97189758349087
+          },
+          {
+            "t": 3.3333333333333335,
+            "agent_pos": [
+              0.12125201033988144,
+              -52.36565535255394,
+              0.0
+            ],
+            "agent_vel": [
+              0.04577099819099102,
+              -31.682550676044496,
+              0.0
+            ],
+            "reward": -53.39871595100598
+          },
+          {
+            "t": 3.75,
+            "agent_pos": [
+              0.1403663602092008,
+              -66.38907693490327,
+              0.0
+            ],
+            "agent_vel": [
+              0.04594788182873543,
+              -35.47299738230506,
+              0.0
+            ],
+            "reward": -67.41473078943915
+          },
+          {
+            "t": 4.166666666666667,
+            "agent_pos": [
+              0.15952778397041492,
+              -81.98502489488524,
+              0.0
+            ],
+            "agent_vel": [
+              0.04600830143891796,
+              -39.2319798077991,
+              0.0
+            ],
+            "reward": -83.005431718549
+          },
+          {
+            "t": 4.583333333333333,
+            "agent_pos": [
+              0.17869533008036714,
+              -99.14044610242576,
+              0.0
+            ],
+            "agent_vel": [
+              0.04598498527896935,
+              -42.95976047630825,
+              0.0
+            ],
+            "reward": -100.15700722512385
+          },
+          {
+            "t": 4.983333333333333,
+            "agent_pos": [
+              0.1970741232441982,
+              -117.06478620118544,
+              0.0
+            ],
+            "agent_vel": [
+              0.045904108784450955,
+              -46.509316406635456,
+              0.0
+            ],
+            "reward": -118.07855132262041
+          }
+        ],
+        "provenance": {
+          "run": {
+            "run_id": "sim-1768096731",
+            "run_dir": "sandbox/ar_xr_runs/simrun-1768096731",
+            "steps": 300,
+            "final_pos": [
+              0.1970741232441982,
+              -117.06478620118544,
+              0.0
+            ],
+            "final_vel": [
+              0.045904108784450955,
+              -46.509316406635456,
+              0.0
+            ],
+            "final_reward": -118.07855132262041
+          },
+          "trajectory_path": "sandbox/ar_xr_runs/simrun-1768096731/trajectory.jsonl"
+        }
+      },
+      "knowledge_paths": {
+        "json": "knowledge/ar_xr/xr_sim_distillation__reach_target_comfortably.json",
+        "md": "knowledge/ar_xr/xr_sim_distillation__reach_target_comfortably.md"
+      }
+    },
+    "context": {
+      "world_id": "world_xr_training",
+      "run_id": "sim-1768096731",
+      "subsystem": "ar_xr",
+      "event_type": "sim_distilled"
+    }
+  },
+  {
+    "timestamp": "2026-01-11T01:58:51.975636",
+    "type": "memory",
+    "content": {
+      "run_dir": "sandbox/ar_xr_runs/simrun-1768096731"
+    },
+    "context": {
+      "run_id": "sim-1768096731",
+      "subsystem": "ar_xr",
+      "event_type": "sim_run_deleted"
+    }
+  },
+  {
+    "timestamp": "2026-01-11T01:58:52.577343",
+    "type": "memory",
+    "content": {
+      "knowledge": {
+        "kind": "xr",
+        "title": "XR Sim Distillation: reach target comfortably",
+        "summary": "Ran 300 sim steps in 'world_xr_training' and distilled a motion/physics sketch into keyframes + control heuristics.",
+        "heuristics": [
+          "Use timestep dt\u22480.0167s; larger dt increases integration error.",
+          "Linear drag\u22480.020 stabilizes motion; too high slows convergence.",
+          "Reward shaping can be distance-to-target (final reward -118.079).",
+          "Gravity=(0.0, -9.81, 0.0) implies comfort tuning (fall speed, jump impulse) matters."
+        ],
+        "params": {
+          "physics": {
+            "gravity": [
+              0.0,
+              -9.81,
+              0.0
+            ],
+            "timestep_s": 0.016666666666666666,
+            "drag": 0.02
+          },
+          "steps": 300
+        },
+        "keyframes": [
+          {
+            "t": 0.0,
+            "agent_pos": [
+              1.1402693871680372e-05,
+              1.5972715791918386,
+              0.0
+            ],
+            "agent_vel": [
+              0.0006841616323008223,
+              -0.16370524848969026,
+              0.0
+            ],
+            "reward": -2.087268005950565
+          },
+          {
+            "t": 0.4166666666666667,
+            "agent_pos": [
+              0.00405340969439858,
+              0.6452879490736962,
+              0.0
+            ],
+            "agent_vel": [
+              0.018139377534480607,
+              -4.235959131750579,
+              0.0
+            ],
+            "reward": -2.0272206171072997
+          },
+          {
+            "t": 0.8333333333333334,
+            "agent_pos": [
+              0.014953989685927588,
+              -1.9936470311470829,
+              0.0
+            ],
+            "agent_vel": [
+              0.03224694688096759,
+              -8.262250988287983,
+              0.0
+            ],
+            "reward": -3.591981376644311
+          },
+          {
+            "t": 1.25,
+            "agent_pos": [
+              0.030015227320245228,
+              -6.301184671635231,
+              0.0
+            ],
+            "agent_vel": [
+              0.038898720453710484,
+              -12.248565273594703,
+              0.0
+            ],
+            "reward": -7.562283888740978
+          },
+          {
+            "t": 1.6666666666666667,
+            "agent_pos": [
+              0.04698546327981685,
+              -12.262198759553723,
+              0.0
+            ],
+            "agent_vel": [
+              0.042084740420751325,
+              -16.20066704886551,
+              0.0
+            ],
+            "reward": -13.405229640649527
+          },
+          {
+            "t": 2.0833333333333335,
+            "agent_pos": [
+              0.0649298745496862,
+              -19.86274340638894,
+              0.0
+            ],
+            "agent_vel": [
+              0.043817656425826676,
+              -20.119730431230675,
+              0.0
+            ],
+            "reward": -20.95229244811258
+          },
+          {
+            "t": 2.5,
+            "agent_pos": [
+              0.08342410459826634,
+              -29.089155965659447,
+              0.0
+            ],
+            "agent_vel": [
+              0.04482695535555123,
+              -24.006194468834412,
+              0.0
+            ],
+            "reward": -30.150133828701563
+          },
+          {
+            "t": 2.9166666666666665,
+            "agent_pos": [
+              0.10224271709684503,
+              -39.92792333953987,
+              0.0
+            ],
+            "agent_vel": [
+              0.04542609563450693,
+              -27.86037358421638,
+              0.0
+            ],
+            "reward": -40.97189758349087
+          },
+          {
+            "t": 3.3333333333333335,
+            "agent_pos": [
+              0.12125201033988144,
+              -52.36565535255394,
+              0.0
+            ],
+            "agent_vel": [
+              0.04577099819099102,
+              -31.682550676044496,
+              0.0
+            ],
+            "reward": -53.39871595100598
+          },
+          {
+            "t": 3.75,
+            "agent_pos": [
+              0.1403663602092008,
+              -66.38907693490327,
+              0.0
+            ],
+            "agent_vel": [
+              0.04594788182873543,
+              -35.47299738230506,
+              0.0
+            ],
+            "reward": -67.41473078943915
+          },
+          {
+            "t": 4.166666666666667,
+            "agent_pos": [
+              0.15952778397041492,
+              -81.98502489488524,
+              0.0
+            ],
+            "agent_vel": [
+              0.04600830143891796,
+              -39.2319798077991,
+              0.0
+            ],
+            "reward": -83.005431718549
+          },
+          {
+            "t": 4.583333333333333,
+            "agent_pos": [
+              0.17869533008036714,
+              -99.14044610242576,
+              0.0
+            ],
+            "agent_vel": [
+              0.04598498527896935,
+              -42.95976047630825,
+              0.0
+            ],
+            "reward": -100.15700722512385
+          },
+          {
+            "t": 4.983333333333333,
+            "agent_pos": [
+              0.1970741232441982,
+              -117.06478620118544,
+              0.0
+            ],
+            "agent_vel": [
+              0.045904108784450955,
+              -46.509316406635456,
+              0.0
+            ],
+            "reward": -118.07855132262041
+          }
+        ],
+        "provenance": {
+          "run": {
+            "run_id": "sim-1768096732",
+            "run_dir": "sandbox/ar_xr_runs/simrun-1768096732",
+            "steps": 300,
+            "final_pos": [
+              0.1970741232441982,
+              -117.06478620118544,
+              0.0
+            ],
+            "final_vel": [
+              0.045904108784450955,
+              -46.509316406635456,
+              0.0
+            ],
+            "final_reward": -118.07855132262041
+          },
+          "trajectory_path": "sandbox/ar_xr_runs/simrun-1768096732/trajectory.jsonl"
+        }
+      },
+      "knowledge_paths": {
+        "json": "knowledge/ar_xr/xr_sim_distillation__reach_target_comfortably.json",
+        "md": "knowledge/ar_xr/xr_sim_distillation__reach_target_comfortably.md"
+      }
+    },
+    "context": {
+      "world_id": "world_xr_training",
+      "run_id": "sim-1768096732",
+      "subsystem": "ar_xr",
+      "event_type": "sim_distilled"
+    }
+  },
+  {
+    "timestamp": "2026-01-11T01:58:52.578433",
+    "type": "memory",
+    "content": {
+      "run_dir": "sandbox/ar_xr_runs/simrun-1768096732"
+    },
+    "context": {
+      "run_id": "sim-1768096732",
+      "subsystem": "ar_xr",
+      "event_type": "sim_run_deleted"
+    }
   }
 ]

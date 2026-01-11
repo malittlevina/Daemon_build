@@ -1,32 +1,39 @@
-import os
-import datetime
-from codex.codex_engine import log_codex_entry
-from code.code_generator import propose_improvements
-from unimind.reasoner import symbolic_reasoning_chain
+from __future__ import annotations
+
+from typing import Any, Optional
+
 from lam.symbolic_state import update_state_with_input
 
-REFLECTION_LOG = "logs/self_reflection.log"
-MAX_LOG_SIZE = 10000  # characters
-
 class NLUEngine:
-    def __init__(self):
+    def __init__(self, scroll_engine=None, use_ollama_fallback: bool = False):
         self.learned_phrases = {}
-        self.use_ollama_fallback = True
+        self.use_ollama_fallback = bool(use_ollama_fallback)
+        self.scroll_engine = scroll_engine
 
     def interpret(self, user_input):
         if user_input in self.learned_phrases:
             return self.learned_phrases[user_input]
 
-        # Pattern match for known phrases
-        if "learn python" in user_input.lower():
-            response = "Let's dive into Python basics!"
-            self.learned_phrases[user_input] = response
-            return response
+        text = (user_input or "").strip()
+        text_l = text.lower()
+
+        # XR direct commands (pass-through to ScrollEngine)
+        # Examples:
+        # - "xr list apps"
+        # - "xr create world reach target comfortably"
+        # - "xr train sim practice teleport comfort" (goal inferred from remainder)
+        if self.scroll_engine and (text_l == "xr list apps" or text_l.startswith("xr ")):
+            try:
+                return self._route_xr(text)
+            except Exception as e:
+                return f"[NLUEngine] XR routing failed: {e}"
 
         try:
-            result = update_state_with_input(user_input, source="nlu")
-        except TypeError:
-            result = update_state_with_input(user_input)
+            # Keep symbolic state in sync with the input.
+            update_state_with_input(text)
+            result = None
+        except Exception:
+            result = None
 
         if result:
             return result
@@ -34,9 +41,9 @@ class NLUEngine:
         if self.use_ollama_fallback:
             try:
                 import subprocess
-                result = subprocess.run(["ollama", "run", "prometheus", user_input], capture_output=True, text=True)
-                if result.returncode == 0:
-                    return result.stdout.strip()
+                proc = subprocess.run(["ollama", "run", "prometheus", text], capture_output=True, text=True)
+                if proc.returncode == 0:
+                    return proc.stdout.strip()
                 else:
                     return "[NLUEngine] Ollama fallback failed."
             except Exception as e:
@@ -44,45 +51,31 @@ class NLUEngine:
 
         return "[NLUEngine] No known intent"
 
-def run_self_analysis():
-    reflection = {}
+    def _route_xr(self, text: str) -> Any:
+        """
+        Minimal XR command router to ScrollEngine.
+        """
+        parts = [p for p in (text or "").strip().split(" ") if p]
+        if len(parts) < 2:
+            return "[NLUEngine] XR command incomplete."
 
-    # Symbolic diagnostic prompt
-    reflection["timestamp"] = str(datetime.datetime.now())
-    reflection["status"] = "Running self-analysis"
-    reflection["reasoning_trace"] = symbolic_reasoning_chain("analyze internal state for weaknesses")
+        # "xr list apps"
+        if parts[:3] == ["xr", "list", "apps"]:
+            return self.scroll_engine.invoke("xr list apps")
 
-    # Improvement suggestions
-    reflection["proposed_improvements"] = propose_improvements("Nightly self-analysis of daemon")
+        # "xr launch app <name_or_id>"
+        if len(parts) >= 4 and parts[:3] == ["xr", "launch", "app"]:
+            app = " ".join(parts[3:])
+            return self.scroll_engine.invoke("xr launch app", app, True)
 
-    # Log reflection to Codex
-    codex_summary = (
-        f"Self-reflection at {reflection['timestamp']}\n"
-        f"Status: {reflection['status']}\n"
-        f"Symbolic Reasoning: {reflection['reasoning_trace']}\n"
-        f"Proposed Fixes: {reflection['proposed_improvements']}"
-    )
-    log_codex_entry("reflection", codex_summary)
+        # "xr create world <goal...>"
+        if len(parts) >= 4 and parts[:3] == ["xr", "create", "world"]:
+            goal = " ".join(parts[3:])
+            return self.scroll_engine.invoke("xr create world", goal, "xr")
 
-    # Append to local log
-    with open(REFLECTION_LOG, "a") as log_file:
-        log_file.write(codex_summary + "\n\n")
+        # "xr train sim <goal...>"
+        if len(parts) >= 4 and parts[:3] == ["xr", "train", "sim"]:
+            goal = " ".join(parts[3:])
+            return self.scroll_engine.invoke("xr train sim", goal, "xr", 300, True)
 
-    truncate_log_if_needed()
-
-    return codex_summary
-
-def truncate_log_if_needed():
-    if not os.path.exists(REFLECTION_LOG):
-        return
-    with open(REFLECTION_LOG, "r") as f:
-        content = f.read()
-    if len(content) > MAX_LOG_SIZE:
-        with open(REFLECTION_LOG, "w") as f:
-            f.write(content[-MAX_LOG_SIZE:])
-
-def nightly_reflection():
-    print("[SelfReflector] Executing nightly reflection...")
-    result = run_self_analysis()
-    print("[SelfReflector] Reflection complete.")
-    return result
+        return "[NLUEngine] XR command not recognized."

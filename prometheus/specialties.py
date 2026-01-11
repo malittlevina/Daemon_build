@@ -7,7 +7,8 @@ class PrometheusSpecialties:
             "video": "Capable of editing with FFMPEG, Shotcut, etc.",
             "3D_animation": "Can render/export with Blender or symbolic engine",
             "modeling": "Knows symbolic primitives and geometry tools",
-            "storytelling": "Skilled at plot development and game writing"
+            "storytelling": "Skilled at plot development and game writing",
+            "ar_xr": "AR/XR worldbuilding, simulation training, OpenXR/WebXR integration, and knowledge distillation"
         }
         print("[Prometheus] Specialties initialized.")
 

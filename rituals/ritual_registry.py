@@ -1,15 +1,19 @@
 # rituals/ritual_registry.py
 
 from scrolls.scroll_engine import ScrollEngine
+from nlu.nlu_engine import NLUEngine
 
 class RitualRegistry:
     def __init__(self):
         self.scroll_engine = ScrollEngine()
+        self.nlu = NLUEngine(self.scroll_engine, use_ollama_fallback=False)
 
         # Static rituals (hardcoded)
         self.registered_rituals = {
             "optimize self": self.cast_optimize_self,
-            "summon knowledge": self.cast_codex_query
+            "summon knowledge": self.cast_codex_query,
+            # XR rituals (voice-friendly)
+            "xr list apps": self.cast_xr_list_apps,
         }
 
         # Dynamic rituals (added at runtime)
@@ -17,19 +21,33 @@ class RitualRegistry:
 
     # ---- Static Rituals ----
     def cast_ritual(self, ritual_name: str, context: dict = {}):
-        if ritual_name in self.registered_rituals:
-            return self.registered_rituals[ritual_name](context)
-        elif ritual_name in self.dynamic_rituals:
-            print(f"[RitualRegistry] Invoking dynamic ritual: {ritual_name}")
-            return self.dynamic_rituals[ritual_name]["action"]()
+        ritual = (ritual_name or "").strip().lower()
+
+        # Allow voice commands like: "xr train sim practice teleport comfort"
+        if ritual.startswith("xr "):
+            return self.nlu.interpret(ritual)
+
+        if ritual in self.registered_rituals:
+            return self.registered_rituals[ritual](context)
+        elif ritual in self.dynamic_rituals:
+            print(f"[RitualRegistry] Invoking dynamic ritual: {ritual}")
+            return self.dynamic_rituals[ritual]["action"]()
         else:
-            return f"Unknown ritual: {ritual_name}"
+            # Voice fallback: let NLU attempt routing (without Ollama).
+            return self.nlu.interpret(ritual)
 
     def cast_optimize_self(self, context):
-        return self.scroll_engine.cast_scroll("optimize self", context)
+        return self.scroll_engine.invoke("optimize self")
 
     def cast_codex_query(self, context):
-        return self.scroll_engine.cast_scroll("summon scroll summary", context)
+        # Keep this safe even if Codex indexing isn't configured.
+        query = ""
+        if isinstance(context, dict):
+            query = str(context.get("query", "")).strip()
+        return f"[RitualRegistry] Knowledge query received: {query or '(none)'}"
+
+    def cast_xr_list_apps(self, context):
+        return self.scroll_engine.invoke("xr list apps")
 
     # ---- Dynamic Rituals ----
     def register(self, name, trigger, action):
