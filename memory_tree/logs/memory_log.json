@@ -1,0 +1,51 @@
+[
+  {
+    "timestamp": "2026-01-11T21:41:07.842298",
+    "type": "memory",
+    "content": "Robotics armed",
+    "context": {
+      "subsystem": "robotics"
+    }
+  },
+  {
+    "timestamp": "2026-01-11T21:41:07.842457",
+    "type": "memory",
+    "content": "Robotics command executed",
+    "context": {
+      "subsystem": "robotics",
+      "command": "move",
+      "params": {
+        "direction": "forward",
+        "distance_m": 1.0
+      },
+      "source": "nlu",
+      "result": "Moved forward 1.00m (sim)."
+    }
+  },
+  {
+    "timestamp": "2026-01-11T21:41:07.842615",
+    "type": "memory",
+    "content": "Robotics command executed",
+    "context": {
+      "subsystem": "robotics",
+      "command": "follow",
+      "params": {
+        "target": "user"
+      },
+      "source": "nlu",
+      "result": "Robot now following: user."
+    }
+  },
+  {
+    "timestamp": "2026-01-11T21:41:07.843604",
+    "type": "memory",
+    "content": "Robotics command executed",
+    "context": {
+      "subsystem": "robotics",
+      "command": "stop",
+      "params": {},
+      "source": "nlu",
+      "result": "Robot stopped."
+    }
+  }
+]

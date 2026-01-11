@@ -1,0 +1,8 @@
+{
+  "driver": "simulation",
+  "safety": {
+    "require_armed_for_motion": true,
+    "max_move_distance_m": 2.0
+  }
+}
+
