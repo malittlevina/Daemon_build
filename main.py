@@ -8,7 +8,8 @@ from introspection.personality_tracker import PersonalityTracker
 from memory_tree.memory_logger import MemoryLogger
 from optimizer.auto_upgrade import run_auto_optimization
 from scrolls.scroll_engine import ScrollEngine
-## from sensors.vision import VisionSensor
+from sensors.vision import VisionSensor
+from sensors.device_scanner import DeviceScanner
 from nlu.nlu_engine import NLUEngine
 import subprocess
 import json
@@ -27,6 +28,17 @@ if __name__ == "__main__":
     rituals = RitualRegistry()
     scrolls = ScrollEngine()
     # vision = VisionSensor()
+    device_scanner = DeviceScanner()
+    
+    # Register a listener for new devices
+    def on_new_device(device):
+        # Example of seamless integration: log to memory or trigger an event
+        # For now, we just print a special notification
+        print(f"\n[System Notification] New device detected: {device.get('name') or device.get('ssid') or 'Unknown'}")
+
+    device_scanner.add_listener(on_new_device)
+    device_scanner.start_scanning()
+    
     personality = PersonalityTracker()
     try:
         global nlu
@@ -92,6 +104,13 @@ if __name__ == "__main__":
             elif user_input == "":
                 personality.log_state()
                 unimind.reflect()
+            elif user_input.lower() == "devices":
+                devices = device_scanner.get_known_devices()
+                print(f"[Daemon] Known Devices: {json.dumps(devices, indent=2)}")
+            elif user_input.lower().startswith("connect "):
+                dev_id = user_input.split(" ", 1)[1]
+                success, msg = device_scanner.connect_device(dev_id)
+                print(f"[Daemon] Connection Result: {msg}")
             else:
                 result = None
                 if nlu:
