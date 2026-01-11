@@ -1,12 +1,12 @@
 # rituals/ritual_registry.py
 
+from daemon.runtime import build_daemon_runtime
 from scrolls.scroll_engine import ScrollEngine
-from nlu.nlu_engine import NLUEngine
 
 class RitualRegistry:
     def __init__(self):
-        self.scroll_engine = ScrollEngine()
-        self.nlu = NLUEngine(self.scroll_engine, use_ollama_fallback=False)
+        self.runtime = build_daemon_runtime(use_ollama_fallback=False)
+        self.scroll_engine = self.runtime.scrolls
 
         # Static rituals (hardcoded)
         self.registered_rituals = {
@@ -25,7 +25,7 @@ class RitualRegistry:
 
         # Allow voice commands like: "xr train sim practice teleport comfort"
         if ritual.startswith("xr "):
-            return self.nlu.interpret(ritual)
+            return self.runtime.unimind.process_input(ritual, context={"source": "voice"})
 
         if ritual in self.registered_rituals:
             return self.registered_rituals[ritual](context)
@@ -34,7 +34,7 @@ class RitualRegistry:
             return self.dynamic_rituals[ritual]["action"]()
         else:
             # Voice fallback: let NLU attempt routing (without Ollama).
-            return self.nlu.interpret(ritual)
+            return self.runtime.unimind.process_input(ritual, context={"source": "voice"})
 
     def cast_optimize_self(self, context):
         return self.scroll_engine.invoke("optimize self")

@@ -4,6 +4,7 @@ from typing import Any, Dict, List, Optional
 
 from ar_xr.app_registry import ARXRAppRegistry
 from ar_xr.sim.distiller import distill_run, write_knowledge
+from ar_xr.sim.learner import ThrustGainSearchLearner
 from ar_xr.sim.run_manager import delete_run_dir, make_run_dir
 from ar_xr.sim.simulator import run_headless_episode
 from ar_xr.sim.world import WorldSpec, synthesize_world
@@ -127,6 +128,7 @@ class ARXRSubsystem:
         kind: str = "xr",
         steps: int = 300,
         delete_raw_run: bool = True,
+        episodes: int = 1,
     ) -> Dict[str, Any]:
         """
         Core loop you described:
@@ -137,33 +139,62 @@ class ARXRSubsystem:
         - delete raw run artifacts (trajectory)
         """
         world = synthesize_world(goal=goal, kind=kind)
-        run_paths = make_run_dir()
 
-        sim = run_headless_episode(world=world, steps=steps, run_dir=run_paths.run_dir)
-        run_summary = sim["run"]
-        trajectory_path = sim["trajectory_path"]
+        # Run one or more episodes. If multiple, keep the best and delete the rest.
+        episodes_i = max(1, int(episodes))
+        best_run_summary = None
+        best_trajectory_path = None
+        best_run_dir = None
+        best_gain = None
+        episode_dirs: list[str] = []
 
-        knowledge = distill_run(world=world, run=run_summary, trajectory_path=trajectory_path)
+        def _run_episode(policy=None):
+            rp = make_run_dir()
+            episode_dirs.append(rp.run_dir)
+            return run_headless_episode(world=world, steps=steps, run_dir=rp.run_dir, policy=policy)
+
+        if episodes_i == 1:
+            sim = _run_episode(policy=None)
+            best_run_summary = sim["run"]
+            best_trajectory_path = sim["trajectory_path"]
+            best_run_dir = sim["run"]["run_dir"]
+        else:
+            learner = ThrustGainSearchLearner()
+            # Respect requested episode count by limiting gain trials.
+            learner.gains = learner.gains[:episodes_i]
+            best, all_eps = learner.run(world, run_episode=_run_episode)
+            best_gain = best.gain
+            best_run_summary = best.run
+            best_trajectory_path = best.trajectory_path
+            best_run_dir = best.run.get("run_dir")
+
+        knowledge = distill_run(world=world, run=best_run_summary, trajectory_path=best_trajectory_path)
+        # annotate with learner selection if used
+        if best_gain is not None:
+            knowledge.params["learner"] = {"type": "thrust_gain_search", "best_gain": best_gain, "episodes": episodes_i}
         knowledge_paths = write_knowledge(knowledge)
 
         self._record(
             "sim_distilled",
             {"knowledge": knowledge.to_dict(), "knowledge_paths": knowledge_paths},
-            context={"world_id": world.world_id, "run_id": run_summary.get("run_id")},
+            context={"world_id": world.world_id, "run_id": best_run_summary.get("run_id")},
         )
 
         if delete_raw_run:
-            try:
-                delete_run_dir(run_paths.run_dir)
-                self._record("sim_run_deleted", {"run_dir": run_paths.run_dir}, context={"run_id": run_summary.get("run_id")})
-            except Exception as e:
-                self._record("sim_run_delete_failed", {"run_dir": run_paths.run_dir, "error": str(e)})
+            for d in sorted(set(episode_dirs or ([] if not best_run_dir else [best_run_dir]))):
+                try:
+                    delete_run_dir(d)
+                    self._record("sim_run_deleted", {"run_dir": d}, context={"run_id": best_run_summary.get("run_id")})
+                except Exception as e:
+                    self._record("sim_run_delete_failed", {"run_dir": d, "error": str(e)})
 
         return {
             "ok": True,
             "world": world.to_dict(),
-            "run": run_summary,
+            "run": best_run_summary,
             "knowledge_paths": knowledge_paths,
             "deleted_raw_run": bool(delete_raw_run),
+            "episodes": episodes_i,
+            "best_gain": best_gain,
         }
 

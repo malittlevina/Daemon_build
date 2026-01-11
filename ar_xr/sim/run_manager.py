@@ -14,7 +14,8 @@ class SimRunPaths:
 
 
 def make_run_dir(base_dir: str = "sandbox/ar_xr_runs", run_id: Optional[str] = None) -> SimRunPaths:
-    rid = run_id or f"simrun-{int(time.time())}"
+    # Use time_ns to avoid collisions when creating multiple runs quickly.
+    rid = run_id or f"simrun-{time.time_ns()}"
     run_dir = os.path.join(base_dir, rid)
     os.makedirs(run_dir, exist_ok=True)
     return SimRunPaths(run_id=rid, run_dir=run_dir)

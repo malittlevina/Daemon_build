@@ -41,7 +41,6 @@ class ScrollEngine:
 
     def _study_topic(self, topic):
         from codex.ingestion import ingest_observation, ingest_web_or_pdf
-        from code_tools.tutor import study_topic  # Optional enhancement hook
 
         if not topic:
             return "[Study] No topic provided."
@@ -53,7 +52,7 @@ class ScrollEngine:
         try:
             import os
             import time
-            from codex.summarizer import summarize_content  # You need to implement this if not existing
+            from codex.summarizer import summarize_content
 
             # Summarize the topic and save to knowledge file
             summary = summarize_content(topic)

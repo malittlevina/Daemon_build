@@ -1,0 +1,335 @@
+{
+  "ok": true,
+  "passed": 6,
+  "failed": 0,
+  "results": [
+    {
+      "name": "00-08:05",
+      "input": "xr list apps",
+      "output": {
+        "ok": true,
+        "kind": null,
+        "apps": [
+          {
+            "id": "webxr-sample",
+            "name": "WebXR Sample",
+            "kind": "xr",
+            "runtime": "webxr"
+          },
+          {
+            "id": "openxr-tooling",
+            "name": "OpenXR Tooling Check",
+            "kind": "xr",
+            "runtime": "openxr"
+          }
+        ]
+      },
+      "ok": true,
+      "reasons": [],
+      "elapsed_s": 0.015503644943237305
+    },
+    {
+      "name": "01-08:10",
+      "input": "xr create world reach target comfortably",
+      "output": {
+        "ok": true,
+        "world": {
+          "world_id": "world_xr_training",
+          "kind": "xr",
+          "description": "reach target comfortably",
+          "physics": {
+            "gravity": [
+              0.0,
+              -9.81,
+              0.0
+            ],
+            "timestep_s": 0.016666666666666666,
+            "drag": 0.02
+          },
+          "entities": [
+            {
+              "entity_id": "floor",
+              "kind": "static",
+              "shape": "box",
+              "mass": 0.0,
+              "position": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "velocity": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "tags": [
+                "ground"
+              ],
+              "props": {}
+            },
+            {
+              "entity_id": "target",
+              "kind": "static",
+              "shape": "sphere",
+              "mass": 0.0,
+              "position": [
+                2.0,
+                1.0,
+                0.0
+              ],
+              "velocity": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "tags": [
+                "goal"
+              ],
+              "props": {}
+            },
+            {
+              "entity_id": "obstacle",
+              "kind": "static",
+              "shape": "box",
+              "mass": 0.0,
+              "position": [
+                1.0,
+                0.5,
+                0.0
+              ],
+              "velocity": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "tags": [
+                "hazard"
+              ],
+              "props": {}
+            },
+            {
+              "entity_id": "agent_body",
+              "kind": "dynamic",
+              "shape": "sphere",
+              "mass": 70.0,
+              "position": [
+                0.0,
+                1.6,
+                0.0
+              ],
+              "velocity": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "tags": [
+                "agent"
+              ],
+              "props": {}
+            }
+          ],
+          "agent": {
+            "agent_id": "daemon",
+            "body_entity_id": "agent_body",
+            "spawn_position": [
+              0.0,
+              1.6,
+              0.0
+            ],
+            "action_space": [
+              "thrust_x",
+              "thrust_y",
+              "thrust_z",
+              "jump",
+              "grab"
+            ]
+          },
+          "goals": [
+            "reach target comfortably"
+          ],
+          "metadata": {
+            "synthesized": true
+          }
+        }
+      },
+      "ok": true,
+      "reasons": [],
+      "elapsed_s": 0.005554914474487305
+    },
+    {
+      "name": "02-08:15",
+      "input": "xr train sim reach target comfortably",
+      "output": {
+        "ok": true,
+        "world": {
+          "world_id": "world_xr_training",
+          "kind": "xr",
+          "description": "reach target comfortably",
+          "physics": {
+            "gravity": [
+              0.0,
+              -9.81,
+              0.0
+            ],
+            "timestep_s": 0.016666666666666666,
+            "drag": 0.02
+          },
+          "entities": [
+            {
+              "entity_id": "floor",
+              "kind": "static",
+              "shape": "box",
+              "mass": 0.0,
+              "position": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "velocity": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "tags": [
+                "ground"
+              ],
+              "props": {}
+            },
+            {
+              "entity_id": "target",
+              "kind": "static",
+              "shape": "sphere",
+              "mass": 0.0,
+              "position": [
+                2.0,
+                1.0,
+                0.0
+              ],
+              "velocity": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "tags": [
+                "goal"
+              ],
+              "props": {}
+            },
+            {
+              "entity_id": "obstacle",
+              "kind": "static",
+              "shape": "box",
+              "mass": 0.0,
+              "position": [
+                1.0,
+                0.5,
+                0.0
+              ],
+              "velocity": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "tags": [
+                "hazard"
+              ],
+              "props": {}
+            },
+            {
+              "entity_id": "agent_body",
+              "kind": "dynamic",
+              "shape": "sphere",
+              "mass": 70.0,
+              "position": [
+                0.0,
+                1.6,
+                0.0
+              ],
+              "velocity": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "tags": [
+                "agent"
+              ],
+              "props": {}
+            }
+          ],
+          "agent": {
+            "agent_id": "daemon",
+            "body_entity_id": "agent_body",
+            "spawn_position": [
+              0.0,
+              1.6,
+              0.0
+            ],
+            "action_space": [
+              "thrust_x",
+              "thrust_y",
+              "thrust_z",
+              "jump",
+              "grab"
+            ]
+          },
+          "goals": [
+            "reach target comfortably"
+          ],
+          "metadata": {
+            "synthesized": true
+          }
+        },
+        "run": {
+          "run_id": "sim-1768098751",
+          "run_dir": "sandbox/ar_xr_runs/simrun-1768098751272181850",
+          "steps": 300,
+          "final_pos": [
+            0.1970741232441982,
+            -117.06478620118544,
+            0.0
+          ],
+          "final_vel": [
+            0.045904108784450955,
+            -46.509316406635456,
+            0.0
+          ],
+          "final_reward": -118.07855132262041
+        },
+        "knowledge_paths": {
+          "json": "knowledge/ar_xr/xr_sim_distillation__reach_target_comfortably.json",
+          "md": "knowledge/ar_xr/xr_sim_distillation__reach_target_comfortably.md"
+        },
+        "deleted_raw_run": true,
+        "episodes": 1,
+        "best_gain": null
+      },
+      "ok": true,
+      "reasons": [],
+      "elapsed_s": 0.017826318740844727
+    },
+    {
+      "name": "03-10:00",
+      "input": "run task summarize yesterday's work into bullet points",
+      "output": "Task completed: summarize yesterday's work into bullet points",
+      "ok": true,
+      "reasons": [],
+      "elapsed_s": 0.0034019947052001953
+    },
+    {
+      "name": "04-13:20",
+      "input": "study topic openxr action spaces",
+      "output": "Scroll triggered self-study of topic: openxr action spaces (Note: Failed summarization or logging: No module named 'introspection.personality')",
+      "ok": true,
+      "reasons": [],
+      "elapsed_s": 0.10565710067749023
+    },
+    {
+      "name": "05-17:45",
+      "input": "multi step plan create an xr comfort test checklist",
+      "output": "[Planner] Plan generated for goal: create an xr comfort test checklist",
+      "ok": true,
+      "reasons": [],
+      "elapsed_s": 0.003574371337890625
+    }
+  ]
+}

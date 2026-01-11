@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import Any, Optional
+from typing import Any, Dict, Optional
 
 from lam.symbolic_state import update_state_with_input
 
@@ -50,6 +50,32 @@ class NLUEngine:
                 return f"[NLUEngine] Fallback exception: {e}"
 
         return "[NLUEngine] No known intent"
+
+    def plan(self, user_input: str) -> Optional[Dict[str, Any]]:
+        """
+        Side-effect free intent planning.
+
+        Returns a structured intent dict, or None if no intent recognized.
+        This is what Unimind should use before executing actions.
+        """
+        text = (user_input or "").strip()
+        text_l = text.lower()
+
+        if text_l == "xr list apps":
+            return {"intent": "xr.list_apps"}
+        if text_l.startswith("xr launch app "):
+            return {"intent": "xr.launch_app", "app": text[len("xr launch app ") :].strip(), "dry_run": True}
+        if text_l.startswith("xr create world "):
+            return {"intent": "xr.create_world", "goal": text[len("xr create world ") :].strip(), "kind": "xr"}
+        if text_l.startswith("xr train sim "):
+            return {
+                "intent": "xr.train_sim",
+                "goal": text[len("xr train sim ") :].strip(),
+                "kind": "xr",
+                "steps": 300,
+                "delete_raw_run": True,
+            }
+        return None
 
     def _route_xr(self, text: str) -> Any:
         """
