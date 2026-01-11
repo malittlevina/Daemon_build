@@ -20,20 +20,15 @@ from datetime import date
 USE_OLLAMA = False  # Set to True to enable Ollama fallback
 
 if __name__ == "__main__":
-    unimind = Unimind()
+    from daemon.runtime import build_daemon_runtime
+    runtime = build_daemon_runtime(use_ollama_fallback=USE_OLLAMA)
+    unimind = runtime.unimind
     prom = PrometheusSpecialties()
-    emotions = EmotionEngine()
     memory = MemoryLogger()
     rituals = RitualRegistry()
     scrolls = ScrollEngine()
     # vision = VisionSensor()
     personality = PersonalityTracker()
-    try:
-        global nlu
-        nlu = NLUEngine(scrolls)
-    except Exception as e:
-        print(f"[Daemon Init Error] Failed to initialize NLU: {e}")
-        nlu = None
 
     print("[Daemon] Starting daemon...")
 
@@ -93,17 +88,12 @@ if __name__ == "__main__":
                 personality.log_state()
                 unimind.reflect()
             else:
-                result = None
-                if nlu:
-                    try:
-                        result = nlu.interpret(user_input)
-                        if result is None or (isinstance(result, str) and result.startswith("[NLUEngine] No known intent")):
-                            result = handle_fallback(user_input)
-                    except Exception as e:
-                        print(f"[Daemon Error] NLU failed: {e}")
+                try:
+                    result = unimind.process_input(user_input, context={"source": "cli"})
+                    if isinstance(result, str) and result.startswith("[Unimind] No response"):
                         result = handle_fallback(user_input)
-                else:
-                    print("[Daemon Warning] NLU not available. Using fallback response.")
+                except Exception as e:
+                    print(f"[Daemon Error] Unimind pipeline failed: {e}")
                     result = handle_fallback(user_input)
 
                 print(f"[Daemon] NLU Result: {result}")

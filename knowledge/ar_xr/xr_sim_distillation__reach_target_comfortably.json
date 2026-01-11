@@ -206,8 +206,8 @@
   ],
   "provenance": {
     "run": {
-      "run_id": "sim-1768096732",
-      "run_dir": "sandbox/ar_xr_runs/simrun-1768096732",
+      "run_id": "sim-1768097431",
+      "run_dir": "sandbox/ar_xr_runs/simrun-1768097431",
       "steps": 300,
       "final_pos": [
         0.1970741232441982,
@@ -221,6 +221,6 @@
       ],
       "final_reward": -118.07855132262041
     },
-    "trajectory_path": "sandbox/ar_xr_runs/simrun-1768096732/trajectory.jsonl"
+    "trajectory_path": "sandbox/ar_xr_runs/simrun-1768097431/trajectory.jsonl"
   }
 }
