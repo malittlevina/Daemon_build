@@ -19,6 +19,9 @@ from datetime import date
 # Flag to control use of Ollama fallback
 USE_OLLAMA = False  # Set to True to enable Ollama fallback
 
+# Flag to enable XR subsystem
+ENABLE_XR = True  # Set to True to enable AR/VR/XR capabilities
+
 if __name__ == "__main__":
     unimind = Unimind()
     prom = PrometheusSpecialties()
@@ -28,6 +31,52 @@ if __name__ == "__main__":
     scrolls = ScrollEngine()
     # vision = VisionSensor()
     personality = PersonalityTracker()
+    
+    # Initialize XR subsystem
+    xr_engine = None
+    xr_overlay_manager = None
+    xr_anchor_system = None
+    xr_gesture_interface = None
+    xr_training_module = None
+    
+    if ENABLE_XR:
+        try:
+            from xr.xr_engine import XREngine
+            from xr.ar_overlay import AROverlayManager
+            from xr.spatial_anchor import SpatialAnchorSystem
+            from xr.gesture_interface import GestureInterface
+            from xr.xr_training import XRTrainingModule
+            
+            # Initialize XR components
+            xr_engine = XREngine()
+            xr_overlay_manager = AROverlayManager(xr_engine=xr_engine)
+            xr_anchor_system = SpatialAnchorSystem(xr_engine=xr_engine)
+            xr_gesture_interface = GestureInterface(
+                xr_engine=xr_engine,
+                overlay_manager=xr_overlay_manager
+            )
+            xr_training_module = XRTrainingModule(
+                xr_engine=xr_engine,
+                overlay_manager=xr_overlay_manager,
+                anchor_system=xr_anchor_system,
+                gesture_interface=xr_gesture_interface
+            )
+            
+            # Register XR subsystems with scroll engine
+            scrolls.set_xr_subsystems(
+                xr_engine=xr_engine,
+                overlay_manager=xr_overlay_manager,
+                anchor_system=xr_anchor_system,
+                training_module=xr_training_module
+            )
+            
+            print("[Daemon] XR subsystem initialized successfully.")
+            print(f"[Daemon] XR capabilities: {list(prom.get_xr_capabilities().keys())}")
+            
+        except Exception as e:
+            print(f"[Daemon Warning] Failed to initialize XR subsystem: {e}")
+            ENABLE_XR = False
+    
     try:
         global nlu
         nlu = NLUEngine(scrolls)
@@ -36,6 +85,8 @@ if __name__ == "__main__":
         nlu = None
 
     print("[Daemon] Starting Prometheus daemon...")
+    if ENABLE_XR:
+        print("[Daemon] AR/XR capabilities are ENABLED")
 
     # Launch sensors and background modules in threads
     ENABLE_VOICE = False

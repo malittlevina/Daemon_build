@@ -1,4 +1,4 @@
-python# ThothOS Daemon Build (Prometheus)
+# ThothOS Daemon Build (Prometheus)
 
 This is the official Prometheus daemon build (v2_origin), an intelligent AI agent running on ThothOS. It includes:
 
@@ -13,6 +13,54 @@ This is the official Prometheus daemon build (v2_origin), an intelligent AI agen
 - ✅ **Reflection Journal** (self-coding + evolution logs)
 - ✅ **Codex Ingestion** (PDF/web summarization knowledge)
 - ✅ **Multi-language Code Execution** (Python, Rust, Julia)
+- ✅ **AR/XR Subsystem** (augmented, virtual, and mixed reality support)
+
+## AR/XR Capabilities
+The daemon now includes full AR/VR/MR support with immersive training capabilities:
+
+### XR Engine (`xr/xr_engine.py`)
+- Multi-mode XR sessions (AR, VR, MR, Passthrough)
+- Device abstraction (headsets, glasses, phone AR, simulation)
+- Session management and event logging
+- Symbolic state integration
+
+### AR Overlay Manager (`xr/ar_overlay.py`)
+- Text, image, 3D model, and holographic overlays
+- World-locked, head-locked, and surface-anchored content
+- HUD elements and navigation waypoints
+- Training highlight and annotation overlays
+
+### Spatial Anchor System (`xr/spatial_anchor.py`)
+- World-space anchor creation and tracking
+- Plane and surface detection
+- Semantic location labeling
+- Persistent anchors across sessions
+- Spatial map import/export
+
+### Gesture Interface (`xr/gesture_interface.py`)
+- Hand gesture recognition (pinch, grab, point, swipe, etc.)
+- Body gesture detection (nod, shake, lean)
+- Customizable gesture-to-action bindings
+- Hand tracking state management
+
+### XR Training Module (`xr/xr_training.py`)
+- Immersive guided training scenarios
+- Multi-domain training (technical, mechanical, creative, safety)
+- Step-by-step instruction with AR overlays
+- Real-time feedback and skill assessment
+- Skill progression tracking
+- Built-in and custom scenario support
+
+### XR Scroll Commands
+- `start xr session` - Start AR/VR/MR session
+- `end xr session` - End current XR session
+- `start xr training <scenario>` - Begin training scenario
+- `end xr training` - End training session
+- `create ar overlay` - Create AR info panel
+- `clear ar overlays` - Remove overlays
+- `place spatial anchor` - Place world anchor
+- `show training scenarios` - List available training
+- `xr status` - Get XR subsystem status
 
 ## Installation
 ```bash

@@ -5,6 +5,7 @@
   "emotion_engine_tuning": true,
   "reflection_journal_enabled": true,
   "rituals_enabled": true,
+  "xr_enabled": true,
   "modules_to_load": [
     "unimind",
     "codex",
@@ -15,10 +16,22 @@
     "scrolls",
     "prometheus",
     "memory_tree",
-    "introspection"
+    "introspection",
+    "xr"
   ],
   "scroll_autostudy": {
     "trigger_count": 3,
     "daily_reset": true
+  },
+  "xr_settings": {
+    "default_mode": "ar",
+    "enable_spatial_anchors": true,
+    "enable_gesture_input": true,
+    "enable_voice_in_xr": true,
+    "training_module_enabled": true,
+    "simulation_mode": true,
+    "overlay_opacity_default": 0.85,
+    "anchor_persistence": true,
+    "supported_devices": ["headset", "glasses", "phone_ar", "simulated"]
   }
 }

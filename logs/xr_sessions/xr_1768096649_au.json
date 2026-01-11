@@ -1,0 +1,35 @@
+{
+  "session_id": "xr_1768096649_au",
+  "mode": "augmented_reality",
+  "device_type": "simulated",
+  "started_at": "2026-01-11T01:57:29.711106",
+  "is_active": false,
+  "anchors_count": 0,
+  "overlays_count": 1,
+  "event_count": 3,
+  "event_log": [
+    {
+      "timestamp": "2026-01-11T01:57:29.711110",
+      "type": "session_started",
+      "data": {
+        "mode": "augmented_reality",
+        "device": "simulated"
+      }
+    },
+    {
+      "timestamp": "2026-01-11T01:57:29.711464",
+      "type": "overlay_created",
+      "data": {
+        "overlay_id": "overlay_2896f3fa",
+        "type": "text"
+      }
+    },
+    {
+      "timestamp": "2026-01-11T01:57:29.711472",
+      "type": "session_ended",
+      "data": {
+        "duration_seconds": 0.000363
+      }
+    }
+  ]
+}

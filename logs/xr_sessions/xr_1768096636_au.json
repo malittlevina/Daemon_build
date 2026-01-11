@@ -1,0 +1,68 @@
+{
+  "session_id": "xr_1768096636_au",
+  "mode": "augmented_reality",
+  "device_type": "simulated",
+  "started_at": "2026-01-11T01:57:16.507870",
+  "is_active": false,
+  "anchors_count": 1,
+  "overlays_count": 2,
+  "event_count": 7,
+  "event_log": [
+    {
+      "timestamp": "2026-01-11T01:57:16.507873",
+      "type": "session_started",
+      "data": {
+        "mode": "augmented_reality",
+        "device": "simulated"
+      }
+    },
+    {
+      "timestamp": "2026-01-11T01:57:16.507919",
+      "type": "overlay_created",
+      "data": {
+        "overlay_id": "overlay_60c37cb9",
+        "type": "text"
+      }
+    },
+    {
+      "timestamp": "2026-01-11T01:57:16.507933",
+      "type": "anchor_created",
+      "data": {
+        "anchor_id": "anchor_1e06ed59",
+        "type": "point",
+        "label": "test_anchor"
+      }
+    },
+    {
+      "timestamp": "2026-01-11T01:57:16.507969",
+      "type": "overlay_created",
+      "data": {
+        "overlay_id": "overlay_96fcf8b1",
+        "type": "hud"
+      }
+    },
+    {
+      "timestamp": "2026-01-11T01:57:16.507979",
+      "type": "overlay_created",
+      "data": {
+        "overlay_id": "overlay_36bd564f",
+        "type": "hud"
+      }
+    },
+    {
+      "timestamp": "2026-01-11T01:57:16.507988",
+      "type": "overlay_created",
+      "data": {
+        "overlay_id": "overlay_0e783364",
+        "type": "text"
+      }
+    },
+    {
+      "timestamp": "2026-01-11T01:57:16.508315",
+      "type": "session_ended",
+      "data": {
+        "duration_seconds": 0.000442
+      }
+    }
+  ]
+}

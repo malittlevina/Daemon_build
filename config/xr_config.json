@@ -1,0 +1,36 @@
+{
+  "default_mode": "ar",
+  "enable_spatial_anchors": true,
+  "enable_gesture_input": true,
+  "enable_voice_in_xr": true,
+  "training_module_enabled": true,
+  "overlay_opacity_default": 0.85,
+  "anchor_persistence": true,
+  "simulation_mode": true,
+  "supported_devices": ["headset", "glasses", "phone_ar", "simulated"],
+  "session_auto_save": true,
+  "gesture_settings": {
+    "detection_threshold": 0.7,
+    "gesture_cooldown_ms": 300,
+    "enable_hand_tracking": true,
+    "enable_body_tracking": false
+  },
+  "overlay_settings": {
+    "max_overlays": 50,
+    "default_scale": [1.0, 1.0, 1.0],
+    "hud_opacity": 0.8,
+    "info_panel_duration_ms": 5000
+  },
+  "training_settings": {
+    "auto_hint_after_attempts": 3,
+    "session_timeout_minutes": 60,
+    "save_session_logs": true,
+    "enable_voice_feedback": true
+  },
+  "spatial_settings": {
+    "plane_detection_enabled": true,
+    "semantic_labeling_enabled": true,
+    "anchor_relocalization_enabled": true,
+    "max_anchors": 100
+  }
+}
