@@ -405,6 +405,227 @@ brain["enhanced_connector"].fine_tune_for_domain(
 └─────────────────────────────────────────────────────────────┘
 ```
 
+## Native LLM System (`unimind/models/native/`)
+
+A completely self-contained AI system that runs locally without external API dependencies.
+
+### Why Native LLM?
+- **No API Keys Required**: Run AI completely offline
+- **Privacy**: All data stays on your machine
+- **No Costs**: No per-token API charges
+- **Customizable**: Train on your own data
+- **Fast Iteration**: No network latency
+
+### Components
+
+#### NativeLLM (`native_llm.py`)
+The main interface for local AI capabilities:
+
+```python
+from unimind.models.native import get_native_llm
+
+# Get the native LLM instance
+llm = get_native_llm()
+
+# Generate text
+result = llm.generate("Explain machine learning in simple terms")
+print(result.text)
+print(f"Generated {result.tokens_generated} tokens at {result.tokens_per_second:.1f} t/s")
+
+# Chat with conversation memory
+response = llm.chat("Hello! What can you help me with?")
+response = llm.chat("Tell me more about that")  # Remembers context
+
+# Generate embeddings
+embedding = llm.embed("This is a test sentence")
+print(f"Embedding dimension: {len(embedding)}")
+
+# Find similar texts
+similar = llm.find_similar("machine learning", [
+    "artificial intelligence",
+    "cooking recipes",
+    "neural networks"
+])
+```
+
+#### Model Manager (`model_manager.py`)
+Download and manage local models:
+
+```python
+from unimind.models.native import get_model_manager
+
+manager = get_model_manager()
+
+# List available models
+for model in manager.list_available_models():
+    print(f"{model['model_id']}: {model['name']} ({model['parameters']})")
+
+# Download a model (uses Ollama if available)
+manager.download_model("tinyllama-1b")
+
+# List installed models
+installed = manager.list_installed_models()
+
+# Get storage info
+storage = manager.get_storage_info()
+print(f"Total size: {storage['total_size_gb']:.2f} GB")
+```
+
+#### Native Tokenizer (`tokenizer.py`)
+BPE and WordPiece tokenization:
+
+```python
+from unimind.models.native import BPETokenizer, create_basic_tokenizer
+
+# Use pre-built tokenizer
+tokenizer = create_basic_tokenizer()
+
+# Encode/decode
+tokens = tokenizer.encode("Hello, world!")
+text = tokenizer.decode(tokens)
+
+# Train custom tokenizer
+custom = BPETokenizer()
+custom.train(["Your training texts here..."], vocab_size=8000)
+custom.save("my_tokenizer.json")
+```
+
+#### Native Embeddings (`embeddings.py`)
+Local text embeddings without external APIs:
+
+| Method | Description | Best For |
+|--------|-------------|----------|
+| **TF-IDF** | Term frequency based | Quick similarity, no training |
+| **Word2Vec** | Neural word embeddings | Semantic similarity |
+| **Sentence** | Full sentence embeddings | Document comparison |
+
+```python
+from unimind.models.native import create_embedding_engine
+
+engine = create_embedding_engine(dimension=384)
+
+# Train on your data
+engine.train([
+    "Your domain-specific texts...",
+    "More training examples..."
+])
+
+# Generate embeddings
+emb = engine.embed("Query text")
+print(f"Dimension: {len(emb.embedding)}")
+
+# Find similar
+results = engine.find_similar(
+    "machine learning",
+    ["AI", "cooking", "neural networks"],
+    top_k=2
+)
+```
+
+#### Inference Engine (`inference_engine.py`)
+Low-level text generation:
+
+| Sampling Method | Description |
+|-----------------|-------------|
+| **Greedy** | Always pick highest probability |
+| **Top-K** | Sample from top K tokens |
+| **Top-P (Nucleus)** | Sample from top P probability mass |
+| **Beam Search** | Explore multiple paths |
+
+```python
+from unimind.models.native import GenerationConfig, SamplingMethod
+
+config = GenerationConfig(
+    max_tokens=256,
+    temperature=0.7,
+    top_p=0.9,
+    repetition_penalty=1.1,
+    sampling_method=SamplingMethod.TOP_P
+)
+
+result = llm.generate("Write a story about", 
+    max_tokens=config.max_tokens,
+    temperature=config.temperature
+)
+```
+
+#### Brain Integration (`brain_connector.py`)
+Connect native LLM to Unimind brain regions:
+
+```python
+from unimind.models.native import create_self_contained_brain
+
+# Create fully self-contained brain with native AI
+brain = create_self_contained_brain()
+
+# Use native reasoning
+result = brain["native_connector"].process(
+    "reasoning",
+    problem="Should I learn Python or JavaScript?"
+)
+print(result["reasoning"])
+
+# Native sentiment analysis
+sentiment = brain["native_connector"].process(
+    "sentiment",
+    text="I'm really excited about this project!"
+)
+print(f"Sentiment: {sentiment['sentiment']}")
+
+# Generate plans
+plan = brain["native_connector"].process(
+    "planning",
+    goal="Build a web application"
+)
+```
+
+### Native LLM Architecture
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│                      NATIVE LLM                              │
+├─────────────────────────────────────────────────────────────┤
+│  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐       │
+│  │Model Manager │  │  Tokenizer   │  │  Embeddings  │       │
+│  │ Download/    │  │  BPE/WP/Char │  │ TF-IDF/W2V   │       │
+│  │ Storage      │  │              │  │              │       │
+│  └──────────────┘  └──────────────┘  └──────────────┘       │
+│          │                │                  │               │
+│  ┌───────┴────────────────┴──────────────────┴───────┐      │
+│  │              INFERENCE ENGINE                      │      │
+│  │  • Native Transformer Layers                      │      │
+│  │  • Top-K/Top-P/Beam Search Sampling              │      │
+│  │  • KV Caching                                    │      │
+│  │  • Response Caching                              │      │
+│  └────────────────────────────────────────────────────┘      │
+│                            │                                 │
+│  ┌─────────────────────────┴─────────────────────────┐      │
+│  │              BACKEND SELECTION                    │      │
+│  │  Native Python │ Ollama │ llama.cpp              │      │
+│  │  (Portable)    │ (Fast) │ (Optimized)            │      │
+│  └───────────────────────────────────────────────────┘      │
+│                            │                                 │
+│  ┌─────────────────────────┴─────────────────────────┐      │
+│  │              BRAIN CONNECTOR                      │      │
+│  │  Prefrontal → Reasoning & Planning               │      │
+│  │  Hippocampus → Memory Embeddings                 │      │
+│  │  Amygdala → Sentiment Analysis                   │      │
+│  │  Wernicke → Language Understanding               │      │
+│  │  Broca → Language Generation                     │      │
+│  └───────────────────────────────────────────────────┘      │
+└─────────────────────────────────────────────────────────────┘
+```
+
+### Available Pre-configured Models
+
+| Model ID | Parameters | Description |
+|----------|------------|-------------|
+| `tinyllama-1b` | 1.1B | Compact, good for testing |
+| `phi-2` | 2.7B | Microsoft's efficient reasoner |
+| `mistral-7b` | 7B | High-quality instruction model |
+| `all-minilm` | 22M | Sentence embeddings |
+| `sentiment-roberta` | 125M | Sentiment analysis |
+
 ## AR/XR Capabilities
 The daemon now includes full AR/VR/MR support with immersive training capabilities:
 
