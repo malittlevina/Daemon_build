@@ -401,8 +401,33 @@ class EnhancedNLUEngine:
         try:
             from unimind.models.native.vocabulary import get_vocabulary
             from unimind.models.native.vocabulary_extended import load_extended_vocabulary
+            from unimind.models.native.vocabulary_domains import load_domain_vocabulary
+            from unimind.models.native.vocabulary_common import load_common_vocabulary
+            from unimind.models.native.vocabulary_expansion import load_expansion_vocabulary
+            from unimind.models.native.vocabulary_academic import load_academic_vocabulary
+            from unimind.models.native.vocabulary_massive import load_massive_vocabulary
+            from unimind.models.native.vocabulary_comprehensive import load_comprehensive_vocabulary
+            from unimind.models.native.vocabulary_advanced import load_advanced_vocabulary
+            from unimind.models.native.vocabulary_c2 import load_c2_vocabulary
+            from unimind.models.native.vocabulary_generator import generate_vocabulary
+            from unimind.models.native.vocabulary_final import load_final_vocabulary
+            from unimind.models.native.vocabulary_ultimate import load_ultimate_vocabulary
+            from unimind.models.native.vocabulary_c1_push import load_c1_push_vocabulary
+            
             self.vocabulary = get_vocabulary()
             load_extended_vocabulary(self.vocabulary)
+            load_domain_vocabulary(self.vocabulary)
+            load_common_vocabulary(self.vocabulary)
+            load_expansion_vocabulary(self.vocabulary)
+            load_academic_vocabulary(self.vocabulary)
+            load_massive_vocabulary(self.vocabulary)
+            load_comprehensive_vocabulary(self.vocabulary)
+            load_advanced_vocabulary(self.vocabulary)
+            load_c2_vocabulary(self.vocabulary)
+            generate_vocabulary(self.vocabulary)
+            load_final_vocabulary(self.vocabulary)
+            load_ultimate_vocabulary(self.vocabulary)
+            load_c1_push_vocabulary(self.vocabulary)
         except ImportError:
             self.vocabulary = None
             

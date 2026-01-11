@@ -118,6 +118,70 @@ from nlu.grammar_analysis import (
     SentenceAnalysis,
 )
 
+# Word Embeddings
+from nlu.word_embeddings import (
+    WordEmbeddings,
+    WordVector,
+    SemanticSearch,
+    get_embeddings,
+    word_similarity,
+    sentence_similarity,
+    find_similar,
+    word_analogy,
+)
+
+# Spelling Correction
+from nlu.spelling import (
+    SpellingCorrector,
+    SpellingSuggestion,
+    get_spelling_corrector,
+    check_spelling,
+    get_suggestions,
+    correct_word,
+    correct_text,
+)
+
+# Language Detection
+from nlu.language_detection import (
+    LanguageDetector,
+    LanguageResult,
+    get_language_detector,
+    detect_language,
+    is_english,
+    detect_script,
+)
+
+# Dependency Parsing & Coreference Resolution
+from nlu.dependency_parsing import (
+    DependencyParser,
+    DependencyTree,
+    DependencyNode,
+    DependencyRelation,
+    CoreferenceResolver,
+    CoreferenceChain,
+    Mention,
+    get_dependency_parser,
+    get_coreference_resolver,
+    parse_dependencies,
+    resolve_coreferences,
+    get_resolved_text,
+)
+
+# Named Entity Linking
+from nlu.entity_linking import (
+    EntityLinker,
+    KnowledgeBase,
+    KnowledgeEntry,
+    LinkedEntity,
+    EntityCategory,
+    get_entity_linker,
+    get_knowledge_base,
+    link_entities,
+    lookup_entity,
+    search_knowledge_base,
+    get_entity_facts,
+)
+
 # Legacy NLU Engine (for backwards compatibility)
 try:
     from nlu.nlu_engine import (
@@ -167,6 +231,62 @@ __all__ = [
     "Phrase",
     "GrammarIssue",
     "SentenceAnalysis",
+    
+    # Word Embeddings
+    "WordEmbeddings",
+    "WordVector",
+    "SemanticSearch",
+    "get_embeddings",
+    "word_similarity",
+    "sentence_similarity",
+    "find_similar",
+    "word_analogy",
+    
+    # Spelling Correction
+    "SpellingCorrector",
+    "SpellingSuggestion",
+    "get_spelling_corrector",
+    "check_spelling",
+    "get_suggestions",
+    "correct_word",
+    "correct_text",
+    
+    # Language Detection
+    "LanguageDetector",
+    "LanguageResult",
+    "get_language_detector",
+    "detect_language",
+    "is_english",
+    "detect_script",
+    
+    # Dependency Parsing
+    "DependencyParser",
+    "DependencyTree",
+    "DependencyNode",
+    "DependencyRelation",
+    "get_dependency_parser",
+    "parse_dependencies",
+    
+    # Coreference Resolution
+    "CoreferenceResolver",
+    "CoreferenceChain",
+    "Mention",
+    "get_coreference_resolver",
+    "resolve_coreferences",
+    "get_resolved_text",
+    
+    # Entity Linking
+    "EntityLinker",
+    "KnowledgeBase",
+    "KnowledgeEntry",
+    "LinkedEntity",
+    "EntityCategory",
+    "get_entity_linker",
+    "get_knowledge_base",
+    "link_entities",
+    "lookup_entity",
+    "search_knowledge_base",
+    "get_entity_facts",
     
     # Legacy
     "NLUEngine",

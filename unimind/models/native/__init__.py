@@ -169,6 +169,66 @@ from unimind.models.native.vocabulary_common import (
     get_common_stats,
 )
 
+from unimind.models.native.vocabulary_expansion import (
+    SPORTS_VOCAB,
+    ENTERTAINMENT_VOCAB,
+    LEGAL_VOCAB,
+    EMOTIONS_VOCAB,
+    ARTS_VOCAB,
+    SOCIAL_VOCAB,
+    load_expansion_vocabulary,
+    get_expansion_stats,
+)
+
+from unimind.models.native.vocabulary_academic import (
+    ACADEMIC_CORE,
+    DISCOURSE_MARKERS,
+    load_academic_vocabulary,
+    get_academic_stats,
+)
+
+from unimind.models.native.vocabulary_massive import (
+    EXTENSIVE_VERBS,
+    EXTENSIVE_NOUNS,
+    load_massive_vocabulary,
+    get_massive_stats,
+)
+
+from unimind.models.native.vocabulary_comprehensive import (
+    FOOD_VOCAB,
+    HOUSEHOLD_VOCAB,
+    CLOTHING_VOCAB,
+    NATURE_VOCAB,
+    BODY_VOCAB,
+    PROFESSION_VOCAB,
+    DESCRIPTIVE_ADJ,
+    MANNER_ADV,
+    load_comprehensive_vocabulary,
+    get_comprehensive_stats,
+)
+
+from unimind.models.native.vocabulary_advanced import (
+    TRAVEL_VOCAB,
+    BUILDING_VOCAB,
+    MATERIAL_VOCAB,
+    QUANTITY_VOCAB,
+    TIME_VOCAB,
+    COLOR_VOCAB,
+    SOUND_VOCAB,
+    SHAPE_VOCAB,
+    load_advanced_vocabulary,
+    get_advanced_stats,
+)
+
+from unimind.models.native.vocabulary_c2 import (
+    SOPHISTICATED_VERBS,
+    SOPHISTICATED_NOUNS,
+    SOPHISTICATED_ADJ,
+    GENERAL_EXPANSION,
+    load_c2_vocabulary,
+    get_c2_stats,
+)
+
 
 __all__ = [
     # Main LLM
@@ -280,4 +340,12 @@ __all__ = [
     "MORE_ADJECTIVES",
     "load_common_vocabulary",
     "get_common_stats",
+    "SPORTS_VOCAB",
+    "ENTERTAINMENT_VOCAB",
+    "LEGAL_VOCAB",
+    "EMOTIONS_VOCAB",
+    "ARTS_VOCAB",
+    "SOCIAL_VOCAB",
+    "load_expansion_vocabulary",
+    "get_expansion_stats",
 ]
