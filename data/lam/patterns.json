@@ -1,0 +1,54 @@
+{
+  "patterns": [
+    {
+      "pattern_id": "pat_acceeab30f82",
+      "input_pattern": "show me the weather",
+      "action_type": "query",
+      "action_params": {
+        "source": "weather"
+      },
+      "confidence": 0.75,
+      "success_count": 1,
+      "failure_count": 0,
+      "success_rate": 1.0,
+      "created_at": "2026-01-11T02:10:09.227779",
+      "last_used": "2026-01-11T02:10:09.229949"
+    },
+    {
+      "pattern_id": "pat_7d4f0b7cd799",
+      "input_pattern": "check my calendar",
+      "action_type": "query",
+      "action_params": {
+        "source": "calendar"
+      },
+      "confidence": 0.7,
+      "success_count": 0,
+      "failure_count": 0,
+      "success_rate": 0.5,
+      "created_at": "2026-01-11T02:10:19.209274",
+      "last_used": "2026-01-11T02:10:19.209278"
+    },
+    {
+      "pattern_id": "pat_d18531d059b6",
+      "input_pattern": "run diagnostics",
+      "action_type": "task",
+      "action_params": {
+        "task": "diagnostics"
+      },
+      "confidence": 0.75,
+      "success_count": 1,
+      "failure_count": 0,
+      "success_rate": 1.0,
+      "created_at": "2026-01-11T02:11:26.924523",
+      "last_used": "2026-01-11T02:11:26.925912"
+    }
+  ],
+  "saved_at": "2026-01-11T02:11:26.925922",
+  "statistics": {
+    "total_actions": 1,
+    "successful_actions": 1,
+    "patterns_learned": 1,
+    "experiences_recorded": 0,
+    "training_sessions": 0
+  }
+}

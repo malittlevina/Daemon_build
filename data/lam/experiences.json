@@ -1,0 +1,65 @@
+{
+  "experiences": [
+    {
+      "experience_id": "exp_1768097409230",
+      "input_text": "show me the weather",
+      "context": {
+        "mode": "idle",
+        "flags": {},
+        "xr_state": {
+          "active": false,
+          "mode": null,
+          "device": null,
+          "session_id": null,
+          "training_active": false,
+          "training_scenario": null,
+          "spatial_anchors": [],
+          "active_overlays": []
+        },
+        "history_length": 0
+      },
+      "action_taken": {
+        "type": "query",
+        "params": {
+          "source": "weather"
+        },
+        "pattern_id": "pat_acceeab30f82"
+      },
+      "outcome": "success",
+      "reward": 0.7,
+      "timestamp": "2026-01-11T02:10:09.230024",
+      "feedback": null
+    },
+    {
+      "experience_id": "exp_1768097486926",
+      "input_text": "run diagnostics",
+      "context": {
+        "mode": "idle",
+        "flags": {},
+        "xr_state": {
+          "active": false,
+          "mode": null,
+          "device": null,
+          "session_id": null,
+          "training_active": false,
+          "training_scenario": null,
+          "spatial_anchors": [],
+          "active_overlays": []
+        },
+        "history_length": 0
+      },
+      "action_taken": {
+        "type": "task",
+        "params": {
+          "task": "diagnostics"
+        },
+        "pattern_id": "pat_d18531d059b6"
+      },
+      "outcome": "success",
+      "reward": 0.7,
+      "timestamp": "2026-01-11T02:11:26.926016",
+      "feedback": null
+    }
+  ],
+  "saved_at": "2026-01-11T02:11:26.926025"
+}

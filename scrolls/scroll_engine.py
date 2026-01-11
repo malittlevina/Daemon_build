@@ -30,13 +30,23 @@ class ScrollEngine:
             "clear ar overlays": self._clear_ar_overlays,
             "place spatial anchor": self._place_spatial_anchor,
             "show training scenarios": self._show_training_scenarios,
-            "xr status": self._xr_status
+            "xr status": self._xr_status,
+            # LAM training scrolls
+            "lam train": self._lam_train,
+            "lam learn": self._lam_learn,
+            "lam feedback": self._lam_feedback,
+            "lam status": self._lam_status,
+            "lam skills": self._lam_skills,
+            "lam recall": self._lam_recall,
+            "lam curriculum": self._lam_curriculum,
+            "lam replay": self._lam_replay
         }
         self.active_scrolls = []
         self.xr_engine = None
         self.xr_overlay_manager = None
         self.xr_anchor_system = None
         self.xr_training_module = None
+        self.lam_planner = None
 
     def invoke(self, name, *args, **kwargs):
         if name in self.scrolls:
@@ -377,3 +387,278 @@ class ScrollEngine:
             status += f"  📍 Spatial Anchors: {len(anchors)} placed\n"
         
         return status
+
+    # ===== LAM Training Scrolls =====
+    
+    def set_lam_planner(self, lam_planner):
+        """Register LAM planner with the scroll engine."""
+        self.lam_planner = lam_planner
+        print("[ScrollEngine] LAM planner registered.")
+
+    def _lam_train(self, mode="curriculum", **kwargs):
+        """Start a LAM training session."""
+        if not self.lam_planner:
+            try:
+                from lam.lam_planner import get_planner
+                self.lam_planner = get_planner()
+            except Exception as e:
+                return f"[LAM Scroll] LAM planner not available: {e}"
+        
+        try:
+            result = self.lam_planner.run_training_session(mode=mode, **kwargs)
+            
+            if mode == "curriculum":
+                levels = result.get("levels_completed", [])
+                return (
+                    f"[LAM Scroll] Curriculum Training Complete\n"
+                    f"  Levels completed: {len(levels)}\n"
+                    f"  Final level: {result.get('final_level', 1)}\n"
+                    f"  Total examples: {result.get('total_examples', 0)}"
+                )
+            elif mode == "replay":
+                replay = result.get("replay_result", {})
+                return (
+                    f"[LAM Scroll] Experience Replay Complete\n"
+                    f"  Experiences replayed: {replay.get('experiences_replayed', 0)}\n"
+                    f"  Patterns reinforced: {replay.get('reinforced', 0)}\n"
+                    f"  New patterns: {replay.get('new_patterns', 0)}"
+                )
+            else:
+                return f"[LAM Scroll] Training session started: {mode}"
+                
+        except Exception as e:
+            return f"[LAM Scroll] Training failed: {e}"
+
+    def _lam_learn(self, input_text, action_type="response", action_params=None):
+        """Teach the LAM a new pattern through demonstration."""
+        if not self.lam_planner:
+            try:
+                from lam.lam_planner import get_planner
+                self.lam_planner = get_planner()
+            except Exception as e:
+                return f"[LAM Scroll] LAM planner not available: {e}"
+        
+        if not input_text:
+            return "[LAM Scroll] Usage: lam learn <input_pattern> <action_type> [params]"
+        
+        try:
+            action = {
+                "type": action_type,
+                "params": action_params or {}
+            }
+            
+            result = self.lam_planner.learn_from_demonstration(
+                input_text=input_text,
+                correct_action=action
+            )
+            
+            return (
+                f"[LAM Scroll] Learned Pattern\n"
+                f"  Input: '{input_text}'\n"
+                f"  Action: {action_type}\n"
+                f"  Pattern ID: {result.get('pattern_id', 'unknown')}"
+            )
+            
+        except Exception as e:
+            return f"[LAM Scroll] Learning failed: {e}"
+
+    def _lam_feedback(self, reward=None, feedback_text=None):
+        """Provide feedback for the last action."""
+        if not self.lam_planner:
+            try:
+                from lam.lam_planner import get_planner
+                self.lam_planner = get_planner()
+            except Exception as e:
+                return f"[LAM Scroll] LAM planner not available: {e}"
+        
+        if reward is None:
+            return "[LAM Scroll] Usage: lam feedback <reward -1 to 1> [feedback text]"
+        
+        try:
+            reward_val = float(reward)
+            result = self.lam_planner.provide_feedback(
+                reward=reward_val,
+                feedback_text=feedback_text
+            )
+            
+            return (
+                f"[LAM Scroll] Feedback Recorded\n"
+                f"  Reward: {reward_val}\n"
+                f"  Policy updated: {result.get('policy_updated', 'none')}\n"
+                f"  Current success rate: {result.get('current_success_rate', 0):.1%}"
+            )
+            
+        except Exception as e:
+            return f"[LAM Scroll] Feedback failed: {e}"
+
+    def _lam_status(self):
+        """Get LAM training status and statistics."""
+        if not self.lam_planner:
+            try:
+                from lam.lam_planner import get_planner
+                self.lam_planner = get_planner()
+            except Exception as e:
+                return f"[LAM Scroll] LAM planner not available: {e}"
+        
+        try:
+            progress = self.lam_planner.get_training_progress()
+            
+            curriculum = progress.get("curriculum_stage", {})
+            skills = progress.get("skill_progress", {})
+            training = progress.get("training_stats", {})
+            
+            status = "[LAM Scroll] LAM Status\n"
+            status += f"\n📊 Training Progress:\n"
+            status += f"  Curriculum Level: {curriculum.get('level', 1)} - {curriculum.get('name', 'Unknown')}\n"
+            status += f"  Patterns Learned: {progress.get('patterns_learned', 0)}\n"
+            status += f"  Training Sessions: {training.get('total_sessions', 0)}\n"
+            
+            status += f"\n🎯 Skill Overview:\n"
+            status += f"  Total Skills: {skills.get('total_skills', 0)}\n"
+            status += f"  Total XP: {skills.get('total_xp', 0)}\n"
+            status += f"  Avg Proficiency: {skills.get('average_proficiency', 0):.1%}\n"
+            
+            status += f"\n📝 Memory:\n"
+            memory = progress.get("memory_stats", {})
+            status += f"  Total Memories: {memory.get('total_memories', 0)}\n"
+            status += f"  Long-term: {memory.get('long_term_count', 0)}\n"
+            
+            return status
+            
+        except Exception as e:
+            return f"[LAM Scroll] Status failed: {e}"
+
+    def _lam_skills(self, category=None):
+        """Show LAM skill tree and proficiency."""
+        if not self.lam_planner:
+            try:
+                from lam.lam_planner import get_planner
+                self.lam_planner = get_planner()
+            except Exception as e:
+                return f"[LAM Scroll] LAM planner not available: {e}"
+        
+        try:
+            # Get recommended training
+            recommended = self.lam_planner.get_recommended_training()
+            skill_stats = self.lam_planner.get_skill_summary()
+            
+            output = "[LAM Scroll] Skill Tree\n"
+            
+            # Category proficiency
+            cat_prof = skill_stats.get("category_proficiency", {})
+            output += f"\n📈 Category Proficiency:\n"
+            for cat, prof in sorted(cat_prof.items(), key=lambda x: x[1], reverse=True):
+                bar = "█" * int(prof * 10) + "░" * (10 - int(prof * 10))
+                output += f"  {cat}: [{bar}] {prof:.0%}\n"
+            
+            # Level distribution
+            levels = skill_stats.get("level_distribution", {})
+            output += f"\n🏆 Level Distribution:\n"
+            for level, count in sorted(levels.items()):
+                output += f"  {level.title()}: {count} skills\n"
+            
+            # Recommended training
+            output += f"\n💡 Recommended Training:\n"
+            for skill in recommended[:5]:
+                output += f"  • {skill['name']} (Level {skill['level']}, {skill['proficiency']:.0%})\n"
+            
+            return output
+            
+        except Exception as e:
+            return f"[LAM Scroll] Skills failed: {e}"
+
+    def _lam_recall(self, query):
+        """Recall similar past experiences."""
+        if not self.lam_planner:
+            try:
+                from lam.lam_planner import get_planner
+                self.lam_planner = get_planner()
+            except Exception as e:
+                return f"[LAM Scroll] LAM planner not available: {e}"
+        
+        if not query:
+            return "[LAM Scroll] Usage: lam recall <query>"
+        
+        try:
+            memories = self.lam_planner.recall_similar_experiences(query, top_k=5)
+            
+            if not memories:
+                return f"[LAM Scroll] No memories found for: {query}"
+            
+            output = f"[LAM Scroll] Recalled Experiences for '{query}':\n"
+            for i, mem in enumerate(memories, 1):
+                output += f"\n  {i}. [{mem['outcome']}] {mem['input_text'][:50]}...\n"
+                output += f"     Reward: {mem['reward']:.2f} | Strength: {mem.get('strength', 0):.2f}\n"
+                if mem.get('lesson_learned'):
+                    output += f"     Lesson: {mem['lesson_learned'][:60]}...\n"
+            
+            return output
+            
+        except Exception as e:
+            return f"[LAM Scroll] Recall failed: {e}"
+
+    def _lam_curriculum(self):
+        """Show and manage curriculum learning stages."""
+        if not self.lam_planner:
+            try:
+                from lam.lam_planner import get_planner
+                self.lam_planner = get_planner()
+            except Exception as e:
+                return f"[LAM Scroll] LAM planner not available: {e}"
+        
+        try:
+            stage = self.lam_planner.trainer.get_current_curriculum_stage()
+            all_stages = self.lam_planner.trainer.curriculum_stages
+            
+            output = "[LAM Scroll] Curriculum Learning\n"
+            output += f"\n📍 Current Stage: Level {stage['level']} - {stage['name']}\n"
+            output += f"   {stage.get('description', '')}\n"
+            output += f"   Focus Skills: {', '.join(stage.get('focus_skills', []))}\n"
+            
+            output += f"\n📋 All Stages:\n"
+            for s in all_stages:
+                marker = "→" if s['level'] == stage['level'] else " "
+                check = "✓" if s['level'] < stage['level'] else "○"
+                output += f"  {marker} {check} Level {s['level']}: {s['name']}\n"
+            
+            return output
+            
+        except Exception as e:
+            return f"[LAM Scroll] Curriculum failed: {e}"
+
+    def _lam_replay(self, batch_size=32):
+        """Run experience replay learning."""
+        if not self.lam_planner:
+            try:
+                from lam.lam_planner import get_planner
+                self.lam_planner = get_planner()
+            except Exception as e:
+                return f"[LAM Scroll] LAM planner not available: {e}"
+        
+        try:
+            result = self.lam_planner.run_training_session(
+                mode="replay",
+                batch_size=int(batch_size)
+            )
+            
+            replay = result.get("replay_result", {})
+            analysis = result.get("pattern_analysis", {})
+            
+            output = "[LAM Scroll] Experience Replay Complete\n"
+            output += f"\n📊 Replay Results:\n"
+            output += f"  Experiences replayed: {replay.get('experiences_replayed', 0)}\n"
+            output += f"  Patterns reinforced: {replay.get('reinforced', 0)}\n"
+            output += f"  New patterns learned: {replay.get('new_patterns', 0)}\n"
+            
+            # Pattern analysis
+            improvements = analysis.get("areas_for_improvement", [])
+            if improvements:
+                output += f"\n🔧 Areas for Improvement:\n"
+                for item in improvements[:3]:
+                    if isinstance(item, dict):
+                        output += f"  • {item.get('action', 'unknown')}: {item.get('failures', 0)} failures\n"
+            
+            return output
+            
+        except Exception as e:
+            return f"[LAM Scroll] Replay failed: {e}"

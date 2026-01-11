@@ -1,0 +1,13 @@
+{
+  "policies": [],
+  "default_policy": null,
+  "curriculum_level": 1,
+  "stats": {
+    "total_examples": 0,
+    "total_sessions": 0,
+    "total_updates": 0,
+    "best_reward": 0.9,
+    "avg_reward": 0.009000000000000001
+  },
+  "saved_at": "2026-01-11T02:11:26.926901"
+}

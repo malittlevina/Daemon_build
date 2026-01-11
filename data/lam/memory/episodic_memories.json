@@ -1,0 +1,129 @@
+{
+  "memories": [
+    {
+      "memory_id": "mem_1768097409229_6023cb",
+      "memory_type": "success",
+      "importance": "high",
+      "timestamp": "2026-01-11T02:10:09.229375",
+      "input_text": "show me the weather",
+      "context": {
+        "mode": "normal"
+      },
+      "action_taken": {
+        "type": "query",
+        "params": {
+          "source": "weather"
+        }
+      },
+      "outcome": "success",
+      "reward": 0.9,
+      "feedback": null,
+      "lesson_learned": null,
+      "tags": [
+        "demonstration",
+        "learned",
+        "success",
+        "action:query"
+      ],
+      "related_memories": [],
+      "access_count": 1,
+      "strength": 1.0,
+      "consolidated": false
+    },
+    {
+      "memory_id": "mem_1768097419209_c64bcf",
+      "memory_type": "success",
+      "importance": "high",
+      "timestamp": "2026-01-11T02:10:19.209402",
+      "input_text": "check my calendar",
+      "context": {},
+      "action_taken": {
+        "type": "query",
+        "params": {
+          "source": "calendar"
+        }
+      },
+      "outcome": "success",
+      "reward": 0.9,
+      "feedback": null,
+      "lesson_learned": null,
+      "tags": [
+        "demonstration",
+        "learned",
+        "success",
+        "action:query"
+      ],
+      "related_memories": [],
+      "access_count": 1,
+      "strength": 1.0,
+      "consolidated": false
+    },
+    {
+      "memory_id": "mem_1768097486924_53edb8",
+      "memory_type": "success",
+      "importance": "high",
+      "timestamp": "2026-01-11T02:11:26.924648",
+      "input_text": "run diagnostics",
+      "context": {},
+      "action_taken": {
+        "type": "task",
+        "params": {
+          "task": "diagnostics"
+        }
+      },
+      "outcome": "success",
+      "reward": 0.9,
+      "feedback": null,
+      "lesson_learned": null,
+      "tags": [
+        "demonstration",
+        "learned",
+        "success",
+        "action:task"
+      ],
+      "related_memories": [],
+      "access_count": 1,
+      "strength": 1.0,
+      "consolidated": false
+    },
+    {
+      "memory_id": "mem_1768097486926_d41d8c",
+      "memory_type": "success",
+      "importance": "medium",
+      "timestamp": "2026-01-11T02:11:26.926614",
+      "input_text": "",
+      "context": {
+        "mode": "idle",
+        "flags": {},
+        "xr_state": {
+          "active": false,
+          "mode": null,
+          "device": null,
+          "session_id": null,
+          "training_active": false,
+          "training_scenario": null,
+          "spatial_anchors": [],
+          "active_overlays": []
+        },
+        "history_length": 0
+      },
+      "action_taken": {
+        "type": "unknown"
+      },
+      "outcome": "success",
+      "reward": 0.9,
+      "feedback": "Excellent!",
+      "lesson_learned": null,
+      "tags": [
+        "success",
+        "action:unknown"
+      ],
+      "related_memories": [],
+      "access_count": 0,
+      "strength": 1.0,
+      "consolidated": false
+    }
+  ],
+  "saved_at": "2026-01-11T02:11:26.927105",
+  "total_count": 4
+}

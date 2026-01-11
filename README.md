@@ -14,6 +14,7 @@ This is the official Prometheus daemon build (v2_origin), an intelligent AI agen
 - ✅ **Codex Ingestion** (PDF/web summarization knowledge)
 - ✅ **Multi-language Code Execution** (Python, Rust, Julia)
 - ✅ **AR/XR Subsystem** (augmented, virtual, and mixed reality support)
+- ✅ **LAM Training System** (Language-Action Model with reinforcement learning)
 
 ## AR/XR Capabilities
 The daemon now includes full AR/VR/MR support with immersive training capabilities:
@@ -61,6 +62,103 @@ The daemon now includes full AR/VR/MR support with immersive training capabiliti
 - `place spatial anchor` - Place world anchor
 - `show training scenarios` - List available training
 - `xr status` - Get XR subsystem status
+
+## LAM (Language-Action Model) Training System
+
+The daemon includes a comprehensive learning system that enables continuous improvement through multiple training paradigms.
+
+### LAM Core (`lam/lam_core.py`)
+- Pattern-based action selection from input text
+- Confidence-weighted exploration/exploitation
+- Reinforcement learning from outcomes
+- Automatic pattern persistence and recall
+
+### Action Registry (`lam/action_registry.py`)
+- Centralized action registration and discovery
+- Action composition and sequencing
+- Precondition/postcondition checking
+- Built-in actions for all daemon capabilities
+
+### Experience Memory (`lam/experience_memory.py`)
+- Episodic memory storage and retrieval
+- Similarity-based memory search
+- Memory decay and consolidation
+- Failure pattern detection
+- Lesson extraction from experiences
+
+### Skill Tree (`lam/skill_tree.py`)
+- Hierarchical skill representation
+- Experience-based leveling system (Novice → Master)
+- Skill prerequisites and unlocking
+- Learning paths with progression tracking
+- Cross-domain skill transfer
+
+### Behavior Trainer (`lam/behavior_trainer.py`)
+- **Reinforcement Learning**: Learn from reward signals
+- **Imitation Learning**: Learn from demonstrations
+- **Curriculum Learning**: Progressive difficulty stages
+- **Experience Replay**: Offline learning from memory
+- Policy management and optimization
+
+### LAM Planner (`lam/lam_planner.py`)
+- Unified interface for all LAM subsystems
+- Automatic action selection and execution
+- Real-time feedback integration
+- Performance analysis and recommendations
+
+### Training Modes
+1. **Supervised**: Learn from labeled input-action pairs
+2. **Reinforcement**: Learn from reward/penalty feedback
+3. **Imitation**: Learn by observing demonstrations
+4. **Curriculum**: Structured progressive learning
+5. **Self-supervised**: Learn from self-generated tasks
+
+### Curriculum Stages
+| Level | Name | Focus |
+|-------|------|-------|
+| 1 | Basic Responses | Simple input-response patterns |
+| 2 | Task Execution | Single-step task execution |
+| 3 | Context Awareness | Context-dependent responses |
+| 4 | Multi-Step Planning | Complex task planning |
+| 5 | XR Integration | AR/VR/XR specific behaviors |
+| 6 | Advanced Reasoning | Problem solving and synthesis |
+| 7 | Self-Improvement | Meta-learning and optimization |
+
+### LAM Scroll Commands
+- `lam train [mode]` - Run training session (curriculum, replay, reinforcement)
+- `lam learn <input> <action_type>` - Teach a new pattern
+- `lam feedback <reward> [text]` - Provide feedback (-1 to 1)
+- `lam status` - View training progress and statistics
+- `lam skills` - Show skill tree and proficiency
+- `lam curriculum` - View curriculum stages
+- `lam recall <query>` - Recall similar past experiences
+- `lam replay [batch_size]` - Run experience replay learning
+
+### Example Usage
+
+```python
+from lam import get_planner
+
+# Get the LAM planner
+planner = get_planner()
+
+# Teach a new pattern
+planner.learn_from_demonstration(
+    input_text="what's the weather like",
+    correct_action={"type": "query", "params": {"source": "weather"}}
+)
+
+# Process input and get action
+result = planner.plan_next_action("what's the weather like")
+print(result["message"])
+
+# Provide feedback
+planner.provide_feedback(reward=0.8, feedback_text="Good response")
+
+# Check progress
+progress = planner.get_training_progress()
+print(f"Curriculum Level: {progress['curriculum_stage']['level']}")
+```
 
 ## Installation
 ```bash
