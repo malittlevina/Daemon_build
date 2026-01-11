@@ -5,6 +5,7 @@
   "emotion_engine_tuning": true,
   "reflection_journal_enabled": true,
   "rituals_enabled": true,
+  "ar_xr_enabled": true,
   "modules_to_load": [
     "unimind",
     "codex",
@@ -15,7 +16,8 @@
     "scrolls",
     "prometheus",
     "memory_tree",
-    "introspection"
+    "introspection",
+    "ar_xr"
   ],
   "scroll_autostudy": {
     "trigger_count": 3,

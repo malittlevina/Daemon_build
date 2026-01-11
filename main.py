@@ -8,6 +8,8 @@ from introspection.personality_tracker import PersonalityTracker
 from memory_tree.memory_logger import MemoryLogger
 from optimizer.auto_upgrade import run_auto_optimization
 from scrolls.scroll_engine import ScrollEngine
+from ar_xr.ar_manager import ARManager
+from ar_xr.xr_trainer import XRTrainer
 ## from sensors.vision import VisionSensor
 from nlu.nlu_engine import NLUEngine
 import subprocess
@@ -28,6 +30,23 @@ if __name__ == "__main__":
     scrolls = ScrollEngine()
     # vision = VisionSensor()
     personality = PersonalityTracker()
+
+    # Load configuration
+    config_path = "config/daemon_config.json"
+    daemon_config = {}
+    if os.path.exists(config_path):
+        with open(config_path, "r") as f:
+            daemon_config = json.load(f)
+
+    ar_manager = None
+    xr_trainer = None
+    if daemon_config.get("ar_xr_enabled", False):
+        print("[Daemon] Initializing AR/XR systems...")
+        ar_manager = ARManager()
+        xr_trainer = XRTrainer(ar_manager)
+        # Register with Unimind if possible, or just keep reference
+        # unimind.register("ar_xr", ar_manager) # if Unimind supported generic registration
+
     try:
         global nlu
         nlu = NLUEngine(scrolls)
@@ -92,6 +111,12 @@ if __name__ == "__main__":
             elif user_input == "":
                 personality.log_state()
                 unimind.reflect()
+            elif user_input.lower().startswith("train ar"):
+                if xr_trainer:
+                    threading.Thread(target=xr_trainer.start_training_session, daemon=True).start()
+                    print("[Daemon] AR Training session started in background.")
+                else:
+                    print("[Daemon] AR/XR module is not enabled.")
             else:
                 result = None
                 if nlu:
