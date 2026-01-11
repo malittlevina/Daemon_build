@@ -7,7 +7,7 @@
 - [x] Scroll engine + symbolic triggers
 - [x] Voice listener with emotion detection
 - [x] Personality drift + memory logging
-- [x] Prom specialties + self-coding
+- [x] Daemon specialties + self-coding
 - [x] Language interop + Rust executor
 - [x] Real-time environment sensors (vision/audio)
 - [x] Backup/restore assistant
@@ -19,7 +19,7 @@
 - [ ] Storyrealm NPC trainer link
 - [ ] Game generation AI expansion
 
-## 🧠 Prom Training Tracks
+## 🧠 Daemon Training Tracks
 - Storytelling
 - Mechanical design
 - Software engineering

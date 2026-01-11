@@ -10,12 +10,12 @@ class PrometheusSpecialties:
             "storytelling": "Skilled at plot development and game writing",
             "ar_xr": "AR/XR worldbuilding, simulation training, OpenXR/WebXR integration, and knowledge distillation"
         }
-        print("[Prometheus] Specialties initialized.")
+        print("[Daemon] Specialties initialized.")
 
     def specialize(self, topic):
         if topic in self.domains:
-            print(f"[Prometheus] Activating domain: {topic}")
+            print(f"[Daemon] Activating specialty: {topic}")
             return self.domains[topic]
         else:
-            print(f"[Prometheus] No knowledge yet in: {topic}")
+            print(f"[Daemon] No specialty knowledge yet in: {topic}")
             return None

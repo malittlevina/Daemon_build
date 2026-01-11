@@ -917,5 +917,33 @@
       "subsystem": "ar_xr",
       "event_type": "sim_run_deleted"
     }
+  },
+  {
+    "timestamp": "2026-01-11T02:01:43.048632",
+    "type": "memory",
+    "content": {
+      "ok": true,
+      "kind": null,
+      "apps": [
+        {
+          "id": "webxr-sample",
+          "name": "WebXR Sample",
+          "kind": "xr",
+          "runtime": "webxr"
+        },
+        {
+          "id": "openxr-tooling",
+          "name": "OpenXR Tooling Check",
+          "kind": "xr",
+          "runtime": "openxr"
+        }
+      ]
+    },
+    "context": {
+      "kind": null,
+      "count": 2,
+      "subsystem": "ar_xr",
+      "event_type": "list_apps"
+    }
   }
 ]

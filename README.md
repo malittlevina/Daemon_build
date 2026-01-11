@@ -1,6 +1,8 @@
-python# ThothOS Daemon Build (Prometheus)
+python# ThothOS Daemon Build
 
-This is the official Prometheus daemon build (v2_origin), an intelligent AI agent running on ThothOS. It includes:
+This is the daemon build (v2_origin), an intelligent AI agent running on ThothOS.
+
+Note: "Prometheus" can be used as the *persona/name* of a specific daemon instance, but the codebase uses "daemon" for system identity to avoid confusion.
 
 ## Core Features
 - ✅ **Unimind Reasoning Engine** (brain-based symbolic core)

@@ -35,7 +35,7 @@ if __name__ == "__main__":
         print(f"[Daemon Init Error] Failed to initialize NLU: {e}")
         nlu = None
 
-    print("[Daemon] Starting Prometheus daemon...")
+    print("[Daemon] Starting daemon...")
 
     # Launch sensors and background modules in threads
     ENABLE_VOICE = False

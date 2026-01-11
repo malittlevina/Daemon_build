@@ -71,7 +71,7 @@ class ScrollEngine:
             from introspection.personality import respond_to_input
             try:
                 answer = respond_to_input(quiz_prompt)
-                print(f"[Study] Prom's response: {answer}")
+                print(f"[Study] Daemon response: {answer}")
                 with open(knowledge_path, "a") as f:
                     f.write(f"\n\n## Self-Quiz\n\n**Q:** {quiz_prompt}\n\n**A:** {answer}\n")
                     score = "✔️" if "loop" in answer.lower() or len(answer.split()) > 5 else "❌"
@@ -79,7 +79,7 @@ class ScrollEngine:
                 print(f"[Study] Quiz result saved to: {knowledge_path}")
                 print(f"[Study] Self-quiz score: {score}")
             except Exception as e:
-                print(f"[Study] Failed to quiz Prom: {e}")
+                print(f"[Study] Failed to quiz daemon: {e}")
 
             # Track study history
             os.makedirs("logs", exist_ok=True)
