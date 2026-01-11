@@ -1,11 +1,25 @@
 from .spatial_mapper import SpatialMapper
+from .avatar import PersistentAvatar
 
 class ARManager:
-    def __init__(self):
+    def __init__(self, emotion_engine=None):
         self.active_apps = {}
         self.current_app = None
         self.spatial_mapper = SpatialMapper()
         self.overlay_enabled = False
+        self.emotion_engine = emotion_engine
+        self.avatar = None
+        
+        if self.emotion_engine:
+            self.avatar = PersistentAvatar(self, self.emotion_engine)
+
+    def start_avatar(self):
+        if self.avatar:
+            self.avatar.start()
+
+    def stop_avatar(self):
+        if self.avatar:
+            self.avatar.stop()
 
     def register_app(self, app_name, app_config):
         self.active_apps[app_name] = app_config

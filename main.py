@@ -42,7 +42,8 @@ if __name__ == "__main__":
     xr_trainer = None
     if daemon_config.get("ar_xr_enabled", False):
         print("[Daemon] Initializing AR/XR systems...")
-        ar_manager = ARManager()
+        ar_manager = ARManager(emotion_engine=emotions)
+        ar_manager.start_avatar()
         xr_trainer = XRTrainer(ar_manager)
         # Register with Unimind if possible, or just keep reference
         # unimind.register("ar_xr", ar_manager) # if Unimind supported generic registration
@@ -117,6 +118,14 @@ if __name__ == "__main__":
                     print("[Daemon] AR Training session started in background.")
                 else:
                     print("[Daemon] AR/XR module is not enabled.")
+            elif user_input.lower() == "toggle avatar":
+                if ar_manager and ar_manager.avatar:
+                    if ar_manager.avatar.active:
+                        ar_manager.stop_avatar()
+                    else:
+                        ar_manager.start_avatar()
+                else:
+                    print("[Daemon] Avatar system not available.")
             else:
                 result = None
                 if nlu:
