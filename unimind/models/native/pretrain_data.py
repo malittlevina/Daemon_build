@@ -479,6 +479,12 @@ def get_all_training_texts() -> List[str]:
         texts.extend([q, a])
     for q, a in FAREWELL_CONVERSATIONS:
         texts.extend([q, a])
+    for q, a in HOW_TO_CONVERSATIONS:
+        texts.extend([q, a])
+    for q, a in EMOTIONAL_CONVERSATIONS:
+        texts.extend([q, a])
+    for q, a in TASK_CONVERSATIONS:
+        texts.extend([q, a])
         
     # Add command patterns
     for pattern in COMMAND_PATTERNS:
@@ -499,12 +505,29 @@ def get_all_training_texts() -> List[str]:
     for text, _ in INTENT_TRAINING_DATA:
         texts.append(text)
         
+    # Add education and research data
+    try:
+        from unimind.models.native.education_data import get_all_education_texts, get_research_knowledge
+        texts.extend(get_all_education_texts())
+        texts.extend(get_research_knowledge().values())
+    except ImportError:
+        pass
+        
+    # Add advanced data
+    try:
+        from unimind.models.native.advanced_data import get_all_advanced_texts
+        texts.extend(get_all_advanced_texts())
+    except ImportError:
+        pass
+        
     return texts
 
 
 def get_conversation_pairs() -> List[Tuple[str, str]]:
     """Get all conversation pairs for training."""
     pairs = []
+    
+    # Basic conversations
     pairs.extend(GREETING_CONVERSATIONS)
     pairs.extend(IDENTITY_CONVERSATIONS)
     pairs.extend(CAPABILITY_CONVERSATIONS)
@@ -512,6 +535,21 @@ def get_conversation_pairs() -> List[Tuple[str, str]]:
     pairs.extend(HOW_TO_CONVERSATIONS)
     pairs.extend(EMOTIONAL_CONVERSATIONS)
     pairs.extend(TASK_CONVERSATIONS)
+    
+    # Education and research conversations
+    try:
+        from unimind.models.native.education_data import get_education_conversations
+        pairs.extend(get_education_conversations())
+    except ImportError:
+        pass
+        
+    # Advanced conversations
+    try:
+        from unimind.models.native.advanced_data import get_advanced_conversations
+        pairs.extend(get_advanced_conversations())
+    except ImportError:
+        pass
+        
     return pairs
 
 
@@ -523,4 +561,29 @@ def get_command_intents() -> Dict[str, List[str]]:
         if intent not in intents:
             intents[intent] = []
         intents[intent].extend(pattern["patterns"])
+        
+    # Add research commands
+    try:
+        from unimind.models.native.advanced_data import get_research_commands
+        for cmd in get_research_commands():
+            intent = cmd["intent"]
+            if intent not in intents:
+                intents[intent] = []
+            intents[intent].extend(cmd["patterns"])
+    except ImportError:
+        pass
+        
     return intents
+
+
+def get_all_command_patterns() -> List[Dict]:
+    """Get all command patterns including research commands."""
+    patterns = list(COMMAND_PATTERNS)
+    
+    try:
+        from unimind.models.native.advanced_data import get_research_commands
+        patterns.extend(get_research_commands())
+    except ImportError:
+        pass
+        
+    return patterns

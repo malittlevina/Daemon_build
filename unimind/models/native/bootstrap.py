@@ -13,6 +13,7 @@ from unimind.models.native.pretrain_data import (
     get_all_training_texts,
     get_conversation_pairs,
     get_command_intents,
+    get_all_command_patterns,
     COMMAND_PATTERNS,
     RESPONSE_TEMPLATES,
     DOMAIN_KNOWLEDGE,
@@ -58,14 +59,21 @@ class ConversationEngine:
         for question, answer in get_conversation_pairs():
             self.conversations[question.lower().strip()] = answer
             
-        # Load command patterns
-        self.command_patterns = COMMAND_PATTERNS.copy()
+        # Load all command patterns (including research commands)
+        self.command_patterns = get_all_command_patterns()
         
         # Load response templates
         self.response_templates = RESPONSE_TEMPLATES.copy()
         
         # Load knowledge base
         self.knowledge_base = DOMAIN_KNOWLEDGE.copy()
+        
+        # Add research knowledge
+        try:
+            from unimind.models.native.education_data import get_research_knowledge
+            self.knowledge_base.update(get_research_knowledge())
+        except ImportError:
+            pass
         
         # Load intent patterns
         self.intent_patterns = get_command_intents()
