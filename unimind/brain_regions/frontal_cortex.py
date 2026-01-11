@@ -13,3 +13,12 @@ class FrontalCortex(BrainRegion):
         # Placeholder for reasoning models (e.g., Chain of Thought logic)
         decision = f"Decided to act on: {input_data}"
         return decision
+
+    def learn(self, interaction_data):
+        # Frontal Cortex analyzes the success of the interaction to refine logic
+        if not interaction_data.get("success", True):
+            print(f"[{self.name}] Analyzing failure: {interaction_data.get('output')}")
+            # Potential hook: Adjust weights in DecisionMatrix or trigger self-correction
+        else:
+            # Reinforce successful patterns
+            pass

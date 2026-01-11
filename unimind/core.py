@@ -1,4 +1,5 @@
 from unimind.brain_regions import FrontalCortex, Hippocampus, BrocasArea, OccipitalLobe, TemporalLobe
+from unimind.evolution import EvolutionEngine
 
 class Unimind:
     def __init__(self):
@@ -25,6 +26,9 @@ class Unimind:
             "temporal": self.temporal_lobe
         }
         
+        # Initialize Evolution Engine
+        self.evolution_engine = EvolutionEngine(self)
+        
         print("[Unimind] Core initialized with Brain Regions.")
 
     def register(self, type, module):
@@ -39,3 +43,11 @@ class Unimind:
         
         for logic_module in self.modules["logic"]:
             logic_module.think()
+
+    def evolve(self, interaction_data):
+        self.evolution_engine.evolve(interaction_data)
+
+    def learn(self, interaction_data):
+        # Delegate learning to each brain region
+        for region in self.regions.values():
+            region.learn(interaction_data)

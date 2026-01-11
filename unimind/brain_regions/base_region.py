@@ -10,3 +10,12 @@ class BrainRegion:
 
     def process(self, input_data, **kwargs):
         raise NotImplementedError("Each brain region must implement a process method.")
+
+    def learn(self, interaction_data):
+        """
+        Base learning method. Can be overridden by specific regions.
+        """
+        # Default: just log that this region "experienced" the interaction
+        # print(f"[{self.name}] Learning from interaction...") 
+        pass
+

@@ -17,3 +17,10 @@ class Hippocampus(BrainRegion):
             print(f"[{self.name}] Retrieving memory related to: {input_data}")
             return [f"Memory about {input_data}"] # Stub
         return None
+
+    def learn(self, interaction_data):
+        # Hippocampus stores the interaction as an episodic memory
+        user_input = interaction_data.get("input")
+        output = interaction_data.get("output")
+        self.process(f"Episodic Memory: {user_input} -> {output}", action="store")
+

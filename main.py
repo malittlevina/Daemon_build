@@ -141,7 +141,16 @@ if __name__ == "__main__":
                     result = handle_fallback(user_input)
 
                 print(f"[Daemon] NLU Result: {result}")
-
+                
+                # Evolve/Learn from interaction
+                interaction_data = {
+                    "input": user_input,
+                    "output": result,
+                    "module": "nlu", # Default
+                    "success": not str(result).startswith("[Daemon] Fallback error")
+                }
+                unimind.evolve(interaction_data)
+                
         except Exception as loop_error:
             print(f"[Daemon Critical Loop Error] {loop_error}")
             continue
