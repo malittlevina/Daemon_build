@@ -60,6 +60,23 @@ This generates:
 - `memory_tree/garden/YYYY-MM-DD.md` (human-readable map)
 - `memory_tree/garden/YYYY-MM-DD.json` (structured map)
 
+### Interactive Memory Garden (walk / inspect / tag / promote)
+
+The garden also supports an interactive “walk around” workflow (stateful session stored at `memory_tree/garden/session.json`):
+
+```text
+garden open
+garden plots
+garden walk XR Grove
+garden seeds 5
+garden inspect XR Grove 0
+garden tag XR Grove 0 important
+garden promote XR Grove 0 daily
+garden status
+```
+
+Promoted items are appended to `memory_tree/long_term/<category>.jsonl` and also ingested into Codex via `ingest_observation(...)` for later retrieval.
+
 ## Core Features
 - ✅ **Unimind Reasoning Engine** (brain-based symbolic core)
 - ✅ **Voice Listener** (real-time symbolic command parsing)

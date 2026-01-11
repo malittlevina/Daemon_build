@@ -4046,6 +4046,165 @@
               "subsystem": "unimind"
             }
           }
+        },
+        {
+          "summary": "08:00 interaction: garden open \u2192 {'ok': True, 'day': '2026-01-11', 'plots': ['Daily Path', 'Workshop (Tasks)', 'XR Grove'], 'current_plot': None}",
+          "entry": {
+            "source": "memory_log",
+            "timestamp": "2026-01-11T08:43:12.037231",
+            "type": "interaction",
+            "content": {
+              "input": "garden open",
+              "output": {
+                "ok": true,
+                "day": "2026-01-11",
+                "plots": [
+                  "Daily Path",
+                  "Workshop (Tasks)",
+                  "XR Grove"
+                ],
+                "current_plot": null
+              },
+              "emotion": "neutral",
+              "ethics": "Review: Requires deeper ethical evaluation.",
+              "events": [
+                {
+                  "type": "input_received",
+                  "meta": {}
+                },
+                {
+                  "type": "module_enter",
+                  "meta": {}
+                },
+                {
+                  "type": "intent_planned",
+                  "meta": {
+                    "engine": "NLUEngine"
+                  }
+                },
+                {
+                  "type": "module_enter",
+                  "meta": {}
+                },
+                {
+                  "type": "policy_verdict",
+                  "meta": {}
+                },
+                {
+                  "type": "ethics_verdict",
+                  "meta": {}
+                },
+                {
+                  "type": "module_enter",
+                  "meta": {}
+                },
+                {
+                  "type": "intent_execute",
+                  "meta": {}
+                },
+                {
+                  "type": "module_output",
+                  "meta": {
+                    "output_type": "dict"
+                  }
+                },
+                {
+                  "type": "module_enter",
+                  "meta": {}
+                },
+                {
+                  "type": "emotion_updated",
+                  "meta": {}
+                },
+                {
+                  "type": "module_enter",
+                  "meta": {}
+                }
+              ]
+            },
+            "context": {
+              "subsystem": "unimind"
+            }
+          }
+        },
+        {
+          "summary": "08:00 interaction: garden plots \u2192 {'ok': True, 'day': '2026-01-11', 'plots': ['Daily Path', 'Workshop (Tasks)', 'XR Grove']}",
+          "entry": {
+            "source": "memory_log",
+            "timestamp": "2026-01-11T08:43:12.047682",
+            "type": "interaction",
+            "content": {
+              "input": "garden plots",
+              "output": {
+                "ok": true,
+                "day": "2026-01-11",
+                "plots": [
+                  "Daily Path",
+                  "Workshop (Tasks)",
+                  "XR Grove"
+                ]
+              },
+              "emotion": "neutral",
+              "ethics": "Review: Requires deeper ethical evaluation.",
+              "events": [
+                {
+                  "type": "input_received",
+                  "meta": {}
+                },
+                {
+                  "type": "module_enter",
+                  "meta": {}
+                },
+                {
+                  "type": "intent_planned",
+                  "meta": {
+                    "engine": "NLUEngine"
+                  }
+                },
+                {
+                  "type": "module_enter",
+                  "meta": {}
+                },
+                {
+                  "type": "policy_verdict",
+                  "meta": {}
+                },
+                {
+                  "type": "ethics_verdict",
+                  "meta": {}
+                },
+                {
+                  "type": "module_enter",
+                  "meta": {}
+                },
+                {
+                  "type": "intent_execute",
+                  "meta": {}
+                },
+                {
+                  "type": "module_output",
+                  "meta": {
+                    "output_type": "dict"
+                  }
+                },
+                {
+                  "type": "module_enter",
+                  "meta": {}
+                },
+                {
+                  "type": "emotion_updated",
+                  "meta": {}
+                },
+                {
+                  "type": "module_enter",
+                  "meta": {}
+                }
+              ]
+            },
+            "context": {
+              "subsystem": "unimind"
+            }
+          }
         }
       ]
     },
@@ -4437,6 +4596,482 @@
                   "memory": 29,
                   "interaction": 18
                 }
+              },
+              "emotion": "neutral",
+              "ethics": "Review: Requires deeper ethical evaluation.",
+              "events": [
+                {
+                  "type": "input_received",
+                  "meta": {}
+                },
+                {
+                  "type": "module_enter",
+                  "meta": {}
+                },
+                {
+                  "type": "intent_planned",
+                  "meta": {
+                    "engine": "NLUEngine"
+                  }
+                },
+                {
+                  "type": "module_enter",
+                  "meta": {}
+                },
+                {
+                  "type": "policy_verdict",
+                  "meta": {}
+                },
+                {
+                  "type": "ethics_verdict",
+                  "meta": {}
+                },
+                {
+                  "type": "module_enter",
+                  "meta": {}
+                },
+                {
+                  "type": "intent_execute",
+                  "meta": {}
+                },
+                {
+                  "type": "module_output",
+                  "meta": {
+                    "output_type": "dict"
+                  }
+                },
+                {
+                  "type": "module_enter",
+                  "meta": {}
+                },
+                {
+                  "type": "emotion_updated",
+                  "meta": {}
+                },
+                {
+                  "type": "module_enter",
+                  "meta": {}
+                }
+              ]
+            },
+            "context": {
+              "subsystem": "unimind"
+            }
+          }
+        },
+        {
+          "summary": "08:00 interaction: memory garden \u2192 {'ok': True, 'day': '2026-01-11', 'output_md': 'memory_tree/garden/2026-01-11.md', 'output_json': 'memory_tree/garden/20",
+          "entry": {
+            "source": "memory_log",
+            "timestamp": "2026-01-11T08:37:35.794974",
+            "type": "interaction",
+            "content": {
+              "input": "memory garden",
+              "output": {
+                "ok": true,
+                "day": "2026-01-11",
+                "output_md": "memory_tree/garden/2026-01-11.md",
+                "output_json": "memory_tree/garden/2026-01-11.json"
+              },
+              "emotion": "neutral",
+              "ethics": "Review: Requires deeper ethical evaluation.",
+              "events": [
+                {
+                  "type": "input_received",
+                  "meta": {}
+                },
+                {
+                  "type": "module_enter",
+                  "meta": {}
+                },
+                {
+                  "type": "intent_planned",
+                  "meta": {
+                    "engine": "NLUEngine"
+                  }
+                },
+                {
+                  "type": "module_enter",
+                  "meta": {}
+                },
+                {
+                  "type": "policy_verdict",
+                  "meta": {}
+                },
+                {
+                  "type": "ethics_verdict",
+                  "meta": {}
+                },
+                {
+                  "type": "module_enter",
+                  "meta": {}
+                },
+                {
+                  "type": "intent_execute",
+                  "meta": {}
+                },
+                {
+                  "type": "module_output",
+                  "meta": {
+                    "output_type": "dict"
+                  }
+                },
+                {
+                  "type": "module_enter",
+                  "meta": {}
+                },
+                {
+                  "type": "emotion_updated",
+                  "meta": {}
+                },
+                {
+                  "type": "module_enter",
+                  "meta": {}
+                }
+              ]
+            },
+            "context": {
+              "subsystem": "unimind"
+            }
+          }
+        },
+        {
+          "summary": "08:00 interaction: garden seeds 3 \u2192 {'ok': True, 'plot': 'Daily Path', 'offset': 0, 'count': 3, 'items': [{'index': 0, 'seed_id': 'Daily Path::0', 'summary'",
+          "entry": {
+            "source": "memory_log",
+            "timestamp": "2026-01-11T08:43:12.071329",
+            "type": "interaction",
+            "content": {
+              "input": "garden seeds 3",
+              "output": {
+                "ok": true,
+                "plot": "Daily Path",
+                "offset": 0,
+                "count": 3,
+                "items": [
+                  {
+                    "index": 0,
+                    "seed_id": "Daily Path::0",
+                    "summary": "08:00 interaction: sort my day \u2192 None",
+                    "tags": []
+                  },
+                  {
+                    "index": 1,
+                    "seed_id": "Daily Path::1",
+                    "summary": "08:00 interaction: sort my day \u2192 None",
+                    "tags": []
+                  },
+                  {
+                    "index": 2,
+                    "seed_id": "Daily Path::2",
+                    "summary": "08:00 interaction: sort my day \u2192 None",
+                    "tags": []
+                  }
+                ],
+                "next_cursor": 3
+              },
+              "emotion": "neutral",
+              "ethics": "Review: Requires deeper ethical evaluation.",
+              "events": [
+                {
+                  "type": "input_received",
+                  "meta": {}
+                },
+                {
+                  "type": "module_enter",
+                  "meta": {}
+                },
+                {
+                  "type": "intent_planned",
+                  "meta": {
+                    "engine": "NLUEngine"
+                  }
+                },
+                {
+                  "type": "module_enter",
+                  "meta": {}
+                },
+                {
+                  "type": "policy_verdict",
+                  "meta": {}
+                },
+                {
+                  "type": "ethics_verdict",
+                  "meta": {}
+                },
+                {
+                  "type": "module_enter",
+                  "meta": {}
+                },
+                {
+                  "type": "intent_execute",
+                  "meta": {}
+                },
+                {
+                  "type": "module_output",
+                  "meta": {
+                    "output_type": "dict"
+                  }
+                },
+                {
+                  "type": "module_enter",
+                  "meta": {}
+                },
+                {
+                  "type": "emotion_updated",
+                  "meta": {}
+                },
+                {
+                  "type": "module_enter",
+                  "meta": {}
+                }
+              ]
+            },
+            "context": {
+              "subsystem": "unimind"
+            }
+          }
+        },
+        {
+          "summary": "08:00 interaction: garden inspect Daily Path 0 \u2192 {'ok': True, 'seed': {'seed_id': 'Daily Path::0', 'plot': 'Daily Path', 'index': 0, 'summary': '08:00 interaction: sort ",
+          "entry": {
+            "source": "memory_log",
+            "timestamp": "2026-01-11T08:43:12.083328",
+            "type": "interaction",
+            "content": {
+              "input": "garden inspect Daily Path 0",
+              "output": {
+                "ok": true,
+                "seed": {
+                  "seed_id": "Daily Path::0",
+                  "plot": "Daily Path",
+                  "index": 0,
+                  "summary": "08:00 interaction: sort my day \u2192 None",
+                  "entry": {
+                    "source": "memory_log",
+                    "timestamp": "2026-01-11T08:30:21.791182",
+                    "type": "interaction",
+                    "content": {
+                      "input": "sort my day",
+                      "output": null,
+                      "emotion": "neutral",
+                      "ethics": "Review: Requires deeper ethical evaluation.",
+                      "events": [
+                        {
+                          "type": "input_received",
+                          "meta": {}
+                        },
+                        {
+                          "type": "module_enter",
+                          "meta": {}
+                        },
+                        {
+                          "type": "intent_planned",
+                          "meta": {
+                            "engine": "NLUEngine"
+                          }
+                        },
+                        {
+                          "type": "module_enter",
+                          "meta": {}
+                        },
+                        {
+                          "type": "policy_verdict",
+                          "meta": {}
+                        },
+                        {
+                          "type": "ethics_verdict",
+                          "meta": {}
+                        },
+                        {
+                          "type": "module_enter",
+                          "meta": {}
+                        },
+                        {
+                          "type": "intent_execute",
+                          "meta": {}
+                        },
+                        {
+                          "type": "module_error",
+                          "meta": {}
+                        },
+                        {
+                          "type": "module_enter",
+                          "meta": {}
+                        },
+                        {
+                          "type": "emotion_updated",
+                          "meta": {}
+                        },
+                        {
+                          "type": "module_enter",
+                          "meta": {}
+                        }
+                      ]
+                    },
+                    "context": {
+                      "subsystem": "unimind"
+                    }
+                  },
+                  "tags": []
+                }
+              },
+              "emotion": "neutral",
+              "ethics": "Review: Requires deeper ethical evaluation.",
+              "events": [
+                {
+                  "type": "input_received",
+                  "meta": {}
+                },
+                {
+                  "type": "module_enter",
+                  "meta": {}
+                },
+                {
+                  "type": "intent_planned",
+                  "meta": {
+                    "engine": "NLUEngine"
+                  }
+                },
+                {
+                  "type": "module_enter",
+                  "meta": {}
+                },
+                {
+                  "type": "policy_verdict",
+                  "meta": {}
+                },
+                {
+                  "type": "ethics_verdict",
+                  "meta": {}
+                },
+                {
+                  "type": "module_enter",
+                  "meta": {}
+                },
+                {
+                  "type": "intent_execute",
+                  "meta": {}
+                },
+                {
+                  "type": "module_output",
+                  "meta": {
+                    "output_type": "dict"
+                  }
+                },
+                {
+                  "type": "module_enter",
+                  "meta": {}
+                },
+                {
+                  "type": "emotion_updated",
+                  "meta": {}
+                },
+                {
+                  "type": "module_enter",
+                  "meta": {}
+                }
+              ]
+            },
+            "context": {
+              "subsystem": "unimind"
+            }
+          }
+        },
+        {
+          "summary": "08:00 interaction: garden tag Daily Path 0 important \u2192 {'ok': True, 'seed_id': 'Daily Path::0', 'tags': ['important']}",
+          "entry": {
+            "source": "memory_log",
+            "timestamp": "2026-01-11T08:43:12.096061",
+            "type": "interaction",
+            "content": {
+              "input": "garden tag Daily Path 0 important",
+              "output": {
+                "ok": true,
+                "seed_id": "Daily Path::0",
+                "tags": [
+                  "important"
+                ]
+              },
+              "emotion": "neutral",
+              "ethics": "Review: Requires deeper ethical evaluation.",
+              "events": [
+                {
+                  "type": "input_received",
+                  "meta": {}
+                },
+                {
+                  "type": "module_enter",
+                  "meta": {}
+                },
+                {
+                  "type": "intent_planned",
+                  "meta": {
+                    "engine": "NLUEngine"
+                  }
+                },
+                {
+                  "type": "module_enter",
+                  "meta": {}
+                },
+                {
+                  "type": "policy_verdict",
+                  "meta": {}
+                },
+                {
+                  "type": "ethics_verdict",
+                  "meta": {}
+                },
+                {
+                  "type": "module_enter",
+                  "meta": {}
+                },
+                {
+                  "type": "intent_execute",
+                  "meta": {}
+                },
+                {
+                  "type": "module_output",
+                  "meta": {
+                    "output_type": "dict"
+                  }
+                },
+                {
+                  "type": "module_enter",
+                  "meta": {}
+                },
+                {
+                  "type": "emotion_updated",
+                  "meta": {}
+                },
+                {
+                  "type": "module_enter",
+                  "meta": {}
+                }
+              ]
+            },
+            "context": {
+              "subsystem": "unimind"
+            }
+          }
+        }
+      ]
+    },
+    "Health Meadow": {
+      "name": "Health Meadow",
+      "seeds": [
+        {
+          "summary": "08:00 interaction: garden walk Daily Path \u2192 {'ok': True, 'day': '2026-01-11', 'current_plot': 'Daily Path'}",
+          "entry": {
+            "source": "memory_log",
+            "timestamp": "2026-01-11T08:43:12.059317",
+            "type": "interaction",
+            "content": {
+              "input": "garden walk Daily Path",
+              "output": {
+                "ok": true,
+                "day": "2026-01-11",
+                "current_plot": "Daily Path"
               },
               "emotion": "neutral",
               "ethics": "Review: Requires deeper ethical evaluation.",

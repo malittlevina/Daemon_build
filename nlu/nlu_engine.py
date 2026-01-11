@@ -85,6 +85,72 @@ class NLUEngine:
             return {"intent": "memory.garden", "day": text[len("memory garden ") :].strip()}
         if text_l.startswith("garden my day "):
             return {"intent": "memory.garden", "day": text[len("garden my day ") :].strip()}
+
+        # Interactive garden commands
+        if text_l == "garden status":
+            return {"intent": "garden.status"}
+        if text_l.startswith("garden open"):
+            rest = text[len("garden open") :].strip()
+            return {"intent": "garden.open", "day": rest or None}
+        if text_l.startswith("garden plots"):
+            rest = text[len("garden plots") :].strip()
+            return {"intent": "garden.plots", "day": rest or None}
+        if text_l.startswith("garden walk "):
+            rest = text[len("garden walk ") :].strip()
+            return {"intent": "garden.walk", "plot": rest}
+        if text_l.startswith("garden seeds"):
+            # examples:
+            # - garden seeds
+            # - garden seeds 15
+            # - garden seeds XR Grove 15
+            rest = text[len("garden seeds") :].strip()
+            parts = rest.split()
+            if not parts:
+                return {"intent": "garden.seeds", "plot": None, "limit": 10}
+            if len(parts) == 1 and parts[0].isdigit():
+                return {"intent": "garden.seeds", "plot": None, "limit": int(parts[0])}
+            # plot may have spaces; treat last token as limit if digit
+            limit = 10
+            if parts and parts[-1].isdigit():
+                limit = int(parts[-1])
+                plot = " ".join(parts[:-1]).strip() or None
+            else:
+                plot = " ".join(parts).strip() or None
+            return {"intent": "garden.seeds", "plot": plot, "limit": limit}
+        if text_l.startswith("garden inspect "):
+            # garden inspect <plot> <index>
+            rest = text[len("garden inspect ") :].strip()
+            parts = rest.split()
+            if len(parts) < 2 or not parts[-1].isdigit():
+                return {"intent": "garden.inspect", "error": "Expected: garden inspect <plot> <index>"}
+            idx = int(parts[-1])
+            plot = " ".join(parts[:-1]).strip()
+            return {"intent": "garden.inspect", "plot": plot, "index": idx}
+        if text_l.startswith("garden tag "):
+            # garden tag <plot> <index> <tag...>
+            rest = text[len("garden tag ") :].strip()
+            parts = rest.split()
+            if len(parts) < 3 or not parts[-2].isdigit():
+                return {"intent": "garden.tag", "error": "Expected: garden tag <plot> <index> <tag>"}
+            idx = int(parts[-2])
+            tag = parts[-1]
+            plot = " ".join(parts[:-2]).strip()
+            return {"intent": "garden.tag", "plot": plot, "index": idx, "tag": tag}
+        if text_l.startswith("garden promote "):
+            # garden promote <plot> <index> [category]
+            rest = text[len("garden promote ") :].strip()
+            parts = rest.split()
+            if len(parts) < 2 or not parts[-1].isdigit() and not (len(parts) >= 3 and parts[-2].isdigit()):
+                return {"intent": "garden.promote", "error": "Expected: garden promote <plot> <index> [category]"}
+            if parts[-1].isdigit():
+                idx = int(parts[-1])
+                plot = " ".join(parts[:-1]).strip()
+                cat = "general"
+            else:
+                cat = parts[-1]
+                idx = int(parts[-2])
+                plot = " ".join(parts[:-2]).strip()
+            return {"intent": "garden.promote", "plot": plot, "index": idx, "category": cat}
         return None
 
     def _route_xr(self, text: str) -> Any:

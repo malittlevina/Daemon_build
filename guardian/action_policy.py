@@ -26,6 +26,14 @@ class ActionPolicy:
             "xr.launch_app",
             "memory.sort_day",
             "memory.garden",
+            "garden.status",
+            "garden.open",
+            "garden.plots",
+            "garden.walk",
+            "garden.seeds",
+            "garden.inspect",
+            "garden.tag",
+            "garden.promote",
         }
 
     def evaluate(self, intent: Optional[Dict[str, Any]]) -> PolicyVerdict:

@@ -46,6 +46,35 @@ class ScrollRouterModule:
             context.emit("intent_execute", intent)
             return self.scrolls.invoke("memory garden", intent.get("day"))
 
+        if isinstance(intent, dict) and intent.get("intent", "").startswith("garden."):
+            context.emit("intent_execute", intent)
+            name = intent.get("intent")
+            if name == "garden.status":
+                return self.scrolls.invoke("garden status")
+            if name == "garden.open":
+                return self.scrolls.invoke("garden open", intent.get("day"))
+            if name == "garden.plots":
+                return self.scrolls.invoke("garden plots", intent.get("day"))
+            if name == "garden.walk":
+                return self.scrolls.invoke("garden walk", intent.get("plot"))
+            if name == "garden.seeds":
+                return self.scrolls.invoke("garden seeds", intent.get("plot"), intent.get("limit", 10))
+            if name == "garden.inspect":
+                if intent.get("error"):
+                    return f"[Garden] {intent.get('error')}"
+                return self.scrolls.invoke("garden inspect", intent.get("plot"), intent.get("index"))
+            if name == "garden.tag":
+                if intent.get("error"):
+                    return f"[Garden] {intent.get('error')}"
+                return self.scrolls.invoke("garden tag", intent.get("plot"), intent.get("index"), intent.get("tag"))
+            if name == "garden.promote":
+                if intent.get("error"):
+                    return f"[Garden] {intent.get('error')}"
+                return self.scrolls.invoke(
+                    "garden promote", intent.get("plot"), intent.get("index"), intent.get("category", "general")
+                )
+            return "[Garden] Unknown garden intent."
+
         # If NLU already produced a non-trivial result, don't override it.
         nlu_result = context.get("nlu_result")
         if nlu_result is not None and not (

@@ -24,6 +24,14 @@ class ScrollEngine:
             "sort my day": self._sort_my_day,
             "memory garden": self._memory_garden,
             "garden my day": self._memory_garden,
+            "garden open": self._garden_open,
+            "garden status": self._garden_status,
+            "garden plots": self._garden_plots,
+            "garden walk": self._garden_walk,
+            "garden seeds": self._garden_seeds,
+            "garden inspect": self._garden_inspect,
+            "garden tag": self._garden_tag,
+            "garden promote": self._garden_promote,
             # AR/XR scrolls
             "xr list apps": self._xr_list_apps,
             "xr launch app": self._xr_launch_app,
@@ -113,6 +121,78 @@ class ScrollEngine:
 
         garden = build_garden_map(day=day)
         return {"ok": True, "day": garden.day, "output_md": garden.output_md, "output_json": garden.output_json}
+
+    def _garden_open(self, day=None):
+        from memory_tree.garden_session import open_day
+
+        gm, state = open_day(day=day)
+        return {"ok": True, "day": state.day, "plots": sorted(gm.plots.keys()), "current_plot": state.current_plot}
+
+    def _garden_status(self):
+        from memory_tree.garden_session import load_session, show_current
+
+        state = load_session()
+        return {"ok": True, **show_current(state)}
+
+    def _garden_plots(self, day=None):
+        from memory_tree.garden_session import open_day, list_plots
+
+        gm, state = open_day(day=day)
+        return {"ok": True, "day": state.day, "plots": list_plots(gm)}
+
+    def _garden_walk(self, plot_name, day=None):
+        from memory_tree.garden_session import open_day, walk_to_plot
+
+        gm, state = open_day(day=day)
+        state = walk_to_plot(gm, state, plot_name)
+        return {"ok": True, "day": state.day, "current_plot": state.current_plot}
+
+    def _garden_seeds(self, plot_name=None, limit=10, day=None):
+        from memory_tree.garden_session import list_seeds, load_session, open_day
+
+        gm, state = open_day(day=day)
+        # keep persisted cursor/tags
+        persisted = load_session(default_day=state.day)
+        persisted.day = state.day
+        if persisted.current_plot and persisted.current_plot in gm.plots:
+            state.current_plot = persisted.current_plot
+            state.cursor = persisted.cursor
+            state.tags = persisted.tags
+        return {"ok": True, **list_seeds(gm, state, plot_name=plot_name, limit=limit)}
+
+    def _garden_inspect(self, plot_name, index, day=None):
+        from memory_tree.garden_session import inspect_seed, load_session, open_day
+
+        gm, state = open_day(day=day)
+        state = load_session(default_day=state.day)
+        return {"ok": True, "seed": inspect_seed(gm, state, plot=plot_name, index=int(index))}
+
+    def _garden_tag(self, plot_name, index, tag, day=None):
+        from memory_tree.garden_session import tag_seed, load_session, open_day
+
+        gm, state = open_day(day=day)
+        state = load_session(default_day=state.day)
+        state = tag_seed(state, plot=plot_name, index=int(index), tag=tag)
+        return {"ok": True, "seed_id": f"{plot_name}::{int(index)}", "tags": state.tags.get(f"{plot_name}::{int(index)}", [])}
+
+    def _garden_promote(self, plot_name, index, category="general", day=None):
+        from codex.ingestion import ingest_observation
+        from memory_tree.garden_session import inspect_seed, load_session, open_day
+        from memory_tree.long_term import promote_to_long_term
+
+        gm, state = open_day(day=day)
+        state = load_session(default_day=state.day)
+        seed = inspect_seed(gm, state, plot=plot_name, index=int(index))
+        item = {
+            "seed_id": seed["seed_id"],
+            "plot": seed["plot"],
+            "index": seed["index"],
+            "summary": seed["summary"],
+            "tags": seed.get("tags", []),
+            "entry": seed["entry"],
+        }
+        path = promote_to_long_term(item, category=category, ingest_observation=ingest_observation)
+        return {"ok": True, "stored": path, "category": category, "seed_id": seed["seed_id"]}
 
     def _get_ar_xr_subsystem(self):
         # Local import to keep daemon boot resilient.
