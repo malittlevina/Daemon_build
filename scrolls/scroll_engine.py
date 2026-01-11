@@ -67,7 +67,7 @@ class ScrollEngine:
             # Add a self-quiz line (simulated reflection test)
             quiz_prompt = f"Explain something important about {topic}"
             print(f"[Study] Self-quiz prompt: {quiz_prompt}")
-            from introspection.personality import respond_to_input
+            from core.personality import respond_to_input
             try:
                 answer = respond_to_input(quiz_prompt)
                 print(f"[Study] Daemon response: {answer}")
