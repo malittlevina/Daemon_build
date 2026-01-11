@@ -20,7 +20,12 @@ class ScrollEngine:
             "study topic": self._study_topic,
             "trigger api scroll": self._trigger_api_scroll,
             "run task": self._run_task,
-            "multi step plan": self._multi_step_plan
+            "multi step plan": self._multi_step_plan,
+            # AR/XR scrolls
+            "xr list apps": self._xr_list_apps,
+            "xr launch app": self._xr_launch_app,
+            "xr create world": self._xr_create_world,
+            "xr train sim": self._xr_train_sim,
         }
         self.active_scrolls = []
 
@@ -94,6 +99,44 @@ class ScrollEngine:
 
     def _trigger_api_scroll(self, *args, **kwargs):
         return execute_api_scroll(*args, **kwargs)
+
+    def _get_ar_xr_subsystem(self):
+        # Local import to keep daemon boot resilient.
+        from ar_xr.subsystem import ARXRSubsystem
+        from codex.ingestion import ingest_observation
+        from memory_tree.memory_logger import log_memory
+        from lam.symbolic_state import update_state_with_input
+
+        return ARXRSubsystem(
+            ingest_observation=ingest_observation,
+            log_memory=log_memory,
+            update_symbolic_state=update_state_with_input,
+        )
+
+    def _xr_list_apps(self, kind=None):
+        arxr = self._get_ar_xr_subsystem()
+        return arxr.list_apps(kind=kind)
+
+    def _xr_launch_app(self, app_name_or_id, dry_run=True):
+        arxr = self._get_ar_xr_subsystem()
+        return arxr.launch_app(app_name_or_id, dry_run=bool(dry_run))
+
+    def _xr_create_world(self, goal, kind="xr"):
+        arxr = self._get_ar_xr_subsystem()
+        return arxr.create_world(goal=goal, kind=kind)
+
+    def _xr_train_sim(self, goal, kind="xr", steps=300, delete_raw_run=True):
+        arxr = self._get_ar_xr_subsystem()
+        try:
+            steps_i = int(steps)
+        except Exception:
+            steps_i = 300
+        return arxr.simulate_train_distill(
+            goal=goal,
+            kind=kind,
+            steps=steps_i,
+            delete_raw_run=bool(delete_raw_run),
+        )
 
     def register_scroll(self, scroll):
         if scroll not in self.active_scrolls:

@@ -3,6 +3,10 @@ import subprocess
 from typing import Any, Dict, List, Optional
 
 from ar_xr.app_registry import ARXRAppRegistry
+from ar_xr.sim.distiller import distill_run, write_knowledge
+from ar_xr.sim.run_manager import delete_run_dir, make_run_dir
+from ar_xr.sim.simulator import run_headless_episode
+from ar_xr.sim.world import WorldSpec, synthesize_world
 from ar_xr.training import build_training_plan, load_training_modules, start_training_session
 
 
@@ -111,4 +115,55 @@ class ARXRSubsystem:
         session = start_training_session(plan)
         self._record("training_started", session, context={"goal": goal, "kind": kind})
         return {"ok": True, "session": session}
+
+    def create_world(self, goal: str, kind: str = "xr", world_id: Optional[str] = None) -> Dict[str, Any]:
+        world = synthesize_world(goal=goal, kind=kind, world_id=world_id)
+        self._record("world_created", world.to_dict(), context={"goal": goal, "kind": kind, "world_id": world.world_id})
+        return {"ok": True, "world": world.to_dict()}
+
+    def simulate_train_distill(
+        self,
+        goal: str,
+        kind: str = "xr",
+        steps: int = 300,
+        delete_raw_run: bool = True,
+    ) -> Dict[str, Any]:
+        """
+        Core loop you described:
+        - create a world
+        - place the daemon-agent in it (agent_body entity)
+        - simulate
+        - distill durable knowledge (heuristics + keyframes)
+        - delete raw run artifacts (trajectory)
+        """
+        world = synthesize_world(goal=goal, kind=kind)
+        run_paths = make_run_dir()
+
+        sim = run_headless_episode(world=world, steps=steps, run_dir=run_paths.run_dir)
+        run_summary = sim["run"]
+        trajectory_path = sim["trajectory_path"]
+
+        knowledge = distill_run(world=world, run=run_summary, trajectory_path=trajectory_path)
+        knowledge_paths = write_knowledge(knowledge)
+
+        self._record(
+            "sim_distilled",
+            {"knowledge": knowledge.to_dict(), "knowledge_paths": knowledge_paths},
+            context={"world_id": world.world_id, "run_id": run_summary.get("run_id")},
+        )
+
+        if delete_raw_run:
+            try:
+                delete_run_dir(run_paths.run_dir)
+                self._record("sim_run_deleted", {"run_dir": run_paths.run_dir}, context={"run_id": run_summary.get("run_id")})
+            except Exception as e:
+                self._record("sim_run_delete_failed", {"run_dir": run_paths.run_dir, "error": str(e)})
+
+        return {
+            "ok": True,
+            "world": world.to_dict(),
+            "run": run_summary,
+            "knowledge_paths": knowledge_paths,
+            "deleted_raw_run": bool(delete_raw_run),
+        }
 
