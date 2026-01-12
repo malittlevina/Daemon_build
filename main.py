@@ -10,11 +10,15 @@ from optimizer.auto_upgrade import run_auto_optimization
 from scrolls.scroll_engine import ScrollEngine
 ## from sensors.vision import VisionSensor
 from nlu.nlu_engine import NLUEngine
+from nlu.device_commands import handle_device_command
 import subprocess
 import json
 import time
 import os
 from datetime import date
+
+# Device discovery configuration
+ENABLE_DEVICE_DISCOVERY = True
 
 # Flag to control use of Ollama fallback
 USE_OLLAMA = False  # Set to True to enable Ollama fallback
@@ -34,6 +38,34 @@ if __name__ == "__main__":
     except Exception as e:
         print(f"[Daemon Init Error] Failed to initialize NLU: {e}")
         nlu = None
+
+    # Initialize device discovery subsystem
+    device_bridge = None
+    if ENABLE_DEVICE_DISCOVERY:
+        try:
+            from devices.device_bridge import init_device_bridge
+            from devices.discovery_engine import DiscoveryConfig
+            
+            # Configure device discovery
+            device_config = DiscoveryConfig()
+            device_config.bluetooth_enabled = True
+            device_config.wifi_enabled = True
+            device_config.nfc_enabled = True
+            device_config.usb_enabled = True
+            device_config.auto_connect_trusted = True
+            
+            device_bridge = init_device_bridge(device_config)
+            
+            # Register event handler for scroll triggers
+            def on_device_event(event):
+                memory.log(f"[Device Event] {event.event_type}: {event.device_name} ({event.protocol})")
+            
+            device_bridge.subscribe_events(on_device_event)
+            
+            print("[Daemon] Device discovery subsystem initialized.")
+        except Exception as e:
+            print(f"[Daemon] Device discovery failed to initialize: {e}")
+            device_bridge = None
 
     print("[Daemon] Starting Prometheus daemon...")
 
@@ -88,13 +120,21 @@ if __name__ == "__main__":
 
             if user_input.lower() == "exit":
                 print("[Daemon] Shutting down.")
+                # Cleanup device subsystem
+                if device_bridge:
+                    device_bridge.shutdown()
                 break
             elif user_input == "":
                 personality.log_state()
                 unimind.reflect()
             else:
                 result = None
-                if nlu:
+                
+                # First, try device commands
+                device_result = handle_device_command(user_input)
+                if device_result:
+                    result = device_result
+                elif nlu:
                     try:
                         result = nlu.interpret(user_input)
                         if result is None or (isinstance(result, str) and result.startswith("[NLUEngine] No known intent")):
@@ -106,7 +146,7 @@ if __name__ == "__main__":
                     print("[Daemon Warning] NLU not available. Using fallback response.")
                     result = handle_fallback(user_input)
 
-                print(f"[Daemon] NLU Result: {result}")
+                print(f"[Daemon] Result: {result}")
 
         except Exception as loop_error:
             print(f"[Daemon Critical Loop Error] {loop_error}")

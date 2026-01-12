@@ -1,0 +1,26 @@
+# Device Connection Protocol Dependencies
+# ========================================
+# Install with: pip install -r devices/requirements.txt
+
+# Bluetooth Low Energy (BLE)
+bleak>=0.21.0
+
+# WiFi/Network Discovery
+zeroconf>=0.131.0  # mDNS/Bonjour
+
+# NFC (optional - requires hardware)
+# nfcpy>=1.0.4  # Uncomment if NFC reader available
+# pyscard>=2.0.7  # Smart card support
+
+# USB Device Detection
+pyusb>=1.2.1
+pyserial>=3.5  # For serial port devices
+
+# Linux-specific (optional)
+# pyudev>=0.24.1  # USB hotplug monitoring on Linux
+
+# Network scanning (optional - requires root)
+# scapy>=2.5.0  # ARP scanning
+
+# Core dependencies (usually already installed)
+dataclasses-json>=0.6.0  # For serialization (Python 3.6)

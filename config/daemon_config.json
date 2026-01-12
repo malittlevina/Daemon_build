@@ -5,6 +5,7 @@
   "emotion_engine_tuning": true,
   "reflection_journal_enabled": true,
   "rituals_enabled": true,
+  "device_discovery_enabled": true,
   "modules_to_load": [
     "unimind",
     "codex",
@@ -15,10 +16,26 @@
     "scrolls",
     "prometheus",
     "memory_tree",
-    "introspection"
+    "introspection",
+    "devices"
   ],
   "scroll_autostudy": {
     "trigger_count": 3,
     "daily_reset": true
+  },
+  "device_discovery": {
+    "enabled": true,
+    "continuous_mode": false,
+    "bluetooth_enabled": true,
+    "wifi_enabled": true,
+    "nfc_enabled": true,
+    "usb_enabled": true,
+    "scan_interval_seconds": 60,
+    "bluetooth_scan_duration": 10,
+    "wifi_scan_duration": 15,
+    "nfc_scan_duration": 30,
+    "usb_scan_duration": 5,
+    "auto_connect_trusted": true,
+    "stale_device_timeout_seconds": 300
   }
 }
