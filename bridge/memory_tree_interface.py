@@ -1,4 +1,4 @@
-k# bridge/memory_tree_interface.py
+# bridge/memory_tree_interface.py
 
 class MemoryTreeInterface:
     def __init__(self, memory_logger):

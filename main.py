@@ -1,4 +1,29 @@
+#!/usr/bin/env python3
+"""
+Prometheus Daemon - AI Companion
+================================
+The main entry point for the Prometheus AI daemon.
+Operates independently and can optionally connect to ThothOS.
+
+Architecture:
+- Unimind: Central cortex and event bus
+- Cognition: LLM/NLU/LAM thought pipeline  
+- Observer: Memory garden and mind palace
+- Devices: Wearables and companion devices
+- Bridge: Optional ThothOS connection
+"""
+
 import threading
+import subprocess
+import json
+import time
+import os
+from datetime import date
+
+# Import daemon core
+from daemon.daemon_core import Daemon, DaemonConfig, init_daemon
+
+# Legacy imports for backwards compatibility
 from unimind.core import Unimind
 from prometheus.specialties import PrometheusSpecialties
 from codex.ingestion import ingest_documents
@@ -8,195 +33,142 @@ from introspection.personality_tracker import PersonalityTracker
 from memory_tree.memory_logger import MemoryLogger
 from optimizer.auto_upgrade import run_auto_optimization
 from scrolls.scroll_engine import ScrollEngine
-## from sensors.vision import VisionSensor
 from nlu.nlu_engine import NLUEngine
 from nlu.device_commands import handle_device_command
-from observer.integration import handle_observer_command, setup_observer_integration
-from observer.observer_core import get_observer
-import subprocess
-import json
-import time
-import os
-from datetime import date
+from observer.integration import handle_observer_command
 
-# Device discovery configuration
-ENABLE_DEVICE_DISCOVERY = True
 
-# Observer configuration
-ENABLE_OBSERVER = True
+def load_config() -> dict:
+    """Load daemon configuration."""
+    config_path = "config/daemon_config.json"
+    if os.path.exists(config_path):
+        try:
+            with open(config_path, 'r') as f:
+                return json.load(f)
+        except Exception as e:
+            print(f"[Main] Config error: {e}")
+    return {}
 
-# Flag to control use of Ollama fallback
-USE_OLLAMA = False  # Set to True to enable Ollama fallback
 
-if __name__ == "__main__":
-    unimind = Unimind()
+def main():
+    """Main entry point for the daemon."""
+    print("=" * 50)
+    print("  Prometheus Daemon - AI Companion")
+    print("=" * 50)
+    print()
+    
+    # Load configuration
+    config = load_config()
+    
+    # Create daemon config
+    daemon_config = DaemonConfig(
+        name=config.get('name', 'Prometheus'),
+        version=config.get('version', '1.0.0'),
+        enable_voice=config.get('voice_listener_enabled', False),
+        enable_vision=config.get('camera_sensor_enabled', False),
+        enable_devices=config.get('device_discovery_enabled', True),
+        enable_observer=config.get('observer_enabled', True),
+        enable_thoth_bridge=config.get('thoth_bridge', {}).get('enabled', False),
+        use_ollama=config.get('cognition', {}).get('use_ollama', True),
+        ollama_model=config.get('cognition', {}).get('ollama_model', 'llama3'),
+    )
+    
+    # Initialize daemon
+    daemon = init_daemon(daemon_config)
+    
+    # Additional initialization
     prom = PrometheusSpecialties()
     emotions = EmotionEngine()
-    memory = MemoryLogger()
     rituals = RitualRegistry()
     scrolls = ScrollEngine()
-    # vision = VisionSensor()
     personality = PersonalityTracker()
+    
+    # Initialize NLU with scroll engine
     try:
-        global nlu
         nlu = NLUEngine(scrolls)
     except Exception as e:
-        print(f"[Daemon Init Error] Failed to initialize NLU: {e}")
+        print(f"[Main] NLU init error: {e}")
         nlu = None
-
-    # Initialize device discovery subsystem
-    device_bridge = None
-    if ENABLE_DEVICE_DISCOVERY:
-        try:
-            from devices.device_bridge import init_device_bridge
-            from devices.discovery_engine import DiscoveryConfig
-            
-            # Configure device discovery
-            device_config = DiscoveryConfig()
-            device_config.bluetooth_enabled = True
-            device_config.wifi_enabled = True
-            device_config.nfc_enabled = True
-            device_config.usb_enabled = True
-            device_config.auto_connect_trusted = True
-            
-            device_bridge = init_device_bridge(device_config)
-            
-            # Register event handler for scroll triggers
-            def on_device_event(event):
-                memory.log(f"[Device Event] {event.event_type}: {event.device_name} ({event.protocol})")
-            
-            device_bridge.subscribe_events(on_device_event)
-            
-            print("[Daemon] Device discovery subsystem initialized.")
-        except Exception as e:
-            print(f"[Daemon] Device discovery failed to initialize: {e}")
-            device_bridge = None
-
-    # Initialize Observer subsystem
-    observer = None
-    observer_integration = None
-    if ENABLE_OBSERVER:
-        try:
-            observer = get_observer()
-            
-            # Integrate with existing systems
-            observer_integration = setup_observer_integration(
-                observer=observer,
-                memory_logger=memory,
-                personality_tracker=personality
-            )
-            
-            # Start background processing (garden tending, memory decay)
-            observer.start_background_processing(interval_seconds=3600)
-            
-            # Register device events with observer
-            if device_bridge:
-                def on_device_event(event):
-                    observer.observe(
-                        content=f"Device {event.event_type}: {event.device_name} ({event.protocol})",
-                        moment_type=observer.moment.MomentType.DEVICE_EVENT if hasattr(observer, 'moment') else None,
-                        source="device_bridge",
-                        tags=['device', event.protocol]
-                    )
-                device_bridge.subscribe_events(on_device_event)
-            
-            print("[Daemon] Observer subsystem initialized.")
-            print(f"[Daemon] {observer.describe()[:200]}...")
-        except Exception as e:
-            print(f"[Daemon] Observer failed to initialize: {e}")
-            observer = None
-
-    print("[Daemon] Starting Prometheus daemon...")
-
-    # Launch sensors and background modules in threads
-    ENABLE_VOICE = False
-    # To enable the voice listener, set ENABLE_VOICE = True above.
-    if ENABLE_VOICE:
-        from voice.voice_listener import start_voice_listener
-        threading.Thread(target=start_voice_listener, daemon=True).start()
-    # threading.Thread(target=vision.classify_surroundings, daemon=True).start()
-    threading.Thread(target=run_auto_optimization, daemon=True).start()
-
+    
+    # Start background optimization
+    if config.get('auto_optimization', True):
+        threading.Thread(target=run_auto_optimization, daemon=True).start()
+    
     # Load Codex documents
     ingest_documents("codex/data/")
-
+    
+    # Create logs directory
     os.makedirs("logs", exist_ok=True)
+    
+    print()
+    print(daemon.describe())
+    print()
+    print("[Daemon] Ready. Type 'help' for commands or 'exit' to quit.")
+    print()
+    
+    # Track nightly reflection
     last_run_date = None
-
-    def handle_fallback(text):
-        if not USE_OLLAMA:
-            return "[Daemon] No known intent."
+    
+    # Main loop
+    while daemon.is_running:
         try:
-            response = subprocess.run(
-                ["ollama", "run", "llama3"],
-                input=text,
-                text=True,
-                capture_output=True
-            )
-            if response.returncode == 0:
-                output = response.stdout
-                return output if output else "[Daemon] No response from Ollama."
-            else:
-                return f"[Daemon] Ollama error: {response.stderr}"
-        except Exception as e:
-            return f"[Daemon] Fallback error: {e}"
-
-    while True:
-        try:
-            # Nightly reflection & self-improvement at 2 AM
+            # Nightly reflection at 2 AM
             current_hour = time.localtime().tm_hour
             today = date.today()
             if current_hour == 2 and last_run_date != today:
-                from code_tools import code_generator
-                unimind.reflect()
-                code_generator.propose_improvements("Nightly system reflection and improvement")
+                print("[Daemon] Running nightly reflection...")
+                if daemon.unimind:
+                    daemon.unimind.reflect()
+                if daemon.observer:
+                    daemon.observer.tend_garden()
                 with open("logs/improvement_history.log", "a") as log_file:
-                    log_file.write(f"{time.asctime()} - Nightly reflection and improvement triggered\n")
+                    log_file.write(f"{time.asctime()} - Nightly reflection triggered\n")
                 last_run_date = today
-
-            print("\n[Daemon] Enter a command or type 'exit': ", end="", flush=True)
-            user_input = input().strip()
-
-            if user_input.lower() == "exit":
-                print("[Daemon] Shutting down.")
-                # Cleanup subsystems
-                if observer:
-                    observer.shutdown()
-                if device_bridge:
-                    device_bridge.shutdown()
+            
+            # Get user input
+            try:
+                user_input = input("[You] ").strip()
+            except EOFError:
                 break
-            elif user_input == "":
-                personality.log_state()
-                unimind.reflect()
-            else:
-                result = None
-                
-                # First, try device commands
-                device_result = handle_device_command(user_input)
-                if device_result:
-                    result = device_result
-                else:
-                    # Try observer commands
-                    observer_result = handle_observer_command(user_input)
-                    if observer_result:
-                        result = observer_result
-                
-                if result is None:
-                    # No device or observer command matched, try NLU
-                    if nlu:
-                        try:
-                            result = nlu.interpret(user_input)
-                            if result is None or (isinstance(result, str) and result.startswith("[NLUEngine] No known intent")):
-                                result = handle_fallback(user_input)
-                        except Exception as e:
-                            print(f"[Daemon Error] NLU failed: {e}")
-                            result = handle_fallback(user_input)
-                    else:
-                        print("[Daemon Warning] NLU not available. Using fallback response.")
-                        result = handle_fallback(user_input)
-
-                print(f"[Daemon] Result: {result}")
-
-        except Exception as loop_error:
-            print(f"[Daemon Critical Loop Error] {loop_error}")
+            
+            # Handle exit
+            if user_input.lower() in ['exit', 'quit', 'bye']:
+                print("[Daemon] Goodbye! Take care.")
+                break
+            
+            # Handle empty input
+            if not user_input:
+                continue
+            
+            # Process input through daemon
+            response = daemon.process_input(user_input)
+            
+            # If no response from daemon handlers, try NLU
+            if not response or response.startswith("[Unimind] Processed:"):
+                if nlu:
+                    try:
+                        nlu_response = nlu.interpret(user_input)
+                        if nlu_response and not nlu_response.startswith("[NLUEngine] No known intent"):
+                            response = nlu_response
+                    except Exception as e:
+                        print(f"[Daemon] NLU error: {e}")
+            
+            # Print response
+            if response:
+                print(f"[{daemon_config.name}] {response}")
+            print()
+            
+        except KeyboardInterrupt:
+            print("\n[Daemon] Interrupted. Shutting down...")
+            break
+        except Exception as e:
+            print(f"[Daemon] Error: {e}")
             continue
+    
+    # Shutdown
+    daemon.shutdown()
+    print("[Daemon] Shutdown complete.")
+
+
+if __name__ == "__main__":
+    main()

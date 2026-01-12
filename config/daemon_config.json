@@ -1,28 +1,35 @@
 {
+  "name": "Prometheus",
+  "version": "1.0.0",
+  
   "auto_optimization": true,
-  "voice_listener_enabled": true,
-  "camera_sensor_enabled": true,
+  "voice_listener_enabled": false,
+  "camera_sensor_enabled": false,
   "emotion_engine_tuning": true,
   "reflection_journal_enabled": true,
   "rituals_enabled": true,
   "device_discovery_enabled": true,
+  "observer_enabled": true,
+  
   "modules_to_load": [
     "unimind",
     "codex",
     "emotion",
-    "voice",
+    "observer",
     "optimizer",
-    "sensors",
+    "devices",
     "scrolls",
     "prometheus",
     "memory_tree",
     "introspection",
-    "devices"
+    "guardian"
   ],
+  
   "scroll_autostudy": {
     "trigger_count": 3,
     "daily_reset": true
   },
+  
   "device_discovery": {
     "enabled": true,
     "continuous_mode": false,
@@ -30,12 +37,58 @@
     "wifi_enabled": true,
     "nfc_enabled": true,
     "usb_enabled": true,
+    "auto_connect_trusted": true,
     "scan_interval_seconds": 60,
     "bluetooth_scan_duration": 10,
     "wifi_scan_duration": 15,
     "nfc_scan_duration": 30,
     "usb_scan_duration": 5,
-    "auto_connect_trusted": true,
     "stale_device_timeout_seconds": 300
+  },
+  
+  "observer": {
+    "enabled": true,
+    "background_processing": true,
+    "processing_interval_seconds": 3600,
+    "significance_threshold": 2,
+    "auto_plant_memories": true,
+    "auto_palace_placement": true
+  },
+  
+  "cognition": {
+    "use_ollama": true,
+    "ollama_model": "llama3",
+    "fallback_enabled": true,
+    "max_response_time_seconds": 30
+  },
+  
+  "unimind": {
+    "background_processing": true,
+    "reflection_enabled": true,
+    "nightly_reflection_hour": 2
+  },
+  
+  "thoth_bridge": {
+    "enabled": false,
+    "auto_connect": false,
+    "kernel_path": null
+  },
+  
+  "wearables": {
+    "ring_enabled": true,
+    "glasses_enabled": true,
+    "robot_enabled": false,
+    "drone_enabled": false
+  },
+  
+  "personality": {
+    "name": "Prometheus",
+    "traits": {
+      "helpfulness": 0.9,
+      "curiosity": 0.8,
+      "patience": 0.85,
+      "creativity": 0.7,
+      "formality": 0.5
+    }
   }
 }
