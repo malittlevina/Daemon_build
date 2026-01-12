@@ -11,6 +11,8 @@ from scrolls.scroll_engine import ScrollEngine
 ## from sensors.vision import VisionSensor
 from nlu.nlu_engine import NLUEngine
 from nlu.device_commands import handle_device_command
+from observer.integration import handle_observer_command, setup_observer_integration
+from observer.observer_core import get_observer
 import subprocess
 import json
 import time
@@ -19,6 +21,9 @@ from datetime import date
 
 # Device discovery configuration
 ENABLE_DEVICE_DISCOVERY = True
+
+# Observer configuration
+ENABLE_OBSERVER = True
 
 # Flag to control use of Ollama fallback
 USE_OLLAMA = False  # Set to True to enable Ollama fallback
@@ -66,6 +71,40 @@ if __name__ == "__main__":
         except Exception as e:
             print(f"[Daemon] Device discovery failed to initialize: {e}")
             device_bridge = None
+
+    # Initialize Observer subsystem
+    observer = None
+    observer_integration = None
+    if ENABLE_OBSERVER:
+        try:
+            observer = get_observer()
+            
+            # Integrate with existing systems
+            observer_integration = setup_observer_integration(
+                observer=observer,
+                memory_logger=memory,
+                personality_tracker=personality
+            )
+            
+            # Start background processing (garden tending, memory decay)
+            observer.start_background_processing(interval_seconds=3600)
+            
+            # Register device events with observer
+            if device_bridge:
+                def on_device_event(event):
+                    observer.observe(
+                        content=f"Device {event.event_type}: {event.device_name} ({event.protocol})",
+                        moment_type=observer.moment.MomentType.DEVICE_EVENT if hasattr(observer, 'moment') else None,
+                        source="device_bridge",
+                        tags=['device', event.protocol]
+                    )
+                device_bridge.subscribe_events(on_device_event)
+            
+            print("[Daemon] Observer subsystem initialized.")
+            print(f"[Daemon] {observer.describe()[:200]}...")
+        except Exception as e:
+            print(f"[Daemon] Observer failed to initialize: {e}")
+            observer = None
 
     print("[Daemon] Starting Prometheus daemon...")
 
@@ -120,7 +159,9 @@ if __name__ == "__main__":
 
             if user_input.lower() == "exit":
                 print("[Daemon] Shutting down.")
-                # Cleanup device subsystem
+                # Cleanup subsystems
+                if observer:
+                    observer.shutdown()
                 if device_bridge:
                     device_bridge.shutdown()
                 break
@@ -134,17 +175,25 @@ if __name__ == "__main__":
                 device_result = handle_device_command(user_input)
                 if device_result:
                     result = device_result
-                elif nlu:
-                    try:
-                        result = nlu.interpret(user_input)
-                        if result is None or (isinstance(result, str) and result.startswith("[NLUEngine] No known intent")):
-                            result = handle_fallback(user_input)
-                    except Exception as e:
-                        print(f"[Daemon Error] NLU failed: {e}")
-                        result = handle_fallback(user_input)
                 else:
-                    print("[Daemon Warning] NLU not available. Using fallback response.")
-                    result = handle_fallback(user_input)
+                    # Try observer commands
+                    observer_result = handle_observer_command(user_input)
+                    if observer_result:
+                        result = observer_result
+                
+                if result is None:
+                    # No device or observer command matched, try NLU
+                    if nlu:
+                        try:
+                            result = nlu.interpret(user_input)
+                            if result is None or (isinstance(result, str) and result.startswith("[NLUEngine] No known intent")):
+                                result = handle_fallback(user_input)
+                        except Exception as e:
+                            print(f"[Daemon Error] NLU failed: {e}")
+                            result = handle_fallback(user_input)
+                    else:
+                        print("[Daemon Warning] NLU not available. Using fallback response.")
+                        result = handle_fallback(user_input)
 
                 print(f"[Daemon] Result: {result}")
 
