@@ -23,6 +23,32 @@ class ScrollEngine:
             "multi step plan": self._multi_step_plan
         }
         self.active_scrolls = []
+        self._load_library_scrolls()
+
+    def _load_library_scrolls(self):
+        import os
+        import importlib.util
+        import sys
+        
+        library_path = "scrolls/library"
+        if not os.path.exists(library_path):
+            return
+
+        for filename in os.listdir(library_path):
+            if filename.endswith(".py") and not filename.startswith("__"):
+                scroll_name = filename[:-3].replace("_", " ")
+                file_path = os.path.join(library_path, filename)
+                
+                try:
+                    spec = importlib.util.spec_from_file_location(f"scrolls.library.{filename[:-3]}", file_path)
+                    module = importlib.util.module_from_spec(spec)
+                    spec.loader.exec_module(module)
+                    
+                    if hasattr(module, "run"):
+                        self.scrolls[scroll_name] = module.run
+                        print(f"[ScrollEngine] Loaded dynamic scroll: '{scroll_name}'")
+                except Exception as e:
+                    print(f"[ScrollEngine] Failed to load scroll {filename}: {e}")
 
     def invoke(self, name, *args, **kwargs):
         if name in self.scrolls:

@@ -111,6 +111,25 @@ if __name__ == "__main__":
                 dev_id = user_input.split(" ", 1)[1]
                 success, msg = device_scanner.connect_device(dev_id)
                 print(f"[Daemon] Connection Result: {msg}")
+            elif user_input.lower().startswith("create scroll "):
+                # Format: create scroll <name> : <description>
+                try:
+                    parts = user_input[14:].split(":", 1)
+                    if len(parts) == 2:
+                        name = parts[0].strip()
+                        desc = parts[1].strip()
+                        from guardian.code_generator import CodeGenerator
+                        gen = CodeGenerator()
+                        code = gen.propose_scroll_implementation(desc)
+                        path = gen.generate_scroll(name, code)
+                        # Reload scrolls
+                        scrolls._load_library_scrolls()
+                        print(f"[Daemon] Created new scroll '{name}' at {path}")
+                        print(f"[Daemon] You can now run it by typing: {name}")
+                    else:
+                        print("[Daemon] Usage: create scroll <name> : <description>")
+                except Exception as e:
+                    print(f"[Daemon] Error creating scroll: {e}")
             else:
                 result = None
                 if nlu:

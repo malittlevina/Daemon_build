@@ -9,11 +9,17 @@ REFLECTION_LOG = "logs/self_reflection.log"
 MAX_LOG_SIZE = 10000  # characters
 
 class NLUEngine:
-    def __init__(self):
+    def __init__(self, scroll_engine=None):
         self.learned_phrases = {}
         self.use_ollama_fallback = True
+        self.scroll_engine = scroll_engine
 
     def interpret(self, user_input):
+        # 1. Check dynamic scrolls first
+        if self.scroll_engine and user_input in self.scroll_engine.scrolls:
+            print(f"[NLU] Triggering scroll: {user_input}")
+            return self.scroll_engine.invoke(user_input)
+
         if user_input in self.learned_phrases:
             return self.learned_phrases[user_input]
 
