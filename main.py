@@ -30,22 +30,49 @@ if __name__ == "__main__":
     # vision = VisionSensor()
     device_scanner = DeviceScanner()
     
-    # Register a listener for new devices
+    # Connect Device Scanner to Unimind Event Bus
     def on_new_device(device):
-        # Example of seamless integration: log to memory or trigger an event
-        # For now, we just print a special notification
-        print(f"\n[System Notification] New device detected: {device.get('name') or device.get('ssid') or 'Unknown'}")
+        msg = f"New device detected: {device.get('name') or device.get('ssid') or 'Unknown'}"
+        print(f"\n[System Notification] {msg}")
+        unimind.emit("device_detected", device)
+        unimind.emit("input_received", {"text": msg, "source": "sensors"})
 
     device_scanner.add_listener(on_new_device)
     device_scanner.start_scanning()
     
+    # Initialize Personality with Unimind access if needed
     personality = PersonalityTracker()
+    
+    # Initialize NLU
     try:
         global nlu
         nlu = NLUEngine(scrolls)
+        # Register NLU as a listener to inputs if we wanted fully event-driven architecture
+        # unimind.subscribe("user_input", nlu.interpret) 
     except Exception as e:
         print(f"[Daemon Init Error] Failed to initialize NLU: {e}")
         nlu = None
+
+    # Initialize ThothBridge
+    from bridge.thoth_bridge import ThothBridge
+    bridge = ThothBridge(unimind)
+
+    # Load Apps
+    import importlib.util
+    apps_dir = "apps"
+    if os.path.exists(apps_dir):
+        for app_name in os.listdir(apps_dir):
+            app_path = os.path.join(apps_dir, app_name, "main.py")
+            if os.path.exists(app_path):
+                try:
+                    spec = importlib.util.spec_from_file_location(f"apps.{app_name}", app_path)
+                    module = importlib.util.module_from_spec(spec)
+                    spec.loader.exec_module(module)
+                    if hasattr(module, "run"):
+                        module.run(bridge)
+                        print(f"[Daemon] Loaded app: {app_name}")
+                except Exception as e:
+                    print(f"[Daemon] Failed to load app {app_name}: {e}")
 
     print("[Daemon] Starting Prometheus daemon...")
 
@@ -131,6 +158,9 @@ if __name__ == "__main__":
                 except Exception as e:
                     print(f"[Daemon] Error creating scroll: {e}")
             else:
+                # Emit user input to the event bus
+                unimind.emit("input_received", {"text": user_input, "source": "user"})
+                
                 result = None
                 if nlu:
                     try:
