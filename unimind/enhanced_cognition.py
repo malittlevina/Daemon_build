@@ -600,6 +600,19 @@ class EnhancedCognitionPipeline(CognitionPipeline):
         # Avatar actions
         self.lam.register_action('set_avatar_emotion', self._set_avatar_emotion)
         self.lam.register_action('set_avatar_pose', self._set_avatar_pose)
+        
+        # Device-specific actions
+        self.lam.register_action('control_smart_ring', self._control_smart_ring)
+        self.lam.register_action('control_smart_glasses', self._control_smart_glasses)
+        self.lam.register_action('control_companion_robot', self._control_companion_robot)
+        self.lam.register_action('control_drone', self._control_drone)
+        
+        # Self-evolution actions
+        self.lam.register_action('analyze_codebase', self._analyze_codebase)
+        self.lam.register_action('propose_improvement', self._propose_improvement)
+        self.lam.register_action('apply_improvement', self._apply_improvement)
+        self.lam.register_action('create_module', self._create_module)
+        self.lam.register_action('get_evolution_status', self._get_evolution_status)
     
     # XR Actions
     def _start_ar_session(self, mode: str = "ar", **kwargs) -> Dict[str, Any]:
@@ -751,6 +764,229 @@ class EnhancedCognitionPipeline(CognitionPipeline):
                 'pose': pose,
                 'state': state,
                 'message': f'Avatar pose set to {pose}'
+            }
+        except Exception as e:
+            return {'status': 'error', 'message': str(e)}
+    
+    # Device-specific Actions
+    def _control_smart_ring(self, action: str, **kwargs) -> Dict[str, Any]:
+        """Control smart ring device."""
+        try:
+            from devices.wearables.smart_ring import SmartRing
+            
+            ring = SmartRing("daemon_ring")
+            
+            if action == "get_biometrics":
+                data = ring.get_biometrics()
+                return {'status': 'success', 'biometrics': data}
+            elif action == "haptic_feedback":
+                pattern = kwargs.get('pattern', 'pulse')
+                ring.haptic_feedback(pattern)
+                return {'status': 'success', 'message': f'Haptic {pattern} sent'}
+            elif action == "get_gestures":
+                gestures = ring.get_recent_gestures()
+                return {'status': 'success', 'gestures': gestures}
+            else:
+                return {'status': 'error', 'message': f'Unknown action: {action}'}
+        except Exception as e:
+            return {'status': 'error', 'message': str(e)}
+    
+    def _control_smart_glasses(self, action: str, **kwargs) -> Dict[str, Any]:
+        """Control smart glasses device."""
+        try:
+            from devices.wearables.smart_glasses import SmartGlasses
+            
+            glasses = SmartGlasses("daemon_glasses")
+            
+            if action == "show_notification":
+                text = kwargs.get('text', 'Notification')
+                glasses.show_notification(text)
+                return {'status': 'success', 'message': f'Showing: {text}'}
+            elif action == "capture_photo":
+                photo = glasses.capture_photo()
+                return {'status': 'success', 'photo': photo}
+            elif action == "start_recording":
+                glasses.start_recording()
+                return {'status': 'success', 'message': 'Recording started'}
+            elif action == "show_ar_overlay":
+                content = kwargs.get('content', '')
+                glasses.show_ar_overlay(content)
+                return {'status': 'success', 'message': 'AR overlay shown'}
+            else:
+                return {'status': 'error', 'message': f'Unknown action: {action}'}
+        except Exception as e:
+            return {'status': 'error', 'message': str(e)}
+    
+    def _control_companion_robot(self, action: str, **kwargs) -> Dict[str, Any]:
+        """Control companion robot."""
+        try:
+            from devices.wearables.companion_robot import CompanionRobot
+            
+            robot = CompanionRobot("daemon_robot")
+            
+            if action == "move":
+                direction = kwargs.get('direction', 'forward')
+                distance = kwargs.get('distance', 1.0)
+                robot.move(direction, distance)
+                return {'status': 'success', 'message': f'Moving {direction} {distance}m'}
+            elif action == "speak":
+                text = kwargs.get('text', 'Hello')
+                robot.speak(text)
+                return {'status': 'success', 'message': f'Speaking: {text}'}
+            elif action == "express_emotion":
+                emotion = kwargs.get('emotion', 'happy')
+                robot.express_emotion(emotion)
+                return {'status': 'success', 'message': f'Expressing: {emotion}'}
+            elif action == "get_perception":
+                perception = robot.get_perception()
+                return {'status': 'success', 'perception': perception}
+            else:
+                return {'status': 'error', 'message': f'Unknown action: {action}'}
+        except Exception as e:
+            return {'status': 'error', 'message': str(e)}
+    
+    def _control_drone(self, action: str, **kwargs) -> Dict[str, Any]:
+        """Control drone device."""
+        try:
+            from devices.wearables.drone import Drone
+            
+            drone = Drone("daemon_drone")
+            
+            if action == "takeoff":
+                drone.takeoff()
+                return {'status': 'success', 'message': 'Drone taking off'}
+            elif action == "land":
+                drone.land()
+                return {'status': 'success', 'message': 'Drone landing'}
+            elif action == "fly_to":
+                x = kwargs.get('x', 0)
+                y = kwargs.get('y', 0)
+                z = kwargs.get('z', 10)
+                drone.fly_to(x, y, z)
+                return {'status': 'success', 'message': f'Flying to ({x}, {y}, {z})'}
+            elif action == "capture_aerial":
+                photo = drone.capture_aerial_photo()
+                return {'status': 'success', 'photo': photo}
+            elif action == "follow_me":
+                drone.start_follow_mode()
+                return {'status': 'success', 'message': 'Follow mode activated'}
+            else:
+                return {'status': 'error', 'message': f'Unknown action: {action}'}
+        except Exception as e:
+            return {'status': 'error', 'message': str(e)}
+    
+    # Self-Evolution Actions
+    def _analyze_codebase(self, module: str = None, **kwargs) -> Dict[str, Any]:
+        """Analyze the daemon's codebase for improvements."""
+        try:
+            from codegen.self_evolution import get_evolution_engine
+            
+            engine = get_evolution_engine()
+            
+            if module:
+                analyses = engine.introspector.analyze_module(module)
+                return {
+                    'status': 'success',
+                    'module': module,
+                    'files_analyzed': len(analyses),
+                    'total_lines': sum(a.lines_of_code for a in analyses),
+                    'issues': sum(len(a.issues) for a in analyses),
+                    'suggestions': sum(len(a.suggestions) for a in analyses)
+                }
+            else:
+                analysis = engine.analyze_self()
+                return {
+                    'status': 'success',
+                    'analysis': analysis
+                }
+        except Exception as e:
+            return {'status': 'error', 'message': str(e)}
+    
+    def _propose_improvement(
+        self,
+        file_path: str,
+        description: str,
+        change_type: str = "enhancement",
+        **kwargs
+    ) -> Dict[str, Any]:
+        """Propose a code improvement."""
+        try:
+            from codegen.self_evolution import get_evolution_engine, ChangeType
+            
+            engine = get_evolution_engine()
+            ct = ChangeType(change_type) if change_type in [t.value for t in ChangeType] else ChangeType.ENHANCEMENT
+            
+            change = engine.propose_improvement(file_path, ct, description)
+            
+            if change:
+                return {
+                    'status': 'success',
+                    'change_id': change.change_id,
+                    'risk_level': change.risk_level.value,
+                    'approved': change.approved,
+                    'message': f'Proposed improvement to {file_path}'
+                }
+            return {'status': 'error', 'message': 'Could not generate improvement'}
+        except Exception as e:
+            return {'status': 'error', 'message': str(e)}
+    
+    def _apply_improvement(self, change_id: str, force: bool = False, **kwargs) -> Dict[str, Any]:
+        """Apply a proposed code improvement."""
+        try:
+            from codegen.self_evolution import get_evolution_engine
+            
+            engine = get_evolution_engine()
+            
+            for change in engine.pending_changes:
+                if change.change_id == change_id:
+                    success = engine.apply_change(change, force=force)
+                    if success:
+                        return {
+                            'status': 'success',
+                            'message': f'Applied change {change_id}'
+                        }
+                    return {
+                        'status': 'error',
+                        'message': f'Failed to apply change {change_id}'
+                    }
+            
+            return {'status': 'error', 'message': f'Change {change_id} not found'}
+        except Exception as e:
+            return {'status': 'error', 'message': str(e)}
+    
+    def _create_module(
+        self,
+        module_name: str,
+        purpose: str,
+        language: str = "python",
+        **kwargs
+    ) -> Dict[str, Any]:
+        """Create a new module."""
+        try:
+            from codegen.self_evolution import get_evolution_engine, Language
+            
+            engine = get_evolution_engine()
+            lang = Language(language) if language in [l.value for l in Language] else Language.PYTHON
+            
+            path = engine.create_new_module(module_name, purpose, lang)
+            
+            return {
+                'status': 'success',
+                'path': path,
+                'message': f'Created module {module_name}'
+            }
+        except Exception as e:
+            return {'status': 'error', 'message': str(e)}
+    
+    def _get_evolution_status(self, **kwargs) -> Dict[str, Any]:
+        """Get self-evolution status."""
+        try:
+            from codegen.self_evolution import get_evolution_engine
+            
+            engine = get_evolution_engine()
+            return {
+                'status': 'success',
+                **engine.get_status()
             }
         except Exception as e:
             return {'status': 'error', 'message': str(e)}

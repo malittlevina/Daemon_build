@@ -370,6 +370,104 @@ class Vocabulary:
             pass  # Domain vocabulary not available
         except Exception as e:
             print(f"[Vocabulary] Error loading domain vocabulary: {e}")
+        
+        # Load academic vocabulary
+        self._load_academic_vocabulary()
+    
+    def _load_academic_vocabulary(self):
+        """Load academic and advanced vocabulary."""
+        academic_count = 0
+        
+        try:
+            from unimind.models.native.vocabulary_academic import (
+                ACADEMIC_CORE, DISCOURSE_MARKERS
+            )
+            
+            # Load academic core words
+            for word_text, entry in ACADEMIC_CORE.items():
+                academic_count += self._import_native_entry(
+                    word_text, entry, PartOfSpeech.NOUN, domain='academic'
+                )
+            
+            # Load discourse markers
+            for word_text, entry in DISCOURSE_MARKERS.items():
+                academic_count += self._import_native_entry(
+                    word_text, entry, PartOfSpeech.ADVERB, domain='discourse'
+                )
+            
+            print(f"[Vocabulary] Loaded {academic_count} academic vocabulary words")
+            
+        except ImportError:
+            pass
+        except Exception as e:
+            print(f"[Vocabulary] Error loading academic vocabulary: {e}")
+        
+        # Load additional vocabulary expansions
+        self._load_massive_vocabulary()
+    
+    def _load_massive_vocabulary(self):
+        """Load massive vocabulary expansion for comprehensive coverage."""
+        massive_count = 0
+        
+        try:
+            from unimind.models.native.vocabulary_massive import (
+                EXTENSIVE_VERBS, EXTENSIVE_NOUNS
+            )
+            
+            for word_text, entry in EXTENSIVE_VERBS.items():
+                massive_count += self._import_native_entry(
+                    word_text, entry, PartOfSpeech.VERB
+                )
+            
+            for word_text, entry in EXTENSIVE_NOUNS.items():
+                massive_count += self._import_native_entry(
+                    word_text, entry, PartOfSpeech.NOUN
+                )
+            
+            print(f"[Vocabulary] Loaded {massive_count} massive vocabulary words")
+            
+        except ImportError:
+            pass
+        except Exception as e:
+            print(f"[Vocabulary] Error loading massive vocabulary: {e}")
+        
+        # Load comprehensive vocabulary
+        self._load_comprehensive_vocabulary()
+    
+    def _load_comprehensive_vocabulary(self):
+        """Load comprehensive everyday vocabulary."""
+        comprehensive_count = 0
+        
+        try:
+            from unimind.models.native.vocabulary_comprehensive import (
+                FOOD_VOCAB, HOUSEHOLD_VOCAB, CLOTHING_VOCAB,
+                NATURE_VOCAB, BODY_VOCAB, PROFESSION_VOCAB,
+                DESCRIPTIVE_ADJ, MANNER_ADV
+            )
+            
+            vocab_sets = [
+                (FOOD_VOCAB, 'food', PartOfSpeech.NOUN),
+                (HOUSEHOLD_VOCAB, 'household', PartOfSpeech.NOUN),
+                (CLOTHING_VOCAB, 'clothing', PartOfSpeech.NOUN),
+                (NATURE_VOCAB, 'nature', PartOfSpeech.NOUN),
+                (BODY_VOCAB, 'body', PartOfSpeech.NOUN),
+                (PROFESSION_VOCAB, 'profession', PartOfSpeech.NOUN),
+                (DESCRIPTIVE_ADJ, None, PartOfSpeech.ADJECTIVE),
+                (MANNER_ADV, None, PartOfSpeech.ADVERB),
+            ]
+            
+            for vocab, domain, pos in vocab_sets:
+                for word_text, entry in vocab.items():
+                    comprehensive_count += self._import_native_entry(
+                        word_text, entry, pos, domain=domain
+                    )
+            
+            print(f"[Vocabulary] Loaded {comprehensive_count} comprehensive vocabulary words")
+            
+        except ImportError:
+            pass
+        except Exception as e:
+            print(f"[Vocabulary] Error loading comprehensive vocabulary: {e}")
     
     def _import_native_entry(
         self,

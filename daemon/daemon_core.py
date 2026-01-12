@@ -17,6 +17,18 @@ from typing import Dict, List, Optional, Any, Callable
 from unimind.core import Unimind, get_unimind, BrainRegion, SignalType
 from unimind.cognition import CognitionPipeline, get_cognition
 
+# Enhanced cognition with multimodal support
+try:
+    from unimind.enhanced_cognition import (
+        EnhancedCognitionPipeline,
+        get_enhanced_cognition,
+        OutputType,
+        Capability
+    )
+    ENHANCED_COGNITION_AVAILABLE = True
+except ImportError:
+    ENHANCED_COGNITION_AVAILABLE = False
+
 # State management
 from .state_manager import StateManager
 
@@ -34,6 +46,8 @@ class DaemonConfig:
     enable_devices: bool = True
     enable_observer: bool = True
     enable_thoth_bridge: bool = False  # ThothOS is optional
+    enable_enhanced_cognition: bool = True  # Multimodal cognition
+    enable_self_evolution: bool = True  # Self-coding capability
     
     # LLM
     use_ollama: bool = True
@@ -55,6 +69,8 @@ class DaemonConfig:
             'enable_devices': self.enable_devices,
             'enable_observer': self.enable_observer,
             'enable_thoth_bridge': self.enable_thoth_bridge,
+            'enable_enhanced_cognition': self.enable_enhanced_cognition,
+            'enable_self_evolution': self.enable_self_evolution,
             'use_ollama': self.use_ollama,
             'ollama_model': self.ollama_model,
         }
@@ -70,9 +86,10 @@ class Daemon:
     
     Core Architecture:
     - Unimind: Central cortex and event bus
-    - Cognition: LLM/NLU/LAM thought pipeline
+    - Cognition: LLM/NLU/LAM thought pipeline (standard or enhanced)
     - Observer: Memory and awareness
     - Devices: Wearable and device interfaces
+    - Self-Evolution: Code analysis and improvement
     
     Optional:
     - ThothOS Bridge: Connect to ThothOS kernel (if available)
@@ -83,8 +100,11 @@ class Daemon:
         
         # Core systems
         self.unimind: Optional[Unimind] = None
-        self.cognition: Optional[CognitionPipeline] = None
+        self.cognition = None  # Can be CognitionPipeline or EnhancedCognitionPipeline
         self.state_manager: Optional[StateManager] = None
+        
+        # Enhanced capabilities
+        self.evolution_engine = None
         
         # Optional systems
         self.observer = None
@@ -125,11 +145,25 @@ class Daemon:
         self.unimind = get_unimind()
         self.unimind.start()
         
-        # Initialize cognition pipeline
-        self.cognition = get_cognition()
+        # Initialize cognition pipeline (enhanced or standard)
+        if self.config.enable_enhanced_cognition and ENHANCED_COGNITION_AVAILABLE:
+            print("[Daemon] Using enhanced cognition pipeline with multimodal support")
+            self.cognition = get_enhanced_cognition()
+            
+            # Log capabilities
+            summary = self.cognition.get_capabilities_summary()
+            print(f"[Daemon] Vocabulary loaded: {summary['vocabulary_loaded']}")
+            print(f"[Daemon] Available capabilities: {summary['available_count']}")
+        else:
+            print("[Daemon] Using standard cognition pipeline")
+            self.cognition = get_cognition()
         
         # Connect cognition to Unimind regions
         self._setup_brain_regions()
+        
+        # Initialize self-evolution (if enabled)
+        if self.config.enable_self_evolution:
+            self._init_self_evolution()
         
         # Initialize Observer (if enabled)
         if self.config.enable_observer:
@@ -274,6 +308,83 @@ class Daemon:
         except Exception as e:
             print(f"[Daemon] ThothOS bridge not available: {e}")
             print("[Daemon] Continuing in standalone mode.")
+    
+    def _init_self_evolution(self):
+        """Initialize self-evolution engine for code improvement."""
+        try:
+            from codegen.self_evolution import get_evolution_engine
+            
+            self.evolution_engine = get_evolution_engine()
+            
+            # Run initial codebase analysis
+            analysis = self.evolution_engine.analyze_self()
+            
+            print(f"[Daemon] Self-evolution initialized.")
+            print(f"[Daemon] Codebase: {analysis['total_files']} files, "
+                  f"{analysis['total_lines']} lines, "
+                  f"{analysis['total_functions']} functions")
+            
+            if analysis['suggestions']:
+                print(f"[Daemon] Found {len(analysis['suggestions'])} improvement opportunities")
+            
+        except Exception as e:
+            print(f"[Daemon] Self-evolution init error: {e}")
+    
+    def improve_self(self, target: str, description: str, change_type: str = "enhancement") -> Dict[str, Any]:
+        """
+        Request a self-improvement to the daemon's code.
+        
+        Args:
+            target: File or function to improve
+            description: What improvement to make
+            change_type: Type of change (enhancement, optimization, refactor, etc.)
+        
+        Returns:
+            Result dictionary with change_id if successful
+        """
+        if not self.evolution_engine:
+            return {'status': 'error', 'message': 'Self-evolution not enabled'}
+        
+        try:
+            from codegen.self_evolution import ChangeType
+            
+            ct = ChangeType(change_type) if change_type in [t.value for t in ChangeType] else ChangeType.ENHANCEMENT
+            change = self.evolution_engine.propose_improvement(target, ct, description)
+            
+            if change:
+                return {
+                    'status': 'proposed',
+                    'change_id': change.change_id,
+                    'risk_level': change.risk_level.value,
+                    'approved': change.approved,
+                    'file': change.file_path
+                }
+            
+            return {'status': 'error', 'message': 'Could not generate improvement'}
+            
+        except Exception as e:
+            return {'status': 'error', 'message': str(e)}
+    
+    def apply_improvement(self, change_id: str, force: bool = False) -> Dict[str, Any]:
+        """Apply a previously proposed improvement."""
+        if not self.evolution_engine:
+            return {'status': 'error', 'message': 'Self-evolution not enabled'}
+        
+        for change in self.evolution_engine.pending_changes:
+            if change.change_id == change_id:
+                success = self.evolution_engine.apply_change(change, force=force)
+                if success:
+                    return {'status': 'success', 'message': f'Applied change {change_id}'}
+                return {'status': 'error', 'message': 'Failed to apply change'}
+        
+        return {'status': 'error', 'message': f'Change {change_id} not found'}
+    
+    def get_improvement_opportunities(self) -> List[Dict[str, Any]]:
+        """Get list of improvement opportunities in the codebase."""
+        if not self.evolution_engine:
+            return []
+        
+        return self.evolution_engine.introspector.get_improvement_opportunities()
     
     def _register_handlers(self):
         """Register input handlers."""
