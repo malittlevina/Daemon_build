@@ -15,11 +15,22 @@ import json
 import time
 import os
 from datetime import date
+from devices.fabric import DeviceFabric
 
 # Flag to control use of Ollama fallback
 USE_OLLAMA = False  # Set to True to enable Ollama fallback
 
+def _load_daemon_config(path: str = "config/daemon_config.json") -> dict:
+    try:
+        with open(path, "r", encoding="utf-8") as f:
+            return json.load(f)
+    except Exception:
+        return {}
+
 if __name__ == "__main__":
+    daemon_config = _load_daemon_config()
+    modules_to_load = set(daemon_config.get("modules_to_load", []))
+
     unimind = Unimind()
     prom = PrometheusSpecialties()
     emotions = EmotionEngine()
@@ -45,6 +56,18 @@ if __name__ == "__main__":
         threading.Thread(target=start_voice_listener, daemon=True).start()
     # threading.Thread(target=vision.classify_surroundings, daemon=True).start()
     threading.Thread(target=run_auto_optimization, daemon=True).start()
+
+    # Device Fabric (discovery -> registry -> device.* events -> memory/policy hooks)
+    if ("devices" in modules_to_load) or (not modules_to_load):
+        try:
+            device_fabric = DeviceFabric(
+                memory=memory,
+                scrolls=scrolls,
+                config=daemon_config.get("devices", {}),
+            )
+            device_fabric.start()
+        except Exception as e:
+            print(f"[Daemon Init Error] Failed to start DeviceFabric: {e}")
 
     # Load Codex documents
     ingest_documents("codex/data/")

@@ -13,10 +13,28 @@
     "optimizer",
     "sensors",
     "scrolls",
+    "devices",
     "prometheus",
     "memory_tree",
     "introspection"
   ],
+  "devices": {
+    "codex_ingest_enabled": true,
+    "drivers": {
+      "ssdp": {
+        "enabled": true,
+        "interval_s": 30,
+        "mx": 2,
+        "st": "ssdp:all",
+        "timeout_s": 3
+      },
+      "arp": {
+        "enabled": true,
+        "interval_s": 60,
+        "arp_path": "/proc/net/arp"
+      }
+    }
+  },
   "scroll_autostudy": {
     "trigger_count": 3,
     "daily_reset": true
