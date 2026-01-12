@@ -1,0 +1,42 @@
+{
+  "daemon": {
+    "def": "A computer program that runs as a background process, rather than being under the direct control of an interactive user.",
+    "pos": "noun",
+    "synonyms": []
+  },
+  "unimind": {
+    "def": "The unified cognitive architecture integrating perception, motivation, logic, and world-building capabilities.",
+    "pos": "noun",
+    "synonyms": []
+  },
+  "curiosity": {
+    "def": "A strong desire to know or learn something; modeled in this system as an intrinsic drive.",
+    "pos": "noun",
+    "synonyms": []
+  },
+  "api": {
+    "def": "Application Programming Interface; a set of functions and procedures allowing the creation of applications that access the features or data of an operating system, application, or other service.",
+    "pos": "noun",
+    "synonyms": []
+  },
+  "latency": {
+    "def": "The delay before a transfer of data begins following an instruction for its transfer.",
+    "pos": "noun",
+    "synonyms": []
+  },
+  "recursive": {
+    "def": "Characterized by recurrence or repetition.",
+    "pos": "adjective",
+    "synonyms": []
+  },
+  "biome": {
+    "def": "A large naturally occurring community of flora and fauna occupying a major habitat.",
+    "pos": "noun",
+    "synonyms": []
+  },
+  "entity": {
+    "def": "A distinct and independent existence; in this system, an agent or object within the world simulation.",
+    "pos": "noun",
+    "synonyms": []
+  }
+}

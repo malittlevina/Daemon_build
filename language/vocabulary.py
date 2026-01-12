@@ -205,7 +205,7 @@ class Vocabulary:
     Integrates with the cognition pipeline for NLU.
     """
     
-    def __init__(self, vocab_path: str = "language/data/vocabulary.json"):
+    def __init__(self, vocab_path: str = "language/data/vocabulary.json", load_native: bool = True):
         self.vocab_path = vocab_path
         self.words: Dict[str, Word] = {}
         
@@ -217,7 +217,13 @@ class Vocabulary:
         self.total_lookups = 0
         self.unknown_words: List[str] = []
         
+        # Load from existing sources
         self._load()
+        
+        # Load from unimind's native vocabulary (extensive word database)
+        if load_native:
+            self._load_native_vocabulary()
+        
         self._build_core_vocabulary()
         
         print(f"[Vocabulary] Loaded {len(self.words)} words.")
@@ -234,6 +240,198 @@ class Vocabulary:
                         self._index_word(word)
             except Exception as e:
                 print(f"[Vocabulary] Load error: {e}")
+    
+    def _load_native_vocabulary(self):
+        """
+        Load extensive vocabulary from unimind's native vocabulary modules.
+        This provides thousands of pre-defined words with definitions,
+        synonyms, antonyms, and part-of-speech tags.
+        """
+        loaded_count = 0
+        
+        try:
+            # Try to import the native vocabulary system
+            from unimind.models.native.vocabulary import (
+                CORE_100_WORDS, SEMANTIC_CATEGORIES, SYNONYMS, ANTONYMS,
+                WordEntry as NativeWordEntry, PartOfSpeech as NativePOS
+            )
+            
+            # Map native POS to our POS
+            pos_map = {
+                'noun': PartOfSpeech.NOUN,
+                'verb': PartOfSpeech.VERB,
+                'adjective': PartOfSpeech.ADJECTIVE,
+                'adverb': PartOfSpeech.ADVERB,
+                'pronoun': PartOfSpeech.PRONOUN,
+                'preposition': PartOfSpeech.PREPOSITION,
+                'conjunction': PartOfSpeech.CONJUNCTION,
+                'interjection': PartOfSpeech.INTERJECTION,
+                'determiner': PartOfSpeech.DETERMINER,
+                'auxiliary': PartOfSpeech.AUXILIARY,
+            }
+            
+            # Load CORE_100_WORDS
+            for word_key, entry in CORE_100_WORDS.items():
+                if word_key.lower() not in self.words:
+                    word = Word(word=entry.word)
+                    
+                    # Add senses from the native entry
+                    for i, defn in enumerate(entry.definitions):
+                        pos_list = entry.pos if isinstance(entry.pos, list) else [entry.pos]
+                        pos = pos_map.get(pos_list[0].value if hasattr(pos_list[0], 'value') else pos_list[0], PartOfSpeech.UNKNOWN)
+                        word.add_sense(defn, pos, examples=getattr(entry, 'examples', []))
+                    
+                    # Add synonyms/antonyms from the native entry
+                    for syn in getattr(entry, 'synonyms', []):
+                        word.add_relation(WordRelation.SYNONYM, syn)
+                    for ant in getattr(entry, 'antonyms', []):
+                        word.add_relation(WordRelation.ANTONYM, ant)
+                    
+                    # Set importance based on frequency
+                    freq_val = entry.frequency.value if hasattr(entry.frequency, 'value') else 1
+                    word.importance = 1.0 - (freq_val * 0.1)  # Core words are most important
+                    
+                    self.add_word(word)
+                    loaded_count += 1
+            
+            print(f"[Vocabulary] Loaded {loaded_count} words from CORE_100_WORDS")
+            
+        except ImportError as e:
+            print(f"[Vocabulary] Native vocabulary not available: {e}")
+        except Exception as e:
+            print(f"[Vocabulary] Error loading native vocabulary: {e}")
+        
+        # Load extended vocabulary modules
+        self._load_extended_vocabulary()
+    
+    def _load_extended_vocabulary(self):
+        """Load additional vocabulary from extended modules."""
+        extended_count = 0
+        
+        try:
+            # Import vocabulary expansion modules
+            from unimind.models.native.vocabulary_extended import (
+                EXTENDED_VERBS, EXTENDED_NOUNS, EXTENDED_ADJECTIVES, EXTENDED_ADVERBS
+            )
+            
+            # Load extended verbs
+            for word_text, entry in EXTENDED_VERBS.items():
+                extended_count += self._import_native_entry(word_text, entry, PartOfSpeech.VERB)
+            
+            # Load extended nouns
+            for word_text, entry in EXTENDED_NOUNS.items():
+                extended_count += self._import_native_entry(word_text, entry, PartOfSpeech.NOUN)
+            
+            # Load extended adjectives
+            for word_text, entry in EXTENDED_ADJECTIVES.items():
+                extended_count += self._import_native_entry(word_text, entry, PartOfSpeech.ADJECTIVE)
+            
+            # Load extended adverbs
+            for word_text, entry in EXTENDED_ADVERBS.items():
+                extended_count += self._import_native_entry(word_text, entry, PartOfSpeech.ADVERB)
+            
+            print(f"[Vocabulary] Loaded {extended_count} extended vocabulary words")
+            
+        except ImportError:
+            pass  # Extended vocabulary not available
+        except Exception as e:
+            print(f"[Vocabulary] Error loading extended vocabulary: {e}")
+        
+        # Load domain vocabularies
+        self._load_domain_vocabulary()
+    
+    def _load_domain_vocabulary(self):
+        """Load domain-specific vocabulary."""
+        domain_count = 0
+        
+        try:
+            from unimind.models.native.vocabulary_domains import (
+                TECHNOLOGY_VOCAB, SCIENCE_VOCAB, BUSINESS_VOCAB,
+                EDUCATION_VOCAB, HEALTH_VOCAB
+            )
+            
+            domain_map = {
+                'technology': TECHNOLOGY_VOCAB,
+                'science': SCIENCE_VOCAB,
+                'business': BUSINESS_VOCAB,
+                'education': EDUCATION_VOCAB,
+                'health': HEALTH_VOCAB,
+            }
+            
+            for domain, vocab in domain_map.items():
+                for word_text, entry in vocab.items():
+                    domain_count += self._import_native_entry(
+                        word_text, entry, PartOfSpeech.NOUN, domain=domain
+                    )
+            
+            print(f"[Vocabulary] Loaded {domain_count} domain vocabulary words")
+            
+        except ImportError:
+            pass  # Domain vocabulary not available
+        except Exception as e:
+            print(f"[Vocabulary] Error loading domain vocabulary: {e}")
+    
+    def _import_native_entry(
+        self,
+        word_text: str,
+        entry: Any,
+        default_pos: PartOfSpeech,
+        domain: str = None
+    ) -> int:
+        """Import a single entry from native vocabulary. Returns 1 if added, 0 if skipped."""
+        word_lower = word_text.lower()
+        if word_lower in self.words:
+            return 0
+        
+        try:
+            word = Word(word=word_text)
+            
+            # Extract definitions
+            definitions = []
+            if hasattr(entry, 'definitions'):
+                definitions = entry.definitions
+            elif hasattr(entry, 'definition'):
+                definitions = [entry.definition]
+            elif isinstance(entry, str):
+                definitions = [entry]
+            elif isinstance(entry, dict):
+                definitions = entry.get('definitions', [entry.get('definition', str(entry))])
+            
+            # Extract POS
+            pos = default_pos
+            if hasattr(entry, 'pos'):
+                pos_val = entry.pos
+                if isinstance(pos_val, list) and pos_val:
+                    pos_val = pos_val[0]
+                if hasattr(pos_val, 'value'):
+                    pos_str = pos_val.value
+                else:
+                    pos_str = str(pos_val)
+                pos = getattr(PartOfSpeech, pos_str.upper(), default_pos)
+            
+            # Add senses
+            for defn in definitions[:3]:  # Limit to first 3 definitions
+                word.add_sense(str(defn), pos, domain=domain)
+            
+            # Add synonyms
+            synonyms = getattr(entry, 'synonyms', [])
+            if isinstance(entry, dict):
+                synonyms = entry.get('synonyms', [])
+            for syn in synonyms:
+                word.add_relation(WordRelation.SYNONYM, syn)
+            
+            # Add antonyms
+            antonyms = getattr(entry, 'antonyms', [])
+            if isinstance(entry, dict):
+                antonyms = entry.get('antonyms', [])
+            for ant in antonyms:
+                word.add_relation(WordRelation.ANTONYM, ant)
+            
+            self.add_word(word)
+            return 1
+            
+        except Exception:
+            return 0
     
     def _save(self):
         """Save vocabulary to disk."""

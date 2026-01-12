@@ -1,0 +1,71 @@
+{
+  "meta": {
+    "version": "1.0",
+    "description": "Training dataset for daemon voice synthesis and recognition, focusing on pronunciation and enunciation of system-specific terminology."
+  },
+  "entries": [
+    {
+      "term": "Unimind",
+      "phonetic": "YOU-nih-mind",
+      "ipa": "/ˈjuːnɪmaɪnd/",
+      "stress_pattern": "101",
+      "category": "Core Module",
+      "enunciation_guide": "emphasize 'You' and 'mind', clear transition on 'nih'",
+      "usage_context": "Refers to the central decision-making matrix."
+    },
+    {
+      "term": "Thoth",
+      "phonetic": "THOTH",
+      "ipa": "/θoʊθ/",
+      "stress_pattern": "1",
+      "category": "Bridge Interface",
+      "enunciation_guide": "soft 'th' at start and end, long 'o'",
+      "usage_context": "The bridge interface component."
+    },
+    {
+      "term": "Codex",
+      "phonetic": "KOH-decks",
+      "ipa": "/ˈkoʊdɛks/",
+      "stress_pattern": "10",
+      "category": "Memory Store",
+      "enunciation_guide": "Hard 'C', long 'O'",
+      "usage_context": "The knowledge repository."
+    },
+    {
+      "term": "Prometheus",
+      "phonetic": "pruh-MEE-thee-us",
+      "ipa": "/prəˈmiːθiəs/",
+      "stress_pattern": "0100",
+      "category": "System Agent",
+      "enunciation_guide": "aspirated 'P', stress on 'MEE'",
+      "usage_context": "The active agent or hotword."
+    },
+    {
+      "term": "Daemon",
+      "phonetic": "DAY-mon",
+      "ipa": "/ˈdiːmən/",
+      "stress_pattern": "10",
+      "category": "System Core",
+      "enunciation_guide": "Pronounced like 'demon', strict D sound",
+      "usage_context": "Background process or entity."
+    },
+    {
+      "term": "Scrolls",
+      "phonetic": "SKROHLS",
+      "ipa": "/skroʊlz/",
+      "stress_pattern": "1",
+      "category": "Action System",
+      "enunciation_guide": "Elongated 'o', clear 's' at the end",
+      "usage_context": "Executable scripts or rituals."
+    },
+    {
+      "term": "Rituals",
+      "phonetic": "RICH-oo-uls",
+      "ipa": "/ˈrɪtʃuəlz/",
+      "stress_pattern": "100",
+      "category": "System Routine",
+      "enunciation_guide": "Soft 'ch', fluid transition",
+      "usage_context": "Recurring system processes."
+    }
+  ]
+}
